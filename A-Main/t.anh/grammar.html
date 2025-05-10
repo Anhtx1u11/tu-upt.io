@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grammar Gap-Fill Practice</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f2f6f9;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #3498db;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    nav {
+      background: #2c3e50;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    nav button {
+      background: none;
+      color: white;
+      border: none;
+      padding: 15px 20px;
+      cursor: pointer;
+      font-size: 16px;
+      flex: 1 1 auto;
+      min-width: 100px;
+    }
+
+    nav button:hover,
+    nav button.active {
+      background: #1abc9c;
+    }
+
+    .content {
+      padding: 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    iframe {
+      width: 100%;
+      height: 80vh;
+      border: none;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    @media (max-width: 600px) {
+      nav button {
+        padding: 12px 10px;
+        font-size: 14px;
+      }
+
+      header h1 {
+        font-size: 20px;
+      }
+
+      header p {
+        font-size: 14px;
+      }
+
+      .content {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Grammar Gap-Fill Website</h1>
+    <p>Practice comparatives, superlatives, tenses and more</p>
+  </header>
+
+  <nav>
+    <button onclick="loadExercise('b1.html')" class="active">🍦 Bài 1</button>
+    <button onclick="loadExercise('b2.html')">📚 Bài 2</button>
+    <button onclick="loadExercise('b3.html')">🧠 Bài 3</button>
+    <button onclick="loadExercise('b4.html')">📝 Bài 4</button>
+    <button onclick="loadExercise('b5.html')">📖 Bài 5</button>
+    <button onclick="loadExercise('b6.html')">📚 Bài 6</button>
+  </nav>
+
+  <div class="content">
+    <iframe id="exerciseFrame" src="ice.html"></iframe>
+  </div>
+
+  <script>
+    function loadExercise(filename) {
+      document.getElementById('exerciseFrame').src = filename;
+      const buttons = document.querySelectorAll('nav button');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+    }
+  </script>
+</body>
+</html>

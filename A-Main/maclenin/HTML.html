@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Học tập tư tưởng Mac - Lê Nin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+                  url('https://upload.wikimedia.org/wikipedia/commons/5/59/Karl_Marx_and_Vladimir_Lenin.jpg') no-repeat center center/cover;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    .container {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      max-width: 600px;
+      margin: 20px;
+    }
+
+    .notice {
+      background: rgba(255, 0, 0, 0.7);
+      padding: 12px 20px;
+      border-radius: 10px;
+      margin-bottom: 25px;
+      font-size: 18px;
+      font-weight: bold;
+      animation: blink 1.5s infinite;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+
+    .container img {
+      width: 150px;
+      height: auto;
+      border-radius: 50%;
+      margin-bottom: 20px;
+      border: 3px solid white;
+      box-shadow: 0 0 10px rgba(255,255,255,0.5);
+    }
+
+    h1 {
+      font-size: 36px;
+      margin-bottom: 25px;
+      text-shadow: 2px 2px 4px #000;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .buttons a {
+      text-decoration: none;
+      padding: 15px 30px;
+      font-size: 20px;
+      color: white;
+      background: linear-gradient(135deg, #1e90ff, #00bfff);
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 191, 255, 0.5);
+    }
+
+    .buttons a:hover {
+      transform: scale(1.1);
+      background: linear-gradient(135deg, #00bfff, #1e90ff);
+    }
+
+    /* Responsive cho điện thoại */
+    @media (max-width: 768px) {
+      body {
+        padding: 10px;
+        background-position: center center;
+      }
+
+      .container {
+        padding: 20px 15px;
+        border-radius: 15px;
+      }
+
+      .notice {
+        font-size: 14px;
+        padding: 8px 12px;
+        margin-bottom: 15px;
+      }
+
+      .container img {
+        width: 100px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      .buttons {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .buttons a {
+        padding: 10px 20px;
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="notice">Mình mới fix các câu trả lời - bạn nào làm bài thấy đáp án sai liên hệ mình nha!</div>
+    <img src="https://cdn.luatminhkhue.vn/lmk/articles/95/476516/dieu-kien-tien-de-cua-su-ra-doi-chu-nghia-mac-476516.jpg" alt="Mac và Lê Nin">
+    <h1>Học tập tư tưởng Mac - Lê Nin</h1>
+    <div class="buttons">
+      <a href="mac_chung_v1.html">54 Câu_V1</a>
+      <a href="mac_chung_v2.html">54 Câu_V2</a>
+      <a href="macle_v1.html">40 Câu Của Thầy</a>
+    </div>
+  </div>
+<script>
+  let timeout;
+
+  function resetTimer() {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      window.location.href = "..A-Main/index.html"; // chuyển hướng nếu không hoạt động
+    }, 45000); // 45 giây
+  }
+
+  // Thiết lập các sự kiện để phát hiện hoạt động của người dùng
+  window.onload = resetTimer;
+  document.onmousemove = resetTimer;
+  document.onkeydown = resetTimer;
+  document.onclick = resetTimer;
+  document.onscroll = resetTimer;
+</script>
+
+</body>
+</html>

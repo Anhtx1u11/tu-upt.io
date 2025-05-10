@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Vocabulary Quiz – TV, Nature & Film</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f2f5f9;
+      padding: 40px 10px;
+      margin: 0;
+    }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 40px;
+    }
+    .quiz-container {
+      max-width: 850px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+    .question {
+      margin-bottom: 20px;
+      padding: 15px 20px;
+      background: #f9fbff;
+      border-left: 5px solid #3498db;
+      border-radius: 6px;
+    }
+    .question input[type="text"] {
+      padding: 8px 12px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-left: 10px;
+      width: 220px;
+    }
+    .hint {
+      font-family: monospace;
+      font-size: 14px;
+      color: #888;
+      margin-left: 10px;
+    }
+    .correct {
+      background-color: #d4edda;
+      border-color: #28a745;
+    }
+    .incorrect {
+      background-color: #f8d7da;
+      border-color: #dc3545;
+    }
+    .correct-answer {
+      display: inline-block;
+      margin-left: 10px;
+      color: #c0392b;
+      font-weight: bold;
+      font-size: 14px;
+    }
+    button {
+      display: block;
+      margin: 30px auto 0;
+      padding: 12px 30px;
+      font-size: 16px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #2c80b4;
+    }
+  </style>
+</head>
+<body>
+  <h1>Vocabulary Quiz – TV, Nature & Film</h1>
+  <div class="quiz-container">
+    <div class="question">0. The opposite of <em>interesting</em>.
+      <input type="text" value="boring" disabled>
+    </div>
+    <div class="question">1. A type of film: a boy, a girl, funny problems, a happy ending.
+      <input type="text" id="q1"> <span class="hint">r _ _ _ _ _ _ c _ _ _ _</span>
+      <span class="correct-answer" id="a1"></span>
+    </div>
+    <div class="question">2. Water that has salt in it.
+      <input type="text" id="q2"> <span class="hint">s _ _</span>
+      <span class="correct-answer" id="a2"></span>
+    </div>
+    <div class="question">3. When a show makes people laugh.
+      <input type="text" id="q3"> <span class="hint">f _ _ _</span>
+      <span class="correct-answer" id="a3"></span>
+    </div>
+    <div class="question">4. When a film makes you feel worried.
+      <input type="text" id="q4"> <span class="hint">s _ _ _ _</span>
+      <span class="correct-answer" id="a4"></span>
+    </div>
+    <div class="question">5. An exciting film with police and bad guys.
+      <input type="text" id="q5"> <span class="hint">t _ _ _ _ _ _</span>
+      <span class="correct-answer" id="a5"></span>
+    </div>
+    <div class="question">6. A film with lots of magic in it.
+      <input type="text" id="q6"> <span class="hint">f _ _ _ _ _</span>
+      <span class="correct-answer" id="a6"></span>
+    </div>
+    <div class="question">7. A TV competition with questions.
+      <input type="text" id="q7"> <span class="hint">q _ _ _ _ s _ _ _</span>
+      <span class="correct-answer" id="a7"></span>
+    </div>
+    <div class="question">8. Thin green leaves but not on trees.
+      <input type="text" id="q8"> <span class="hint">g _ _ _ _</span>
+      <span class="correct-answer" id="a8"></span>
+    </div>
+    <div class="question">9. It can fly and sing.
+      <input type="text" id="q9"> <span class="hint">b _ _ _</span>
+      <span class="correct-answer" id="a9"></span>
+    </div>
+    <div class="question">10. You watch this to get information about the day.
+      <input type="text" id="q10"> <span class="hint">t _ _ _ n _ _ _</span>
+      <span class="correct-answer" id="a10"></span>
+    </div>
+    <button onclick="checkAnswers()">Check Answers</button>
+  </div>
+
+  <script>
+    const answers = {
+      q1: "romanticcomedy",
+      q2: "sea",
+      q3: "funny",
+      q4: "scary",
+      q5: "thriller",
+      q6: "fantasy",
+      q7: "quizshow",
+      q8: "grass",
+      q9: "bird",
+      q10: "thenew"
+    };
+
+    function checkAnswers() {
+      for (let i = 1; i <= 10; i++) {
+        const input = document.getElementById(`q${i}`);
+        const correct = answers[`q${i}`].toLowerCase();
+        const show = document.getElementById(`a${i}`);
+
+        if (input.value.trim().toLowerCase() === correct) {
+          input.classList.add("correct");
+          input.classList.remove("incorrect");
+          show.textContent = "";
+        } else {
+          input.classList.add("incorrect");
+          input.classList.remove("correct");
+          show.textContent = `→ ${correct}`;
+        }
+      }
+    }
+  </script>
+</body>
+</html>

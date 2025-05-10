@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Bài làm trắc nghiệm - Macle Nin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --bg-color: #121212;
+      --card-color: #1e1e2f;
+      --text-color: #f0f0f0;
+      --accent-color: #7f5af0;
+      --correct: #2ecc71;
+      --wrong: #e74c3c;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: var(--accent-color);
+      text-shadow: 0 0 10px var(--accent-color);
+    }
+
+    .timer {
+      position: fixed;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.7);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #fff;
+      z-index: 999;
+      box-shadow: 0 0 10px rgba(127, 90, 240, 0.5);
+    }
+
+    .loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #121212;
+      color: white;
+      font-size: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .question {
+      background-color: var(--card-color);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 10px rgba(127, 90, 240, 0.2);
+      transition: transform 0.2s;
+    }
+
+    .question:hover {
+      transform: scale(1.01);
+    }
+
+    .question p {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    ol {
+      list-style-type: upper-alpha;
+      padding-left: 20px;
+    }
+
+    label {
+      display: block;
+      margin: 8px 0;
+      cursor: pointer;
+    }
+
+    input[type="radio"] {
+      margin-right: 10px;
+      transform: scale(1.2);
+    }
+
+    button {
+      display: block;
+      margin: 30px auto;
+      padding: 12px 30px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      background-color: var(--accent-color);
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+      box-shadow: 0 0 10px var(--accent-color);
+    }
+
+    button:hover {
+      background-color: #6a48e2;
+    }
+  </style>
+</head>
+<body>
+  <div class="loading-screen" id="loadingScreen">Đang tải nội dung...</div>
+  <div class="timer" id="timer">Thời gian: 30:00</div>
+  <h1>Bài làm trắc nghiệm</h1>
+  <form id="quizForm">
+    <div id="questionsContainer"></div>
+    <button type="submit">Nộp bài</button>
+  </form>
+
+  <script>
+    // Chặn reload mất dữ liệu
+    // Chặn reload mất dữ liệu
+  window.addEventListener('beforeunload', function (e) {
+    e.preventDefault();
+    e.returnValue = '';
+  });
+
+  const questions = {
+    q1: { text: "Câu 1: Tư bản đầu tư kí hiệu gồm có?", answers: { a: "C và V", b: "V và M", c: "M và P", d: "P và C" }, correctAnswer: "a" },
+    q2: { text: "Câu 2: Chi phí sản xuất kí hiệu là?", answers: { a: "K", b: "k", c: "c", d: "v" }, correctAnswer: "c" },
+    q3: { text: "Câu 3: Chọn ý đúng về tư bản ứng trước và chi phí sản xuất?", answers: { a: "Chi phí sản xuất luôn nhỏ hơn tư bản ứng trước", b: "Chi phí sản xuất luôn lớn hơn tư bản ứng trước", c: "Chi phí sản xuất là tính giá trị chuyển vào sản phẩm trong 1 năm", d: "Tư bản ứng trước là tính giá trị chuyển vào sản phẩm trong 1 năm" }, correctAnswer: "a" },
+    q4: { text: "Câu 4: Chọn ý đúng về H và H’?", answers: { a: "H luôn bằng H’", b: "H luôn nhỏ hơn H’", c: "H luôn lớn hơn H’", d: "H luôn bằng và lớn hơn H’" }, correctAnswer: "c" },
+    q5: { text: "Câu 5: Hai thuộc tính của hàng hoá sức lao động là?", answers: { a: "Giá trị và giá cả", b: "Giá trị và giá trị sử dụng", c: "Giá trị và giá trị trao đổi", d: "Giá trị sử dụng và giá cả" }, correctAnswer: "b" },
+    q6: { text: "Câu 6: Giá trị của tư bản bất biến bao gồm giá trị nào?", answers: { a: "C1", b: "V và C", c: "M", d: "C1 và C2" }, correctAnswer: "b" },
+    q7: { text: "Câu 7: Bộ phận tư bản nào khi chuyển giá trị vào sản phẩm giá trị của nó tăng lên?", answers: { a: "Tư bản bất biến", b: "Tư bản khả biến", c: "Tư bản cố định", d: "Tư bản lưu động" }, correctAnswer: "b" },
+    q8: { text: "Câu 8: Nhà tư bản X có thời gian 1 vòng chu chuyển là 1 tháng, vậy số vòng chu chuyển trong năm là?", answers: { a: "1", b: "6", c: "10", d: "12" }, correctAnswer: "d" },
+    q9: { text: "Câu 9: Tỷ suất giá trị thặng dư phản ánh điều gì?", answers: { a: "Mức độ bóc lột", b: "Quy mô bóc lột", c: "Lợi nhuận của việc đầu tư", d: "Giá trị thặng dư thu được" }, correctAnswer: "a" },
+    q10: { text: "Câu 10: m’ = 100% ta có thể suy ra?", answers: { a: "m = 2v", b: "t’ = t", c: "2v = m", d: "m = 3v" }, correctAnswer: "a" },
+    q11: { text: "Câu 11: Cường độ lao động tăng sẽ dẫn đến?", answers: { a: "Số lượng sản phẩm tăng", b: "Giá trị tổng sản phẩm giảm", c: "Giá trị 1 sản phẩm giảm", d: "Số lượng sản phẩm không đổi" }, correctAnswer: "a" },
+    q12: { text: "Câu 12: Giảm năng suất lao động 2 lần và tăng cường độ lao động 2 lần thì?", answers: { a: "Số lượng sản phẩm giảm 2 lần", b: "Giá trị 1 sản phẩm giảm 2 lần", c: "Giá trị tổng sản phẩm không đổi", d: "Giá trị tổng sản phẩm tăng 2 lần" }, correctAnswer: "c" },
+    q13: { text: "Câu 13: Một trong những hạn chế của hình thái chung của giá trị là gì?", answers: { a: "Thiếu sản phẩm", b: "Lạm phát", c: "Thiếu tiền", d: "Khó bảo quản" }, correctAnswer: "d" },
+    q14: { text: "Câu 14: Ưu điểm lớn nhất của vàng so với tiền giấy là?", answers: { a: "Không cồng kềnh", b: "Không mất giá", c: "Có thể làm trang sức", d: "Không rách nát" }, correctAnswer: "b" },
+    q15: { text: "Câu 15: Chọn ý đúng nói đúng về giá trị của hàng hóa?", answers: { a: "Giá bán 10 ngàn đồng", b: "Giá bán 10 chỉ vàng", c: "Cái ghế có chức năng ngồi", d: "Chiếc ghế dùng để trao đổi" }, correctAnswer: "c" },
+    q16: { text: "Câu 16: Khi bán hàng hóa cao hơn giá trị thì?", answers: { a: "p > m", b: "p = m", c: "p < m", d: "Không có lợi nhuận" }, correctAnswer: "a" },
+    q17: { text: "Câu 17: Dựa vào tạo giá trị thặng dư chia tư bản thành?", answers: { a: "Tư bản bất biến và tư bản cố định", b: "Tư bản bất biến và tư bản khả biến", c: "Tư bản cố định và lưu động", d: "Tư bản lưu động và bất biến" }, correctAnswer: "b" },
+    q18: { text: "Câu 18: Giá trị sức lao động đo bằng giá trị yếu tố nào?", answers: { a: "Đối tượng lao động", b: "Tư liệu lao động", c: "Tư liệu sản xuất", d: "Tư liệu sinh hoạt" }, correctAnswer: "d" },
+    q19: { text: "Câu 19: Tăng cường độ lao động giống như?", answers: { a: "Kéo dài thời gian lao động", b: "Bắt làm nhanh", c: "Làm khẩn trương", d: "Tăng năng suất" }, correctAnswer: "a" },
+    q20: { text: "Câu 20: Chọn ý đúng về tích tụ và tập trung tư bản?", answers: { a: "Tích tụ tư bản từ từ tích lũy của từng nhà tư bản", b: "Tập trung từ tích lũy của từng nhà tư bản", c: "Tích tụ không làm tăng tư bản xã hội", d: "Tập trung làm tăng tư bản xã hội" }, correctAnswer: "a" },
+    q21: { text: "Câu 21: Xếp loại tổ chức độc quyền từ thấp đến cao?", answers: { a: "Cartel, Syndicate, Trust, Consortium", b: "Syndicate, Trust, Consortium, Cartel", c: "Cartel, Trust, Syndicate, Consortium", d: "Syndicate, Cartel, Trust, Consortium" }, correctAnswer: "a" },
+    q22: { text: "Câu 22: Khủng hoảng kinh tế 1873 làm phá sản xí nghiệp nào?", answers: { a: "Nhỏ", b: "Vừa và nhỏ", c: "Lớn", d: "Nhà nước" }, correctAnswer: "b" },
+    q23: { text: "Câu 23: Nguyên nhân hình thành độc quyền nhà nước?", answers: { a: "Do phát triển lực lượng sản xuất", b: "Do cạnh tranh", c: "Do khủng hoảng và tín dụng", d: "Do mâu thuẫn xã hội" }, correctAnswer: "c" },
+    q24: { text: "Câu 24: Tiền tệ khác hàng hóa ở điểm nào?", answers: { a: "Không có giá trị", b: "Chỉ có giá trị sử dụng", c: "Có thể dự trữ", d: "Chỉ làm phương tiện trao đổi" }, correctAnswer: "d" },
+    q25: { text: "Câu 25: Ý nào không phải lý do phát triển Kinh Tế Thị Trường XHCN ở Việt Nam?", answers: { a: "Phù hợp xu hướng khách quan", b: "Tính ưu việt", c: "Phù hợp nguyện vọng nhân dân", d: "Phục vụ giai cấp cầm quyền" }, correctAnswer: "d" },
+    q26: { text: "Câu 26: KTTT định hướng XHCN sẽ không dẫn đến điều gì?", answers: { a: "Phá vỡ tính tự cấp tự túc", b: "Đẩy mạnh phân công", c: "Tăng bóc lột", d: "Tạo việc làm" }, correctAnswer: "c" },
+    q27: { text: "Câu 27: Khuyết điểm của sản xuất tư cung tư cấp?", answers: { a: "Chưa đa dạng chất liệu", b: "Cạnh tranh không lành mạnh", c: "Ô nhiễm môi trường", d: "Phân hóa giàu nghèo" }, correctAnswer: "a" },
+    q28: { text: "Câu 28: Chức năng nào không phải của tiền tệ?", answers: { a: "Thước đo giá trị", b: "Phương tiện cất trữ", c: "Phương tiện tín dụng", d: "Phương tiện lưu thông" }, correctAnswer: "c" },
+    q29: { text: "Câu 29:Một trong những điều kiện ra đời của sản xuất hàng hóa?", answers: { a: "Nhu cầu tiêu dùng cao", b: "Sự Tách biệt về kinh tế", c: "Hàng hóa dư thừa", d: "Năng suất tăng" }, correctAnswer: "b" },
+    q30: { text: "Câu 30: Xã hội nào có phân công lao động nhưng chưa có sản xuất hàng hóa?", answers: { a: "Xã hội nguyên thủy", b: "Chiếm hữu nô lệ", c: "Phong kiến", d: "Tư bản" }, correctAnswer: "a" },
+    q31: { text: "Câu 31: Ở nước mỹ, thông qua nghị định làm việc 8 giờ vào năm nào?", answers: { a: "1884", b: "1886", c: "1999", d: "2021" }, correctAnswer: "a" },
+    q32: { text: "Câu 32: Chọn ý nói về giá trị hàng hóa?", answers: { a: "Giá bán 100 ngàn đồng", b: "Giá bán 10 chỉ vàng", c: "Chiếc áo có chức năng để mặc", d: "Hao phí lao động xã hội cần thiết là 100 ngàn đồng" }, correctAnswer: "d" },
+
+  q33: { text: "Câu 33: Các xí nghiệp tư bản {thống nhất} cả việc sản xuất, tiêu thụ hàng hóa đều do một ban quản trị chung quản lý là hình thức tổ chức độc quyền nào?", answers: { a: "Cartel", b: "Syndicate", c: "Trust", d: "Consortium" }, correctAnswer: "c" },
+  q34: { text: "Câu 34: Một trong những nguyên nhân hình thành độc quyền nhà nước?", answers: { a: "Do sự phát triển của lực lượng sản xuất", b: "Do cạnh tranh", c: "Do khủng hoảng và sự phát triển của hệ thống tín dụng", d: "Sự bành trướng của các liên minh độc quyền quốc tế" }, correctAnswer: "d" },
+  q35: { text: "Câu 35: Một trong những nguyên nhân hình thành độc quyền nhà nước?", answers: { a: "Do sự phát triển của lực lượng sản xuất", b: "Do cạnh tranh", c: "Do khủng hoảng và sự phát triển của hệ thống tín dụng", d: "Xuất hiện một số ngành mà tư nhân không thể hoặc không muốn đầu tư" }, correctAnswer: "d" },
+  q36: { text: "Câu 36: Chọn ý đúng về tốc độ chu chuyển của tư bản?", answers: { a: "Tốc độ chu chuyển tỉ lệ thuận với thời gian 1 vòng chu chuyển", b: "Tốc độ chu chuyển tỉ lệ nghịch với thời gian 1 vòng chu chuyển", c: "Tốc độ chu chuyển tỉ lệ thuận với vốn đầu tư", d: "Tốc độ chu chuyển tỉ lệ nghịch với vốn đầu tư" }, correctAnswer: "b" },
+  q37: { text: "Câu 37: Lao động trừu tượng tạo ra hàng hóa có?", answers: { a: "Giá trị sử dụng", b: "Giá cả", c: "Giá trị", d: "Giá bán" }, correctAnswer: "c" },
+  q38: { text: "Câu 38: Các xí nghiệp tư bản lớn {ký} các hiệp nghị thỏa thuận với nhau về giá cả, sản lượng hàng hóa, thị trường tiêu thụ, kỳ hạn thanh toán,... là hình thức tổ chức độc quyền nào?", answers: { a: "Cartel", b: "Syndicate", c: "Trust", d: "Consortium" }, correctAnswer: "a" },
+  q39: { text: "Câu 39: Các xí nghiệp tư bản vẫn giữ {độc lập} về sản xuất, còn mọi việc mua, bán do một ban quản trị chung đảm nhận là hình thức tổ chức độc quyền nào?", answers: { a: "Cartel", b: "Syndicate", c: "Trust", d: "Consortium" }, correctAnswer: "b" },
+  q40: { text: "Câu 40: Các công ty độc quyền sẽ kiểm soát yếu tố nào?", answers: { a: "Giá mua", b: "Giá mua, giá bán", c: "Giá bán", d: "Xí nghiệp khác" }, correctAnswer: "b" }
+
+
+  };
+
+  const container = document.getElementById("questionsContainer");
+  for (const [key, q] of Object.entries(questions)) {
+    // Kiểm tra xem key có phải là một câu hỏi (bắt đầu bằng 'q') hay không
+    if (key.startsWith('q')) {
+      const div = document.createElement("div");
+      div.className = "question";
+      div.innerHTML = `<p>${q.text}</p><ol>${Object.entries(q.answers).map(([k, v]) =>
+        `<li><label><input type="radio" name="${key}" value="${k}"> ${v}</label></li>`
+      ).join('')}</ol>`;
+      container.appendChild(div);
+    }
+  }
+
+  document.getElementById("quizForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const results = [];
+    for (const [key, q] of Object.entries(questions)) {
+      // Chỉ xử lý các câu hỏi
+      if (key.startsWith('q')) {
+        const answer = document.querySelector(`input[name="${key}"]:checked`);
+        results.push({
+          questionId: key,
+          userAnswer: answer ? answer.value : null,
+          correctAnswer: q.correctAnswer
+        });
+      }
+    }
+    localStorage.setItem("quizResults", JSON.stringify(results));
+    window.location.href = "dapanm1.html";
+  });
+
+  // Timer
+  let timeLeft = 30 * 60;
+  const timerEl = document.getElementById("timer");
+  const timerInterval = setInterval(() => {
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+    timerEl.textContent = `Thời gian: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    timeLeft--;
+    if (timeLeft < 0) {
+      clearInterval(timerInterval);
+      document.getElementById("quizForm").submit();
+    }
+  }, 1000);
+
+  // Loading screen timeout
+  window.addEventListener('load', () => {
+    const loader = document.getElementById('loadingScreen');
+    if (loader) loader.style.display = 'none';
+  });
+  </script>
+</body>
+</html>

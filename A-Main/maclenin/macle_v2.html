@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Trắc nghiệm Kinh tế Chính trị Mác - Lênin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #e3f2fd, #fbe9e7);
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding-top: 100px;
+    }
+
+    #timer-container {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #ffffffcc;
+      color: #d32f2f;
+      padding: 12px 24px;
+      border-radius: 30px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+      font-weight: 600;
+      z-index: 999;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 850px;
+      background: #ffffffdd;
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 40px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #1e88e5;
+      font-size: 2.2rem;
+      margin-bottom: 40px;
+      font-weight: 600;
+    }
+
+    .question-wrapper {
+      margin-bottom: 30px;
+      border: 1px solid #e0e0e0;
+      border-radius: 12px;
+      padding: 24px;
+      background: #fdfdfd;
+      transition: background 0.3s;
+    }
+
+    .question-wrapper:hover {
+      background: #f1f1f1;
+    }
+
+    .question p {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #212121;
+      margin-bottom: 16px;
+    }
+
+    .options label {
+      display: block;
+      margin-bottom: 12px;
+      padding: 12px 16px;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .options label:hover {
+      background: #f0f0f0;
+    }
+
+    .options input[type="radio"] {
+      margin-right: 10px;
+      accent-color: #1e88e5;
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      padding: 14px;
+      background: #388e3c;
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-top: 30px;
+    }
+
+    button[type="submit"]:hover {
+      background: #2e7d32;
+    }
+
+    button[type="submit"]:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    #timeout-message {
+      text-align: center;
+      color: red;
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-top: 20px;
+      display: none;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 24px;
+      }
+
+      h1 {
+        font-size: 1.6rem;
+      }
+
+      .question p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body onload="startTimer()">
+  <div id="timer-container">⏳ Thời gian còn lại: <span id="timer">20:00</span></div>
+  <div class="container">
+    <h1>Trắc nghiệm Kinh tế Chính trị Mác - Lênin</h1>
+    <form id="quiz-form" action="dapan_v2.html" method="get">
+
+      <!-- Câu hỏi mẫu -->
+      <div class="question-wrapper">
+                <p>Câu 1: Thực dân Pháp nổ súng xâm lược nước ta vào năm nào?</p>
+                <div class="options">
+                    <label><input type="radio" name="q1" value="a"> a. 1859</label>
+                    <label><input type="radio" name="q1" value="b"> b. 1858</label>
+                    <label><input type="radio" name="q1" value="c"> c. 1862</label>
+                    <label><input type="radio" name="q1" value="d"> d. 1867</label>
+                </div>
+            </div>
+
+            <div class="question-wrapper">
+                <p>Câu 2:Các xí nghiệp tư bản [thống nhất cả việc sản xuất], tiêu thụ hàng hóa đều do một ban quản trị chung quản lý là hình thức tổ chức độc quyền nào?</p>
+                <div class="options">
+                    <label><input type="radio" name="q2" value="a"> a. Cartel</label>
+                    <label><input type="radio" name="q2" value="b"> b. Syndicate</label>
+                    <label><input type="radio" name="q2" value="c"> c. Trust</label>
+                    <label><input type="radio" name="q2" value="d"> d. Consortium</label>
+                </div>
+            </div>
+
+            <div class="question-wrapper">
+                <p>Câu 3: Một trong những nguyên nhân hình thành độc quyền nhà nước?</p>
+                <div class="options">
+                    <label><input type="radio" name="q3" value="a"> a. Do sự phát triển của lực lượng sản xuất</label>
+                    <label><input type="radio" name="q3" value="b"> b. Do cạnh tranh</label>
+                    <label><input type="radio" name="q3" value="c"> c. Do khủng hoảng và sự phát triển của hệ thống tín dụng</label>
+                    <label><input type="radio" name="q3" value="d"> d. Sự bành trướng của các liên minh độc quyền quốc tế</label>
+                </div>
+            </div>
+
+            <div class="question-wrapper">
+                <p>Câu 4: Hiệp ước nào cắt tỉnh Bình Thuận vào Nam Kỳ?</p>
+                <div class="options">
+                    <label><input type="radio" name="q4" value="a"> a. Hòa ước Hác - măng</label>
+                    <label><input type="radio" name="q4" value="b"> b. Hiệp ước Nhâm Tuất</label>
+                    <label><input type="radio" name="q4" value="c"> c. Hiệp ước Giáp Tuất</label>
+                    <label><input type="radio" name="q4" value="d"> d. Hòa ước Pa - tơ - nốt</label>
+                </div>
+            </div>
+
+            <div class="question-wrapper">
+                <p>Câu 5: Sự kiện nào đánh dấu việc chia nước ta thành 3 xứ: Bắc Kỳ, Trung Kỳ, Nam Kỳ?</p>
+                <div class="options">
+                    <label><input type="radio" name="q5" value="a"> a. Hiệp ước Giáp Tuất</label>
+                    <label><input type="radio" name="q5" value="b"> b. Hoà ước Pa - tơ - nốt</label>
+                    <label><input type="radio" name="q5" value="c"> c. Hiệp ước Nhâm Tuất</label>
+                    <label><input type="radio" name="q5" value="d"> d. Hoà ước Hác - Măng</label>
+                </div>
+            </div>
+
+            <div class="question-wrapper">
+                <p>Câu 6: Tổ chức Hội Việt Nam Cách mạng Thanh niên ra đời năm nào?</p>
+                <div class="options">
+                    <label><input type="radio" name="q6" value="a"> a. 1924</label>
+                    <label><input type="radio" name="q6" value="b"> b. 1925</label>
+                    <label><input type="radio" name="q6" value="c"> c. 1926</label>
+                    <label><input type="radio" name="q6" value="d"> d. 1927</label>
+                </div>
+            </div>
+
+            <div class="question-wrapper">
+                <p>Câu 7: Hội Việt Nam Cách mạng Thanh niên thành lập ở đâu?</p>
+                <div class="options">
+                    <label><input type="radio" name="q7" value="a"> a. Hồng Kông</label>
+                    <label><input type="radio" name="q7" value="b"> b. Quảng Châu (Trung Quốc)</label>
+                    <label><input type="radio" name="q7" value="c"> c. Sài Gòn</label>
+                    <label><input type="radio" name="q7" value="d"> d. Thái Lan</label>
+                </div>
+            </div>
+
+            <div class="question-wrapper">
+                <p>Câu 8: Hiệp ước nào cắt tỉnh Bình Thuận vào Trung Kỳ?</p>
+                <div class="options">
+                    <label><input type="radio" name="q8" value="a"> a. Hòa ước Hác - Măng</label>
+                    <label><input type="radio" name="q8" value="b"> b.  Hòa ước Pa - to - nốt</label>
+                    <label><input type="radio" name="q8" value="c"> c. Hiệp định sơ bộ 6/3</label>
+                    <label><input type="radio" name="q8" value="d"> d. Tạm ước 14/9</label>
+                </div>
+            </div>
+
+            <div class="question-wrapper">
+                <p>Câu 9: Tổ chức nào là tiền thân của Đảng Cộng sản Việt Nam?</p>
+                <div class="options">
+                    <label><input type="radio" name="q9" value="a"> a. Tân Việt Cách mạng Đảng</label>
+                    <label><input type="radio" name="q9" value="b"> b. Hội Việt Nam Cách mạng Thanh niên</label>
+                    <label><input type="radio" name="q9" value="c"> c. Đông Dương Cộng sản Đảng</label>
+                    <label><input type="radio" name="q9" value="d"> d. Việt Nam Quốc dân Đảng</label>
+                </div>
+            </div>
+
+            <div class="question-wrapper">
+                <p>Câu 10: Một trong những nguyên nhân hình thành độc quyền nhà nước?</p>
+                <div class="options">
+                    <label><input type="radio" name="q10" value="a"> a. Do sự phát triển của lực lượng sản xuất</label>
+                    <label><input type="radio" name="q10" value="b"> b. Do cạnh tranh</label>
+                    <label><input type="radio" name="q10" value="c"> c. Do khủng hoảng và sự phát triển của hệ thống tín dụng</label>
+                    <label><input type="radio" name="q10" value="d"> d. Xuất hiện một số ngành mà tư nhân không thể hoặc không muốn đầu tư</label>
+                </div>
+            </div>
+
+            <div class="question-wrapper">
+                <p>Câu 11: Chọn ý đúng về tốc độ chu chuyển của tư bản?</p>
+                <div class="options">
+                    <label><input type="radio" name="q11" value="a"> a. Tốc độ chu chuyển tỉ lệ thuận với thời gian 1 vòng chu chuyển</label>
+                    <label><input type="radio" name="q11" value="b"> b. Tốc độ chu chuyển tỉ lệ nghịch với thời gian 1 vòng chu chuyển</label>
+                    <label><input type="radio" name="q11" value="c"> c. Tốc độ chu chuyển tỉ lệ thuận với vốn đầu tư</label>
+                    <label><input type="radio" name="q11" value="d"> d. Tốc độ chu chuyển tỉ lệ nghịch với vốn đầu tư</label>
+                </div>
+            </div>
+
+            <div class="question-wrapper">
+                <p>Câu 12: Tỷ suất giá trị thặng dư tỉ lệ nghịch với yếu tố nào?</p>
+                <div class="options">
+                    <label><input type="radio" name="q12" value="a"> a. m'</label>
+                    <label><input type="radio" name="q12" value="b"> b. Tiết kiệm tư bản ứng trước</label>
+                    <label><input type="radio" name="q12" value="c"> c. Tốc độ chu chuyển của tư bản</label>
+                    <label><input type="radio" name="q12" value="d"> d. Cấu tạo hữu cơ của tư bản (c/v)</label>
+                </div>
+            </div>
+
+            <div class="question-wrapper">
+                <p>Câu 13: Lao động trừu tượng tạo ra hàng hóa có?</p>
+                <div class="options">
+                    <label><input type="radio" name="q13" value="a"> a. Giá trị sử dụng</label>
+                    <label><input type="radio" name="q13" value="b"> b. Giá cả</label>
+                    <label><input type="radio" name="q13" value="c"> c. Giá trị</label>
+                    <label><input type="radio" name="q13" value="d"> d. Giá bán</label>
+                </div>
+            </div>
+
+            <div class="question-wrapper">
+                <p>Câu 14: Tích lũy tư bản là gì?</p>
+                <div class="options">
+                    <label><input type="radio" name="q14" value="a"> a. Tăng tiêu dùng cá nhân</label>
+                    <label><input type="radio" name="q14" value="b"> b. Biến giá trị thặng dư thành tư bản</label>
+                    <label><input type="radio" name="q14" value="c"> c. Tiêu dùng giá trị thặng dư</label>
+                    <label><input type="radio" name="q14" value="d"> d. Tăng vốn vay</label>
+                </div>
+            </div>
+
+            <div class="question-wrapper">
+                <p>Câu 15: Trong chủ nghĩa tư bản, nguồn gốc của tích lũy tư bản là gì?</p>
+                <div class="options">
+                    <label><input type="radio" name="q15" value="a"> a. Vốn vay</label>
+                    <label><input type="radio" name="q15" value="b"> b. Giá trị thặng dư</label>
+                    <label><input type="radio" name="q15" value="c"> c. Vốn cổ phần</label>
+                    <label><input type="radio" name="q15" value="d"> d. Lãi suất</label>
+                </div>
+            </div>
+
+            <div class="question-wrapper">
+                <p>Câu 16: Các xí nghiệp tư bản [lớn ký các hiệp nghị thỏa thuận] với nhau về giá cả, sản lượng hàng hóa, thị trường tiêu thụ, kỳ hạn thanh toán,... là hình thức tổ chức độc quyền nào?</p>
+                <div class="options">
+                    <label><input type="radio" name="q16" value="a"> a. Cartel</label>
+                    <label><input type="radio" name="q16" value="b"> b. Syndicate</label>
+                    <label><input type="radio" name="q16" value="c"> c. Trust</label>
+                    <label><input type="radio" name="q16" value="d"> d. Consortium</label>
+                </div>
+            </div>
+
+            <div class="question-wrapper">
+                <p>Câu 17: Các xí nghiệp tư bản [vẫn giữ độc lập về sản xuất], còn mọi việc mua, bán do một ban quản trị chung đảm nhận là hình thức tổ chức độc quyền nào?</p>
+                <div class="options">
+                    <label><input type="radio" name="q17" value="a"> a. Cartel</label>
+                    <label><input type="radio" name="q17" value="b"> b. Syndicate</label>
+                    <label><input type="radio" name="q17" value="c"> c. Trust</label>
+                    <label><input type="radio" name="q17" value="d"> d. Consortium</label>
+                </div>
+            </div>
+            <div class="question-wrapper">
+              <p>Câu 18: Sự kiện nào đánh dấu sự bảo hộ của Pháp đối với Việt Nam?</p>
+              <div class="options">
+                  <label><input type="radio" name="q18" value="a"> a. Hoà ước Hác – Măng</label>
+                  <label><input type="radio" name="q18" value="b"> b. Hoà ước Pa – to – nốt</label>
+                  <label><input type="radio" name="q18" value="c"> c. Hiệp định sơ bộ 6/3</label>
+                  <label><input type="radio" name="q18" value="d"> d. Tạm ước 14/9</label>
+              </div>
+          </div>
+          <div class="question-wrapper">
+            <p>Câu 19: Hoà ước Hác – Măng có tất cả bao nhiêu điều khoản?</p>
+            <div class="options">
+                <label><input type="radio" name="q19" value="a"> a. 19</label>
+                <label><input type="radio" name="q19" value="b"> b. 25</label>
+                <label><input type="radio" name="q19" value="c"> c. 27</label>
+                <label><input type="radio" name="q19" value="d"> d. 30</label>
+            </div>
+        </div>
+        <div class="question-wrapper">
+          <p>Câu 20: Hoà ước Pa – to - nốt có tất cả bao nhiêu điều khoản?</p>
+          <div class="options">
+              <label><input type="radio" name="q20" value="a"> a. 19</label>
+              <label><input type="radio" name="q20" value="b"> b. 25</label>
+              <label><input type="radio" name="q20" value="c"> c. 27</label>
+              <label><input type="radio" name="q20" value="d"> d. 30</label>
+          </div>
+      </div>
+      <div class="question-wrapper">
+        <p>Câu 21: Thực dân Pháp đô hộ nước ta, nước ta hình thành mấy mâu thuẫn cơ bản?</p>
+        <div class="options">
+            <label><input type="radio" name="q21" value="a"> a. 2</label>
+            <label><input type="radio" name="q21" value="b"> b. 3</label>
+            <label><input type="radio" name="q21" value="c"> c. 44</label>
+            <label><input type="radio" name="q21" value="d"> d. 5</label>
+        </div>
+    </div>
+    <div class="question-wrapper">
+      <p>Câu 22: Đâu là mâu thuẫn cơ bản ở nước ta trong giai đoạn thực dân Pháp đô hộ?</p>
+      <div class="options">
+          <label><input type="radio" name="q22" value="a"> a. Giữa địa chủ và nông dân</label>
+          <label><input type="radio" name="q22" value="b"> b. Giữa Dân tộc Việt Nam và đế quốc Mỹ</label>
+          <label><input type="radio" name="q22" value="c"> c. Giữa Tư sản và vô sản</label>
+          <label><input type="radio" name="q22" value="d"> d. Giữa Địa chủ và địa chủ</label>
+      </div>
+  </div>
+      <div class="question-wrapper">
+      <p>Câu 23: Các công ty độc quyền sẽ kiểm soát yếu tố nào?</p>
+      <div class="options">
+          <label><input type="radio" name="q23" value="a"> a. Giá mua</label>
+          <label><input type="radio" name="q23" value="b"> b. Giá mua, giá bán </label>
+          <label><input type="radio" name="q23" value="c"> c. Giá bán</label>
+          <label><input type="radio" name="q23" value="d"> d. Xí nghiệp khácủ</label>
+      </div>
+  </div>
+
+      <!-- Thêm câu hỏi khác ở đây -->
+
+      <button type="submit">📝 Nộp bài</button>
+    </form>
+    <div id="timeout-message">⛔ Đã hết thời gian làm bài!</div>
+  </div>
+
+  <script>
+    function startTimer() {
+      let duration = 20 * 60;
+      const timerDisplay = document.getElementById('timer');
+      const timeoutMessage = document.getElementById('timeout-message');
+      const quizForm = document.getElementById('quiz-form');
+      const submitButton = quizForm.querySelector('button[type="submit"]');
+
+      const countdown = setInterval(() => {
+        let minutes = Math.floor(duration / 60);
+        let seconds = duration % 60;
+
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+
+        timerDisplay.textContent = `${minutes}:${seconds}`;
+
+        if (--duration < 0) {
+          clearInterval(countdown);
+          timerDisplay.textContent = "00:00";
+          timeoutMessage.style.display = 'block';
+          submitButton.disabled = true;
+        }
+      }, 1000);
+    }
+  </script>
+</body>
+</html>

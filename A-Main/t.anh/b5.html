@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Ice Cream – Grammar Comparison</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f7f9fa;
+      padding: 30px;
+      max-width: 950px;
+      margin: auto;
+    }
+    .container {
+      background: #ffffff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    input[type="text"] {
+      width: 90px;
+      padding: 6px;
+      margin: 0 4px;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    input.correct {
+      border-color: #2ecc71;
+      background-color: #eafaf1;
+    }
+    input.incorrect {
+      border-color: #e74c3c;
+      background-color: #fdecea;
+    }
+    button {
+      margin-top: 20px;
+      background: #3498db;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #2a80b9;
+    }
+    .result {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 18px;
+      color: #2c3e50;
+    }
+    em {
+      font-style: italic;
+      color: #9b59b6;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Ice Cream – Grammar Gap Fill (Comparatives & Superlatives)</h2>
+  <p>
+    Ice cream is one of the (0) <em>most popular</em> (popular) desserts. But do you know about the journey of vanilla and chocolate ice cream, the world’s favourite flavours? It’s possibly the (1)
+    <input type="text" id="q1"> (long) journey of all your favourite foods. In Ancient Greece, people ate snow with honey. In Ancient China, there was a dessert with ice, too. Ice and snow, at 0°C, are (2)
+    <input type="text" id="q2"> (cold) than ice cream, which is 0°C–2°C. This means that they were (3)
+    <input type="text" id="q3"> (bad) for people’s teeth. Teeth can break when we eat cold things, but the Greeks and Chinese possibly had (4)
+    <input type="text" id="q4"> (strong) teeth than us. Was the Greek recipe (5)
+    <input type="text" id="q5"> (old) than the Chinese one? Nobody knows which one was first.
+  </p>
+  <p>
+    What we do know is where modern ice cream comes from – France. The English had an (6)
+    <input type="text" id="q6"> (early) recipe with milk. Later a man from Sicily put eggs and sugar in it too, in his café in Paris in the seventeenth century. This made the dessert (7)
+    <input type="text" id="q7"> (sweet). The ingredients travelled a long way, too. Vanilla and chocolate were both from Mexico. Chocolate was the (8)
+    <input type="text" id="q8"> (good) drink for men who went to fight against other villages. It was also (9)
+    <input type="text" id="q9"> (hot) than modern hot chocolate and (10)
+    <input type="text" id="q10"> (bitter) to drink, because there was no sugar. Sugar was originally from India. So when you have ice cream on your plate, you have a map in front of you! Enjoy it.
+  </p>
+
+  <button onclick="checkIceAnswers()">Kiểm tra đáp án</button>
+  <div class="result" id="result"></div>
+</div>
+
+<script>
+  const iceAnswers = {
+    q1: "longest",
+    q2: "colder",
+    q3: "worse",
+    q4: "stronger",
+    q5: "older",
+    q6: "earlier",
+    q7: "sweeter",
+    q8: "the best",
+    q9: "hotter",
+    q10: "more bitter"
+  };
+
+  function checkIceAnswers() {
+    let score = 0;
+    for (let key in iceAnswers) {
+      const input = document.getElementById(key);
+      const value = input.value.trim().toLowerCase();
+      const correct = iceAnswers[key].toLowerCase();
+      if (value === correct) {
+        input.classList.remove("incorrect");
+        input.classList.add("correct");
+        score++;
+      } else {
+        input.classList.remove("correct");
+        input.classList.add("incorrect");
+      }
+    }
+    document.getElementById("result").textContent = `✅ Bạn làm đúng ${score}/10 câu.`;
+  }
+</script>
+
+</body>
+</html>

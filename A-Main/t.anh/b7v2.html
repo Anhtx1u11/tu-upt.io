@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vancouver Fill-in-the-Blanks</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: #f4f6f8;
+      color: #333;
+      padding: 40px 20px;
+      max-width: 960px;
+      margin: auto;
+    }
+
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 30px;
+    }
+
+    .word-bank {
+      background: #ecf0f1;
+      border-radius: 10px;
+      padding: 15px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      margin-bottom: 30px;
+    }
+
+    .word-bank span {
+      background: #3498db;
+      color: white;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 14px;
+      cursor: default;
+    }
+
+    p {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+      width: 90px;
+      padding: 6px 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    input.correct {
+      background-color: #d4edda;
+      border-color: #28a745;
+    }
+
+    input.wrong {
+      background-color: #f8d7da;
+      border-color: #dc3545;
+    }
+
+    button {
+      display: block;
+      margin: 30px auto;
+      padding: 10px 25px;
+      font-size: 16px;
+      background-color: #27ae60;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #1e8449;
+    }
+
+    #results {
+      background: #fff;
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 6px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .answer {
+      font-style: italic;
+      color: #2e86c1;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>📝 Life in Vancouver - Fill in the Blanks</h2>
+
+  <div class="word-bank">
+    <span>isn't</span>
+    <span>there</span>
+    <span>have</span>
+    <span>learn</span>
+    <span>do</span>
+    <span>doesn't</span>
+    <span>live</span>
+    <span>across</span>
+    <span>does</span>
+    <span>are</span>
+    <span>don't</span>
+    <span>leaves</span>
+    <span>is</span>
+    <span>between</span>
+  </div>
+
+  <p>
+    Life in Vancouver is good. The city (0) <strong>is</strong> clean, beautiful and modern, and 
+    (1) <input type="text" id="q1"> are a lot of things to do. As it is in the English-speaking part of Canada, 
+    most people (2) <input type="text" id="q2"> speak French, but they (3) <input type="text" id="q3"> French at school. 
+    The second language in the city is Chinese. In fact, around 280,000 people with Chinese as their first language 
+    (4) <input type="text" id="q4"> in Vancouver.
+  </p>
+
+  <p>
+    (5) <input type="text" id="q5"> you know where Vancouver is? It’s in the west of Canada, next to Washington State in the USA; 
+    there is a boat (6) <input type="text" id="q6"> Vancouver and Seattle, in the USA. It (7) <input type="text" id="q7"> once a day at 5 p.m. 
+    and it (8) <input type="text" id="q8"> go very fast. In fact, it’s quite slow and it arrives in Seattle at 7.45 p.m. 
+    Vancouver is in the middle of water with the Pacific Ocean to the west: if you don’t like water or beaches, Vancouver (9) 
+    <input type="text" id="q9"> the city for you. But in general, what (10) <input type="text" id="q10"> the average tourist think of Vancouver? 
+    They love it!
+  </p>
+
+  <button onclick="checkAnswers()">Check Answers</button>
+  <div id="results"></div>
+
+  <script>
+    const correctAnswers = ['there', 'don’t', 'learn', 'live', 'do', 'between', 'leaves', 'doesn’t', 'isn’t', 'does'];
+
+    function checkAnswers() {
+      let results = "";
+      for (let i = 1; i <= 10; i++) {
+        const input = document.getElementById('q' + i);
+        const userAnswer = input.value.trim().toLowerCase();
+        const correct = correctAnswers[i - 1].toLowerCase();
+        if (userAnswer === correct) {
+          input.className = "correct";
+        } else {
+          input.className = "wrong";
+          results += `(${i}) Correct answer: <span class="answer">${correctAnswers[i - 1]}</span><br>`;
+        }
+      }
+      document.getElementById('results').innerHTML = results || "<strong>🎉 All answers are correct!</strong>";
+    }
+  </script>
+
+</body>
+</html>
