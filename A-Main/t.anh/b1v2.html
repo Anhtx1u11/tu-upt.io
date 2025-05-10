@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Family Vocabulary Quiz</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: #f0f4f8;
+      padding: 40px 10px;
+      margin: 0;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 40px;
+    }
+
+    .quiz-container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .question {
+      margin-bottom: 20px;
+      padding: 15px 20px;
+      background: #f9fbff;
+      border-left: 5px solid #3498db;
+      border-radius: 6px;
+      position: relative;
+    }
+
+    .question input[type="text"] {
+      padding: 8px 12px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-left: 10px;
+      width: 200px;
+      transition: all 0.3s ease;
+    }
+
+    .question input:disabled {
+      background: #eee;
+      color: #555;
+    }
+
+    .hint {
+      font-family: monospace;
+      font-size: 14px;
+      color: #888;
+      margin-left: 10px;
+    }
+
+    .correct {
+      background-color: #d4edda;
+      border-color: #28a745;
+    }
+
+    .incorrect {
+      background-color: #f8d7da;
+      border-color: #dc3545;
+    }
+
+    .correct-answer {
+      display: inline-block;
+      margin-left: 10px;
+      color: #c0392b;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    button {
+      display: block;
+      margin: 30px auto 0;
+      padding: 12px 30px;
+      font-size: 16px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+  </style>
+</head>
+<body>
+  <h1>Family Vocabulary Quiz</h1>
+  <div class="quiz-container">
+    <div class="question">0. I am her son. She is my 
+      <input type="text" value="mother" disabled>
+    </div>
+    <div class="question">1. He is your 
+      <input type="text" id="q1"> <span class="hint">h _ _ _ b _ _ _ _ _ _</span>
+      <span class="correct-answer" id="a1"></span>
+    </div>
+    <div class="question">2. Her mother and my father are married. 
+      <input type="text" id="q2"> <span class="hint">s _ _ _ _ _ _ _ _</span>
+      <span class="correct-answer" id="a2"></span>
+    </div>
+    <div class="question">3. The teacher speaks and the students 
+      <input type="text" id="q3"> <span class="hint">l _ _ _ _ _</span>
+      <span class="correct-answer" id="a3"></span>
+    </div>
+    <div class="question">4. My dad’s ... is a photographer. 
+      <input type="text" id="q4"> <span class="hint">j _ _</span>
+      <span class="correct-answer" id="a4"></span>
+    </div>
+    <div class="question">5. He isn’t married, he’s 
+      <input type="text" id="q5"> <span class="hint">s _ _ _ _</span>
+      <span class="correct-answer" id="a5"></span>
+    </div>
+    <div class="question">6. She is your brother’s daughter. 
+      <input type="text" id="q6"> <span class="hint">n _ _ _ _</span>
+      <span class="correct-answer" id="a6"></span>
+    </div>
+    <div class="question">7. This person writes for news websites. 
+      <input type="text" id="q7"> <span class="hint">j _ _ _ _ _ _ _ _ _</span>
+      <span class="correct-answer" id="a7"></span>
+    </div>
+    <div class="question">8. They are husband and 
+      <input type="text" id="q8"> <span class="hint">w _ _ _</span>
+      <span class="correct-answer" id="a8"></span>
+    </div>
+    <div class="question">9. We ... the internet to talk to people. 
+      <input type="text" id="q9"> <span class="hint">u _ _</span>
+      <span class="correct-answer" id="a9"></span>
+    </div>
+    <div class="question">10. My sister is my grandfather’s 
+      <input type="text" id="q10"> <span class="hint">g _ _ _ _ _ _ _ _ _ _</span>
+      <span class="correct-answer" id="a10"></span>
+    </div>
+    <button onclick="checkAnswers()">Check Answers</button>
+  </div>
+
+  <script>
+    const answers = {
+      q1: "half-brother",
+      q2: "stepmother",
+      q3: "listen",
+      q4: "job",
+      q5: "single",
+      q6: "niece",
+      q7: "journalist",
+      q8: "wife",
+      q9: "use",
+      q10: "granddaughter"
+    };
+
+    function checkAnswers() {
+      for (let i = 1; i <= 10; i++) {
+        const input = document.getElementById(`q${i}`);
+        const correctText = answers[`q${i}`];
+        const answerSpan = document.getElementById(`a${i}`);
+
+        if (input.value.trim().toLowerCase() === correctText) {
+          input.classList.add("correct");
+          input.classList.remove("incorrect");
+          answerSpan.textContent = ""; // Clear any previous answer
+        } else {
+          input.classList.add("incorrect");
+          input.classList.remove("correct");
+          answerSpan.textContent = `→ ${correctText}`;
+        }
+      }
+    }
+  </script>
+</body>
+</html>

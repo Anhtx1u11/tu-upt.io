@@ -1,0 +1,493 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.Design;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace test
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.OutputEncoding = Encoding.UTF8;
+            menu();
+        }
+        static void menu()
+        {
+            while (true)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Code Mảng Và Hàm\n");
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine("Bài 1| Nhập Một Số Nguyên N (0<N<50)");
+                Console.WriteLine("Bài 2| Nhập 1 Mảng N Là Số Thực  ");
+                Console.WriteLine("Bài 3| Tìm Số Lớn Nhất Trong Mảng  ");
+                Console.WriteLine("Bài 4| Tìm Số Dương Lẻ Nhỏ Nhất Trong Mảng  ");
+                Console.WriteLine("Bài 5| Tìm Số Dương Chẵn Lớn Nhất Trong Mảng  ");
+                Console.WriteLine("Bài 6| Tính Trung Bình Cộng Các Phần Tử Trong Mảng  ");
+                Console.WriteLine("Bài 7| Tìm Phần Tử Lớn Hơn Trung Bình Cộng  ");
+                Console.WriteLine("Bài 8| Sắp Xếp Mảng Tăng Dần  ");
+                Console.WriteLine("Bài 9| Sắp Xếp Mảng Giảm Dần  ");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write("==>");
+                Console.ResetColor();
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write("Số Bài Tương Ứng Với Phím | Thoát Chương Trình Phím [0]\n");
+                Console.ResetColor();
+                Console.Write("Chọn Bài: ");
+                int chon = int.Parse(Console.ReadLine());
+                Console.Clear();
+                    switch (chon)
+                    {
+                        case 1:
+                            bai1();
+                            break;
+                        case 2:
+                            bai2();
+                            break;
+                        case 3:
+                            bai3();
+                            break;
+                        case 4:
+                            bai4();
+                            break;
+                        case 5:
+                            bai5();
+                            break;
+                        case 6:
+                            bai6();
+                            break;
+                        case 7:
+                            bai7();
+                            break;
+                        case 8:
+                            bai8();
+                            break;
+                        case 9:
+                            bai9();
+                            break;
+                    }
+                
+                if (chon == 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Đã Thoát Chương Trình");
+                    break;
+                }
+            }
+
+
+        }
+        static void bai1()
+        {
+            Console.ForegroundColor= ConsoleColor.Red;
+            Console.WriteLine("\tBài 1| Nhập Một Số Nguyên N (0<N<50)\n");
+            Console.ResetColor();
+            Console.Write("Hãy Nhập 1 Số Nguyên Từ 0 - 50: ");
+            int so = int.Parse(Console.ReadLine());
+            if (so >= 0 && so <= 50)
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("Ok Số Được Chấp Nhận");
+                Console.ResetColor();
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Fail");
+                Console.ResetColor();
+            }
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("Làm Lại Nhập [1] Về Menu Chọn Bài Nhập [0]: ");
+            Console.ResetColor();
+            int chonbai = int.Parse(Console.ReadLine());
+            Console.Clear();
+            if (chonbai == 1)
+            {
+                bai1();
+            }
+            else
+            {
+                menu();
+            }
+        }
+        static void bai2()
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("\tBài 2| Nhập 1 Mảng N Là Số Thực\n  ");
+            Console.ResetColor();
+            Console.WriteLine("Code Về Mảng Nhập Số Thực");
+            Console.Write("Bạn Muốn Bao Nhiêu Phần Tử: ");
+            int pt = int.Parse(Console.ReadLine());
+            int[] a = new int[pt];
+            for (int i = 0; i < pt; i++)
+            {
+                Console.Write($"Nhập Mảng Thứ {i}: ");
+                a[i] = int.Parse(Console.ReadLine());
+            }
+            Console.Write("\nHiển Thị Các Mảng Đã Nhập: ");
+            for (int i = 0; i < pt; i++)
+            {
+                Console.Write(a[i]);
+
+            }
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("\n\nLàm Lại Nhập [1] Về Menu Chọn Bài Nhập [0]: ");
+            Console.ResetColor();
+            int chonbai = int.Parse(Console.ReadLine());
+            Console.Clear();
+            if (chonbai == 1)
+            {
+                bai2();
+            }
+            else
+            {
+                menu();
+            }
+
+        }
+        static void bai3()
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("\tBài 3| Tìm Số Lớn Nhất Trong Mảng\n  ");
+            Console.ResetColor();
+            Console.WriteLine("Code Về Mảng Nhập Số Thực");
+            Console.Write("Bạn Muốn Bao Nhiêu Phần Tử: ");
+            int pt = int.Parse(Console.ReadLine());
+            int[] a = new int[pt];
+            for (int i = 0; i < pt; i++)
+            {
+                Console.Write($"Nhập Mảng Thứ {i}: ");
+                a[i] = int.Parse(Console.ReadLine());
+            }
+            Console.WriteLine();
+            Console.Write("Hiển Thị Các Mảng Đã Nhập: ");
+            for (int i = 0; i < pt; i++)
+            {
+                Console.Write(a[i] + " ");
+
+            }
+            Console.WriteLine();
+            Console.Write("Số Lớn Nhất Trong Mảng Là: ");
+            int max = a[0];
+            for (int i = 0; i < pt; i++)
+            {
+                max = Math.Max(max, a[i]);
+                
+            }
+            Console.Write(max);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("\n\nLàm Lại Nhập [1] Về Menu Chọn Bài Nhập [0]: ");
+            Console.ResetColor();
+            int chonbai = int.Parse(Console.ReadLine());
+            Console.Clear();
+            if (chonbai == 3)
+            {
+                bai1();
+            }
+            else
+            {
+                menu();
+            }
+
+        }
+        static void bai4()
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("\tBài 4| Tìm Số Dương Lẻ Nhỏ Nhất Trong Mảng\n  ");
+            Console.ResetColor();
+            Console.Write("Bạn Muốn Bao Nhiêu Phần Tử: ");
+            int pt = int.Parse(Console.ReadLine());
+            int[] a = new int[pt];
+            for (int i = 0; i < pt; i++)
+            {
+                Console.Write($"Nhập Mảng Thứ {i}: ");
+                a[i] = int.Parse(Console.ReadLine());
+            }
+            Console.WriteLine("\n");
+            Console.Write("Hiển Thị Các Mảng Đã Nhập: ");
+            for (int i = 0; i < pt; i++)
+            {
+                Console.Write(a[i] + " ");
+
+            }
+            Console.WriteLine("\n");
+            Console.Write("Số Dương Lẻ Nhỏ Nhất Là: ");
+            int min = a[0];
+            for (int i = 0; i < pt; i++)
+            {
+                if (a[i] % 2 == 1)
+                {
+                    min = Math.Min(min, a[i]);
+
+                }
+            }
+            Console.Write(min);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("\nLàm Lại Nhập [1] Về Menu Chọn Bài Nhập [0]: ");
+            Console.ResetColor();
+            int chonbai = int.Parse(Console.ReadLine());
+            Console.Clear();
+            if (chonbai == 1)
+            {
+                bai4();
+            }
+            else
+            {
+                menu();
+            }
+        }
+        static void bai5()
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("\tBài 5| Tìm Số Dương Chẵn Lớn Nhất Trong Mảng\n  ");
+            Console.ResetColor();
+            Console.Write("Bạn Muốn Bao Nhiêu Phần Tử: ");
+            int pt = int.Parse(Console.ReadLine());
+            int[] a = new int[pt];
+            for (int i = 0; i < pt; i++)
+            {
+                Console.Write($"Nhập Mảng Thứ {i}: ");
+                a[i] = int.Parse(Console.ReadLine());
+            }
+            Console.WriteLine("\n");
+            Console.Write("Hiển Thị Các Mảng Đã Nhập: ");
+            for (int i = 0; i < pt; i++)
+            {
+                Console.Write(a[i] + " ");
+
+            }
+            Console.WriteLine("\n");
+            Console.Write("Số Dương Chẵn Lớn Nhất Là: ");
+            int max = a[0];
+            for (int i = 0; i < pt; i++)
+            {
+                if (a[i] % 2 == 0)
+                {
+                    max = Math.Max(max, a[i]);
+
+                }
+            }
+            Console.Write(max);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("\nLàm Lại Nhập [1] Về Menu Chọn Bài Nhập [0]: ");
+            Console.ResetColor();
+            int chonbai = int.Parse(Console.ReadLine());
+            Console.Clear();
+            if (chonbai == 1)
+            {
+                bai5();
+            }
+            else
+            {
+                menu();
+            }
+        }
+        static void bai6()
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("\tBài 6| Tính Trung Bình Cộng Các Phần Tử Trong Mảng\n  ");
+            Console.ResetColor();
+            Console.Write("Bạn Muốn Bao Nhiêu Phần Tử: ");
+            int pt = int.Parse(Console.ReadLine());
+            int[] a = new int[pt];
+            for (int i = 0; i < pt; i++)
+            {
+                Console.Write($"Nhập Mảng Thứ {i}: ");
+                a[i] = int.Parse(Console.ReadLine());
+            }
+            Console.WriteLine("\n");
+            Console.Write("Hiển Thị Các Mảng Đã Nhập: ");
+            for (int i = 0; i < pt; i++)
+            {
+                Console.Write(a[i] + " ");
+
+            }
+            Console.WriteLine("\n");
+            Console.Write("Tổng Số Trung Bình Cộng Là: ");
+            double sum = 0.0;
+            for (int i = 0; i < pt; i++)
+            {
+                sum += (double)a[i] / pt;
+            }
+            Console.Write(sum);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("\nLàm Lại Nhập [1] Về Menu Chọn Bài Nhập [0]: ");
+            Console.ResetColor();
+            int chonbai = int.Parse(Console.ReadLine());
+            Console.Clear();
+            if (chonbai == 1)
+            {
+                bai6();
+            }
+            else
+            {
+                menu();
+            }
+
+        }
+        static void bai7()
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("\tBài 7| Tìm Phần Tử Lớn Hơn Trung Bình Cộng\n  ");
+            Console.ResetColor();
+            Console.Write("Bạn Muốn Bao Nhiêu Phần Tử: ");
+            int pt = int.Parse(Console.ReadLine());
+            int[] a = new int[pt];
+            for (int i = 0; i < pt; i++)
+            {
+                Console.Write($"Nhập Mảng Thứ {i}: ");
+                a[i] = int.Parse(Console.ReadLine());
+            }
+            Console.WriteLine("\n");
+            Console.Write("Hiển Thị Các Mảng Đã Nhập: ");
+            for (int i = 0; i < pt; i++)
+            {
+                Console.Write(a[i] + " ");
+
+            }
+            Console.WriteLine("\n");
+            Console.Write("Tổng Số Trung Bình Cộng Là: ");
+            double sum = 0.0;
+            for (int i = 0; i < pt; i++)
+            {
+                sum += (double)a[i] / pt;
+            }
+            Console.Write(sum);
+            Console.WriteLine("\n");
+            Console.Write("Phần Tử Lớn Hơn Trung Bình Cộng Là: ");
+            int max = a[0];
+            for (int i = 0; i < pt; i++)
+            {
+                max = Math.Max(max, a[i]);
+
+            }
+            Console.Write(max);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("\nLàm Lại Nhập [1] Về Menu Chọn Bài Nhập [0]: ");
+            Console.ResetColor();
+            int chonbai = int.Parse(Console.ReadLine());
+            Console.Clear();
+            if (chonbai == 1)
+            {
+                bai7();
+            }
+            else
+            {
+                menu();
+            }
+
+        }
+        static void bai8()
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("\tBài 8| Sắp Xếp Mảng Tăng Dần\n  ");
+            Console.ResetColor();
+            Console.WriteLine("Code Về Mảng Nhập Số Thực");
+            Console.Write("Bạn Muốn Bao Nhiêu Phần Tử: ");
+            int pt = int.Parse(Console.ReadLine());
+            int[] a = new int[pt];
+            for (int i = 0; i < pt; i++)
+            {
+                Console.Write($"Nhập Mảng Thứ {i}: ");
+                a[i] = int.Parse(Console.ReadLine());
+            }
+            Console.WriteLine("\n");
+            Console.Write("Hiển Thị Các Mảng Đã Nhập: ");
+            for (int i = 0; i < pt; i++)
+            {
+                Console.Write(a[i] + " ");
+
+            }
+            Console.WriteLine("\n");
+            Console.Write("Sắp Xếp Mảng Theo Thứ Tự Tăng Dần: ");
+            int td;
+            for (int i = 0; i < pt; i++)
+            {
+                for (int j = i + 1; j < pt; j++)
+                {
+                    if (a[i] > a[j])
+                    {
+                        td = a[i];
+                        a[i] = a[j];
+                        a[j] = td;
+                    }
+                    
+                }
+            }
+            for (int i = 0; i < pt; i++)
+            {
+                Console.Write(a[i]);
+            }
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("\nLàm Lại Nhập [1] Về Menu Chọn Bài Nhập [0]: ");
+            Console.ResetColor();
+            int chonbai = int.Parse(Console.ReadLine());
+            Console.Clear();
+            if (chonbai == 1)
+            {
+                bai8();
+            }
+            else
+            {
+                menu();
+            }
+        }
+        static void bai9()
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("\tBài 9| Sắp Xếp Mảng Giảm Dần\n");
+            Console.ResetColor();
+            Console.Write("Bạn Muốn Bao Nhiêu Phần Tử: ");
+            int pt = int.Parse(Console.ReadLine());
+            int[] a = new int[pt];
+            for (int i = 0; i < pt; i++)
+            {
+                Console.Write($"Nhập Mảng Thứ {i}: ");
+                a[i] = int.Parse(Console.ReadLine());
+            }
+            Console.WriteLine("\n");
+            Console.Write("Hiển Thị Các Mảng Đã Nhập: ");
+            for (int i = 0; i < pt; i++)
+            {
+                Console.Write(a[i] + " ");
+
+            }
+            Console.WriteLine("\n");
+            Console.Write("Sắp Xếp Mảng Theo Thứ Tự Giảm Dần: ");
+            int td;
+            for (int i = 0; i < pt; i++)
+            {
+                for (int j = i + 1; j < pt; j++)
+                {
+                    if (a[i] < a[j])
+                    {
+                        td = a[i];
+                        a[i] = a[j];
+                        a[j] = td;
+                    }
+
+                }
+            }
+            for (int i = 0; i < pt; i++)
+            {
+                Console.Write(a[i]);
+            }
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("\nLàm Lại Nhập [1] Về Menu Chọn Bài Nhập [0]: ");
+            Console.ResetColor();
+            int chonbai = int.Parse(Console.ReadLine());
+            Console.Clear();
+            if (chonbai == 1)
+            {
+                bai9();
+            }
+            else
+            {
+                menu();
+            }
+        }
+    }
+}

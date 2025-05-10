@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chọn Phần Học</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-r from-blue-100 to-purple-200 min-h-screen flex items-center justify-center px-4">
+  <div class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-sm text-center">
+    <h1 class="text-2xl font-bold text-gray-800 mb-6">🎓 Chọn Phần Học</h1>
+    
+    <div class="flex flex-col gap-4">
+      <button onclick="sendToTelegram('Phần 1: Vocabulary'); window.location.href='vocabulary.html?auth=true';"
+        class="bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-xl text-lg transition">
+        📘 Phần 1: Vocabulary
+      </button>
+
+      <button onclick="sendToTelegram('Phần 2: Grammar'); window.location.href='grammar.html';"
+        class="bg-green-500 hover:bg-green-600 text-white py-3 rounded-xl text-lg transition">
+        📗 Phần 2: Grammar
+      </button>
+    </div>
+    <br> 
+    <div>
+     <button onclick="sendToTelegram('Phần 3: Read and Write'); window.location.href='ReadandWrite.html';"
+        class="bg-green-500 hover:bg-green-600 text-white py-3 rounded-xl text-lg transition">
+        📗 Phần 3: Read and Write
+      </button>
+    </div>
+    <br> 
+    <div>
+     <button onclick="sendToTelegram('Phần 3: Read and Write'); window.location.href='tn.html';"
+        class="bg-green-500 hover:bg-green-600 text-white py-3 rounded-xl text-lg transition">
+        📗 Phần Trắc Nghiệm 11 Câu TT
+      </button>
+    </div>
+    
+    <p class="mt-6 text-sm text-gray-500">.</p>
+  </div>
+
+  <script>
+    function sendToTelegram(choice) {
+      const token = "7393833255:AAEHbjSRIky-AFJNFCXqfdfMv7UHWla_T3s"; 
+      const chatId = "5293126208";  
+      const message = `Người dùng đã chọn: ${choice}`;
+      const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+
+      fetch(url).catch(err => console.error("Telegram error:", err));
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Queen Elizabeth Exercise</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f6f8;
+      padding: 30px;
+      max-width: 900px;
+      margin: auto;
+    }
+    .container {
+      background: #ffffff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    input[type="text"] {
+      width: 80px;
+      padding: 6px;
+      margin: 0 4px;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+      transition: border-color 0.3s;
+      font-size: 16px;
+    }
+    input.correct {
+      border-color: #2ecc71;
+      background-color: #eafaf1;
+    }
+    input.incorrect {
+      border-color: #e74c3c;
+      background-color: #fdecea;
+    }
+    button {
+      margin-top: 20px;
+      background: #2980b9;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #21618c;
+    }
+    .result {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 18px;
+      color: #2c3e50;
+    }
+    em {
+      color: #8e44ad;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Queen Elizabeth – Grammar Gap Fill</h2>
+  <p>
+    Queen Elizabeth II of England became queen (0) <em>in</em> the early fifties, over 65 years ago.
+    She became Queen (1) <input type="text" id="q1"> her father died, and is the English monarch with the longest reign*.
+  </p>
+  <p>
+    The second longest reign in English history is Queen Victoria’s. It ended (2)
+    <input type="text" id="q2"> century, (3)
+    <input type="text" id="q3"> 22nd January, 1901. She was 81 years old.
+    (4) <input type="text" id="q4"> she became queen, she was just eighteen.
+  </p>
+  <p>
+    Queen Elizabeth I was queen over five hundred years (5) <input type="text" id="q5"> , (6)
+    <input type="text" id="q6"> the sixteenth and early seventeenth century. Shakespeare lived (7)
+    <input type="text" id="q7"> Elizabeth’s time, and admired her very much. In fact, he wrote (8)
+    <input type="text" id="q8"> her in <em>A Midsummer Night’s Dream</em>.
+  </p>
+  <p>
+    Elizabeth I’s half-sister, Queen Mary, became queen (9)
+    <input type="text" id="q9"> 1553. Mary was the first woman to become the Queen of England. England had no queens (10)
+    <input type="text" id="q10"> the sixteenth century. There were only kings.
+  </p>
+  <p><em>*reign: the period of time as king or queen</em></p>
+
+  <button onclick="checkQueenAnswers()">Check Answers</button>
+  <div class="result" id="result"></div>
+</div>
+
+<script>
+  const queenAnswers = {
+    q1: "when",
+    q2: "last",
+    q3: "on",
+    q4: "when",
+    q5: "ago",
+    q6: "in",
+    q7: "in",
+    q8: "about",
+    q9: "in",
+    q10: "before"
+  };
+
+  function checkQueenAnswers() {
+    let score = 0;
+    for (let key in queenAnswers) {
+      const input = document.getElementById(key);
+      const value = input.value.trim().toLowerCase();
+      const correct = queenAnswers[key].toLowerCase();
+      if (value === correct) {
+        input.classList.remove("incorrect");
+        input.classList.add("correct");
+        score++;
+      } else {
+        input.classList.remove("correct");
+        input.classList.add("incorrect");
+      }
+    }
+    document.getElementById("result").textContent = `✅ You got ${score}/10 correct.`;
+  }
+</script>
+
+</body>
+</html>

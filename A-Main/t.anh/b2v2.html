@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Vocabulary Quiz Part 2</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: #f0f4f8;
+      padding: 40px 10px;
+      margin: 0;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 40px;
+    }
+
+    .quiz-container {
+      max-width: 850px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .question {
+      margin-bottom: 20px;
+      padding: 15px 20px;
+      background: #f9fbff;
+      border-left: 5px solid #8e44ad;
+      border-radius: 6px;
+    }
+
+    .question input[type="text"] {
+      padding: 8px 12px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-left: 10px;
+      width: 200px;
+    }
+
+    .question input:disabled {
+      background: #eee;
+    }
+
+    .hint {
+      font-family: monospace;
+      font-size: 14px;
+      color: #888;
+      margin-left: 10px;
+    }
+
+    .correct {
+      background-color: #d4edda;
+      border-color: #28a745;
+    }
+
+    .incorrect {
+      background-color: #f8d7da;
+      border-color: #dc3545;
+    }
+
+    .correct-answer {
+      display: inline-block;
+      margin-left: 10px;
+      color: #c0392b;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    button {
+      display: block;
+      margin: 30px auto 0;
+      padding: 12px 30px;
+      font-size: 16px;
+      background-color: #8e44ad;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #732d91;
+    }
+  </style>
+</head>
+<body>
+  <h1>Vocabulary Quiz – Objects & Descriptions</h1>
+  <div class="quiz-container">
+    <div class="question">0. Things for children to play with are 
+      <input type="text" value="toys" disabled>
+    </div>
+    <div class="question">1. Tomatoes and London buses are this colour.
+      <input type="text" id="q1"> <span class="hint">r _ _</span>
+      <span class="correct-answer" id="a1"></span>
+    </div>
+    <div class="question">2. Tables and chairs are ...
+      <input type="text" id="q2"> <span class="hint">f _ _ _ _ _ _ _ _</span>
+      <span class="correct-answer" id="a2"></span>
+    </div>
+    <div class="question">3. A photographer has one.
+      <input type="text" id="q3"> <span class="hint">c _ _ _ _</span>
+      <span class="correct-answer" id="a3"></span>
+    </div>
+    <div class="question">4. A person from the Netherlands is ...
+      <input type="text" id="q4"> <span class="hint">D _ _ _ _</span>
+      <span class="correct-answer" id="a4"></span>
+    </div>
+    <div class="question">5. People put this on the floor.
+      <input type="text" id="q5"> <span class="hint">c _ _ _ _</span>
+      <span class="correct-answer" id="a5"></span>
+    </div>
+    <div class="question">6. This is the currency in the UK.
+      <input type="text" id="q6"> <span class="hint">P _ _ _ _</span>
+      <span class="correct-answer" id="a6"></span>
+    </div>
+    <div class="question">7. When something isn’t useful, it’s …
+      <input type="text" id="q7"> <span class="hint">u _ _ _ _ _ _</span>
+      <span class="correct-answer" id="a7"></span>
+    </div>
+    <div class="question">8. You use this to cut bread.
+      <input type="text" id="q8"> <span class="hint">k _ _ _ _</span>
+      <span class="correct-answer" id="a8"></span>
+    </div>
+    <div class="question">9. People make things like cars in this building.
+      <input type="text" id="q9"> <span class="hint">f _ _ _ _ _ _</span>
+      <span class="correct-answer" id="a9"></span>
+    </div>
+    <div class="question">10. An explorer needs this when hurt.
+      <input type="text" id="q10"> <span class="hint">f _ _ _ _ a _ _ k _ _</span>
+      <span class="correct-answer" id="a10"></span>
+    </div>
+    <button onclick="checkAnswers()">Check Answers</button>
+  </div>
+
+  <script>
+    const answers = {
+      q1: "red",
+      q2: "furniture",
+      q3: "camera",
+      q4: "Dutch",
+      q5: "carpet",
+      q6: "pound",
+      q7: "useless",
+      q8: "knife",
+      q9: "factory",
+      q10: "first-aid kit"
+    };
+
+    function checkAnswers() {
+      for (let i = 1; i <= 10; i++) {
+        const input = document.getElementById(`q${i}`);
+        const correctText = answers[`q${i}`].toLowerCase();
+        const answerSpan = document.getElementById(`a${i}`);
+
+        if (input.value.trim().toLowerCase() === correctText) {
+          input.classList.add("correct");
+          input.classList.remove("incorrect");
+          answerSpan.textContent = "";
+        } else {
+          input.classList.add("incorrect");
+          input.classList.remove("correct");
+          answerSpan.textContent = `→ ${correctText}`;
+        }
+      }
+    }
+  </script>
+</body>
+</html>

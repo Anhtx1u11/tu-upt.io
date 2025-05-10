@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Word Unscramble Quiz</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f2f5;
+      padding: 40px;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: #fff;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+    .question {
+      margin-bottom: 20px;
+    }
+    .number {
+      font-weight: bold;
+      color: #007bff;
+    }
+    .scramble {
+      font-style: italic;
+      color: #6c757d;
+      margin-left: 5px;
+    }
+    input[type="text"] {
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      width: 200px;
+      font-size: 16px;
+      margin-left: 10px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .answer {
+      display: none;
+      color: #28a745;
+      font-weight: bold;
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Word Unscramble Quiz</h2>
+
+    <form id="quizForm">
+      <div class="question"><span class="number">0.</span> Juice, tea and coffee are all types of <span class="scramble">(kridsn)</span>
+        <input type="text" name="q0">
+        <span class="answer">drinks</span>
+      </div>
+
+      <div class="question"><span class="number">1.</span> You need one when you go to the supermarket. <span class="scramble">(agb)</span>
+        <input type="text" name="q1">
+        <span class="answer">bag</span>
+      </div>
+
+      <div class="question"><span class="number">2.</span> This is a container for tuna or soup. <span class="scramble">(int)</span>
+        <input type="text" name="q2">
+        <span class="answer">tin</span>
+      </div>
+
+      <div class="question"><span class="number">3.</span> They are similar to a fruit and they grow on trees. <span class="scramble">(stun)</span>
+        <input type="text" name="q3">
+        <span class="answer">nuts</span>
+      </div>
+
+      <div class="question"><span class="number">4.</span> Satays and curries are popular <span class="scramble">(idhess)</span>
+        <input type="text" name="q4">
+        <span class="answer">dishes</span>
+      </div>
+
+      <div class="question"><span class="number">5.</span> This comes after the starter. <span class="scramble">(anim secoru)</span>
+        <input type="text" name="q5">
+        <span class="answer">main course</span>
+      </div>
+
+      <div class="question"><span class="number">6.</span> These vegetables make some people cry. <span class="scramble">(ninoos)</span>
+        <input type="text" name="q6">
+        <span class="answer">onions</span>
+      </div>
+
+      <div class="question"><span class="number">7.</span> This container is similar to a bag or box. <span class="scramble">(capetk)</span>
+        <input type="text" name="q7">
+        <span class="answer">packet</span>
+      </div>
+
+      <div class="question"><span class="number">8.</span> Ice cream and apple pie are types of <span class="scramble">(streeds)</span>
+        <input type="text" name="q8">
+        <span class="answer">desserts</span>
+      </div>
+
+      <div class="question"><span class="number">9.</span> This is a plant that grows in the sea. <span class="scramble">(deweesa)</span>
+        <input type="text" name="q9">
+        <span class="answer">seaweed</span>
+      </div>
+
+      <div class="question"><span class="number">10.</span> This is a cereal that people use to make bread. <span class="scramble">(tahew)</span>
+        <input type="text" name="q10">
+        <span class="answer">wheat</span>
+      </div>
+
+      <button type="button" onclick="showAnswers()">Check Answers</button>
+    </form>
+  </div>
+
+  <script>
+    function showAnswers() {
+      const answers = document.querySelectorAll('.answer');
+      answers.forEach(answer => answer.style.display = 'inline');
+    }
+  </script>
+</body>
+</html>
