@@ -56,7 +56,7 @@
       position: relative;
       width: 300px;
       height: 450px;
-      margin: 40px auto 20px;
+      margin: 40px auto 10px auto;
       background: url('https://cellphones.com.vn/sforum/wp-content/uploads/2023/12/hinh-nen-than-tai-13.jpg') center center no-repeat;
       background-size: cover;
       border-radius: 20px;
@@ -76,7 +76,10 @@
       font-size: 20px;
       font-weight: bold;
       margin-top: 10px;
+      margin-bottom: 10px;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+      color: #fffbcc;
+      text-align: center;
     }
     .horoscope {
       width: 90%;
@@ -96,6 +99,34 @@
       background: #fdf0b1;
       color: #000;
     }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 10;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.7);
+    }
+    .modal-content {
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 600px;
+      color: black;
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+    .close {
+      color: red;
+      float: right;
+      font-size: 28px;
+      cursor: pointer;
+    }
     #clearDataBtn {
       position: fixed;
       top: 15px;
@@ -114,29 +145,6 @@
     #clearDataBtn:hover {
       background: #ffbbbb;
     }
-    #popupMessage {
-      display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(0, 0, 0, 0.85);
-      color: #fff;
-      padding: 20px 30px;
-      border-radius: 12px;
-      font-size: 18px;
-      font-weight: bold;
-      z-index: 9999;
-      text-align: center;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-      animation: fadeInOut 3s ease-in-out;
-    }
-    @keyframes fadeInOut {
-      0% { opacity: 0; }
-      10% { opacity: 1; }
-      90% { opacity: 1; }
-      100% { opacity: 0; }
-    }
   </style>
 </head>
 <body>
@@ -151,12 +159,20 @@
       <button onclick="prepareEnvelope()">Xem Tử Vi</button>
       <button id="historyBtn" onclick="showHistory()">Xem Lịch Sử</button>
     </div>
+
     <div class="envelope" id="envelope" onclick="openEnvelope()"></div>
     <div class="click-msg" id="clickMessage"></div>
     <div class="horoscope" id="horoscopeText"></div>
   </div>
 
-  <div id="popupMessage"></div>
+  <!-- Modal lịch sử -->
+  <div id="historyModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="document.getElementById('historyModal').style.display='none'">&times;</span>
+      <h2>Lịch Sử Xem Tử Vi</h2>
+      <ul id="historyList"></ul>
+    </div>
+  </div>
 
   <script>
     const horoscopes = [
@@ -178,16 +194,6 @@
         document.getElementById("name").value = savedName;
         document.getElementById("dob").value = savedDob;
       }
-    }
-
-    function showPopup(message) {
-      const popup = document.getElementById("popupMessage");
-      popup.innerText = message;
-      popup.style.display = "block";
-      popup.style.animation = "fadeInOut 3s ease-in-out";
-      setTimeout(() => {
-        popup.style.display = "none";
-      }, 3000);
     }
 
     function prepareEnvelope() {
@@ -218,7 +224,6 @@
       document.getElementById("envelope").style.display = "block";
       document.getElementById("clickMessage").innerText = "Bấm 3 lần để mở bao lì xì!";
       document.getElementById("horoscopeText").innerText = "";
-      showPopup("Thông tin đã lưu! Hãy bấm 3 lần vào bao lì xì để mở nhé!");
     }
 
     function openEnvelope() {
@@ -281,11 +286,17 @@
       document.getElementById("historyModal").style.display = "block";
     }
 
+    window.onclick = function(event) {
+      const modal = document.getElementById("historyModal");
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    }
+
     function clearAllData() {
       if (confirm("Bạn có chắc chắn muốn xóa toàn bộ dữ liệu?")) {
         localStorage.clear();
-        showPopup("Đã xóa toàn bộ dữ liệu!");
-        setTimeout(() => location.reload(), 2500);
+        location.reload();
       }
     }
   </script>
