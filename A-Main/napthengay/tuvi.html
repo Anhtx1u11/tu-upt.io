@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Xem Tử Vi - Bao Lì Xì</title>
   <style>
     body {
@@ -13,7 +14,6 @@
       margin: 0;
       padding: 50px 20px;
     }
-
     .container {
       background: rgba(255, 255, 255, 0.15);
       padding: 30px;
@@ -23,14 +23,12 @@
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
       backdrop-filter: blur(5px);
     }
-
     h1 {
       font-size: 32px;
       margin-bottom: 30px;
       color: #fffbe8;
       text-shadow: 1px 1px 2px #000;
     }
-
     input, button {
       width: 90%;
       padding: 12px;
@@ -39,24 +37,20 @@
       border-radius: 10px;
       font-size: 16px;
     }
-
     input {
       background: #fff0f0;
       color: #333;
     }
-
     button {
       background: #ffffff;
       color: #d60000;
       cursor: pointer;
       transition: 0.3s;
     }
-
     button:hover {
       background: #fdd;
       color: #a00000;
     }
-
     .envelope {
       display: none;
       position: relative;
@@ -70,115 +64,139 @@
       box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
       cursor: pointer;
     }
-
     .envelope.flash {
       animation: flash 0.3s ease-in-out;
     }
-
     @keyframes flash {
       0%   { box-shadow: 0 0 10px 5px yellow; }
       50%  { box-shadow: 0 0 30px 15px gold; }
       100% { box-shadow: 0 0 10px 5px yellow; }
     }
-
     .click-msg {
-      color: #fffad0;
-      font-size: 18px;
+      font-size: 20px;
+      font-weight: bold;
       margin-top: 10px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
     }
-
     .horoscope {
       width: 90%;
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.25);
       border-radius: 12px;
       padding: 20px;
       color: #fff9d6;
-      font-size: 18px;
-      text-shadow: 1px 1px 2px #000;
+      font-size: 20px;
+      font-weight: bold;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.85);
       margin: 20px auto 0;
       white-space: pre-wrap;
       min-height: 100px;
     }
-
-    body::after {
-      content: "";
-      background: url('https://cellphones.com.vn/sforum/wp-content/uploads/2023/12/hinh-nen-than-tai-13.jpg') no-repeat center bottom;
-      background-size: contain;
-      opacity: 0.3;
+    #historyBtn {
+      margin-top: 20px;
+      background: #fdf0b1;
+      color: #000;
+    }
+    /* Modal dùng chung */
+    .modal {
+      display: none;
       position: fixed;
-      bottom: 0;
+      z-index: 10;
       left: 0;
+      top: 0;
       width: 100%;
-      height: 300px;
-      z-index: -1;
+      height: 100%;
+      background-color: rgba(0,0,0,0.7);
+    }
+    .modal-content {
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 600px;
+      color: black;
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+    .close {
+      color: red;
+      float: right;
+      font-size: 28px;
+      cursor: pointer;
+    }
+    /* Modal cảnh báo riêng */
+    #alertModal .modal-content {
+      background-color: #222;
+      color: #fff;
+      text-align: center;
+      padding: 30px;
+      border-radius: 15px;
+      max-width: 400px;
     }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Xem Tử Vi Hôm Nay</h1>
-
     <div id="formArea">
       <input type="text" id="name" placeholder="Nhập tên của bạn">
       <input type="date" id="dob">
       <button onclick="prepareEnvelope()">Xem Tử Vi</button>
+      <button id="historyBtn" onclick="showHistory()">Xem Lịch Sử</button>
     </div>
-
     <div class="envelope" id="envelope" onclick="openEnvelope()"></div>
     <div class="click-msg" id="clickMessage"></div>
     <div class="horoscope" id="horoscopeText"></div>
   </div>
 
+  <!-- Modal lịch sử -->
+  <div id="historyModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="document.getElementById('historyModal').style.display='none'">&times;</span>
+      <h2>Lịch Sử Xem Tử Vi</h2>
+      <ul id="historyList"></ul>
+    </div>
+  </div>
+
+  <!-- Modal cảnh báo -->
+  <div id="alertModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeAlertModal()">&times;</span>
+      <p id="alertMessage" style="font-size: 18px;"></p>
+      <button onclick="closeAlertModal()" style="background: #c1f0c1; border: 2px solid green; color: black; padding: 10px 20px; border-radius: 20px; margin-top: 20px; cursor: pointer;">OK</button>
+    </div>
+  </div>
+
   <script>
+    const horoscopes = [
+      "Một chuyến đi ngắn hoặc một cuộc gặp gỡ thú vị sẽ mang lại cơ hội bất ngờ cho bạn.",
+      "Tình cảm đang phát triển theo chiều hướng tích cực.",
+      "Cẩn trọng khi xử lý công việc hôm nay.",
+      "Tài lộc sẽ đến từ người bạn không ngờ tới.",
+      "Hãy tin vào bản thân và quyết định dứt khoát.",
+    ];
+
     let clickCount = 0;
     let userInfo = "";
     let fullMessage = "";
 
-    const horoscopes = [
-  "Một chuyến đi ngắn hoặc một cuộc gặp gỡ thú vị sẽ mang lại cơ hội bất ngờ cho bạn.",
-  "Tình cảm đang phát triển theo chiều hướng tích cực, hãy tin tưởng vào trực giác của mình.",
-  "Cẩn trọng khi xử lý công việc hôm nay, nhưng đừng quá lo lắng vì vận may đang ở bên bạn.",
-  "Bạn sẽ được người khác giúp đỡ bất ngờ. Đừng ngần ngại chấp nhận và biết ơn điều đó.",
-  "Một cơ hội tài chính hoặc ý tưởng đầu tư tốt sẽ xuất hiện, hãy nắm bắt thật nhanh chóng.",
-  "Sức khỏe và tinh thần bạn hôm nay đều ổn định, thích hợp để bắt đầu điều gì đó mới mẻ.",
-  "Sự kiên trì và nỗ lực của bạn sẽ được công nhận, đừng bỏ cuộc vào phút cuối!",
-  "Bạn có thể gặp lại một người bạn cũ - và họ sẽ mang đến cho bạn một tin tốt lành.",
-  "Hãy dành thời gian chăm sóc bản thân, vì sự bình an nội tâm đang rất cần thiết hôm nay.",
-  "Một lời mời bất ngờ có thể mở ra một cánh cửa mới trong sự nghiệp hoặc tình yêu của bạn.",
-  
-  // Thêm 20 câu mới, hay và sâu sắc
-  "Hôm nay là ngày tốt để khởi đầu – một ý tưởng nhỏ có thể thay đổi cả tương lai của bạn.",
-  "Sự tử tế bạn trao đi hôm nay sẽ quay trở lại với bạn bằng những điều kỳ diệu.",
-  "Một người thân yêu đang âm thầm ủng hộ bạn – hãy trân trọng sự hiện diện đó.",
-  "Bạn có sức hút đặc biệt hôm nay – đừng ngần ngại thể hiện bản thân.",
-  "Hãy tin vào những gì bạn đang theo đuổi, dù người khác chưa hiểu bạn.",
-  "Nguồn năng lượng tích cực từ vũ trụ đang dẫn lối – đừng từ chối sự thay đổi.",
-  "Tình yêu sẽ đến một cách tự nhiên khi bạn sống thật với chính mình.",
-  "Nếu bạn đang chờ một dấu hiệu – thì đây chính là dấu hiệu đó.",
-  "Hãy cho bản thân thời gian để chữa lành – không có gì sai khi nghỉ ngơi.",
-  "Một thử thách sẽ xuất hiện hôm nay – và bạn có đủ khả năng để vượt qua nó.",
-  "Cơ hội đang ở rất gần – chỉ cần bạn đủ dũng cảm để bước ra khỏi vùng an toàn.",
-  "Tài chính của bạn sẽ cải thiện nếu bạn học cách lắng nghe lời khuyên đúng lúc.",
-  "Một hành động nhỏ hôm nay có thể tạo nên hiệu ứng lan tỏa lớn vào ngày mai.",
-  "Đừng để những nỗi sợ cũ ngăn bạn sống trọn vẹn trong hiện tại.",
-  "Bạn không cô đơn – vũ trụ luôn lắng nghe và sắp đặt điều tốt nhất cho bạn.",
-  "Tình bạn hôm nay sẽ trở thành chỗ dựa lớn trong tương lai của bạn.",
-  "Nếu bạn đang cảm thấy lạc hướng – hãy quay về với điều khiến bạn hạnh phúc.",
-  "Bạn sinh ra không phải để sống tầm thường – hãy dũng cảm làm điều khác biệt.",
-  "Một cơ hội bất ngờ trong công việc sẽ đến nếu bạn thể hiện hết mình hôm nay.",
-  "Hạnh phúc không ở đâu xa – nó nằm trong những điều giản dị bạn thường bỏ quên."
-];
-
-
     function prepareEnvelope() {
       const name = document.getElementById("name").value.trim();
       const dob = document.getElementById("dob").value.trim();
+      const today = new Date().toISOString().split('T')[0];
+      const lastOpened = localStorage.getItem("lastOpenedDate");
 
       if (!name || !dob) {
-        alert("Vui lòng nhập đầy đủ tên và ngày sinh!");
+        showAlert("Vui lòng nhập đầy đủ tên và ngày sinh!");
         return;
       }
 
+      if (lastOpened === today) {
+        showAlert("Bạn đã xem tử vi hôm nay rồi. Vui lòng quay lại vào ngày mai!");
+        return;
+      }
+
+      localStorage.setItem("lastOpenedDate", today);
       clickCount = 0;
       userInfo = `${name} (${dob})`;
       fullMessage = horoscopes[Math.floor(Math.random() * horoscopes.length)];
@@ -201,7 +219,9 @@
         setTimeout(() => {
           envelope.classList.remove("flash");
           clickMsg.innerText = "Đang mở bao lì xì...";
-          typeMessage(`${userInfo}\n\n${fullMessage}`, "horoscopeText", 30);
+          const text = `${userInfo}\n\n${fullMessage}`;
+          typeMessage(text, "horoscopeText", 30);
+          saveHistory(text);
         }, 300);
       }
     }
@@ -219,6 +239,50 @@
       }
       typeChar();
     }
+
+    function saveHistory(message) {
+      const history = JSON.parse(localStorage.getItem("horoscopeHistory") || "[]");
+      const now = new Date();
+      history.unshift({
+        datetime: now.toLocaleString(),
+        content: message
+      });
+      localStorage.setItem("horoscopeHistory", JSON.stringify(history));
+    }
+
+    function showHistory() {
+      const history = JSON.parse(localStorage.getItem("horoscopeHistory") || "[]");
+      const list = document.getElementById("historyList");
+      list.innerHTML = "";
+      if (history.length === 0) {
+        list.innerHTML = "<li>Không có lịch sử xem tử vi.</li>";
+      } else {
+        history.forEach(item => {
+          const li = document.createElement("li");
+          li.innerHTML = `<strong>${item.datetime}</strong><br>${item.content}`;
+          li.style.marginBottom = "20px";
+          list.appendChild(li);
+        });
+      }
+      document.getElementById("historyModal").style.display = "block";
+    }
+
+    function showAlert(message) {
+      document.getElementById("alertMessage").innerText = message;
+      document.getElementById("alertModal").style.display = "block";
+    }
+
+    function closeAlertModal() {
+      document.getElementById("alertModal").style.display = "none";
+    }
+
+    // Đóng modal khi nhấn ngoài vùng
+    window.onclick = function(event) {
+      const modal = document.getElementById("historyModal");
+      const alertModal = document.getElementById("alertModal");
+      if (event.target === modal) modal.style.display = "none";
+      if (event.target === alertModal) alertModal.style.display = "none";
+    };
   </script>
 </body>
 </html>
