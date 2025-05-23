@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Gửi Email với EmailJS</title>
+  <style>
+    body {
+      background: #111;
+      color: #fff;
+      font-family: sans-serif;
+      padding: 20px;
+    }
+    input, textarea, button {
+      display: block;
+      margin: 10px 0;
+      padding: 10px;
+      width: 300px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Gửi email đến người dùng</h2>
+
+  <form id="emailForm">
+    <label>Email người nhận:</label>
+    <input type="email" name="email" required>
+
+    <label>Mã đơn hàng:</label>
+    <input type="text" name="order_id" value="123456">
+
+    <label>Tên sản phẩm:</label>
+    <input type="text" name="name" value="Sản phẩm A">
+
+    <label>Số lượng:</label>
+    <input type="text" name="units" value="2">
+
+    <label>Giá:</label>
+    <input type="text" name="price" value="200000">
+
+    <label>Phí ship:</label>
+    <input type="text" name="cost.shipping" value="30000">
+
+    <button type="submit">Gửi Email</button>
+  </form>
+
+  <p id="status"></p>
+
+  <!-- Dùng EmailJS v3 với tag script -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+  <script>
+    // Khởi tạo EmailJS
+    emailjs.init('AidBr6mn9LixsTsKz'); // Public Key
+
+    const form = document.getElementById('emailForm');
+    const status = document.getElementById('status');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+      const params = Object.fromEntries(formData.entries());
+
+      emailjs.send('service_63i5lhi', 'template_chao_user', params)
+        .then(() => {
+          status.textContent = '✅ Gửi email thành công!';
+          status.style.color = 'lime';
+        })
+        .catch((error) => {
+          status.textContent = '❌ Gửi email thất bại!';
+          status.style.color = 'red';
+          console.error('EmailJS error:', error);
+        });
+    });
+  </script>
+</body>
+</html>
