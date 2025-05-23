@@ -56,7 +56,7 @@
       position: relative;
       width: 300px;
       height: 450px;
-      margin: 40px auto 20px;
+      margin: 40px auto 10px auto;
       background: url('https://cellphones.com.vn/sforum/wp-content/uploads/2023/12/hinh-nen-than-tai-13.jpg') center center no-repeat;
       background-size: cover;
       border-radius: 20px;
@@ -76,7 +76,10 @@
       font-size: 20px;
       font-weight: bold;
       margin-top: 10px;
+      margin-bottom: 10px;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+      color: #fffbcc;
+      text-align: center;
     }
     .horoscope {
       width: 90%;
@@ -97,7 +100,6 @@
       color: #000;
     }
 
-    /* Lịch sử popup */
     .modal {
       display: none;
       position: fixed;
@@ -125,8 +127,6 @@
       font-size: 28px;
       cursor: pointer;
     }
-
-    /* Nút xóa dữ liệu */
     #clearDataBtn {
       position: fixed;
       top: 15px;
@@ -159,6 +159,7 @@
       <button onclick="prepareEnvelope()">Xem Tử Vi</button>
       <button id="historyBtn" onclick="showHistory()">Xem Lịch Sử</button>
     </div>
+
     <div class="envelope" id="envelope" onclick="openEnvelope()"></div>
     <div class="click-msg" id="clickMessage"></div>
     <div class="horoscope" id="horoscopeText"></div>
@@ -285,7 +286,6 @@
       document.getElementById("historyModal").style.display = "block";
     }
 
-    // Đóng modal khi nhấn ngoài vùng
     window.onclick = function(event) {
       const modal = document.getElementById("historyModal");
       if (event.target === modal) {
@@ -293,7 +293,6 @@
       }
     }
 
-    // Xóa dữ liệu toàn bộ
     function clearAllData() {
       if (confirm("Bạn có chắc chắn muốn xóa toàn bộ dữ liệu?")) {
         localStorage.clear();
