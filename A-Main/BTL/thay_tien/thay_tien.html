@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Kỹ thuật lập trình C#</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #1e1e2f;
+      font-family: 'Fira Code', monospace;
+      color: #ffffff;
+      padding: 30px 20px;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background-color: #2c2c3c;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.4);
+    }
+
+    h1 {
+      color: #ffcc00;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .warning {
+      font-size: 1.5rem;
+      color: #ff6666;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .agree {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .file-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .file-list li {
+      background-color: #1a1a26;
+      margin-bottom: 15px;
+      padding: 15px 20px;
+      border-radius: 8px;
+      transition: 0.3s;
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .file-list li.enabled {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .file-list li:hover {
+      background-color: #33334d;
+      transform: translateY(-3px);
+    }
+
+    .file-list a {
+      color: #9efeff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #999;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 20px;
+      }
+
+      .container {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 1.4rem;
+      }
+
+      .warning {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📘 Kỹ Thuật Lập Trình C#</h1>
+
+    <div class="warning">👉 Code Chỉ Tìm Hiểu - Nhớ Biến Tấu Code.</div>
+
+    <div class="agree">
+      <label>
+        <input type="checkbox" id="agreeCheckbox" onchange="toggleDownload()"> Tôi đồng ý với lưu ý trên.
+      </label>
+    </div>
+
+    <ul class="file-list" id="fileList">
+      <li><a href="BT_Cau_Truc_Lap_Zalo.rar" download>📝 BT_Cau_Truc_Lap_Zalo</a></li>
+      <li><a href="BT_Cau_Truc_Re_Nhanh_Zalo.rar" download>📦 BT_Cau_Truc_Re_Nhanh_Zalo</a></li>
+      <li><a href="Chương 4- while.rar" download>🔍 Chương 4 - while</a></li>
+      <li><a href="Chương 5 - Hàm.rar" download>📊 Chương 5 - Hàm</a></li>
+      <li><a href="Chương 6 - Mảng.rar" download>🧠 Chương 6 - Mảng</a></li>
+    </ul>
+  </div>
+
+  <footer>
+    &copy; 2025 Lập trình C# - Trang chia sẻ bởi Tú
+  </footer>
+
+  <script>
+    function toggleDownload() {
+      const isChecked = document.getElementById("agreeCheckbox").checked;
+      const items = document.querySelectorAll("#fileList li");
+      items.forEach(item => {
+        if (isChecked) {
+          item.classList.add("enabled");
+        } else {
+          item.classList.remove("enabled");
+        }
+      });
+    }
+  </script>
+</body>
+</html>
