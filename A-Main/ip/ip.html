@@ -3,10 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Danh Sách IP Thành Viên Đã Vào</title>
-  <div class="text-right text-sm text-gray-600 p-4">
-    Xin chào, <span id="user-name">...</span> (<span id="user-email">...</span>)
-    <br>⏳ Tự động thoát sau: <span id="countdown">02:05</span>
-  </div>
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
@@ -54,7 +51,12 @@
 
     <p class="text-center text-gray-500 mt-4 sm:mt-6 text-xs sm:text-sm italic">⏳ Tự động cập nhật mỗi 10 giây</p>
   </div>
-  
+  <footer class="fixed bottom-0 right-0 m-4 bg-white/90 backdrop-blur-md border border-gray-200 rounded-xl shadow-md px-4 py-3 text-sm text-gray-700 text-right">
+  👋 <span class="text-blue-700 font-semibold">Xin chào,</span> <span id="user-name" class="text-blue-600 font-bold">...</span>
+  <br>📧 <span class="text-blue-700">Email:</span> <span id="user-email" class="text-blue-600 font-medium">...</span>
+  <br>⏳ <span class="text-gray-600">Tự động thoát sau:</span> <span id="countdown" class="font-bold text-red-600">02:05</span>
+</footer>
+
   <script>
   // Hàm tạo IP ngẫu nhiên thuộc Việt Nam (dựa trên dải IP phổ biến tại VN)
   function generateRandomVNIP() {
