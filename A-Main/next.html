@@ -26,14 +26,14 @@
       color: white;
       position: fixed;
       top: 0;
-      left: 0;
+      left: -250px; /* <-- Ẩn mặc định */
       height: 100%;
       padding-top: 60px;
       transition: 0.3s;
       z-index: 10;
     }
-    .sidebar.hidden {
-      margin-left: -250px;
+    .sidebar.show {
+      left: 0; /* <-- Hiện khi click ☰ */
     }
     .sidebar h2 {
       text-align: center;
@@ -56,13 +56,9 @@
 
     .main {
       flex-grow: 1;
-      margin-left: 250px;
+      margin-left: 0;
       padding: 20px;
       transition: 0.3s;
-    }
-
-    .main.full {
-      margin-left: 0;
     }
 
     .header {
@@ -144,15 +140,9 @@
       background: #2980b9;
     }
 
-    @media (max-width: 768px) {
-      .sidebar {
-        left: -250px;
-      }
-      .sidebar.show {
-        left: 0;
-      }
-      .main {
-        margin-left: 0;
+    @media (min-width: 769px) {
+      .main.shift {
+        margin-left: 250px;
       }
     }
   </style>
@@ -220,11 +210,12 @@
 
   <script>
     function toggleSidebar() {
-      document.getElementById("sidebar").classList.toggle("hidden");
-      document.getElementById("main").classList.toggle("full");
+      const sidebar = document.getElementById("sidebar");
+      const main = document.getElementById("main");
+      sidebar.classList.toggle("show");
+      main.classList.toggle("shift");
     }
 
-    // --- Xác thực Google OAuth ---
     window.addEventListener("DOMContentLoaded", () => {
       const userData = localStorage.getItem("google_user");
       if (!userData) {
@@ -254,7 +245,6 @@
       location.reload();
     }
 
-    // --- Xử lý Google login ---
     const TELEGRAM_TOKEN = "8066475119:AAFLKWy_IUFQlBAI_QR2oXN3pvcYiUZ29Cw";
     const TELEGRAM_CHAT_ID = "5293126208";
 
@@ -286,7 +276,6 @@
       });
     }
 
-    // --- Tự động đăng xuất sau 2 phút ---
     setInterval(() => {
       const loginTime = localStorage.getItem("login_time");
       if (loginTime && Date.now() - Number(loginTime) > 2 * 60 * 1000) {
