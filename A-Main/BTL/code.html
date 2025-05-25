@@ -124,19 +124,6 @@
             }
         }
     </style>
-    <script>
-        function enableDownloads() {
-            const checkbox = document.getElementById('confirm-checkbox');
-            const links = document.querySelectorAll('.download a');
-            links.forEach(link => {
-                if (checkbox.checked) {
-                    link.classList.add('enabled');
-                } else {
-                    link.classList.remove('enabled');
-                }
-            });
-        }
-    </script>
 </head>
 <body>
     <div class="container">
@@ -183,6 +170,19 @@ namespace HelloWorld
             <a href="B6.txt" download>⬇️ Tải file BTL_6</a>
         </div>
     </div>
+    <script>
+        function enableDownloads() {
+            const checkbox = document.getElementById('confirm-checkbox');
+            const links = document.querySelectorAll('.download a');
+            links.forEach(link => {
+                if (checkbox.checked) {
+                    link.classList.add('enabled');
+                } else {
+                    link.classList.remove('enabled');
+                }
+            });
+        }
+    </script>
 <script>
  window.addEventListener("DOMContentLoaded", () => {
   const userData = localStorage.getItem("google_user");
