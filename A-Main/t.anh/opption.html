@@ -50,31 +50,31 @@
 </footer>
 
 
-  <script>
-    window.addEventListener("DOMContentLoaded", () => {
+  <script defer>
+  document.addEventListener("DOMContentLoaded", () => {
+    try {
       const userData = localStorage.getItem("google_user");
+
       if (!userData) {
+        console.warn("Không tìm thấy dữ liệu người dùng");
         window.location.href = "https://anhtu1.id.vn";
         return;
       }
 
-      try {
-        const user = JSON.parse(userData);
-        if (!user.email.endsWith("@stu.upt.edu.vn")) {
-          localStorage.removeItem("google_user");
-          window.location.href = "https://anhtu1.id.vn";
-          return;
-        }
+      const user = JSON.parse(userData);
 
-        document.getElementById("user-name").innerText = user.name || "Không rõ";
-        document.getElementById("user-email").innerText = user.email || "Không rõ";
-      } catch (e) {
+      if (!user?.email || !user.email.endsWith("@stu.upt.edu.vn")) {
+        console.warn("Email không hợp lệ hoặc không đúng domain:", user?.email);
         localStorage.removeItem("google_user");
         window.location.href = "https://anhtu1.id.vn";
+        return;
       }
 
+      document.getElementById("user-name").innerText = user.name || "Không rõ";
+      document.getElementById("user-email").innerText = user.email || "Không rõ";
+
       // Đếm ngược 2 phút 5 giây
-      let timeLeft = 125; // 125 giây
+      let timeLeft = 125;
       const countdownElement = document.getElementById("countdown");
 
       const timer = setInterval(() => {
@@ -89,17 +89,13 @@
 
         timeLeft--;
       }, 1000);
-    });
-  </script>
- <script>
-    function sendToTelegram(choice) {
-      const token = "7393833255:AAEHbjSRIky-AFJNFCXqfdfMv7UHWla_T3s"; 
-      const chatId = "5293126208";  
-      const message = `Người dùng đã chọn: ${choice}`;
-      const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
-
-      fetch(url).catch(err => console.error("Telegram error:", err));
+    } catch (err) {
+      console.error("Lỗi xử lý người dùng:", err);
+      localStorage.removeItem("google_user");
+      window.location.href = "https://anhtu1.id.vn";
     }
-  </script>
+  });
+</script>
+
 </body>
 </html>
