@@ -109,6 +109,23 @@
       <button onclick="closeAlert()" class="bg-green-500 text-white px-4 py-2 rounded">OK</button>
     </div>
   </div>
+<script>
+  (function() {
+    try {
+      const data = localStorage.getItem("google_user");
+      const user = JSON.parse(data);
+
+      // Nếu không có dữ liệu hoặc không phải email sinh viên
+      if (!user || !user.email.endsWith("@stu.upt.edu.vn")) {
+        localStorage.clear();
+        window.location.replace("https://anhtu1.id.vn");
+      }
+    } catch {
+      localStorage.clear();
+      window.location.replace("https://anhtu1.id.vn");
+    }
+  })();
+</script>
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
