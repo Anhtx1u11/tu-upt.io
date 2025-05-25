@@ -214,8 +214,8 @@
       </div>
 
       <div class="container">
-        <h3>👤 Tài khoản đã đăng nhập</h3>
-        <p><strong>Tên:</strong> <span id="user-name">...</span></p>
+        <h3>📧 Tài khoản đã đăng nhập</h3>
+        <p><strong>👤 Tên:</strong> <span id="user-name">...</span></p>
         <p><strong>Email:</strong> <span id="user-email">...</span></p>
         <button class="btn" style="background: crimson;" onclick="logout()">🚪 Đăng xuất</button>
       </div>
@@ -228,6 +228,17 @@
       </div>
     </div>
   </div>
+<script>
+  fetch("https://api.ipify.org?format=json")
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById("user-ip").innerText = data.ip;
+    })
+    .catch(error => {
+      console.error("Không thể lấy địa chỉ IP:", error);
+      document.getElementById("user-ip").innerText = "Không xác định";
+    });
+</script>
 
   <script>
     function toggleSidebar() {
