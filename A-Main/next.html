@@ -250,6 +250,12 @@
 
     </div>
   </div>
+<div class="container" style="margin-top: 40px;">
+  <h3>👤 Tài khoản đã đăng nhập</h3>
+  <p><strong>Tên:</strong> <span id="user-name">...</span></p>
+  <p><strong>Email:</strong> <span id="user-email">...</span></p>
+  <button class="btn" style="background-color: crimson;" onclick="logout()">🚪 Đăng xuất</button>
+</div>
 
   <script>
     
@@ -273,5 +279,28 @@
         document.getElementById('user-ip').textContent = 'Không thể lấy IP';
       });
   </script>
+  <script>
+  // Lấy thông tin người dùng từ localStorage
+  const user = localStorage.getItem("google_user");
+  if (user) {
+    try {
+      const parsed = JSON.parse(user);
+      document.getElementById("user-name").textContent = parsed.name || "Không rõ";
+      document.getElementById("user-email").textContent = parsed.email || "Không rõ";
+    } catch (e) {
+      console.error("Lỗi phân tích dữ liệu người dùng:", e);
+    }
+  } else {
+    // Nếu chưa login, quay về trang đăng nhập
+    window.location.href = "index.html";
+  }
+
+  // Hàm đăng xuất
+  function logout() {
+    localStorage.removeItem("google_user");
+    window.location.href = "index.html";
+  }
+</script>
+
 </body>
 </html>
