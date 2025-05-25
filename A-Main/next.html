@@ -326,6 +326,28 @@
     }
   }, 5000); // Kiểm tra mỗi 5 giây
 </script>
+<script>
+  // Hiển thị tên và email người dùng sau khi đăng nhập
+  window.addEventListener("DOMContentLoaded", () => {
+    const userData = localStorage.getItem("google_user");
+    if (userData) {
+      try {
+        const user = JSON.parse(userData);
+        document.getElementById("user-name").innerText = user.name || "Không rõ";
+        document.getElementById("user-email").innerText = user.email || "Không rõ";
+      } catch (e) {
+        console.error("Lỗi đọc dữ liệu người dùng:", e);
+      }
+    }
+  });
+
+  // Hàm đăng xuất
+  function logout() {
+    localStorage.removeItem("google_user");
+    localStorage.removeItem("login_time");
+    location.reload(); // hoặc: window.location.href = "https://anhtu1.id.vn";
+  }
+</script>
 
 </body>
 </html>
