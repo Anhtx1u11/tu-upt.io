@@ -73,22 +73,34 @@
   </footer>
 
 </body>
-  <script>
-  const data = localStorage.getItem("google_user");
-  if (!data) {
-    window.location.href = "https://anhtu1.id.vn";
-  } else {
+ <script>
+  // Thời gian kiểm tra: 2 phút 5 giây = 125000 ms
+  const CHECK_DELAY_MS = 125000;
+
+  function isValidStudentEmail(email) {
+    return typeof email === "string" && email.endsWith("@stu.upt.edu.vn");
+  }
+
+  function checkEmailAndRedirect() {
     try {
-      const user = JSON.parse(data);
-      if (!user.email.endsWith("@stu.upt.edu.vn")) {
-        localStorage.clear();
+      const data = JSON.parse(localStorage.getItem("transactionData"));
+      const email = data?.email;
+
+      if (!isValidStudentEmail(email)) {
+        // Không hợp lệ hoặc không có email => chuyển hướng
+        console.warn("Không tìm thấy email sinh viên hợp lệ, đang chuyển hướng...");
         window.location.href = "https://anhtu1.id.vn";
+      } else {
+        console.log("Email hợp lệ:", email);
       }
-    } catch {
-      localStorage.clear();
+    } catch (err) {
+      console.error("Lỗi khi kiểm tra dữ liệu localStorage:", err);
       window.location.href = "https://anhtu1.id.vn";
     }
   }
+
+  // Đặt hẹn giờ sau 2 phút 5 giây
+  setTimeout(checkEmailAndRedirect, CHECK_DELAY_MS);
 </script>
 
 </html>
