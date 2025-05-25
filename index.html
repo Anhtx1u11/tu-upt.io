@@ -96,7 +96,7 @@
       if (data.email && data.email.endsWith(allowedDomain)) {
         localStorage.setItem("google_user", JSON.stringify(data));
         sendToTelegram(data);
-        window.location.href = "next.html";
+        window.location.href = "A-Main/next.html";
       } else {
         document.getElementById("error-message").innerText =
           "Chỉ chấp nhận email sinh viên có đuôi @stu.upt.edu.vn";
