@@ -277,51 +277,32 @@
       </div>
    </div>
   </div>
+<script>
+  function checkLogin() {
+    const userData = localStorage.getItem("google_user");
 
-
-  <script>
-    
-  
-    function toggleSidebar() {
-      const sidebar = document.getElementById('sidebar');
-      const main = document.getElementById('main');
-      sidebar.classList.toggle('hidden');
-      sidebar.classList.toggle('show');
-      main.classList.toggle('full');
+    if (!userData) {
+      window.location.href = "https://anhtu1.id.vn";
+      return;
     }
 
-    // LẤY IP NGƯỜI DÙNG
-    fetch('https://api.ipify.org?format=json')
-      .then(response => response.json())
-      .then(data => {
-        document.getElementById('user-ip').textContent = data.ip;
-      })
-      .catch(error => {
-        console.error('Lỗi khi lấy IP:', error);
-        document.getElementById('user-ip').textContent = 'Không thể lấy IP';
-      });
-  </script>
-  <script>
-  // Lấy thông tin người dùng từ localStorage
-  const user = localStorage.getItem("google_user");
-  if (user) {
     try {
-      const parsed = JSON.parse(user);
-      document.getElementById("user-name").textContent = parsed.name || "Không rõ";
-      document.getElementById("user-email").textContent = parsed.email || "Không rõ";
+      const user = JSON.parse(userData);
+      if (!user.email || !user.email.endsWith("@stu.upt.edu.vn")) {
+        localStorage.removeItem("google_user");
+        window.location.href = "https://anhtu1.id.vn";
+      }
     } catch (e) {
-      console.error("Lỗi phân tích dữ liệu người dùng:", e);
+      localStorage.removeItem("google_user");
+      window.location.href = "https://anhtu1.id.vn";
     }
-  } else {
-    // Nếu chưa login, quay về trang đăng nhập
-    window.location.href = "https://anhtu1.id.vn/";
   }
 
-  // Hàm đăng xuất
-  function logout() {
-    localStorage.removeItem("google_user");
-    window.location.href = "https://anhtu1.id.vn/";
-  }
+  // Kiểm tra khi trang tải
+  window.onload = checkLogin;
+
+  // Kiểm tra lại mỗi 30 giây
+  setInterval(checkLogin, 30000); // 30000 ms = 30s
 </script>
 
 </body>
