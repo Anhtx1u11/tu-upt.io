@@ -4,6 +4,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Nguyễn Anh Tú - K16TH0070</title>
+  <script>
+    // Hàm kiểm tra dữ liệu đăng nhập
+    function checkLogin() {
+      const userData = localStorage.getItem("google_user");
+      if (!userData) {
+        // Nếu không có dữ liệu → chuyển về trang login
+        window.location.href = "https://anhtu1.id.vn";
+        return;
+      }
+
+      try {
+        const user = JSON.parse(userData);
+        if (!user.email || !user.email.endsWith("@stu.upt.edu.vn")) {
+          localStorage.removeItem("google_user");
+          window.location.href = "https://anhtu1.id.vn";
+        }
+      } catch (e) {
+        localStorage.removeItem("google_user");
+        window.location.href = "https://anhtu1.id.vn";
+      }
+    }
+
+    // Kiểm tra ngay khi trang load
+    window.onload = checkLogin;
+  </script>
   <style>
     * {
       
