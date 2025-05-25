@@ -83,6 +83,9 @@
        data-shape="pill"
        data-logo_alignment="left">
   </div>
+<div id="trung-thu" style="margin-top: 10px; font-size: 14px; color: #e67e22;">🎑 Trung Thu: đang tính...</div>
+<div id="noel" style="margin-top: 5px; font-size: 14px; color: #27ae60;">🎄 Noel: đang tính...</div>
+<div id="tet" style="margin-top: 5px; font-size: 14px; color: #0072ff;">🧧 Tết Nguyên Đán: đang tính...</div>
 
   <div id="ip-display">🌐 IP của bạn: đang tải...</div>
   <div id="error-message"></div>
@@ -149,6 +152,34 @@
     .catch(() => {
       document.getElementById("ip-display").innerText = "🌐 Không lấy được IP";
     });
+  function countdown(id, eventName, eventDateStr) {
+  const eventDate = new Date(eventDateStr);
+  const now = new Date();
+  const diff = eventDate - now;
+
+  const el = document.getElementById(id);
+  if (diff <= 0) {
+    el.innerText = `🎉 ${eventName} đã đến!`;
+    return;
+  }
+
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((diff / (1000 * 60)) % 60);
+  const seconds = Math.floor((diff / 1000) % 60);
+
+  el.innerText = `⏳ ${eventName}: ${days} ngày ${hours} giờ ${minutes} phút ${seconds} giây`;
+}
+
+function updateAllCountdowns() {
+  countdown("trung-thu", "Trung Thu", "2025-10-05T00:00:00+07:00");
+  countdown("noel", "Noel", "2025-12-25T00:00:00+07:00");
+  countdown("tet", "Tết Nguyên Đán", "2026-02-18T00:00:00+07:00");
+}
+
+setInterval(updateAllCountdowns, 1000);
+updateAllCountdowns();
+
 </script>
 
 </body>
