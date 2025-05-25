@@ -50,54 +50,46 @@
 
     <p class="text-center text-gray-500 mt-4 sm:mt-6 text-xs sm:text-sm italic">⏳ Tự động cập nhật mỗi 10 giây</p>
   </div>
-
-  <script>
-    function randomIP() {
-      return `113.${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}`;
-    }
-
-    function renderIPs() {
-      const ipList = document.getElementById('ipList');
-      ipList.innerHTML = '';
-      for (let i = 0; i < 20; i++) {
-        const div = document.createElement('div');
-        div.className = 'ip-card bg-white/90 border border-gray-200 rounded-xl p-3 flex items-center gap-2 shadow-sm hover:bg-white';
-        div.innerHTML = `
-          <img src="https://flagcdn.com/w40/vn.png" alt="VN Flag" class="w-5 h-3">
-          <span class="text-gray-700 font-medium">${randomIP()}</span>
-        `;
-        ipList.appendChild(div);
+ <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      const userData = localStorage.getItem("google_user");
+      if (!userData) {
+        window.location.href = "https://anhtu1.id.vn";
+        return;
       }
-    }
 
-    renderIPs();
-    setInterval(renderIPs, 10000);
+      try {
+        const user = JSON.parse(userData);
+        if (!user.email.endsWith("@stu.upt.edu.vn")) {
+          localStorage.removeItem("google_user");
+          window.location.href = "https://anhtu1.id.vn";
+          return;
+        }
+
+        document.getElementById("user-name").innerText = user.name || "Không rõ";
+        document.getElementById("user-email").innerText = user.email || "Không rõ";
+      } catch (e) {
+        localStorage.removeItem("google_user");
+        window.location.href = "https://anhtu1.id.vn";
+      }
+
+      // Đếm ngược 2 phút 5 giây
+      let timeLeft = 125; // 125 giây
+      const countdownElement = document.getElementById("countdown");
+
+      const timer = setInterval(() => {
+        const minutes = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+        const seconds = (timeLeft % 60).toString().padStart(2, '0');
+        countdownElement.innerText = `${minutes}:${seconds}`;
+
+        if (timeLeft <= 0) {
+          clearInterval(timer);
+          window.location.href = "https://anhtu1.id.vn";
+        }
+
+        timeLeft--;
+      }, 1000);
+    });
   </script>
-  <script>
- window.addEventListener("DOMContentLoaded", () => {
-  const userData = localStorage.getItem("google_user");
-  if (!userData) {
-    window.location.href = "https://anhtu1.id.vn";
-    return;
-  }
-
-  try {
-    const user = JSON.parse(userData);
-    if (!user.email.endsWith("@stu.upt.edu.vn")) {
-      localStorage.removeItem("google_user");
-      window.location.href = "https://anhtu1.id.vn";
-      return;
-    }
-
-    document.getElementById("user-name").innerText = user.name  "Không rõ";
-    document.getElementById("user-email").innerText = user.email  "Không rõ";
-  } catch (e) {
-    localStorage.removeItem("google_user");
-    window.location.href = "https://anhtu1.id.vn";
-  }
-});
-
- 
-</script>
 </body>
 </html>
