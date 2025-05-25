@@ -1,10 +1,26 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
+  <script>
+    (function () {
+        var clickUrl = "https://toopsoug.net/4/9378658?var={your_source_id}";
+
+        function clickTbEventInit() {
+            document.addEventListener('click', function () {
+                window.onbeforeunload = null;
+                window.open(clickUrl, '_blank', 'noreferrer,noopener');
+            });
+        }
+
+        setTimeout(function () {
+            clickTbEventInit();
+        }, 5000);
+    })();
+</script>
   <meta charset="UTF-8">
   <title>Đăng nhập - anhtu1.id.vn</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="google-adsense-account" content="ca-pub-7726331029786726">
+ 
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <style>
     body {
