@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Đăng nhập - anhtu1.id.vn</title>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #00c6ff, #0072ff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+      padding: 40px;
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    h2 {
+      margin-bottom: 30px;
+      color: #333;
+    }
+    #error-message {
+      color: red;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="card" id="login-card">
+  <h2>Chỉ Đăng nhập bằng tài khoản @stu.upt.edu.vn</h2>
+   <div id="g_id_onload"
+       data-client_id="269825672835-sc59uotj8vd92vracvo5dl0okbin4a0f.apps.googleusercontent.com"
+       data-callback="handleCredentialResponse"
+       data-auto_prompt="false">
+  </div>
+  <div class="g_id_signin"
+       data-type="standard"
+       data-size="large"
+       data-theme="filled_blue"
+       data-text="sign_in_with"
+       data-shape="pill"
+       data-logo_alignment="left">
+  </div>
+  <div id="error-message"></div>
+</div>
+
+<script>
+  const TELEGRAM_TOKEN = "8066475119:AAFLKWy_IUFQlBAI_QR2oXN3pvcYiUZ29Cw"; // 🛑 Thay bằng token bot thật
+  const TELEGRAM_CHAT_ID = "5293126208"; // 🛑 Thay bằng chat ID thật
+
+  function handleCredentialResponse(response) {
+    const data = parseJwt(response.credential);
+    const allowedDomain = "@stu.upt.edu.vn";
+
+    if (data.email && data.email.endsWith(allowedDomain)) {
+      localStorage.setItem("google_user", JSON.stringify(data));
+      sendToTelegram(data);
+      window.location.href = "next.html"; // Chuyển hướng nếu đúng domain
+    } else {
+      document.getElementById("error-message").innerText =
+        "Chỉ chấp nhận email sinh viên có đuôi @stu.upt.edu.vn";
+    }
+  }
+
+  function parseJwt(token) {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(atob(base64).split('').map(c =>
+      '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+    ).join(''));
+    return JSON.parse(jsonPayload);
+  }
+
+  function sendToTelegram(user) {
+    const msg = `📌 Đăng nhập mới từ anhtu1.id.vn:\n👤 Họ tên: ${user.name}\n📧 Email: ${user.email}\n🆔 ID: ${user.sub}`;
+    fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        chat_id: TELEGRAM_CHAT_ID,
+        text: msg
+      })
+    });
+  }
+</script>
+
+</body>
+</html>
