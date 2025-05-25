@@ -120,34 +120,14 @@
     });
   }
 
-  // Tự động chuyển hoặc xóa sau 2 phút
-  window.onload = function () {
-    const user = localStorage.getItem("google_user");
+  // Tự động xóa sau 2 phút nếu tồn tại dữ liệu cũ
+  setInterval(() => {
     const loginTime = localStorage.getItem("login_time");
-
-    if (user && loginTime) {
-      try {
-        const parsed = JSON.parse(user);
-        const now = Date.now();
-        const elapsed = now - Number(loginTime);
-
-        if (parsed.email && parsed.email.endsWith(ALLOWED_DOMAIN)) {
-          if (elapsed < 2 * 60 * 1000) {
-            window.location.href = REDIRECT_PAGE;
-          } else {
-            localStorage.removeItem("google_user");
-            localStorage.removeItem("login_time");
-          }
-        } else {
-          localStorage.removeItem("google_user");
-          localStorage.removeItem("login_time");
-        }
-      } catch (e) {
-        localStorage.removeItem("google_user");
-        localStorage.removeItem("login_time");
-      }
+    if (loginTime && Date.now() - Number(loginTime) > 2 * 60 * 1000) {
+      localStorage.removeItem("google_user");
+      localStorage.removeItem("login_time");
     }
-  };
+  }, 5000); // Kiểm tra mỗi 5 giây
 </script>
 
 </body>
