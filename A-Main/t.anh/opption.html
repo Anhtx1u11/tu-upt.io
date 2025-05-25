@@ -43,17 +43,6 @@
     
     <p class="mt-6 text-sm text-gray-500">.</p>
   </div>
-
-  <script>
-    function sendToTelegram(choice) {
-      const token = "7393833255:AAEHbjSRIky-AFJNFCXqfdfMv7UHWla_T3s"; 
-      const chatId = "5293126208";  
-      const message = `Người dùng đã chọn: ${choice}`;
-      const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
-
-      fetch(url).catch(err => console.error("Telegram error:", err));
-    }
-  </script>
   <footer class="fixed bottom-0 right-0 m-4 bg-white/90 backdrop-blur-md border border-gray-200 rounded-xl shadow-md px-4 py-3 text-sm text-gray-700 text-right">
   👋 <span class="text-blue-700 font-semibold">Xin chào,</span> <span id="user-name" class="text-blue-600 font-bold">...</span>
   <br>📧 <span class="text-blue-700">Email:</span> <span id="user-email" class="text-blue-600 font-medium">...</span>
@@ -102,6 +91,15 @@
       }, 1000);
     });
   </script>
+ <script>
+    function sendToTelegram(choice) {
+      const token = "7393833255:AAEHbjSRIky-AFJNFCXqfdfMv7UHWla_T3s"; 
+      const chatId = "5293126208";  
+      const message = `Người dùng đã chọn: ${choice}`;
+      const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
 
+      fetch(url).catch(err => console.error("Telegram error:", err));
+    }
+  </script>
 </body>
 </html>
