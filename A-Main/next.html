@@ -5,30 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Nguyễn Anh Tú - K16TH0070</title>
   <script>
-    // Hàm kiểm tra dữ liệu đăng nhập
-    function checkLogin() {
-      const userData = localStorage.getItem("google_user");
-      if (!userData) {
-        // Nếu không có dữ liệu → chuyển về trang login
+  window.addEventListener("DOMContentLoaded", () => {
+    const userData = localStorage.getItem("google_user");
+    if (!userData) {
+      window.location.href = "https://anhtu1.id.vn";
+      return;
+    }
+
+    try {
+      const user = JSON.parse(userData);
+      // Kiểm tra email hợp lệ
+      if (!user.email || !user.email.endsWith("@stu.upt.edu.vn")) {
+        localStorage.removeItem("google_user");
         window.location.href = "https://anhtu1.id.vn";
         return;
       }
 
-      try {
-        const user = JSON.parse(userData);
-        if (!user.email || !user.email.endsWith("@stu.upt.edu.vn")) {
-          localStorage.removeItem("google_user");
-          window.location.href = "https://anhtu1.id.vn";
-        }
-      } catch (e) {
-        localStorage.removeItem("google_user");
-        window.location.href = "https://anhtu1.id.vn";
-      }
-    }
+      // ✅ Nếu hợp lệ → hiển thị tên và email
+      document.getElementById("user-name").innerText = user.name || "Không rõ";
+      document.getElementById("user-email").innerText = user.email || "Không rõ";
 
-    // Kiểm tra ngay khi trang load
-    window.onload = checkLogin;
-  </script>
+    } catch (e) {
+      console.error("Lỗi đọc dữ liệu người dùng:", e);
+      localStorage.removeItem("google_user");
+      window.location.href = "https://anhtu1.id.vn";
+    }
+  });
+
+  // Hàm đăng xuất
+  function logout() {
+    localStorage.removeItem("google_user");
+    localStorage.removeItem("login_time");
+    location.reload();
+  }
+</script>
+
   <style>
     * {
       
