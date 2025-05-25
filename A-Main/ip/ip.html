@@ -50,6 +50,10 @@
 
     <p class="text-center text-gray-500 mt-4 sm:mt-6 text-xs sm:text-sm italic">⏳ Tự động cập nhật mỗi 10 giây</p>
   </div>
+  <div class="text-right text-sm text-gray-600 p-4">
+    Xin chào, <span id="user-name">...</span> (<span id="user-email">...</span>)
+    <br>⏳ Tự động thoát sau: <span id="countdown">02:05</span>
+  </div>
  <script>
     window.addEventListener("DOMContentLoaded", () => {
       const userData = localStorage.getItem("google_user");
