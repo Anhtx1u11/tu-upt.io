@@ -54,6 +54,51 @@
     Xin chào, <span id="user-name">...</span> (<span id="user-email">...</span>)
     <br>⏳ Tự động thoát sau: <span id="countdown">02:05</span>
   </div>
+  <script>
+  // Hàm tạo IP ngẫu nhiên thuộc Việt Nam (dựa trên dải IP phổ biến tại VN)
+  function generateRandomVNIP() {
+    const ipRanges = [
+      [14, 15],    // VNPT
+      [27, 27],    // FPT
+      [42, 43],    // Viettel
+      [101, 102],  // Mobifone
+      [113, 115],  // CMC
+      [171, 171],  // Viettel mobile
+      [203, 203]   // VNNIC
+    ];
+
+    const range = ipRanges[Math.floor(Math.random() * ipRanges.length)];
+    const a = range[0] + Math.floor(Math.random() * (range[1] - range[0] + 1));
+    const b = Math.floor(Math.random() * 256);
+    const c = Math.floor(Math.random() * 256);
+    const d = Math.floor(Math.random() * 256);
+    return `${a}.${b}.${c}.${d}`;
+  }
+
+  // Hàm tạo và hiển thị thẻ IP
+  function addRandomIP() {
+    const ip = generateRandomVNIP();
+    const ipList = document.getElementById("ipList");
+
+    const div = document.createElement("div");
+    div.className = "ip-card bg-white border border-gray-200 rounded-xl p-3 sm:p-4 shadow hover:shadow-md";
+    div.innerHTML = `
+      <div class="font-semibold text-gray-800">🌐 ${ip}</div>
+      <div class="text-xs text-gray-500 mt-1">Đã vào lúc: ${new Date().toLocaleTimeString('vi-VN')}</div>
+    `;
+
+    ipList.prepend(div); // thêm lên đầu danh sách
+  }
+
+  // Tạo IP ngẫu nhiên mỗi 10 giây
+  setInterval(addRandomIP, 10000);
+
+  // Tạo sẵn một vài IP khi tải trang
+  for (let i = 0; i < 5; i++) {
+    addRandomIP();
+  }
+</script>
+
  <script>
     window.addEventListener("DOMContentLoaded", () => {
       const userData = localStorage.getItem("google_user");
