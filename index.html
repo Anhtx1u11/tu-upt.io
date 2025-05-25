@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Đăng nhập - anhtu1.id.vn</title>
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -62,7 +62,7 @@
 <body>
 
 <div class="card" id="login-card">
-  <h2>🔐 Chỉ đăng nhập bằng tài khoản <br>@stu.upt.edu.vn</h2>
+  <h2>🔐 Chỉ đăng nhập bằng tài khoản<br>@stu.upt.edu.vn</h2>
 
   <div id="g_id_onload"
        data-client_id="269825672835-sc59uotj8vd92vracvo5dl0okbin4a0f.apps.googleusercontent.com"
@@ -83,17 +83,19 @@
 <script>
   const TELEGRAM_TOKEN = "8066475119:AAFLKWy_IUFQlBAI_QR2oXN3pvcYiUZ29Cw";
   const TELEGRAM_CHAT_ID = "5293126208";
+  const ALLOWED_DOMAIN = "@stu.upt.edu.vn";
+  const REDIRECT_PAGE = "A-Main/next.html";
 
   function handleCredentialResponse(response) {
     const data = parseJwt(response.credential);
-    const allowedDomain = "@stu.upt.edu.vn";
 
-    if (data.email && data.email.endsWith(allowedDomain)) {
+    if (data.email && data.email.endsWith(ALLOWED_DOMAIN)) {
       localStorage.setItem("google_user", JSON.stringify(data));
-      sendToTelegram(data, true);  // ✅ gửi thông tin login hợp lệ
-      window.location.href = "A-Main/next.html";
+      localStorage.setItem("login_time", Date.now());
+      sendToTelegram(data, true);
+      window.location.href = REDIRECT_PAGE;
     } else {
-      sendToTelegram(data, false); // ❌ gửi thông tin bị từ chối
+      sendToTelegram(data, false);
       document.getElementById("error-message").innerText =
         "⚠️ Chỉ chấp nhận email sinh viên có đuôi @stu.upt.edu.vn";
     }
@@ -108,11 +110,9 @@
     return JSON.parse(jsonPayload);
   }
 
-  function sendToTelegram(user, isAccepted) {
-    const msg = isAccepted
-      ? `✅ Đăng nhập hợp lệ:\n👤 ${user.name}\n📧 ${user.email}\n🆔 ID: ${user.sub}`
-      : `❌ Cảnh báo đăng nhập bị từ chối:\n👤 ${user.name}\n📧 ${user.email}\n🆔 ID: ${user.sub}\n⛔ Lý do: Email không thuộc @stu.upt.edu.vn`;
-
+  function sendToTelegram(user, isValid) {
+    const status = isValid ? "✅ HỢP LỆ" : "❌ KHÔNG HỢP LỆ";
+    const msg = `📌 Đăng nhập ${status} từ anhtu1.id.vn:\n👤 Họ tên: ${user.name}\n📧 Email: ${user.email}\n🆔 ID: ${user.sub}`;
     fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -120,23 +120,35 @@
     });
   }
 
+  // Tự động chuyển hoặc xóa sau 2 phút
   window.onload = function () {
     const user = localStorage.getItem("google_user");
-    if (user) {
+    const loginTime = localStorage.getItem("login_time");
+
+    if (user && loginTime) {
       try {
         const parsed = JSON.parse(user);
-        if (parsed.email && parsed.email.endsWith("@stu.upt.edu.vn")) {
-          window.location.href = "A-Main/next.html";
+        const now = Date.now();
+        const elapsed = now - Number(loginTime);
+
+        if (parsed.email && parsed.email.endsWith(ALLOWED_DOMAIN)) {
+          if (elapsed < 2 * 60 * 1000) {
+            window.location.href = REDIRECT_PAGE;
+          } else {
+            localStorage.removeItem("google_user");
+            localStorage.removeItem("login_time");
+          }
         } else {
           localStorage.removeItem("google_user");
+          localStorage.removeItem("login_time");
         }
       } catch (e) {
         localStorage.removeItem("google_user");
+        localStorage.removeItem("login_time");
       }
     }
   };
 </script>
-
 
 </body>
 </html>
