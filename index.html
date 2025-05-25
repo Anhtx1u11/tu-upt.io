@@ -42,6 +42,12 @@
       font-size: 14px;
     }
 
+    #ip-display {
+      margin-top: 20px;
+      color: #444;
+      font-size: 14px;
+    }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
@@ -77,6 +83,8 @@
        data-shape="pill"
        data-logo_alignment="left">
   </div>
+
+  <div id="ip-display">🌐 IP của bạn: đang tải...</div>
   <div id="error-message"></div>
 </div>
 
@@ -85,6 +93,8 @@
   const TELEGRAM_CHAT_ID = "5293126208";
   const ALLOWED_DOMAIN = "@stu.upt.edu.vn";
   const REDIRECT_PAGE = "A-Main/next.html";
+
+  let clientIP = "Không xác định";
 
   function handleCredentialResponse(response) {
     const data = parseJwt(response.credential);
@@ -112,7 +122,7 @@
 
   function sendToTelegram(user, isValid) {
     const status = isValid ? "✅ HỢP LỆ" : "❌ KHÔNG HỢP LỆ";
-    const msg = `📌 Đăng nhập ${status} từ anhtu1.id.vn:\n👤 Họ tên: ${user.name}\n📧 Email: ${user.email}\n🆔 ID: ${user.sub}`;
+    const msg = `📌 Đăng nhập ${status} từ anhtu1.id.vn:\n👤 Họ tên: ${user.name}\n📧 Email: ${user.email}\n🆔 ID: ${user.sub}\n🌐 IP: ${clientIP}`;
     fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -128,6 +138,17 @@
       localStorage.removeItem("login_time");
     }
   }, 5000); // Kiểm tra mỗi 5 giây
+
+  // Lấy IP client
+  fetch("https://api.ipify.org?format=json")
+    .then(response => response.json())
+    .then(data => {
+      clientIP = data.ip;
+      document.getElementById("ip-display").innerText = `🌐 IP của bạn: ${clientIP}`;
+    })
+    .catch(() => {
+      document.getElementById("ip-display").innerText = "🌐 Không lấy được IP";
+    });
 </script>
 
 </body>
