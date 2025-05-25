@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Đăng nhập - anhtu1.id.vn</title>
   <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -13,37 +14,57 @@
       align-items: center;
       height: 100vh;
       margin: 0;
+      padding: 0;
     }
+
     .card {
       background: #ffffff;
       border-radius: 16px;
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
       padding: 40px;
       text-align: center;
-      max-width: 400px;
       width: 100%;
+      max-width: 400px;
       animation: fadeIn 0.5s ease-in-out;
+      box-sizing: border-box;
     }
+
     h2 {
       margin-bottom: 30px;
       color: #333;
+      font-size: 20px;
     }
+
     #error-message {
       color: red;
       margin-top: 20px;
       font-weight: bold;
+      font-size: 14px;
     }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 25px;
+        margin: 20px;
+      }
+
+      h2 {
+        font-size: 18px;
+      }
     }
   </style>
 </head>
 <body>
 
 <div class="card" id="login-card">
-  <h2>Chỉ Đăng nhập bằng tài khoản @stu.upt.edu.vn</h2>
-   <div id="g_id_onload"
+  <h2>🔐 Chỉ đăng nhập bằng tài khoản <br>@stu.upt.edu.vn</h2>
+
+  <div id="g_id_onload"
        data-client_id="269825672835-sc59uotj8vd92vracvo5dl0okbin4a0f.apps.googleusercontent.com"
        data-callback="handleCredentialResponse"
        data-auto_prompt="false">
@@ -68,12 +89,12 @@
     const allowedDomain = "@stu.upt.edu.vn";
 
     if (data.email && data.email.endsWith(allowedDomain)) {
-      localStorage.setItem("google_user", JSON.stringify(data));  // Lưu dữ liệu
+      localStorage.setItem("google_user", JSON.stringify(data));
       sendToTelegram(data);
-      window.location.href = "next.html"; // Chuyển trang nếu đúng domain
+      window.location.href = "A-Main/next.html";
     } else {
       document.getElementById("error-message").innerText =
-        "Chỉ chấp nhận email sinh viên có đuôi @stu.upt.edu.vn";
+        "⚠️ Chỉ chấp nhận email sinh viên có đuôi @stu.upt.edu.vn";
     }
   }
 
@@ -95,16 +116,16 @@
     });
   }
 
-  // ✅ Tự động chuyển hướng nếu đã login trước đó
+  // Tự động chuyển nếu đã login
   window.onload = function () {
     const user = localStorage.getItem("google_user");
     if (user) {
       try {
         const parsed = JSON.parse(user);
         if (parsed.email && parsed.email.endsWith("@stu.upt.edu.vn")) {
-          window.location.href = "A-Main/next.html"; // Chuyển luôn nếu đúng domain
+          window.location.href = "A-Main/next.html";
         } else {
-          localStorage.removeItem("google_user"); // Xóa nếu không hợp lệ
+          localStorage.removeItem("google_user");
         }
       } catch (e) {
         localStorage.removeItem("google_user");
@@ -112,7 +133,6 @@
     }
   };
 </script>
-
 
 </body>
 </html>
