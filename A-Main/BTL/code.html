@@ -183,6 +183,32 @@ namespace HelloWorld
             <a href="B6.txt" download>⬇️ Tải file BTL_6</a>
         </div>
     </div>
+<script>
+ window.addEventListener("DOMContentLoaded", () => {
+  const userData = localStorage.getItem("google_user");
+  if (!userData) {
+    window.location.href = "https://anhtu1.id.vn";
+    return;
+  }
+
+  try {
+    const user = JSON.parse(userData);
+    if (!user.email.endsWith("@stu.upt.edu.vn")) {
+      localStorage.removeItem("google_user");
+      window.location.href = "https://anhtu1.id.vn";
+      return;
+    }
+
+    document.getElementById("user-name").innerText = user.name || "Không rõ";
+    document.getElementById("user-email").innerText = user.email || "Không rõ";
+  } catch (e) {
+    localStorage.removeItem("google_user");
+    window.location.href = "https://anhtu1.id.vn";
+  }
+});
+
+ 
+</script>
 
     <footer>
         &copy; 2025 Học lập trình C# cùng Tú
