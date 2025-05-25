@@ -54,7 +54,14 @@
       fetch(url).catch(err => console.error("Telegram error:", err));
     }
   </script>
-   <script>
+  <footer class="fixed bottom-0 right-0 m-4 bg-white/90 backdrop-blur-md border border-gray-200 rounded-xl shadow-md px-4 py-3 text-sm text-gray-700 text-right">
+  👋 <span class="text-blue-700 font-semibold">Xin chào,</span> <span id="user-name" class="text-blue-600 font-bold">...</span>
+  <br>📧 <span class="text-blue-700">Email:</span> <span id="user-email" class="text-blue-600 font-medium">...</span>
+  <br>⏳ <span class="text-gray-600">Tự động thoát sau:</span> <span id="countdown" class="font-bold text-red-600">02:05</span>
+</footer>
+
+
+  <script>
     window.addEventListener("DOMContentLoaded", () => {
       const userData = localStorage.getItem("google_user");
       if (!userData) {
@@ -95,5 +102,6 @@
       }, 1000);
     });
   </script>
+
 </body>
 </html>
