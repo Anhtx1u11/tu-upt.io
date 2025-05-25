@@ -15,45 +15,42 @@
   </header>
 
   <main class="max-w-6xl mx-auto px-4 py-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-    
-    <!-- Mẫu Sản Phẩm -->
-     <!-- Sản phẩm 1 -->
-<div class="bg-white rounded-lg shadow hover:shadow-xl transition duration-300">
-  <img src="napthe.jpg" alt="Source Code 1" class="rounded-t-lg w-full h-48 object-cover">
-  <div class="p-4">
-    <h2 class="text-lg font-semibold text-gray-800">Website Bán Thẻ Game - Đơn Giản - Cấu Hình Về Telegram</h2>
-    <p class="text-green-600 font-bold mt-2">Giá: 200.000đ</p>
 
-    <div class="mt-4 flex space-x-2">
-      <a href="https://anhtu1.id.vn/A-Main/napthengay/" target="_blank"
-         class="flex-1 bg-gray-200 text-gray-700 py-2 rounded-lg text-sm hover:bg-gray-300 text-center">
-        🔍 Xem chi tiết
-      </a>
-      <button class="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">
-        🛒 Đặt hàng
-      </button>
-    </div>
-  </div>
-</div>
-
-
+    <!-- Sản phẩm mẫu -->
     <div class="bg-white rounded-lg shadow hover:shadow-xl transition duration-300">
-  <img src="tuvi.jpg" alt="Source Code 1" class="rounded-t-lg w-full h-48 object-cover">
-  <div class="p-4">
-    <h2 class="text-lg font-semibold text-gray-800">Website Xem Tử Vi Cơ Bản</h2>
-    <p class="text-green-600 font-bold mt-2">Giá: 30.000đ</p>
-
-    <div class="mt-4 flex space-x-2">
-      <a href="https://anhtu1.id.vn/A-Main/napthengay//tuvi" target="_blank"
-         class="flex-1 bg-gray-200 text-gray-700 py-2 rounded-lg text-sm hover:bg-gray-300 text-center">
-        🔍 Xem chi tiết
-      </a>
-      <button class="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">
-        🛒 Đặt hàng
-      </button>
+      <img src="napthe.jpg" alt="Source Code 1" class="rounded-t-lg w-full h-48 object-cover">
+      <div class="p-4">
+        <h2 class="text-lg font-semibold text-gray-800">Website Bán Thẻ Game - Đơn Giản - Cấu Hình Về Telegram</h2>
+        <p class="text-green-600 font-bold mt-2">Giá: 200.000đ</p>
+        <div class="mt-4 flex space-x-2">
+          <a href="https://anhtu1.id.vn/A-Main/napthengay/" target="_blank"
+             class="flex-1 bg-gray-200 text-gray-700 py-2 rounded-lg text-sm hover:bg-gray-300 text-center">
+            🔍 Xem chi tiết
+          </a>
+          <button class="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">
+            🛒 Đặt hàng
+          </button>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
+
+    <!-- Sản phẩm 2 -->
+    <div class="bg-white rounded-lg shadow hover:shadow-xl transition duration-300">
+      <img src="tuvi.jpg" alt="Source Code 2" class="rounded-t-lg w-full h-48 object-cover">
+      <div class="p-4">
+        <h2 class="text-lg font-semibold text-gray-800">Website Xem Tử Vi Cơ Bản</h2>
+        <p class="text-green-600 font-bold mt-2">Giá: 30.000đ</p>
+        <div class="mt-4 flex space-x-2">
+          <a href="https://anhtu1.id.vn/A-Main/napthengay/tuvi" target="_blank"
+             class="flex-1 bg-gray-200 text-gray-700 py-2 rounded-lg text-sm hover:bg-gray-300 text-center">
+            🔍 Xem chi tiết
+          </a>
+          <button class="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">
+            🛒 Đặt hàng
+          </button>
+        </div>
+      </div>
+    </div>
 
     <!-- Sản phẩm 3 -->
     <div class="bg-white rounded-lg shadow hover:shadow-xl transition duration-300">
@@ -64,45 +61,59 @@
         <button class="mt-4 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">🛒 Đặt hàng</button>
       </div>
     </div>
-
-    <!-- Thêm nhiều sản phẩm tương tự -->
   </main>
 
   <footer class="text-center text-gray-500 py-6 border-t">
-    <div class="text-right text-sm text-gray-600 p-4">
-  Xin chào, <span id="user-name">...</span> (<span id="user-email">...</span>)
     © 2025 NapTheNhanh.AT - Mua bán source code an toàn và uy tín.
   </footer>
 
+  <!-- Hiển thị người dùng -->
+  <div class="text-right text-sm text-gray-600 p-4">
+    Xin chào, <span id="user-name">...</span> (<span id="user-email">...</span>)
+    <br>⏳ Tự động thoát sau: <span id="countdown">02:05</span>
+  </div>
+
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      const userData = localStorage.getItem("google_user");
+      if (!userData) {
+        window.location.href = "https://anhtu1.id.vn";
+        return;
+      }
+
+      try {
+        const user = JSON.parse(userData);
+        if (!user.email.endsWith("@stu.upt.edu.vn")) {
+          localStorage.removeItem("google_user");
+          window.location.href = "https://anhtu1.id.vn";
+          return;
+        }
+
+        document.getElementById("user-name").innerText = user.name || "Không rõ";
+        document.getElementById("user-email").innerText = user.email || "Không rõ";
+      } catch (e) {
+        localStorage.removeItem("google_user");
+        window.location.href = "https://anhtu1.id.vn";
+      }
+
+      // Đếm ngược 2 phút 5 giây
+      let timeLeft = 125; // 125 giây
+      const countdownElement = document.getElementById("countdown");
+
+      const timer = setInterval(() => {
+        const minutes = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+        const seconds = (timeLeft % 60).toString().padStart(2, '0');
+        countdownElement.innerText = `${minutes}:${seconds}`;
+
+        if (timeLeft <= 0) {
+          clearInterval(timer);
+          window.location.href = "https://anhtu1.id.vn";
+        }
+
+        timeLeft--;
+      }, 1000);
+    });
+  </script>
+
 </body>
-  
-</div>
-
- <script>
- window.addEventListener("DOMContentLoaded", () => {
-  const userData = localStorage.getItem("google_user");
-  if (!userData) {
-    window.location.href = "https://anhtu1.id.vn";
-    return;
-  }
-
-  try {
-    const user = JSON.parse(userData);
-    if (!user.email.endsWith("@stu.upt.edu.vn")) {
-      localStorage.removeItem("google_user");
-      window.location.href = "https://anhtu1.id.vn";
-      return;
-    }
-
-    document.getElementById("user-name").innerText = user.name || "Không rõ";
-    document.getElementById("user-email").innerText = user.email || "Không rõ";
-  } catch (e) {
-    localStorage.removeItem("google_user");
-    window.location.href = "https://anhtu1.id.vn";
-  }
-});
-
- 
-</script>
-
 </html>
