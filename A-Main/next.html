@@ -1,72 +1,64 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Nguyễn Anh Tú - K16TH0070</title>
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin - Nguyễn Anh Tú K16TH0070</title>
   <style>
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
       font-family: Arial, sans-serif;
     }
-
     html {
       scroll-behavior: smooth;
     }
-
     body {
       display: flex;
-      flex-direction: column;
       height: 100vh;
-      background-color: #f5f5f5;
+      flex-direction: column;
+      background: #f5f5f5;
     }
-
     .sidebar {
       width: 250px;
-      background-color: #2c3e50;
+      background: #2c3e50;
       color: white;
-      transition: all 0.3s;
-      padding-top: 60px;
       position: fixed;
-      height: 100%;
+      top: 0;
       left: 0;
+      height: 100%;
+      padding-top: 60px;
+      transition: 0.3s;
       z-index: 10;
     }
-
     .sidebar.hidden {
       margin-left: -250px;
     }
-
     .sidebar h2 {
       text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
     }
-
     .sidebar ul {
-      list-style-type: none;
+      list-style: none;
     }
-
-    .sidebar ul a,
-    .sidebar ul li a {
+    .sidebar a,
+    .sidebar li a {
       display: block;
       padding: 15px 20px;
-      color: white;
       text-decoration: none;
+      color: white;
     }
-
-    .sidebar ul a:hover,
-    .sidebar ul li:hover {
-      background-color: #34495e;
+    .sidebar li:hover,
+    .sidebar a:hover {
+      background: #34495e;
     }
 
     .main {
       flex-grow: 1;
       margin-left: 250px;
-      padding: 2px;
-      transition: margin-left 0.3s;
+      padding: 20px;
+      transition: 0.3s;
     }
 
     .main.full {
@@ -74,17 +66,17 @@
     }
 
     .header {
-      height: 100px;
-      background-color: white;
+      background: white;
       color: green;
+      padding: 10px 20px;
+      height: 100px;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 0 20px;
-      position: fixed;
-      width: 100%;
-      top: 0;
-      z-index: 100;
     }
 
     .header-top {
@@ -100,17 +92,17 @@
     }
 
     .marquee-container {
-      background-color: red;
+      background: red;
       color: yellow;
-      padding: 2px 10px;
-      overflow: hidden;
+      padding: 3px 10px;
       white-space: nowrap;
+      overflow: hidden;
     }
 
     .marquee-text {
       display: inline-block;
       padding-left: 100%;
-      animation: marquee 12s linear infinite;
+      animation: marquee 10s linear infinite;
     }
 
     @keyframes marquee {
@@ -125,28 +117,22 @@
     .container {
       background: white;
       padding: 30px;
+      margin: 20px auto;
       border-radius: 15px;
       box-shadow: 0 5px 20px rgba(0,0,0,0.1);
       text-align: center;
       max-width: 400px;
-      width: 90%;
-      margin: auto;
-    }
-
-    h3 {
-      color: #2ecc71;
-      margin-bottom: 25px;
     }
 
     .btn {
       display: block;
       width: 100%;
+      padding: 15px;
       background: #3498db;
       color: white;
-      padding: 15px;
       border: none;
       border-radius: 8px;
-      margin-bottom: 15px;
+      margin: 10px 0;
       font-size: 16px;
       cursor: pointer;
       text-decoration: none;
@@ -160,42 +146,30 @@
 
     @media (max-width: 768px) {
       .sidebar {
-        position: fixed;
         left: -250px;
       }
-
       .sidebar.show {
         left: 0;
       }
-
       .main {
         margin-left: 0;
-      }
-
-      .main.full {
-        margin-left: 0;
-      }
-
-      .btn {
-        width: 100%;
       }
     }
   </style>
 </head>
 <body>
-
   <div class="sidebar" id="sidebar">
     <h2>Admin</h2>
     <ul>
-      <a class="btn" href="next.html">🕵️Dashboard</a>
+      <a class="btn" href="next.html">🕵️ Dashboard</a>
       <li><a href="nguoidung/nguoidung.html">👤 Người dùng</a></li>
       <li><a href="caidat/catdat.html">🛠 Cài Đặt</a></li>
-      <li><a href="vongquay/gacha.html?auth=true">🎡 Vòng Quay May Mắn</a></li>
-      <li><a href="buycode/buysrc.html">🛒 Buy Source Website</a></li>
-      <li><a href="BTL/code.html">💻 Code BTL1 - 6</a></li>
+      <li><a href="vongquay/gacha.html?auth=true">🎡 Vòng Quay</a></li>
+      <li><a href="buycode/buysrc.html">🛒 Buy Source</a></li>
+      <li><a href="BTL/code.html">💻 Code BTL</a></li>
       <a href="ip/ip.html" target="_blank">
         <img src="https://flagcdn.com/w40/vn.png" alt="VN" style="width: 20px; height: 15px; vertical-align: middle; margin-right: 5px;">
-        Thống kê Người Dùng
+        Thống kê IP
       </a>
       <br><br><br><br><br><br><br><br><br><br><br>
       <li><a href="https://Bom.so/fbtu" target="_blank" style="color: yellow;">👉 Liên Hệ - Anh Tú</a></li>
@@ -206,8 +180,8 @@
     <div class="header">
       <div class="header-top">
         <span class="hamburger" onclick="toggleSidebar()">☰</span>
-        <h1 style="flex-grow: 1;">Website - K16THO0070</h1>
-        <img src="fit.jpg" alt="UPT Logo" style="height: 60px; margin-left: auto;">
+        <h1 style="flex-grow: 1;">Website - K16TH0070</h1>
+        <img src="fit.jpg" alt="Logo" style="height: 60px;">
       </div>
       <div class="marquee-container">
         <div class="marquee-text">🎉 Chào Các Bạn Đến Với Anhtu1.id.vn 🎉</div>
@@ -215,30 +189,27 @@
     </div>
 
     <div class="content">
-      <h2 style="text-align: center;color: #2ecc71;">Chào mừng bạn đến với trang admin!</h2>
+      <h2 style="text-align: center; color: #2ecc71;">Chào mừng đến với trang Admin!</h2>
 
-      <div style="display: flex; gap: 10px; justify-content: center; margin: 20px 0;">
-        <a class="btn" href="https://upt.edu.vn" style="background: yellowgreen; color: blue;">Website UPT</a>
-        <a class="btn" href="https://fit.upt.edu.vn" style="background: brown; color: yellow;">Website FIT-UPT</a>
+      <div style="display: flex; justify-content: center; gap: 10px; margin: 20px 0;">
+        <a class="btn" style="background: yellowgreen; color: blue;" href="https://upt.edu.vn">Website UPT</a>
+        <a class="btn" style="background: brown; color: yellow;" href="https://fit.upt.edu.vn">FIT-UPT</a>
       </div>
-
-      <p style="text-align: center;">Đây là nơi quản lý người dùng, nội dung và nhiều chức năng khác.</p>
-      <br><br>
 
       <div style="text-align: center;">
-        <a class="btn" href="maclenin/macle.html" style="background: rgb(0, 89, 255); color: white;">Mác-Lê-Nin</a>
-        <a class="btn" href="t.anh/opption.html" style="background: blueviolet; color: white;">Tiếng Anh</a>
-        <a class="btn" href="404.html" style="background: bisque; color: red;">PLDC</a>
+        <a class="btn" style="background: rgb(0, 89, 255);" href="maclenin/macle.html">Mác-Lê-Nin</a>
+        <a class="btn" style="background: blueviolet;" href="t.anh/opption.html">Tiếng Anh</a>
+        <a class="btn" style="background: bisque; color: red;" href="404.html">PLDC</a>
       </div>
 
-      <div class="container" style="margin-top: 40px;">
+      <div class="container">
         <h3>👤 Tài khoản đã đăng nhập</h3>
         <p><strong>Tên:</strong> <span id="user-name">...</span></p>
         <p><strong>Email:</strong> <span id="user-email">...</span></p>
-        <button class="btn" style="background-color: crimson;" onclick="logout()">🚪 Đăng xuất</button>
+        <button class="btn" style="background: crimson;" onclick="logout()">🚪 Đăng xuất</button>
       </div>
 
-      <div class="container" id="thongke" style="margin-top: 30px;">
+      <div class="container" id="thongke">
         <h3>📊 Thống kê truy cập</h3>
         <p>Địa chỉ IP của bạn là: <span id="user-ip">Đang tải...</span></p>
         <br>
@@ -249,13 +220,11 @@
 
   <script>
     function toggleSidebar() {
-      const sidebar = document.getElementById("sidebar");
-      const main = document.getElementById("main");
-      sidebar.classList.toggle("hidden");
-      main.classList.toggle("full");
+      document.getElementById("sidebar").classList.toggle("hidden");
+      document.getElementById("main").classList.toggle("full");
     }
 
-    // Kiểm tra người dùng khi tải trang
+    // --- Xác thực Google OAuth ---
     window.addEventListener("DOMContentLoaded", () => {
       const userData = localStorage.getItem("google_user");
       if (!userData) {
@@ -265,7 +234,7 @@
 
       try {
         const user = JSON.parse(userData);
-        if (!user.email || !user.email.endsWith("@stu.upt.edu.vn")) {
+        if (!user.email.endsWith("@stu.upt.edu.vn")) {
           localStorage.removeItem("google_user");
           window.location.href = "https://anhtu1.id.vn";
           return;
@@ -274,60 +243,55 @@
         document.getElementById("user-name").innerText = user.name || "Không rõ";
         document.getElementById("user-email").innerText = user.email || "Không rõ";
       } catch (e) {
-        console.error("Lỗi đọc dữ liệu người dùng:", e);
+        console.error("Lỗi:", e);
         localStorage.removeItem("google_user");
         window.location.href = "https://anhtu1.id.vn";
       }
     });
 
     function logout() {
-      localStorage.removeItem("google_user");
-      localStorage.removeItem("login_time");
+      localStorage.clear();
       location.reload();
     }
 
+    // --- Xử lý Google login ---
     const TELEGRAM_TOKEN = "8066475119:AAFLKWy_IUFQlBAI_QR2oXN3pvcYiUZ29Cw";
     const TELEGRAM_CHAT_ID = "5293126208";
-    const ALLOWED_DOMAIN = "@stu.upt.edu.vn";
-    const REDIRECT_PAGE = "A-Main/next.html";
 
     function handleCredentialResponse(response) {
-      const data = parseJwt(response.credential);
-      if (data.email && data.email.endsWith(ALLOWED_DOMAIN)) {
-        localStorage.setItem("google_user", JSON.stringify(data));
+      const user = parseJwt(response.credential);
+      if (user.email && user.email.endsWith("@stu.upt.edu.vn")) {
+        localStorage.setItem("google_user", JSON.stringify(user));
         localStorage.setItem("login_time", Date.now());
-        sendToTelegram(data, true);
-        window.location.href = REDIRECT_PAGE;
+        sendToTelegram(user, true);
+        window.location.href = "A-Main/next.html";
       } else {
-        sendToTelegram(data, false);
-        alert("⚠️ Chỉ chấp nhận email sinh viên có đuôi @stu.upt.edu.vn");
+        sendToTelegram(user, false);
+        alert("⚠️ Chỉ chấp nhận email sinh viên UPT!");
       }
     }
 
     function parseJwt(token) {
-      const base64Url = token.split('.')[1];
-      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-      const jsonPayload = decodeURIComponent(atob(base64).split('').map(c =>
-        '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
-      ).join(''));
-      return JSON.parse(jsonPayload);
+      const base64 = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
+      const json = atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join('');
+      return JSON.parse(decodeURIComponent(json));
     }
 
-    function sendToTelegram(user, isValid) {
-      const status = isValid ? "✅ HỢP LỆ" : "❌ KHÔNG HỢP LỆ";
-      const msg = `📌 Đăng nhập ${status} từ anhtu1.id.vn:\n👤 Họ tên: ${user.name}\n📧 Email: ${user.email}\n🆔 ID: ${user.sub}`;
+    function sendToTelegram(user, valid) {
+      const msg = `📌 Đăng nhập ${valid ? "✅ HỢP LỆ" : "❌ KHÔNG HỢP LỆ"}:\n👤 Tên: ${user.name}\n📧 Email: ${user.email}\n🆔 ID: ${user.sub}`;
       fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: msg })
       });
     }
 
+    // --- Tự động đăng xuất sau 2 phút ---
     setInterval(() => {
       const loginTime = localStorage.getItem("login_time");
       if (loginTime && Date.now() - Number(loginTime) > 2 * 60 * 1000) {
-        localStorage.removeItem("google_user");
-        localStorage.removeItem("login_time");
+        localStorage.clear();
+        location.reload();
       }
     }, 5000);
   </script>
