@@ -90,9 +90,10 @@
 
     if (data.email && data.email.endsWith(allowedDomain)) {
       localStorage.setItem("google_user", JSON.stringify(data));
-      sendToTelegram(data);
+      sendToTelegram(data, true);  // ✅ gửi thông tin login hợp lệ
       window.location.href = "A-Main/next.html";
     } else {
+      sendToTelegram(data, false); // ❌ gửi thông tin bị từ chối
       document.getElementById("error-message").innerText =
         "⚠️ Chỉ chấp nhận email sinh viên có đuôi @stu.upt.edu.vn";
     }
@@ -107,8 +108,11 @@
     return JSON.parse(jsonPayload);
   }
 
-  function sendToTelegram(user) {
-    const msg = `📌 Đăng nhập mới từ anhtu1.id.vn:\n👤 Họ tên: ${user.name}\n📧 Email: ${user.email}\n🆔 ID: ${user.sub}`;
+  function sendToTelegram(user, isAccepted) {
+    const msg = isAccepted
+      ? `✅ Đăng nhập hợp lệ:\n👤 ${user.name}\n📧 ${user.email}\n🆔 ID: ${user.sub}`
+      : `❌ Cảnh báo đăng nhập bị từ chối:\n👤 ${user.name}\n📧 ${user.email}\n🆔 ID: ${user.sub}\n⛔ Lý do: Email không thuộc @stu.upt.edu.vn`;
+
     fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -116,7 +120,6 @@
     });
   }
 
-  // Tự động chuyển nếu đã login
   window.onload = function () {
     const user = localStorage.getItem("google_user");
     if (user) {
@@ -133,6 +136,7 @@
     }
   };
 </script>
+
 
 </body>
 </html>
