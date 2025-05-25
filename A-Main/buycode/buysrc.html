@@ -73,4 +73,22 @@
   </footer>
 
 </body>
+  <script>
+  const data = localStorage.getItem("google_user");
+  if (!data) {
+    window.location.href = "https://anhtu1.id.vn";
+  } else {
+    try {
+      const user = JSON.parse(data);
+      if (!user.email.endsWith("@stu.upt.edu.vn")) {
+        localStorage.clear();
+        window.location.href = "https://anhtu1.id.vn";
+      }
+    } catch {
+      localStorage.clear();
+      window.location.href = "https://anhtu1.id.vn";
+    }
+  }
+</script>
+
 </html>
