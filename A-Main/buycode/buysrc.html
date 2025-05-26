@@ -68,53 +68,83 @@
   </footer>
 
   <!-- Hiển thị người dùng -->
- <footer class="fixed bottom-0 right-0 m-4 bg-white/90 backdrop-blur-md border border-gray-200 rounded-xl shadow-md px-4 py-3 text-sm text-gray-700 text-right">
-  👋 <span class="text-blue-700 font-semibold">Xin chào,</span> <span id="user-name" class="text-blue-600 font-bold">...</span>
-  <br>📧 <span class="text-blue-700">Email:</span> <span id="user-email" class="text-blue-600 font-medium">...</span>
-  <br>⏳ <span class="text-gray-600">Tự động thoát sau:</span> <span id="countdown" class="font-bold text-red-600">02:05</span>
-</footer>
+ <script>
+  const TOTAL_TIME = 125; // tổng thời gian đếm ngược (giây)
 
+  function redirectOut() {
+    localStorage.removeItem("google_user");
+    localStorage.removeItem("countdown_start");
+    window.location.href = "https://anhtu1.id.vn"; // URL thoát
+  }
 
-  <script>
-    window.addEventListener("DOMContentLoaded", () => {
-      const userData = localStorage.getItem("google_user");
-      if (!userData) {
-        window.location.href = "https://anhtu1.id.vn";
-        return;
-      }
+  window.addEventListener("DOMContentLoaded", () => {
+    const userData = localStorage.getItem("google_user");
+    if (!userData) return redirectOut();
 
-      try {
-        const user = JSON.parse(userData);
-        if (!user.email.endsWith("@stu.upt.edu.vn")) {
-          localStorage.removeItem("google_user");
-          window.location.href = "https://anhtu1.id.vn";
-          return;
-        }
+    try {
+      const user = JSON.parse(userData);
+      if (!user.email.endsWith("@stu.upt.edu.vn")) return redirectOut();
 
+      // Hiển thị tên và email nếu muốn
+      if (document.getElementById("user-name")) {
         document.getElementById("user-name").innerText = user.name || "Không rõ";
+      }
+      if (document.getElementById("user-email")) {
         document.getElementById("user-email").innerText = user.email || "Không rõ";
-      } catch (e) {
-        localStorage.removeItem("google_user");
-        window.location.href = "https://anhtu1.id.vn";
+      }
+    } catch (e) {
+      return redirectOut();
+    }
+
+    // Lấy hoặc thiết lập mốc thời gian bắt đầu
+    let startTimestamp = localStorage.getItem("countdown_start");
+    if (!startTimestamp) {
+      startTimestamp = Date.now();
+      localStorage.setItem("countdown_start", startTimestamp);
+    } else {
+      startTimestamp = parseInt(startTimestamp);
+    }
+
+    // Tính thời gian còn lại
+    function getRemainingTime() {
+      const elapsed = Math.floor((Date.now() - startTimestamp) / 1000);
+      return TOTAL_TIME - elapsed;
+    }
+
+    // Tạo và hiển thị đồng hồ đếm ngược
+    const countdownElement = document.createElement("div");
+    countdownElement.id = "countdown";
+    countdownElement.style.marginTop = "10px";
+    countdownElement.style.fontSize = "0.9rem";
+    countdownElement.style.color = "#ffcc00";
+    document.body.appendChild(countdownElement);
+
+    const timer = setInterval(() => {
+      const timeLeft = getRemainingTime();
+
+      if (timeLeft <= 0) {
+        clearInterval(timer);
+        return redirectOut();
       }
 
-      // Đếm ngược 2 phút 5 giây
-      let timeLeft = 125; // 125 giây
-      const countdownElement = document.getElementById("countdown");
-
-      const timer = setInterval(() => {
-        const minutes = Math.floor(timeLeft / 60).toString().padStart(2, '0');
-        const seconds = (timeLeft % 60).toString().padStart(2, '0');
-        countdownElement.innerText = `${minutes}:${seconds}`;
-
-        if (timeLeft <= 0) {
-          clearInterval(timer);
-          window.location.href = "https://anhtu1.id.vn";
+      const minutes = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+      const seconds = (timeLeft % 60).toString().padStart(2, '0');
+      countdownElement.innerText = `⏳ Thời gian còn lại: ${minutes}:${seconds}`;
+    }, 1000);
+  });
+</script>
+  <script>
+    function toggleDownload() {
+      const isChecked = document.getElementById("agreeCheckbox").checked;
+      const items = document.querySelectorAll("#fileList li");
+      items.forEach(item => {
+        if (isChecked) {
+          item.classList.add("enabled");
+        } else {
+          item.classList.remove("enabled");
         }
-
-        timeLeft--;
-      }, 1000);
-    });
+      });
+    }
   </script>
 
 </body>
