@@ -184,21 +184,31 @@
     }
 
     function adminLogin() {
-      const code = document.getElementById("admin-code").value.trim();
-      if (code === ADMIN_CODE) {
-        const adminData = {
-          email: ADMIN_EMAIL,
-          name: "Admin User",
-          sub: "admin",
-          picture: ""
-        };
-        localStorage.setItem("google_user", JSON.stringify(adminData));
-        localStorage.setItem("login_time", Date.now());
-        window.location.href = REDIRECT_PAGE;
-      } else {
-        document.getElementById("error-message").innerText = "❌ Mã admin không đúng!";
-      }
-    }
+  const code = document.getElementById("admin-code").value.trim();
+  if (code === ADMIN_CODE) {
+    const adminData = {
+      email: ADMIN_EMAIL,
+      name: "Admin User",
+      sub: "admin",
+      picture: ""
+    };
+    localStorage.setItem("google_user", JSON.stringify(adminData));
+    localStorage.setItem("login_time", Date.now());
+
+    // Hiển thị thông báo thành công
+    document.getElementById("error-message").style.color = "green";
+    document.getElementById("error-message").innerText = "✅ Admin đã đăng nhập thành công!";
+
+    // Chờ 1 giây rồi chuyển trang
+    setTimeout(() => {
+      window.location.href = REDIRECT_PAGE;
+    }, 1000);
+  } else {
+    document.getElementById("error-message").style.color = "red";
+    document.getElementById("error-message").innerText = "❌ Mã admin không đúng!";
+  }
+}
+
   </script>
 </body>
 </html>
