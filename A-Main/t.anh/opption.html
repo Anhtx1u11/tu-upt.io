@@ -43,59 +43,157 @@
     
     <p class="mt-6 text-sm text-gray-500">.</p>
   </div>
-  <footer class="fixed bottom-0 right-0 m-4 bg-white/90 backdrop-blur-md border border-gray-200 rounded-xl shadow-md px-4 py-3 text-sm text-gray-700 text-right">
-  👋 <span class="text-blue-700 font-semibold">Xin chào,</span> <span id="user-name" class="text-blue-600 font-bold">...</span>
-  <br>📧 <span class="text-blue-700">Email:</span> <span id="user-email" class="text-blue-600 font-medium">...</span>
-  <br>⏳ <span class="text-gray-600">Tự động thoát sau:</span> <span id="countdown" class="font-bold text-red-600">02:05</span>
-</footer>
+  <!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chợ Source Code</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
 
+  <header class="bg-blue-700 text-white py-4 shadow-md">
+    <div class="max-w-6xl mx-auto px-4">
+      <h1 class="text-2xl font-bold">💻 Chợ Source Code - NapTheNhanh.AT</h1>
+    </div>
+  </header>
 
-  <script defer>
-  document.addEventListener("DOMContentLoaded", () => {
+  <main class="max-w-6xl mx-auto px-4 py-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+
+    <!-- Sản phẩm mẫu -->
+    <div class="bg-white rounded-lg shadow hover:shadow-xl transition duration-300">
+      <img src="napthe.jpg" alt="Source Code 1" class="rounded-t-lg w-full h-48 object-cover">
+      <div class="p-4">
+        <h2 class="text-lg font-semibold text-gray-800">Website Bán Thẻ Game - Đơn Giản - Cấu Hình Về Telegram</h2>
+        <p class="text-green-600 font-bold mt-2">Giá: 200.000đ</p>
+        <div class="mt-4 flex space-x-2">
+          <a href="https://anhtu1.id.vn/A-Main/napthengay/" target="_blank"
+             class="flex-1 bg-gray-200 text-gray-700 py-2 rounded-lg text-sm hover:bg-gray-300 text-center">
+            🔍 Xem chi tiết
+          </a>
+          <button class="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">
+            🛒 Đặt hàng
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sản phẩm 2 -->
+    <div class="bg-white rounded-lg shadow hover:shadow-xl transition duration-300">
+      <img src="tuvi.jpg" alt="Source Code 2" class="rounded-t-lg w-full h-48 object-cover">
+      <div class="p-4">
+        <h2 class="text-lg font-semibold text-gray-800">Website Xem Tử Vi Cơ Bản</h2>
+        <p class="text-green-600 font-bold mt-2">Giá: 30.000đ</p>
+        <div class="mt-4 flex space-x-2">
+          <a href="https://anhtu1.id.vn/A-Main/napthengay/tuvi" target="_blank"
+             class="flex-1 bg-gray-200 text-gray-700 py-2 rounded-lg text-sm hover:bg-gray-300 text-center">
+            🔍 Xem chi tiết
+          </a>
+          <button class="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">
+            🛒 Đặt hàng
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sản phẩm 3 -->
+    <div class="bg-white rounded-lg shadow hover:shadow-xl transition duration-300">
+      <img src="testmail.jpg" alt="Source Code 3" class="rounded-t-lg w-full h-48 object-cover">
+      <div class="p-4">
+        <h2 class="text-lg font-semibold text-gray-800">SCR Code C# Test Gmail SLL</h2>
+        <p class="text-green-600 font-bold mt-2">Giá: 250.000đ</p>
+        <button class="mt-4 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">🛒 Đặt hàng</button>
+      </div>
+    </div>
+  </main>
+
+  <footer class="text-center text-gray-500 py-6 border-t">
+    © 2025 NapTheNhanh.AT - Mua bán source code an toàn và uy tín.
+  </footer>
+
+  <!-- Hiển thị người dùng -->
+ <script>
+  const TOTAL_TIME = 125; // tổng thời gian đếm ngược (giây)
+
+  function redirectOut() {
+    localStorage.removeItem("google_user");
+    localStorage.removeItem("countdown_start");
+    window.location.href = "https://anhtu1.id.vn"; // URL thoát
+  }
+
+  window.addEventListener("DOMContentLoaded", () => {
+    const userData = localStorage.getItem("google_user");
+    if (!userData) return redirectOut();
+
     try {
-      const userData = localStorage.getItem("google_user");
-
-      if (!userData) {
-        console.warn("Không tìm thấy dữ liệu người dùng");
-        window.location.href = "https://anhtu1.id.vn";
-        return;
-      }
-
       const user = JSON.parse(userData);
+      if (!user.email.endsWith("@stu.upt.edu.vn")) return redirectOut();
 
-      if (!user?.email || !user.email.endsWith("@stu.upt.edu.vn")) {
-        console.warn("Email không hợp lệ hoặc không đúng domain:", user?.email);
-        localStorage.removeItem("google_user");
-        window.location.href = "https://anhtu1.id.vn";
-        return;
+      // Hiển thị tên và email nếu muốn
+      if (document.getElementById("user-name")) {
+        document.getElementById("user-name").innerText = user.name || "Không rõ";
+      }
+      if (document.getElementById("user-email")) {
+        document.getElementById("user-email").innerText = user.email || "Không rõ";
+      }
+    } catch (e) {
+      return redirectOut();
+    }
+
+    // Lấy hoặc thiết lập mốc thời gian bắt đầu
+    let startTimestamp = localStorage.getItem("countdown_start");
+    if (!startTimestamp) {
+      startTimestamp = Date.now();
+      localStorage.setItem("countdown_start", startTimestamp);
+    } else {
+      startTimestamp = parseInt(startTimestamp);
+    }
+
+    // Tính thời gian còn lại
+    function getRemainingTime() {
+      const elapsed = Math.floor((Date.now() - startTimestamp) / 1000);
+      return TOTAL_TIME - elapsed;
+    }
+
+    // Tạo và hiển thị đồng hồ đếm ngược
+    const countdownElement = document.createElement("div");
+    countdownElement.id = "countdown";
+    countdownElement.style.marginTop = "10px";
+    countdownElement.style.fontSize = "0.9rem";
+    countdownElement.style.color = "#ffcc00";
+    document.body.appendChild(countdownElement);
+
+    const timer = setInterval(() => {
+      const timeLeft = getRemainingTime();
+
+      if (timeLeft <= 0) {
+        clearInterval(timer);
+        return redirectOut();
       }
 
-      document.getElementById("user-name").innerText = user.name || "Không rõ";
-      document.getElementById("user-email").innerText = user.email || "Không rõ";
-
-      // Đếm ngược 2 phút 5 giây
-      let timeLeft = 125;
-      const countdownElement = document.getElementById("countdown");
-
-      const timer = setInterval(() => {
-        const minutes = Math.floor(timeLeft / 60).toString().padStart(2, '0');
-        const seconds = (timeLeft % 60).toString().padStart(2, '0');
-        countdownElement.innerText = `${minutes}:${seconds}`;
-
-        if (timeLeft <= 0) {
-          clearInterval(timer);
-          window.location.href = "https://anhtu1.id.vn";
-        }
-
-        timeLeft--;
-      }, 1000);
-    } catch (err) {
-      console.error("Lỗi xử lý người dùng:", err);
-      localStorage.removeItem("google_user");
-      window.location.href = "https://anhtu1.id.vn";
-    }
+      const minutes = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+      const seconds = (timeLeft % 60).toString().padStart(2, '0');
+      countdownElement.innerText = `⏳ Thời gian còn lại: ${minutes}:${seconds}`;
+    }, 1000);
   });
 </script>
+  <script>
+    function toggleDownload() {
+      const isChecked = document.getElementById("agreeCheckbox").checked;
+      const items = document.querySelectorAll("#fileList li");
+      items.forEach(item => {
+        if (isChecked) {
+          item.classList.add("enabled");
+        } else {
+          item.classList.remove("enabled");
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>
 
 </body>
 </html>
