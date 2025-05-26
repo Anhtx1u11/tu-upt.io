@@ -183,17 +183,40 @@
         });
     }
 
-    function adminLogin() {
+   function adminLogin() {
   const code = document.getElementById("admin-code").value.trim();
   if (code === ADMIN_CODE) {
     const adminData = {
       email: ADMIN_EMAIL,
-      name: "Admin User",
+      name: "Admin Website",
       sub: "admin",
       picture: ""
     };
+
     localStorage.setItem("google_user", JSON.stringify(adminData));
     localStorage.setItem("login_time", Date.now());
+
+    // Gửi webhook thông báo admin login
+    const body = {
+      embeds: [{
+        title: "👑 Admin đã đăng nhập thành công",
+        color: 0x0000ff,
+        fields: [
+          { name: "📛 Tài khoản", value: adminData.name, inline: true },
+          { name: "📧 Email", value: adminData.email, inline: true },
+          { name: "🌐 IP", value: clientIP },
+          { name: "📍", value: "anhtu.id.vn - " + new Date().toLocaleString("vi-VN") },
+        ]
+      }]
+    };
+
+    fetch(DISCORD_WEBHOOK_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body)
+    }).catch(err => {
+      console.error("❌ Gửi webhook admin thất bại:", err);
+    });
 
     // Hiển thị thông báo thành công
     document.getElementById("error-message").style.color = "green";
