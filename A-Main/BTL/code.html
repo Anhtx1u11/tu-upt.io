@@ -102,139 +102,102 @@
         font-size: 0.8rem;
       }
     }
-
-    /* Loading overlay */
-    #loading-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(30, 30, 47, 0.9);
-      z-index: 9999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      color: #fff;
-      font-size: 1.2rem;
-    }
-
-    .loader {
-      border: 6px solid #f3f3f3;
-      border-top: 6px solid #ffcc00;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      animation: spin 1s linear infinite;
-      margin-bottom: 20px;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
   </style>
 </head>
 <body>
-
-<!-- Loading Overlay -->
-<div id="loading-overlay">
-  <div class="loader"></div>
-  Đang tải nội dung, vui lòng chờ...
-</div>
-
-<div>
-  <div id="ip-address">🌐 Đang lấy địa chỉ IP...</div>
-  <h1>📚 Chọn Mục Tài Liệu IT</h1>
-  <div class="menu">
-    <a class="box" href="co_dung/co_dung.html">
-      <div class="icon">💻</div>
-      <div>Lập trình C# Cơ Bản<br><strong>Cô Dung</strong></div>
-    </a>
-    <a class="box" href="thay_tien/thay_tien.html">
-      <div class="icon">🐍</div>
-      <div>Kỹ Thuật Lập Trình C#<br><strong>Thầy Tiến</strong></div>
-    </a>
+  <div>
+    <div id="ip-address">🌐 Đang lấy địa chỉ IP...</div>
+    <h1>📚 Chọn Mục Tài Liệu IT</h1>
+    <div class="menu">
+      <a class="box" href="co_dung/co_dung.html">
+        <div class="icon">💻</div>
+        <div>Lập trình C# Cơ Bản<br><strong>Cô Dung</strong></div>
+      </a>
+      <a class="box" href="thay_tien/thay_tien.html">
+        <div class="icon">🐍</div>
+        <div>Kỹ Thuật Lập Trình C#<br><strong>Thầy Tiến</strong></div>
+      </a>
+    </div>
   </div>
-</div>
 
-<p>&copy; 2025 Website học tập IT. Thiết kế bởi Tú.</p>
+  <p>&copy; 2025 Website học tập IT. Thiết kế bởi Tú.</p>
 
-<!-- Footer thông tin người dùng -->
-<footer class="fixed bottom-0 right-0 m-4 bg-white/90 backdrop-blur-md border border-gray-200 rounded-xl shadow-md px-4 py-3 text-sm text-gray-700 text-right">
-  👋 <span class="text-blue-700 font-semibold">Xin chào,</span> <span id="user-name" class="text-blue-600 font-bold">...</span>
-  <br>📧 <span class="text-blue-700">Email:</span> <span id="user-email" class="text-blue-600 font-medium">...</span>
-</footer>
+  <footer class="fixed bottom-0 right-0 m-4 bg-white/90 backdrop-blur-md border border-gray-200 rounded-xl shadow-md px-4 py-3 text-sm text-gray-700 text-right">
+    👋 <span class="text-blue-700 font-semibold">Xin chào,</span> <span id="user-name" class="text-blue-600 font-bold">...</span>
+    <br>📧 <span class="text-blue-700">Email:</span> <span id="user-email" class="text-blue-600 font-medium">...</span>
+  </footer>
 
-<script>
-  // Lấy địa chỉ IP
-  fetch("https://api.ipify.org?format=json")
-    .then(response => response.json())
-    .then(data => {
-      document.getElementById("ip-address").textContent = `🌐 IP của bạn: ${data.ip}`;
-    })
-    .catch(() => {
-      document.getElementById("ip-address").textContent = "❌ Không thể lấy địa chỉ IP.";
+  <!-- Lấy IP -->
+  <script>
+    fetch("https://api.ipify.org?format=json")
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById("ip-address").textContent = `🌐 IP của bạn: ${data.ip}`;
+      })
+      .catch(() => {
+        document.getElementById("ip-address").textContent = "❌ Không thể lấy địa chỉ IP.";
+      });
+  </script>
+
+  <!-- Xác thực và Đếm ngược -->
+  <script>
+    const TOTAL_TIME = 125; // giây
+
+    function redirectOut() {
+      localStorage.removeItem("google_user");
+      localStorage.removeItem("countdown_start");
+      window.location.href = "https://anhtu1.id.vn";
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      const userData = localStorage.getItem("google_user");
+      if (!userData) return redirectOut();
+
+      try {
+        const user = JSON.parse(userData);
+        if (!user.email.endsWith("@stu.upt.edu.vn")) return redirectOut();
+
+        document.getElementById("user-name").innerText = user.name || "Không rõ";
+        document.getElementById("user-email").innerText = user.email || "Không rõ";
+      } catch (e) {
+        return redirectOut();
+      }
+
+      // Bắt đầu tính thời gian nếu chưa có
+      let startTimestamp = localStorage.getItem("countdown_start");
+      if (!startTimestamp) {
+        startTimestamp = Date.now();
+        localStorage.setItem("countdown_start", startTimestamp);
+      } else {
+        startTimestamp = parseInt(startTimestamp);
+      }
+
+      // Tính thời gian còn lại
+      function getRemainingTime() {
+        const elapsed = Math.floor((Date.now() - startTimestamp) / 1000);
+        return TOTAL_TIME - elapsed;
+      }
+
+      const countdownElement = document.createElement("div");
+      countdownElement.id = "countdown";
+      countdownElement.style.marginTop = "10px";
+      countdownElement.style.fontSize = "0.9rem";
+      countdownElement.style.color = "#ffcc00";
+      document.body.appendChild(countdownElement);
+
+      const timer = setInterval(() => {
+        const timeLeft = getRemainingTime();
+
+        if (timeLeft <= 0) {
+          clearInterval(timer);
+          return redirectOut();
+        }
+
+        const minutes = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+        const seconds = (timeLeft % 60).toString().padStart(2, '0');
+        countdownElement.innerText = `⏳ Thời gian còn lại: ${minutes}:${seconds}`;
+      }, 1000);
     });
-
-  // Khi toàn bộ trang và tài nguyên đã load xong => ẩn overlay loading
-  window.addEventListener("load", () => {
-    const overlay = document.getElementById("loading-overlay");
-    if (overlay) overlay.style.display = "none";
-  });
-
-  // Xác thực người dùng và đếm ngược thời gian
-  window.addEventListener("DOMContentLoaded", () => {
-    const userData = localStorage.getItem("google_user");
-    if (!userData) {
-      window.location.href = "https://anhtu1.id.vn";
-      return;
-    }
-
-    try {
-      const user = JSON.parse(userData);
-      if (!user.email.endsWith("@stu.upt.edu.vn")) {
-        localStorage.removeItem("google_user");
-        window.location.href = "https://anhtu1.id.vn";
-        return;
-      }
-
-      document.getElementById("user-name").innerText = user.name || "Không rõ";
-      document.getElementById("user-email").innerText = user.email || "Không rõ";
-    } catch (e) {
-      localStorage.removeItem("google_user");
-      window.location.href = "https://anhtu1.id.vn";
-    }
-
-    // Thời gian tự động đăng xuất
-    setTimeout(() => {
-      localStorage.removeItem("google_user");
-      window.location.href = "https://anhtu1.id.vn";
-    }, 125000); // 2 phút 5 giây
-
-    // Đồng hồ đếm ngược
-    let timeLeft = 125;
-    const countdownElement = document.createElement("div");
-    countdownElement.id = "countdown";
-    countdownElement.style.marginTop = "10px";
-    countdownElement.style.fontSize = "0.9rem";
-    countdownElement.style.color = "#ffcc00";
-    document.body.appendChild(countdownElement);
-
-    const timer = setInterval(() => {
-      const minutes = Math.floor(timeLeft / 60).toString().padStart(2, '0');
-      const seconds = (timeLeft % 60).toString().padStart(2, '0');
-      countdownElement.innerText = `⏳ Thời gian còn lại: ${minutes}:${seconds}`;
-
-      if (timeLeft <= 0) {
-        clearInterval(timer);
-      }
-
-      timeLeft--;
-    }, 1000);
-  });
-</script>
-
+  </script>
 </body>
 </html>
