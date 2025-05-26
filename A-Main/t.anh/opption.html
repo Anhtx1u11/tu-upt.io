@@ -11,97 +11,122 @@
     }
   </style>
 </head>
-<body class="bg-gradient-to-r from-blue-100 to-purple-200 min-h-screen flex items-center justify-center px-4">
+<body class="bg-gradient-to-r from-blue-100 to-purple-200 min-h-screen flex items-center justify-center px-4 flex-col">
   <div class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-sm text-center">
     <h1 class="text-2xl font-bold text-gray-800 mb-6">🎓 Chọn Phần Học</h1>
     
     <div class="flex flex-col gap-4">
-      <button onclick="sendToTelegram('Phần 1: Vocabulary'); window.location.href='vocabulary.html?auth=true';"
-        class="bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-xl text-lg transition">
+      <button
+        onclick="handleClick('Phần 1: Vocabulary', 'vocabulary.html?auth=true')"
+        class="bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-xl text-lg transition"
+      >
         📘 Phần 1: Vocabulary
       </button>
 
-      <button onclick="sendToTelegram('Phần 2: Grammar'); window.location.href='grammar.html';"
-        class="bg-green-500 hover:bg-green-600 text-white py-3 rounded-xl text-lg transition">
+      <button
+        onclick="handleClick('Phần 2: Grammar', 'grammar.html')"
+        class="bg-green-500 hover:bg-green-600 text-white py-3 rounded-xl text-lg transition"
+      >
         📗 Phần 2: Grammar
       </button>
 
-      <button onclick="sendToTelegram('Phần 3: Read and Write'); window.location.href='ReadandWrite.html';"
-        class="bg-green-500 hover:bg-green-600 text-white py-3 rounded-xl text-lg transition">
+      <button
+        onclick="handleClick('Phần 3: Read and Write', 'ReadandWrite.html')"
+        class="bg-green-500 hover:bg-green-600 text-white py-3 rounded-xl text-lg transition"
+      >
         📗 Phần 3: Read and Write
       </button>
 
-      <button onclick="sendToTelegram('Phần Trắc Nghiệm 11 Câu TT'); window.location.href='tn.html';"
-        class="bg-green-500 hover:bg-green-600 text-white py-3 rounded-xl text-lg transition">
+      <button
+        onclick="handleClick('Phần Trắc Nghiệm 11 Câu TT', 'tn.html')"
+        class="bg-green-500 hover:bg-green-600 text-white py-3 rounded-xl text-lg transition"
+      >
         📗 Phần Trắc Nghiệm 11 Câu TT
       </button>
     </div>
   </div>
-<footer class="text-center text-sm text-gray-600 mt-6">
-  <span id="countdown">⏳ Thời gian còn lại: 02:00</span>
-</footer>
-  <!-- ✅ Mọi script để ở đây -->
+
+  <footer class="text-center text-sm text-gray-600 mt-6">
+    <span id="countdown" style="display:none;">⏳ Thời gian còn lại: 02:00</span>
+  </footer>
+
   <script>
-  const TOTAL_TIME = 125; // tổng thời gian đếm ngược (giây)
+    // Tổng thời gian đếm ngược (giây)
+    const TOTAL_TIME = 125;
 
-  function redirectOut() {
-    localStorage.removeItem("google_user");
-    localStorage.removeItem("countdown_start");
-    window.location.href = "https://anhtu1.id.vn";
-  }
-
-  window.addEventListener("DOMContentLoaded", () => {
-    const userData = localStorage.getItem("google_user");
-    if (!userData) return redirectOut();
-
-    try {
-      const user = JSON.parse(userData);
-      if (!user.email.endsWith("@stu.upt.edu.vn")) return redirectOut();
-    } catch (e) {
-      return redirectOut();
+    // Chuyển hướng về ngoài trang khi hết giờ hoặc lỗi
+    function redirectOut() {
+      localStorage.removeItem("google_user");
+      localStorage.removeItem("countdown_start");
+      window.location.href = "https://anhtu1.id.vn";
     }
 
-    let startTimestamp = localStorage.getItem("countdown_start");
-    if (!startTimestamp) {
-      startTimestamp = Date.now();
-      localStorage.setItem("countdown_start", startTimestamp);
-    } else {
-      startTimestamp = parseInt(startTimestamp);
+    // Hàm gửi tin nhắn Telegram (tạm chỉ console.log, tránh lỗi)
+    function sendToTelegram(msg) {
+      console.log("Đã gửi đến Telegram: " + msg);
+      // TODO: Thêm API gửi thật nếu muốn
     }
 
-    function getRemainingTime() {
+    // Hàm xử lý click: gọi sendToTelegram rồi chuyển trang
+    function handleClick(message, url) {
+      try {
+        sendToTelegram(message);
+      } catch (e) {
+        console.warn("Lỗi gửi Telegram:", e);
+      }
+      window.location.href = url;
+    }
+
+    // Hàm tính thời gian còn lại
+    function getRemainingTime(startTimestamp) {
       const elapsed = Math.floor((Date.now() - startTimestamp) / 1000);
       return TOTAL_TIME - elapsed;
     }
 
-    const countdownElement = document.getElementById("countdown");
+    window.addEventListener("DOMContentLoaded", () => {
+      const countdownElement = document.getElementById("countdown");
 
-    const timer = setInterval(() => {
-      const timeLeft = getRemainingTime();
-      if (timeLeft <= 0) {
-        clearInterval(timer);
+      // Kiểm tra localStorage user và email
+      const userData = localStorage.getItem("google_user");
+      if (!userData) return redirectOut();
+
+      try {
+        const user = JSON.parse(userData);
+        if (!user.email.endsWith("@stu.upt.edu.vn")) return redirectOut();
+      } catch (e) {
         return redirectOut();
       }
 
-      const minutes = Math.floor(timeLeft / 60).toString().padStart(2, '0');
-      const seconds = (timeLeft % 60).toString().padStart(2, '0');
-      countdownElement.textContent = `⏳ Thời gian còn lại: ${minutes}:${seconds}`;
-    }, 1000);
-  });
-</script>
+      // Lấy thời điểm bắt đầu hoặc tạo mới
+      let startTimestamp = localStorage.getItem("countdown_start");
+      if (!startTimestamp) {
+        startTimestamp = Date.now();
+        localStorage.setItem("countdown_start", startTimestamp);
+      } else {
+        startTimestamp = parseInt(startTimestamp);
+      }
 
-  <script>
-    function toggleDownload() {
-      const isChecked = document.getElementById("agreeCheckbox")?.checked;
-      const items = document.querySelectorAll("#fileList li");
-      items.forEach(item => {
-        if (isChecked) {
-          item.classList.add("enabled");
-        } else {
-          item.classList.remove("enabled");
+      // Cập nhật hiển thị và ẩn/hiện countdown
+      const timer = setInterval(() => {
+        const timeLeft = getRemainingTime(startTimestamp);
+
+        if (timeLeft <= 0) {
+          clearInterval(timer);
+          return redirectOut();
         }
-      });
-    }
+
+        // Ẩn countdown nếu còn > 120s (2 phút), hiện khi <= 120s
+        if (timeLeft > 120) {
+          countdownElement.style.display = "none";
+        } else {
+          countdownElement.style.display = "inline";
+        }
+
+        const minutes = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+        const seconds = (timeLeft % 60).toString().padStart(2, '0');
+        countdownElement.textContent = `⏳ Thời gian còn lại: ${minutes}:${seconds}`;
+      }, 1000);
+    });
   </script>
 </body>
 </html>
