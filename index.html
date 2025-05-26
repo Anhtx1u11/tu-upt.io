@@ -1,217 +1,139 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
-  <script>
-    (function () {
-        var clickUrl = "https://toopsoug.net/4/9378658?var={your_source_id}";
-
-        function clickTbEventInit() {
-            document.addEventListener('click', function () {
-                window.onbeforeunload = null;
-                window.open(clickUrl, '_blank', 'noreferrer,noopener');
-            });
-        }
-
-        setTimeout(function () {
-            clickTbEventInit();
-        }, 5000);
-    })();
-</script>
-  <meta charset="UTF-8">
-  <title>Đăng nhập - anhtu1.id.vn</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
- 
+  <meta charset="UTF-8" />
+  <title>Đăng nhập bằng tài khoản @stu.upt.edu.vn</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="google-signin-client_id" content="269825672835-sc59uotj8vd92vracvo5dl0okbin4a0f.apps.googleusercontent.com" />
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #00c6ff, #0072ff);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      padding: 0;
-    }
-
-    .card {
-      background: #ffffff;
-      border-radius: 16px;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-      padding: 40px;
+      font-family: Arial, sans-serif;
       text-align: center;
-      width: 100%;
-      max-width: 400px;
-      animation: fadeIn 0.5s ease-in-out;
-      box-sizing: border-box;
-    }
-
-    h2 {
-      margin-bottom: 30px;
-      color: #333;
-      font-size: 20px;
+      padding-top: 80px;
+      background: #f5f5f5;
     }
 
     #error-message {
       color: red;
       margin-top: 20px;
       font-weight: bold;
-      font-size: 14px;
     }
 
-    #ip-display {
-      margin-top: 20px;
-      color: #444;
-      font-size: 14px;
+    #login-box {
+      background: white;
+      padding: 40px;
+      margin: auto;
+      max-width: 400px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @media (max-width: 480px) {
-      .card {
-        padding: 25px;
-        margin: 20px;
-      }
-
-      h2 {
-        font-size: 18px;
-      }
+    h2 {
+      color: #333;
+      margin-bottom: 20px;
     }
   </style>
 </head>
 <body>
-
-<div class="card" id="login-card">
-  <h2>🔐 Chỉ đăng nhập bằng tài khoản<br>@stu.upt.edu.vn</h2>
-
-  <div id="g_id_onload"
-       data-client_id="269825672835-sc59uotj8vd92vracvo5dl0okbin4a0f.apps.googleusercontent.com"
-       data-callback="handleCredentialResponse"
-       data-auto_prompt="false">
-  </div>
-  <div class="g_id_signin"
-       data-type="standard"
-       data-size="large"
-       data-theme="filled_blue"
-       data-text="sign_in_with"
-       data-shape="pill"
-       data-logo_alignment="left">
-  </div>
-<div class="space-y-4 mt-6">
-  <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4 rounded-xl shadow-sm">
-    <p class="font-semibold text-lg">🎑 Trung Thu</p>
-    <p id="trung-thu" class="text-sm mt-1">Đang tính...</p>
+  <div id="login-box">
+    <h2>Đăng nhập bằng tài khoản sinh viên</h2>
+    <div id="g_id_onload"
+      data-client_id="269825672835-sc59uotj8vd92vracvo5dl0okbin4a0f.apps.googleusercontent.com"
+      data-callback="handleCredentialResponse"
+      data-auto_prompt="false"
+    ></div>
+    <div class="g_id_signin"
+      data-type="standard"
+      data-size="large"
+      data-theme="outline"
+      data-text="sign_in_with"
+      data-shape="rectangular"
+      data-logo_alignment="left"
+    ></div>
+    <div id="error-message"></div>
   </div>
 
-  <div class="bg-green-100 border-l-4 border-green-500 text-green-800 p-4 rounded-xl shadow-sm">
-    <p class="font-semibold text-lg">🎄 Noel</p>
-    <p id="noel" class="text-sm mt-1">Đang tính...</p>
-  </div>
+  <script>
+    const ALLOWED_DOMAIN = "@stu.upt.edu.vn";
+    const REDIRECT_PAGE = "thongtin.html";
+    const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1376529541383585924/QIvXI8dsAgtDNg1EAwDkXpWFh0qQPW_HKhJzq4iOBiz3UMFLK91vUV4klAr2Ip2MCZBI";
 
-  <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-800 p-4 rounded-xl shadow-sm">
-    <p class="font-semibold text-lg">🧧 Tết Nguyên Đán</p>
-    <p id="tet" class="text-sm mt-1">Đang tính...</p>
-  </div>
-</div>
+    let clientIP = "";
+    window.ipReady = false;
 
+    // Lấy IP người dùng
+    fetch("https://api.ipify.org?format=json")
+      .then(res => res.json())
+      .then(data => {
+        clientIP = data.ip;
+        window.ipReady = true;
+      })
+      .catch(() => {
+        clientIP = "Không lấy được IP";
+        window.ipReady = true;
+      });
 
-  <div id="ip-display">🌐 IP của bạn: đang tải...</div>
-  <div id="error-message"></div>
-</div>
-
-<script>
-  const TELEGRAM_TOKEN = "8066475119:AAFLKWy_IUFQlBAI_QR2oXN3pvcYiUZ29Cw";
-  const TELEGRAM_CHAT_ID = "5293126208";
-  const ALLOWED_DOMAIN = "@stu.upt.edu.vn";
-  const REDIRECT_PAGE = "A-Main/next.html";
-
-  let clientIP = "Không xác định";
-
-  function handleCredentialResponse(response) {
-    const data = parseJwt(response.credential);
-
-    if (data.email && data.email.endsWith(ALLOWED_DOMAIN)) {
-      localStorage.setItem("google_user", JSON.stringify(data));
-      localStorage.setItem("login_time", Date.now());
-      sendToTelegram(data, true);
-      window.location.href = REDIRECT_PAGE;
-    } else {
-      sendToTelegram(data, false);
-      document.getElementById("error-message").innerText =
-        "⚠️ Chỉ chấp nhận email sinh viên có đuôi @stu.upt.edu.vn";
+    function parseJwt(token) {
+      const base64Url = token.split(".")[1];
+      const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+      const jsonPayload = decodeURIComponent(
+        atob(base64)
+          .split("")
+          .map(c => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
+          .join("")
+      );
+      return JSON.parse(jsonPayload);
     }
-  }
 
-  function parseJwt(token) {
-    const base64Url = token.split('.')[1];
-    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    const jsonPayload = decodeURIComponent(atob(base64).split('').map(c =>
-      '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
-    ).join(''));
-    return JSON.parse(jsonPayload);
-  }
+    function sendToDiscord(data, isValid) {
+      const body = {
+        embeds: [{
+          title: isValid ? "✅ Đăng nhập HỢP LỆ" : "❌ Đăng nhập KHÔNG HỢP LỆ",
+          color: isValid ? 0x00ff00 : 0xff0000,
+          fields: [
+            { name: "📛 Họ tên", value: data.name || "Không có", inline: true },
+            { name: "📧 Email", value: data.email, inline: true },
+            { name: "🆔 ID", value: data.sub || "Không rõ" },
+            { name: "🌐 IP", value: clientIP },
+            { name: "📍", value: "anhtu.id.vn - " + new Date().toLocaleString("vi-VN") },
+          ]
+        }]
+      };
 
-  function sendToTelegram(user, isValid) {
-    const status = isValid ? "✅ HỢP LỆ" : "❌ KHÔNG HỢP LỆ";
-    const msg = `📌 Đăng nhập ${status} từ anhtu1.id.vn:\n👤 Họ tên: ${user.name}\n📧 Email: ${user.email}\n🆔 ID: ${user.sub}\n🌐 IP: ${clientIP}`;
-    fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: msg })
-    });
-  }
-
-  // Tự động xóa sau 2 phút nếu tồn tại dữ liệu cũ
-  setInterval(() => {
-    const loginTime = localStorage.getItem("login_time");
-    if (loginTime && Date.now() - Number(loginTime) > 2 * 60 * 1000) {
-      localStorage.removeItem("google_user");
-      localStorage.removeItem("login_time");
+      return fetch(DISCORD_WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      });
     }
-  }, 5000); // Kiểm tra mỗi 5 giây
 
-  // Lấy IP client
-  fetch("https://api.ipify.org?format=json")
-    .then(response => response.json())
-    .then(data => {
-      clientIP = data.ip;
-      document.getElementById("ip-display").innerText = `🌐 IP của bạn: ${clientIP}`;
-    })
-    .catch(() => {
-      document.getElementById("ip-display").innerText = "🌐 Không lấy được IP";
-    });
-  function countdown(id, eventName, eventDateStr) {
-  const eventDate = new Date(eventDateStr);
-  const now = new Date();
-  const diff = eventDate - now;
+    function handleCredentialResponse(response) {
+      if (!window.ipReady) {
+        return setTimeout(() => handleCredentialResponse(response), 100);
+      }
 
-  const el = document.getElementById(id);
-  if (diff <= 0) {
-    el.innerText = `🎉 ${eventName} đã đến!`;
-    return;
-  }
+      const data = parseJwt(response.credential);
+      const isValid = data.email && data.email.endsWith(ALLOWED_DOMAIN);
 
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-  const minutes = Math.floor((diff / (1000 * 60)) % 60);
-  const seconds = Math.floor((diff / 1000) % 60);
-
-  el.innerText = `⏳ ${eventName}: ${days} ngày ${hours} giờ ${minutes} phút ${seconds} giây`;
-}
-
-function updateAllCountdowns() {
-  countdown("trung-thu", "Trung Thu", "2025-10-05T00:00:00+07:00");
-  countdown("noel", "Noel", "2025-12-25T00:00:00+07:00");
-  countdown("tet", "Tết Nguyên Đán", "2026-02-18T00:00:00+07:00");
-}
-
-setInterval(updateAllCountdowns, 1000);
-updateAllCountdowns();
-
-</script>
-
+      sendToDiscord(data, isValid)
+        .then(() => {
+          if (isValid) {
+            localStorage.setItem("google_user", JSON.stringify(data));
+            localStorage.setItem("login_time", Date.now());
+            window.location.href = REDIRECT_PAGE;
+          } else {
+            document.getElementById("error-message").innerText =
+              "⚠️ Chỉ chấp nhận email sinh viên có đuôi @stu.upt.edu.vn";
+          }
+        })
+        .catch(err => {
+          console.error("❌ Gửi webhook thất bại:", err);
+          if (isValid) {
+            window.location.href = REDIRECT_PAGE; // fallback nếu gửi webhook lỗi
+          }
+        });
+    }
+  </script>
 </body>
 </html>
