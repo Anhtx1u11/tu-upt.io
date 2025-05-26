@@ -635,12 +635,18 @@
   </script>
   <script>
   window.addEventListener('DOMContentLoaded', () => {
-    const visitedMain = localStorage.getItem('visited_main_page');
-    if (visitedMain !== 'true') {
-      // Nếu chưa vào trang chính, chuyển hướng về trang chính
-      window.location.href = 'https://anhtu1.id.vn/A-Main/t.anh/opption.html';
-    }
-  });
+  const visited = localStorage.getItem('visited_main_page');
+  if (visited !== 'true') {
+    alert("Bạn phải vào trang chính trước!");
+    window.location.href = 'https://anhtu1.id.vn/A-Main/t.anh/opption.html';
+  } else {
+    // Đã qua trang chính, giờ xóa localStorage
+    localStorage.removeItem('google_user');
+    localStorage.removeItem('countdown_start');
+    localStorage.removeItem('visited_main_page');
+  }
+});
+
 </script>
 
 </body>
