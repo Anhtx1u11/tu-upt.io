@@ -25,89 +25,82 @@
         class="bg-green-500 hover:bg-green-600 text-white py-3 rounded-xl text-lg transition">
         📗 Phần 2: Grammar
       </button>
-    </div>
-    <br> 
-    <div>
-     <button onclick="sendToTelegram('Phần 3: Read and Write'); window.location.href='ReadandWrite.html';"
+
+      <button onclick="sendToTelegram('Phần 3: Read and Write'); window.location.href='ReadandWrite.html';"
         class="bg-green-500 hover:bg-green-600 text-white py-3 rounded-xl text-lg transition">
         📗 Phần 3: Read and Write
       </button>
-    </div>
-    <br> 
-    <div>
-     <button onclick="sendToTelegram('Phần 3: Read and Write'); window.location.href='tn.html';"
+
+      <button onclick="sendToTelegram('Phần Trắc Nghiệm 11 Câu TT'); window.location.href='tn.html';"
         class="bg-green-500 hover:bg-green-600 text-white py-3 rounded-xl text-lg transition">
         📗 Phần Trắc Nghiệm 11 Câu TT
       </button>
     </div>
-<script>
-  const TOTAL_TIME = 125; // tổng thời gian đếm ngược (giây)
+  </div>
 
-  function redirectOut() {
-    localStorage.removeItem("google_user");
-    localStorage.removeItem("countdown_start");
-    window.location.href = "https://anhtu1.id.vn"; // URL thoát
-  }
-
-  window.addEventListener("DOMContentLoaded", () => {
-    const userData = localStorage.getItem("google_user");
-    if (!userData) return redirectOut();
-
-    try {
-      const user = JSON.parse(userData);
-      if (!user.email.endsWith("@stu.upt.edu.vn")) return redirectOut();
-
-      // Hiển thị tên và email nếu muốn
-      if (document.getElementById("user-name")) {
-        document.getElementById("user-name").innerText = user.name  "Không rõ";
-      }
-      if (document.getElementById("user-email")) {
-        document.getElementById("user-email").innerText = user.email  "Không rõ";
-      }
-    } catch (e) {
-      return redirectOut();
+  <!-- ✅ Mọi script để ở đây -->
+  <script>
+    function sendToTelegram(msg) {
+      // Tùy chỉnh hàm gửi Telegram nếu bạn dùng bot.
+      console.log("Đã gửi đến Telegram: " + msg);
     }
 
-    // Lấy hoặc thiết lập mốc thời gian bắt đầu
-    let startTimestamp = localStorage.getItem("countdown_start");
-    if (!startTimestamp) {
-      startTimestamp = Date.now();
-      localStorage.setItem("countdown_start", startTimestamp);
-    } else {
-      startTimestamp = parseInt(startTimestamp);
+    const TOTAL_TIME = 125; // tổng thời gian đếm ngược (giây)
+
+    function redirectOut() {
+      localStorage.removeItem("google_user");
+      localStorage.removeItem("countdown_start");
+      window.location.href = "https://anhtu1.id.vn";
     }
 
-    // Tính thời gian còn lại
-    function getRemainingTime() {
-      const elapsed = Math.floor((Date.now() - startTimestamp) / 1000);
-      return TOTAL_TIME - elapsed;
-    }
+    window.addEventListener("DOMContentLoaded", () => {
+      const userData = localStorage.getItem("google_user");
+      if (!userData) return redirectOut();
 
-    // Tạo và hiển thị đồng hồ đếm ngược
-    const countdownElement = document.createElement("div");
-    countdownElement.id = "countdown";
-    countdownElement.style.marginTop = "10px";
-    countdownElement.style.fontSize = "0.9rem";
-    countdownElement.style.color = "#ffcc00";
-    document.body.appendChild(countdownElement);
-
-    const timer = setInterval(() => {
-      const timeLeft = getRemainingTime();
-
-      if (timeLeft <= 0) {
-        clearInterval(timer);
+      try {
+        const user = JSON.parse(userData);
+        if (!user.email.endsWith("@stu.upt.edu.vn")) return redirectOut();
+      } catch (e) {
         return redirectOut();
       }
 
-      const minutes = Math.floor(timeLeft / 60).toString().padStart(2, '0');
-      const seconds = (timeLeft % 60).toString().padStart(2, '0');
-      countdownElement.innerText = ⏳ Thời gian còn lại: ${minutes}:${seconds};
-    }, 1000);
-  });
-</script>
+      let startTimestamp = localStorage.getItem("countdown_start");
+      if (!startTimestamp) {
+        startTimestamp = Date.now();
+        localStorage.setItem("countdown_start", startTimestamp);
+      } else {
+        startTimestamp = parseInt(startTimestamp);
+      }
+
+      function getRemainingTime() {
+        const elapsed = Math.floor((Date.now() - startTimestamp) / 1000);
+        return TOTAL_TIME - elapsed;
+      }
+
+      const countdownElement = document.createElement("div");
+      countdownElement.id = "countdown";
+      countdownElement.style.marginTop = "10px";
+      countdownElement.style.fontSize = "0.9rem";
+      countdownElement.style.color = "#ffcc00";
+      document.body.appendChild(countdownElement);
+
+      const timer = setInterval(() => {
+        const timeLeft = getRemainingTime();
+        if (timeLeft <= 0) {
+          clearInterval(timer);
+          return redirectOut();
+        }
+
+        const minutes = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+        const seconds = (timeLeft % 60).toString().padStart(2, '0');
+        countdownElement.innerText = `⏳ Thời gian còn lại: ${minutes}:${seconds}`;
+      }, 1000);
+    });
+  </script>
+
   <script>
     function toggleDownload() {
-      const isChecked = document.getElementById("agreeCheckbox").checked;
+      const isChecked = document.getElementById("agreeCheckbox")?.checked;
       const items = document.querySelectorAll("#fileList li");
       items.forEach(item => {
         if (isChecked) {
