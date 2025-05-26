@@ -123,22 +123,7 @@
   <footer>
     &copy; 2025 Lập trình C# - Trang chia sẻ bởi Tú
   </footer>
-
-  <script>
-    function toggleDownload() {
-      const isChecked = document.getElementById("agreeCheckbox").checked;
-      const items = document.querySelectorAll("#fileList li");
-      items.forEach(item => {
-        if (isChecked) {
-          item.classList.add("enabled");
-        } else {
-          item.classList.remove("enabled");
-        }
-      });
-    }
-  </script>
-
-<script>
+    <script>
   const TOTAL_TIME = 125; // tổng thời gian đếm ngược (giây)
 
   function redirectOut() {
@@ -157,10 +142,10 @@
 
       // Hiển thị tên và email nếu muốn
       if (document.getElementById("user-name")) {
-        document.getElementById("user-name").innerText = user.name  "Không rõ";
+        document.getElementById("user-name").innerText = user.name || "Không rõ";
       }
       if (document.getElementById("user-email")) {
-        document.getElementById("user-email").innerText = user.email  "Không rõ";
+        document.getElementById("user-email").innerText = user.email || "Không rõ";
       }
     } catch (e) {
       return redirectOut();
@@ -199,10 +184,22 @@
 
       const minutes = Math.floor(timeLeft / 60).toString().padStart(2, '0');
       const seconds = (timeLeft % 60).toString().padStart(2, '0');
-     countdownElement.innerText = `⏳ Thời gian còn lại: ${minutes}:${seconds}`;
-
+      countdownElement.innerText = `⏳ Thời gian còn lại: ${minutes}:${seconds}`;
     }, 1000);
   });
 </script>
+  <script>
+    function toggleDownload() {
+      const isChecked = document.getElementById("agreeCheckbox").checked;
+      const items = document.querySelectorAll("#fileList li");
+      items.forEach(item => {
+        if (isChecked) {
+          item.classList.add("enabled");
+        } else {
+          item.classList.remove("enabled");
+        }
+      });
+    }
+  </script>
 </body>
 </html>
