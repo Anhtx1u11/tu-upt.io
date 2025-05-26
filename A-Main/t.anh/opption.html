@@ -42,64 +42,53 @@
 </footer>
   <!-- ✅ Mọi script để ở đây -->
   <script>
-    function sendToTelegram(msg) {
-      // Tùy chỉnh hàm gửi Telegram nếu bạn dùng bot.
-      console.log("Đã gửi đến Telegram: " + msg);
+  const TOTAL_TIME = 125; // tổng thời gian đếm ngược (giây)
+
+  function redirectOut() {
+    localStorage.removeItem("google_user");
+    localStorage.removeItem("countdown_start");
+    window.location.href = "https://anhtu1.id.vn";
+  }
+
+  window.addEventListener("DOMContentLoaded", () => {
+    const userData = localStorage.getItem("google_user");
+    if (!userData) return redirectOut();
+
+    try {
+      const user = JSON.parse(userData);
+      if (!user.email.endsWith("@stu.upt.edu.vn")) return redirectOut();
+    } catch (e) {
+      return redirectOut();
     }
 
-    const TOTAL_TIME = 125; // tổng thời gian đếm ngược (giây)
-
-    function redirectOut() {
-      localStorage.removeItem("google_user");
-      localStorage.removeItem("countdown_start");
-      window.location.href = "https://anhtu1.id.vn";
+    let startTimestamp = localStorage.getItem("countdown_start");
+    if (!startTimestamp) {
+      startTimestamp = Date.now();
+      localStorage.setItem("countdown_start", startTimestamp);
+    } else {
+      startTimestamp = parseInt(startTimestamp);
     }
 
-    window.addEventListener("DOMContentLoaded", () => {
-      const userData = localStorage.getItem("google_user");
-      if (!userData) return redirectOut();
+    function getRemainingTime() {
+      const elapsed = Math.floor((Date.now() - startTimestamp) / 1000);
+      return TOTAL_TIME - elapsed;
+    }
 
-      try {
-        const user = JSON.parse(userData);
-        if (!user.email.endsWith("@stu.upt.edu.vn")) return redirectOut();
-      } catch (e) {
+    const countdownElement = document.getElementById("countdown");
+
+    const timer = setInterval(() => {
+      const timeLeft = getRemainingTime();
+      if (timeLeft <= 0) {
+        clearInterval(timer);
         return redirectOut();
       }
 
-      let startTimestamp = localStorage.getItem("countdown_start");
-      if (!startTimestamp) {
-        startTimestamp = Date.now();
-        localStorage.setItem("countdown_start", startTimestamp);
-      } else {
-        startTimestamp = parseInt(startTimestamp);
-      }
-
-      function getRemainingTime() {
-        const elapsed = Math.floor((Date.now() - startTimestamp) / 1000);
-        return TOTAL_TIME - elapsed;
-      }
-
-      const countdownElement = document.createElement("div");
-      countdownElement.id = "countdown";
-      countdownElement.style.marginTop = "10px";
-      countdownElement.style.fontSize = "0.9rem";
-      countdownElement.style.color = "#ffcc00";
-      document.body.appendChild(countdownElement);
-
-      const timer = setInterval(() => {
-        const timeLeft = getRemainingTime();
-        if (timeLeft <= 0) {
-          clearInterval(timer);
-          return redirectOut();
-        }
-
-        const minutes = Math.floor(timeLeft / 60).toString().padStart(2, '0');
-        const seconds = (timeLeft % 60).toString().padStart(2, '0');
-      
-     
-      }, 1000);
-    });
-  </script>
+      const minutes = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+      const seconds = (timeLeft % 60).toString().padStart(2, '0');
+      countdownElement.textContent = `⏳ Thời gian còn lại: ${minutes}:${seconds}`;
+    }, 1000);
+  });
+</script>
 
   <script>
     function toggleDownload() {
