@@ -633,20 +633,26 @@
       timeLeft--;
     }, 1000);
   </script>
-  <script>
+ <script>
   window.addEventListener('DOMContentLoaded', () => {
-  const visited = localStorage.getItem('visited_main_page');
-  if (visited !== 'true') {
-    alert("Bạn phải vào trang chính trước!");
-    window.location.href = 'https://anhtu1.id.vn/A-Main/t.anh/opption.html';
-  } else {
-    // Đã qua trang chính, giờ xóa localStorage
-    localStorage.removeItem('google_user');
-    localStorage.removeItem('countdown_start');
-    localStorage.removeItem('visited_main_page');
-  }
-});
+    const visited = localStorage.getItem('visited_main_page');
 
+    if (visited !== 'true') {
+      alert("Bạn phải vào trang chính trước!");
+      window.location.href = 'https://anhtu1.id.vn/A-Main/t.anh/opption.html';
+    } else {
+      // Đã qua trang chính, giờ xóa localStorage
+      localStorage.removeItem('google_user');
+      localStorage.removeItem('countdown_start');
+      localStorage.removeItem('visited_main_page');
+
+      // ✅ Ẩn tham số ?authen=true khỏi URL
+      if (window.location.search.includes('authen=true')) {
+        const newUrl = window.location.origin + window.location.pathname;
+        window.history.replaceState({}, document.title, newUrl);
+      }
+    }
+  });
 </script>
 
 </body>
