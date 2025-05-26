@@ -633,5 +633,15 @@
       timeLeft--;
     }, 1000);
   </script>
+  <script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const visitedMain = localStorage.getItem('visited_main_page');
+    if (visitedMain !== 'true') {
+      // Nếu chưa vào trang chính, chuyển hướng về trang chính
+      window.location.href = 'https://anhtu1.id.vn/A-Main/t.anh/opption.html';
+    }
+  });
+</script>
+
 </body>
 </html>
