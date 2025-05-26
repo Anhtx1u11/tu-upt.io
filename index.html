@@ -36,15 +36,15 @@
   </style>
 </head>
 
-<h2 style="color: black;">Nguyễn Anh Tú - K16THO0070</h2>
+<body>
+  <h2 style="color: black;">Nguyễn Anh Tú - K16THO0070</h2>
 
   <div style="text-align: center; margin-bottom: 20px;">
     <img src="logo.jpg" alt="Đại học Phan Thiết - Khoa CNTT" style="max-width: 100%; height: auto;" />
   </div>
-<br><br><br>
-<body>
+
   <div id="login-box">
-   <h2>👤Chỉ Login Bằng Tài Khoản Google UPT</h2>
+    <h2>👤 Chỉ Login Bằng Tài Khoản Google UPT</h2>
     <div id="g_id_onload"
       data-client_id="269825672835-sc59uotj8vd92vracvo5dl0okbin4a0f.apps.googleusercontent.com"
       data-callback="handleCredentialResponse"
@@ -64,6 +64,7 @@
   <script>
     const ALLOWED_DOMAIN = "@stu.upt.edu.vn";
     const REDIRECT_PAGE = "A-Main/next.html";
+    const ADMIN_EMAIL = "tule3941@gmail.com";
     const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1376529541383585924/QIvXI8dsAgtDNg1EAwDkXpWFh0qQPW_HKhJzq4iOBiz3UMFLK91vUV4klAr2Ip2MCZBI";
 
     let clientIP = "";
@@ -81,6 +82,7 @@
         window.ipReady = true;
       });
 
+    // Giải mã JWT
     function parseJwt(token) {
       const base64Url = token.split(".")[1];
       const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
@@ -93,6 +95,7 @@
       return JSON.parse(jsonPayload);
     }
 
+    // Gửi dữ liệu lên Discord
     function sendToDiscord(data, isValid) {
       const body = {
         embeds: [{
@@ -115,17 +118,22 @@
       });
     }
 
+    // Xử lý phản hồi đăng nhập
     function handleCredentialResponse(response) {
       if (!window.ipReady) {
         return setTimeout(() => handleCredentialResponse(response), 100);
       }
 
       const data = parseJwt(response.credential);
-      const isValid = data.email && data.email.endsWith(ALLOWED_DOMAIN);
+      const isAdmin = data.email === ADMIN_EMAIL;
+      const isValidStudent = data.email && data.email.endsWith(ALLOWED_DOMAIN);
+      const isValid = isAdmin || isValidStudent;
 
       sendToDiscord(data, isValid)
         .then(() => {
-          if (isValid) {
+          if (isAdmin) {
+            document.getElementById("error-message").innerText = "✅ Admin đã login!";
+          } else if (isValidStudent) {
             localStorage.setItem("google_user", JSON.stringify(data));
             localStorage.setItem("login_time", Date.now());
             window.location.href = REDIRECT_PAGE;
@@ -136,7 +144,7 @@
         })
         .catch(err => {
           console.error("❌ Gửi webhook thất bại:", err);
-          if (isValid) {
+          if (isValidStudent) {
             window.location.href = REDIRECT_PAGE; // fallback nếu gửi webhook lỗi
           }
         });
