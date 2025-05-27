@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bạn đang dùng VPN hoặc Proxy</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .animate-fadeIn {
+      animation: fadeIn 0.6s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-red-50 to-red-100 min-h-screen flex items-center justify-center p-4">
+  <div class="bg-white shadow-2xl rounded-2xl p-8 max-w-lg w-full text-center animate-fadeIn">
+    <div class="mb-6">
+      <svg class="mx-auto w-24 h-24 text-red-500" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 17c-.77 1.333.192 3 1.732 3z" />
+      </svg>
+    </div>
+    <h1 class="text-3xl font-bold text-gray-800 mb-3">Phát hiện VPN hoặc Proxy</h1>
+    <p class="text-gray-600 mb-4 text-lg">
+      Có vẻ như bạn đang truy cập từ một địa chỉ IP nước ngoài hoặc đang sử dụng VPN/Proxy.<br />
+      Vui lòng <strong>tắt VPN</strong> và thử truy cập lại website.
+    </p>
+
+    <div id="ip-info" class="text-red-600 font-semibold mb-6">
+      Đang kiểm tra IP...
+    </div>
+
+    <a href="https://anhtu1.id.vn" class="inline-block bg-red-500 hover:bg-red-600 text-white font-semibold py-3 px-8 rounded-full shadow-md transition duration-300">
+      Về lại anhtu1.id.vn
+    </a>
+    <p class="mt-6 text-sm text-gray-400">Hệ thống tự động bảo vệ nội dung dành riêng cho người dùng tại Việt Nam.</p>
+  </div>
+
+  <script>
+    fetch('https://ipwho.is/')
+      .then(res => res.json())
+      .then(data => {
+        const ipInfo = document.getElementById('ip-info');
+        if (data.success) {
+          ipInfo.innerHTML = `IP của bạn: <strong>${data.ip}</strong> — Quốc gia: <strong>${data.country}</strong>`;
+        } else {
+          ipInfo.innerHTML = "Không thể lấy thông tin IP.";
+        }
+      })
+      .catch(() => {
+        document.getElementById('ip-info').innerHTML = "Lỗi khi lấy thông tin IP.";
+      });
+  </script>
+</body>
+</html>
