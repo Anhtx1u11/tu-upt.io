@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Chào mừng có cửa mở</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      height: 100vh;
+      background: #222;
+      color: white;
+      font-family: sans-serif;
+    }
+
+    .door {
+      position: fixed;
+      top: 0;
+      width: 50%;
+      height: 100%;
+      background: #333;
+      z-index: 999;
+      transition: all 2s ease-in-out;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .door img.logo {
+      width: 150px;
+      height: auto;
+      margin-bottom: 20px;
+    }
+
+    .handle {
+      width: 20px;
+      height: 60px;
+      background: gold;
+      border-radius: 10px;
+      box-shadow: 0 0 5px black;
+    }
+
+    .left-door {
+      left: 0;
+      border-right: 1px solid #000;
+    }
+
+    .right-door {
+      right: 0;
+      border-left: 1px solid #000;
+    }
+
+    .doors.open .left-door {
+      transform: translateX(-100%);
+    }
+
+    .doors.open .right-door {
+      transform: translateX(100%);
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      padding: 50px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="doors">
+    <div class="door left-door">
+      <img class="logo" src="https://upt.edu.vn/wp-content/uploads/2019/12/cropped-cropped-logo-UPT-mau-vang150px.png" alt="Logo trái">
+      <div class="handle"></div>
+    </div>
+    <div class="door right-door">
+      <img class="logo" src="https://anhtu1.id.vn/A-Main/fit.jpg" alt="Logo phải">
+      <div class="handle"></div>
+    </div>
+  </div>
+
+  <div class="content">
+    <h1>🎉 Chào mừng bạn đến với website!</h1>
+    <p>Đây là nội dung chính sau khi cánh cửa mở ra.</p>
+  </div>
+
+  <script>
+    const doors = document.querySelector('.doors');
+
+    // Mở cửa sau 1 giây
+    setTimeout(() => {
+      doors.classList.add('open');
+    }, 1000);
+
+    // Sau 3 giây, ẩn cửa và chuyển đến trang index01.html
+    setTimeout(() => {
+      doors.style.display = 'none';
+      window.location.href = 'index01.html';
+    }, 3000);
+  </script>
+
+</body>
+</html>
