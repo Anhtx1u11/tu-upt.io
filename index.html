@@ -2,54 +2,63 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Chào mừng có cửa mở</title>
+  <title>Chào mừng đến UPT</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
     body, html {
       margin: 0;
       padding: 0;
       overflow: hidden;
       height: 100vh;
-      background: #222;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0c2442, #1b3a61);
       color: white;
-      font-family: sans-serif;
+    }
+
+    .doors {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 999;
+      display: flex;
     }
 
     .door {
-      position: fixed;
-      top: 0;
       width: 50%;
       height: 100%;
-      background: #333;
-      z-index: 999;
-      transition: all 2s ease-in-out;
+      background: #f8b500; /* màu vàng UPT */
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      transition: transform 2s ease-in-out;
+      position: relative;
     }
 
-    .door img.logo {
-      width: 150px;
-      height: auto;
-      margin-bottom: 20px;
+    .left-door {
+      border-right: 2px solid #fff;
+    }
+
+    .right-door {
+      border-left: 2px solid #fff;
     }
 
     .handle {
       width: 20px;
       height: 60px;
-      background: gold;
+      background: #fff;
       border-radius: 10px;
-      box-shadow: 0 0 5px black;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      margin-top: 20px;
     }
 
-    .left-door {
-      left: 0;
-      border-right: 1px solid #000;
-    }
-
-    .right-door {
-      right: 0;
-      border-left: 1px solid #000;
+    .door img.logo {
+      width: 120px;
+      max-width: 70%;
+      height: auto;
     }
 
     .doors.open .left-door {
@@ -63,8 +72,28 @@
     .content {
       position: relative;
       z-index: 1;
-      padding: 50px;
+      padding: 40px 20px;
       text-align: center;
+    }
+
+    .content h1 {
+      font-size: 1.8rem;
+      color: #fbd93c;
+    }
+
+    .content p {
+      font-size: 1rem;
+      color: #eee;
+    }
+
+    @media (max-width: 768px) {
+      .door img.logo {
+        width: 90px;
+      }
+      .handle {
+        width: 15px;
+        height: 50px;
+      }
     }
   </style>
 </head>
@@ -72,18 +101,18 @@
 
   <div class="doors">
     <div class="door left-door">
-      <img class="logo" src="https://upt.edu.vn/wp-content/uploads/2019/12/cropped-cropped-logo-UPT-mau-vang150px.png" alt="Logo trái">
+      <img class="logo" src="https://upt.edu.vn/wp-content/uploads/2019/12/cropped-cropped-logo-UPT-mau-vang150px.png" alt="Logo UPT">
       <div class="handle"></div>
     </div>
     <div class="door right-door">
-      <img class="logo" src="https://anhtu1.id.vn/A-Main/fit.jpg" alt="Logo phải">
+      <img class="logo" src="https://anhtu1.id.vn/A-Main/fit.jpg" alt="Logo FIT">
       <div class="handle"></div>
     </div>
   </div>
 
   <div class="content">
-    <h1>🎉 Chào mừng bạn đến với website!</h1>
-    <p>Đây là nội dung chính sau khi cánh cửa mở ra.</p>
+    <h1>🎓 Chào mừng đến Đại học Phan Thiết</h1>
+    <p>Bạn sẽ được chuyển hướng vào hệ thống trong giây lát...</p>
   </div>
 
   <script>
@@ -94,7 +123,7 @@
       doors.classList.add('open');
     }, 1000);
 
-    // Sau 3 giây, ẩn cửa và chuyển đến trang index01.html
+    // Sau 3 giây, ẩn cửa và chuyển sang index01.html
     setTimeout(() => {
       doors.style.display = 'none';
       window.location.href = 'index01.html';
