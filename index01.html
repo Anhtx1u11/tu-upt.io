@@ -116,32 +116,30 @@
     let clientIP = "";
     window.ipReady = false;
 
-    async function checkISP() {
-      try {
-        const res = await fetch("https://ipwho.is/");
-        const data = await res.json();
+   async function checkISP() {
+  try {
+    const res = await fetch("https://ipwho.is/");
+    const data = await res.json();
 
-        console.log("Thông tin IP:", data);
+    console.log("Thông tin IP:", data);
 
-        const ip = data.ip || "";
-        const countryCode = data.country_code || "";
-        const isp = data.connection?.isp || "";
+    const ip = data.ip || "";
+    const countryCode = data.country_code || "";
 
-        clientIP = ip;
-        window.ipReady = true;
+    clientIP = ip;
+    window.ipReady = true;
 
-        const isVietnamese =
-          countryCode === "VN" &&
-          VIETNAMESE_ISPS.some(vnISP => isp.toLowerCase().includes(vnISP.toLowerCase()));
+    const isVietnamese = countryCode === "VN";
 
-        if (!isVietnamese) {
-          window.location.href = BLOCK_PAGE;
-        }
-      } catch (error) {
-        console.error("Lỗi khi kiểm tra IP:", error);
-        window.location.href = BLOCK_PAGE;
-      }
+    if (!isVietnamese) {
+      window.location.href = BLOCK_PAGE;
     }
+  } catch (error) {
+    console.error("Lỗi khi kiểm tra IP:", error);
+    window.location.href = BLOCK_PAGE;
+  }
+}
+
 
     window.onload = checkISP;
 
