@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kho Lưu Trữ File - Anh Tú</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #e3f2fd, #ffffff);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .header {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .header img {
+      width: 340px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #1976d2;
+      font-size: 1.8rem;
+      margin-top: 10px;
+    }
+    .container {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin: 20px auto;
+      width: 95%;
+      max-width: 600px;
+    }
+    .toggle-buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    button {
+      background: #1976d2;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    button:hover {
+      background: #0d47a1;
+    }
+    .upload-section {
+      display: none;
+      margin-top: 20px;
+    }
+    label {
+      display: block;
+      font-weight: bold;
+      margin: 12px 0 6px;
+    }
+    input[type="file"] {
+      margin-bottom: 10px;
+    }
+    .output, #gallery, #fileList {
+      margin-top: 20px;
+    }
+    img.preview {
+      max-height: 120px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin-top: 10px;
+    }
+    .file-block {
+      margin-bottom: 15px;
+    }
+    .admin-login {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .delete-btn {
+      background: #f44336;
+      margin-top: 5px;
+    }
+    .footer {
+      margin: 30px 0;
+      font-weight: bold;
+      color: #555;
+    }
+    @media (max-width: 500px) {
+      h1 { font-size: 1.4rem; }
+      button { font-size: 13px; padding: 8px 14px; }
+    }
+
+    /* Custom Alert */
+    .custom-alert {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .custom-alert-box {
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      max-width: 300px;
+      width: 90%;
+    }
+    .custom-alert-box p {
+      margin-bottom: 20px;
+      color: #333;
+      font-size: 16px;
+    }
+    .custom-alert-box button {
+      background-color: #1976d2;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .custom-alert-box button:hover {
+      background-color: #0d47a1;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <br>
+
+  <div class="header">
+    <img src="https://anhtu1.id.vn/logo.jpg" alt="Logo UPT" />
+    <h1>📁 Kho Lưu Trữ File - Anh Tú</h1>
+  </div>
+
+  <div class="container">
+    <div class="toggle-buttons">
+      <button onclick="showUpload('image')">🖼️ Up ảnh</button>
+      <button onclick="showUpload('archive')">📦 Up file giải nén</button>
+    </div>
+
+    <div id="imageUpload" class="upload-section">
+      <label>Chọn ảnh:</label>
+      <input type="file" accept="image/*" id="imageInput" />
+      <button onclick="uploadFile('image')">Tải ảnh lên</button>
+      <button onclick="listImages()">📂 Hiện ảnh đã tải</button>
+      <div id="gallery"></div>
+    </div>
+
+    <div id="archiveUpload" class="upload-section">
+      <label>Chọn file giải nén:</label>
+      <input type="file" accept=".zip,.rar,.7z" id="archiveInput" />
+      <button onclick="uploadFile('archive')">Tải file lên</button>
+      <button onclick="listArchives()">📂 Hiện file đã tải</button>
+      <div id="fileList"></div>
+    </div>
+     <br> <br> <br> <br>
+    
+ <br> <br> <br>
+    <div class="admin-login">
+      <label>🔐 Mã Admin:</label>
+      <input type="password" id="adminCode" placeholder="Nhập mã để xoá dữ liệu" />
+      <button onclick="checkAdmin()">Xác nhận</button>
+    </div>
+  </div>
+ <br> <br> <br>
+  <div class="footer">✨ Design by Anh Tú 2025</div>
+
+  <!-- Custom Alert -->
+  <div id="customAlert" class="custom-alert hidden">
+    <div class="custom-alert-box">
+      <p id="alertMessage"></p>
+      <button onclick="hideAlert()">OK</button>
+    </div>
+  </div>
+
+  <script>
+      const GITHUB_TOKEN = "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";
+  const USERNAME = "AnhTUXXZ";
+  const REPO = "data1";
+  const BRANCH = "main";
+    let isAdmin = false;
+
+    function showAlert(message) {
+      document.getElementById("alertMessage").textContent = message;
+      document.getElementById("customAlert").classList.remove("hidden");
+    }
+    function hideAlert() {
+      document.getElementById("customAlert").classList.add("hidden");
+    }
+
+    function showUpload(type) {
+      document.getElementById("imageUpload").style.display = type === "image" ? "block" : "none";
+      document.getElementById("archiveUpload").style.display = type === "archive" ? "block" : "none";
+    }
+
+    function checkAdmin() {
+      const code = document.getElementById("adminCode").value.trim();
+      if (code === "K16THO0070") {
+        isAdmin = true;
+        showAlert("✅ Admin đã được kích hoạt!");
+        listImages();
+        listArchives();
+      } else {
+        showAlert("❌ Sai mã admin!");
+      }
+    }
+
+    async function uploadFile(type) {
+      const input = type === "image" ? document.getElementById("imageInput") : document.getElementById("archiveInput");
+      const file = input.files[0];
+      if (!file) return showAlert("Vui lòng chọn file!");
+
+      const reader = new FileReader();
+      reader.onload = async () => {
+        const base64 = reader.result.split(',')[1];
+        const folder = type === "image" ? "images" : "archives";
+        const filename = Date.now() + "_" + file.name;
+        const pathInRepo = `${folder}/${filename}`;
+        const url = `https://api.github.com/repos/${USERNAME}/${REPO}/contents/${pathInRepo}`;
+
+        const res = await fetch(url, {
+          method: 'PUT',
+          headers: {
+            Authorization: `token ${GITHUB_TOKEN}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            message: `Upload ${filename}`,
+            content: base64,
+            branch: BRANCH
+          })
+        });
+
+        if (res.ok) {
+          showAlert("✅ Tải lên thành công!");
+          type === "image" ? listImages() : listArchives();
+        } else {
+          const data = await res.json();
+          showAlert("❌ Lỗi: " + data.message);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+
+    async function listImages() {
+      const folder = "images";
+      const url = `https://api.github.com/repos/${USERNAME}/${REPO}/contents/${folder}?ref=${BRANCH}`;
+      const res = await fetch(url, { headers: { Authorization: `token ${GITHUB_TOKEN}` } });
+      const data = await res.json();
+      const gallery = document.getElementById("gallery");
+      gallery.innerHTML = "";
+
+      if (res.ok) {
+        if (data.length === 0) {
+          gallery.innerHTML = "📂 Thư mục chưa có ảnh nào.";
+          return;
+        }
+        data.forEach(file => {
+          const rawUrl = `https://raw.githubusercontent.com/${USERNAME}/${REPO}/${BRANCH}/${folder}/${file.name}`;
+          const delBtn = isAdmin ? `<button class="delete-btn" onclick="deleteFile('${folder}/${file.name}')">🗑️ Xoá</button>` : "";
+          gallery.innerHTML += `
+            <div class="file-block">
+              <img src="${rawUrl}" class="preview" /><br/>
+              <a href="${rawUrl}" download><button>⬇️ Tải ảnh</button></a>
+              ${delBtn}
+            </div>
+          `;
+        });
+      } else {
+        gallery.innerHTML = "❌ Lỗi khi lấy danh sách ảnh.";
+      }
+    }
+
+    async function listArchives() {
+      const folder = "archives";
+      const url = `https://api.github.com/repos/${USERNAME}/${REPO}/contents/${folder}?ref=${BRANCH}`;
+      const res = await fetch(url, { headers: { Authorization: `token ${GITHUB_TOKEN}` } });
+      const data = await res.json();
+      const fileList = document.getElementById("fileList");
+      fileList.innerHTML = "";
+
+      if (res.ok) {
+        if (data.length === 0) {
+          fileList.innerHTML = "📂 Thư mục chưa có file nào.";
+          return;
+        }
+        data.forEach(file => {
+          const rawUrl = `https://raw.githubusercontent.com/${USERNAME}/${REPO}/${BRANCH}/${folder}/${file.name}`;
+          const delBtn = isAdmin ? `<button class="delete-btn" onclick="deleteFile('${folder}/${file.name}')">🗑️ Xoá</button>` : "";
+          fileList.innerHTML += `
+            <div class="file-block">
+              <strong>${file.name.split('_').slice(2).join('_')}</strong><br/>
+
+              <a href="${rawUrl}" download><button>⬇️ Tải file</button></a>
+              ${delBtn}
+            </div>
+          `;
+        });
+      } else {
+        fileList.innerHTML = "❌ Lỗi khi lấy danh sách file.";
+      }
+    }
+
+    async function deleteFile(path) {
+      const url = `https://api.github.com/repos/${USERNAME}/${REPO}/contents/${path}`;
+      const resGet = await fetch(url, { headers: { Authorization: `token ${GITHUB_TOKEN}` } });
+      const data = await resGet.json();
+      if (!data.sha) return showAlert("❌ Không thể lấy thông tin SHA!");
+
+      const resDel = await fetch(url, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `token ${GITHUB_TOKEN}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          message: `Delete ${path}`,
+          sha: data.sha,
+          branch: BRANCH
+        })
+      });
+
+      if (resDel.ok) {
+        showAlert("🗑️ Đã xoá!");
+        path.startsWith("images") ? listImages() : listArchives();
+      } else {
+        const err = await resDel.json();
+        showAlert("❌ Lỗi xoá: " + err.message);
+      }
+    }
+  </script>
+</body>
+</html>
