@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Nạp Tiền Game Cá Cược</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background: url('https://img.tripi.vn/cdn-cgi/image/width=700,height=700/https://gcs.tripi.vn/public-tripi/tripi-feed/img/482812zKR/anh-mo-ta.png') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Arial', sans-serif;
+      color: white;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 400px;
+      margin: 50px auto;
+      background-color: rgba(0,0,0,0.75);
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+    }
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px auto;
+      border-radius: 5px;
+      border: none;
+      font-size: 16px;
+    }
+    button {
+      padding: 12px 25px;
+      background-color: #ffc107;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      color: #000;
+    }
+    img.qr {
+      width: 200px;
+      margin: 20px auto;
+      display: block;
+    }
+    #notification {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(0,0,0,0.9);
+      padding: 20px;
+      border-radius: 10px;
+      display: none;
+      z-index: 1000;
+      color: #fff;
+      text-align: center;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div id="notification">Yêu cầu đã gửi đến admin, vui lòng chờ duyệt!</div>
+
+  <div class="container">
+    <h2>🔰 Nạp Tiền Game Cá Cược</h2>
+    <img class="qr" src="qr.jpg" alt="QR Code">
+
+    <form id="napForm">
+      <input type="text" id="username" placeholder="Tên người dùng (ID Đã Đăng Ký)" required>
+      <input type="number" id="amount" placeholder="Số tiền bạn đã chuyển" required>
+      <input type="text" id="noidung" placeholder="Nội dung chuyển khoản (ID Đã Đăng Ký)" required>
+      <button type="submit">Xác Nhận</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('napForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const username = document.getElementById('username').value.trim();
+      const amount = document.getElementById('amount').value.trim();
+      const noidung = document.getElementById('noidung').value.trim();
+
+      // Gửi về Discord Webhook
+      const webhookURL = 'https://discord.com/api/webhooks/1381250871186292817/ut0KU41lRWMrk92ihX3GHShhSLQ_R5CdjhHtoxdYUTK21_6_vZh4N0MiZtarIgisPcgq'; // <-- thay thế bằng link của bạn
+
+      const data = {
+        content: `📥 **YÊU CẦU NẠP TIỀN MỚI**
+👤 Người dùng: \`${username}\`
+💸 Số tiền: \`${amount} VND\`
+📝 Nội dung CK: \`${noidung}\`
+⏰ Thời gian: ${new Date().toLocaleString("vi-VN")}`
+      };
+
+      fetch(webhookURL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      }).then(() => {
+        // Hiển thị thông báo
+        const notify = document.getElementById('notification');
+        notify.style.display = 'block';
+        setTimeout(() => notify.style.display = 'none', 4000);
+
+        // Reset form
+        document.getElementById('napForm').reset();
+      }).catch(err => {
+        alert("Lỗi gửi yêu cầu! Kiểm tra lại kết nối hoặc webhook.");
+        console.error(err);
+      });
+    });
+  </script>
+</body>
+</html>
