@@ -1,0 +1,13 @@
+{
+    "type": "service_account",
+    "project_id": "taikhoangame-462404",
+    "private_key_id": "7b122e952880cfaab4d250d9b8bbe2e4d078fc3f",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC723+7tMhIzG1X\nVpyYmvzXLojKZsCyX2nzJbBfnixLzxixOI+30hECnwLOs5h3mcusWcBprXw0IhFw\nYefdN8qk7A243Dk6qH1DChXrzQDOQir1eS2/IFz3mf4bpVZxTMON6AfRB/IpEGiI\nnRgm93cQISb32fStj3qzWocHbb+/+o87E7IJVL0/4S0qATP3HEpuE7T6ySThGBwD\nsJdE3XlKTVPAwDD+ZdijEdc/tXPuMqH/wUOwKmIzoMzJzL9Lea/DKIgM0TrcGa0/\nafgyFUXzzzTu47y85m+e3OTiB2LSPTo7dUj/YyE6NP5pYNXDMeY8REQqp8nUBYoY\nJ4Sl/onLAgMBAAECggEABw0qMkWK7xCdWhXqMuA+dWVNxSsuOIPUWkgj4rLxPrc7\nWguheWjtMof9dvzO0E55krKbwlu8ucg9l1ZVebxKYv5pVXMOwuDoMsgCIqPDT/qz\n2hr+WJpCYxjorOj74azb+kunX3VI5bmz8szSx0OquHRGHi+UO5+TH4BaaTD5bZ9N\noUXEx+cQ4+1Zu1K6g67JoP8j21qkb1/7IRR+9UhQjhC7tpPtD6pf20H8BzcG7Do0\ny7Ai7vNIXUgdm08i3LpRziwY+D42o37v1afB19G5V8aNo7UrCknHRCPiKD1xiQJF\nc2s3slfOKryNUe8xV4e8C5TcJVbTjJsSl4y3yDm+IQKBgQDgfWb0O9GoyMO8Ft8g\nuXEEO+ssFWyRpgA+to8ViMwpIbmcGfB3bXXHy1KX7Mybz3f8BBXe84vJj86LZ6yd\n8cqwJ87z82QMyPZrWbSJF07tm2kKIafsHwAz7T54FkmiWpOyZbXlQZtbJNkepksr\nQWhxMlWs54lspRjIzNPKQxHaDwKBgQDWOchqywfIz4uT+HHOTpmnn44DbuI3cZR7\nXqcfT+po4u1xyqW4XCGmhs0O6bGs6BTe0EgNAD1DP3PhSX0lhu7Wwxzk0X+cn0Dh\nrfjrnEbZOtr9Ma0rAHfDMepcjILf2RZVtTWzFam//cPu56mDgux3m4djADUqdWqM\nkpRRZAPAhQKBgQCuMeC/x+Mqm4721rCRThRaerxD2uQCKNOr1jE1Po9do2PJs38a\nzP9F54nRhdhHVzf9gJYQCOABqetV1T7m2Ia1Jk66kbSjDxXXuyYR8to2Gg/p4q/Q\n00VvBbshp/m/V5WgKrh4iu4oTXGFDPjrObf3jl1Y69mBSqLuvbHiEyU5FQKBgAin\nBtBBaQwUTefpFfemNxCNIjhDR0HEBaJB/XAHU0lvOPXqoGzk07sdILUkfTelnAov\n0WktBExuCKklxbc5TvY/pTAcwhG6YO18kFw70KS/es7VLdBZ0XyBzJx2VGbkJsHJ\ncuTL0DJf9oT0uGUGabSfBIXcIUmYunf5B6KN7pTdAoGATic1lbaAE6A1hmnhRHX9\nOKAsw/WOzm3FQXwtELh9SekqUrtBdNKRgezoz+XqPOa5/wB31jc7ih11xsWIzVpN\n4w8GOryL54X5a7RWaWwNFI3k78GRoR05Um5DXV9D1OUyKi/kcvq9hPPbjE9WoW2a\nkWJhYv4s9vMKCbt8coOzj4A=\n-----END PRIVATE KEY-----\n",
+    "client_email": "sheets-access@taikhoangame-462404.iam.gserviceaccount.com",
+    "client_id": "103447182109144289240",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/sheets-access%40taikhoangame-462404.iam.gserviceaccount.com",
+    "universe_domain": "googleapis.com"
+}
