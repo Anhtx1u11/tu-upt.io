@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 2 Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            max-width: 800px;
+            width: 100%;
+        }
+        .quiz-container {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #1d4ed8;
+            text-align: center;
+            margin-top: 0;
+        }
+        .instructions {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        
+        /* --- Styles for Fill in the blank --- */
+        .word-box {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 15px;
+            background-color: #eef2ff;
+            border: 1px solid #c7d2fe;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            justify-content: center;
+        }
+        .word-box code {
+            background-color: #ffffff;
+            padding: 4px 8px;
+            border-radius: 5px;
+            font-size: 1em;
+            font-weight: 500;
+        }
+        .fill-in-text {
+            font-size: 1.2em;
+            line-height: 2.5;
+        }
+        .fill-in-text ol {
+            padding-left: 20px;
+        }
+        .fill-in-text li {
+            margin-bottom: 12px;
+        }
+        .fill-in-text input {
+            width: 140px;
+            border: none;
+            border-bottom: 2px solid #9ca3af;
+            font-size: 1em;
+            font-family: inherit;
+            text-align: center;
+            margin: 0 5px;
+            padding: 2px 5px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            vertical-align: middle;
+        }
+        .fill-in-text input:focus {
+            outline: none;
+            border-color: #4f46e5;
+            box-shadow: 0 1px 0 #4f46e5;
+        }
+        .fill-in-text .verb-in-bracket {
+            font-family: monospace;
+            color: #555;
+            font-size: 0.9em;
+            text-transform: uppercase;
+        }
+        .fill-in-text input.correct {
+            border-color: #16a34a;
+            background-color: #f0fdf4;
+        }
+        .fill-in-text input.incorrect {
+            border-color: #dc2626;
+            background-color: #fef2f2;
+        }
+        
+        /* --- Styles for Multiple Choice --- */
+        .mcq-list {
+            list-style-type: none;
+            padding-left: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .mcq-item {
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+        .mcq-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 8px;
+        }
+        .mcq-option {
+            display: flex;
+            align-items: center;
+        }
+        .mcq-option input[type="radio"] {
+            margin-right: 8px;
+        }
+        .mcq-option label {
+             cursor: pointer;
+             padding: 4px 8px;
+             border-radius: 5px;
+             transition: background-color 0.3s;
+        }
+        .mcq-option label.correct-answer {
+             background-color: #dcfce7;
+             color: #15803d;
+             font-weight: bold;
+        }
+        .mcq-option label.incorrect-choice {
+             background-color: #fee2e2;
+             color: #b91c1c;
+             text-decoration: line-through;
+        }
+        
+        /* --- General Styles --- */
+        .check-button {
+            display: block;
+            width: 100%;
+            padding: 12px 20px;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #fff;
+            background-color: #2563eb;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: background-color 0.3s;
+        }
+        .check-button:hover {
+            background-color: #1d4ed8;
+        }
+        .answer-key {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            display: none; /* Ẩn ban đầu */
+        }
+        .answer-key h3 {
+            margin-top: 0;
+            color: #334155;
+        }
+        .score-display {
+            margin-top: 20px;
+            padding: 10px 15px;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 8px;
+            display: none; /* Ẩn ban đầu */
+        }
+        .score-display.correct {
+            background-color: #dcfce7;
+            color: #15803d;
+        }
+        .score-display.incorrect {
+            background-color: #fee2e2;
+            color: #b91c1c;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Unit 2 Test</h1>
+
+    <div class="quiz-container">
+        <h2>Vocabulary 1: Word Formation</h2>
+        <p class="instructions"><b>Complete the text with the correct form of the word in CAPITAL LETTERS.</b></p>
+        <div class="fill-in-text">
+            The Invictus Games is a (0) <u><b>competition</b></u> <span class="verb-in-bracket">COMPETE</span> for people injured in wars. All the (1)<input type="text" id="u2p1_ans1" data-answer="competitors"> <span class="verb-in-bracket">COMPETE</span> are learning to live with life-changing injuries. Events include (2)<input type="text" id="u2p1_ans2" data-answer="cycling"> <span class="verb-in-bracket">CYCLE</span> and (3)<input type="text" id="u2p1_ans3" data-answer="athletics"> <span class="verb-in-bracket">ATHLETE</span> as well as team sports like rugby and basketball for (4)<input type="text" id="u2p1_ans4" data-answer="players"> <span class="verb-in-bracket">PLAY</span> in wheelchairs. The Games are organized (5)<input type="text" id="u2p1_ans5" data-answer="like"> <span class="verb-in-bracket">LIKE</span> the Olympics – the races are shown on TV in the UK, and all the (6)<input type="text" id="u2p1_ans6" data-answer="winners"> <span class="verb-in-bracket">WIN</span> get gold medals. But, for the people who are (7)<input type="text" id="u2p1_ans7" data-answer="competing"> <span class="verb-in-bracket">COMPETE</span>, this isn’t what’s important. They are there to make friends with other (8)<input type="text" id="u2p1_ans8" data-answer="runners"> <span class="verb-in-bracket">RUN</span> or swimmers or (9)<input type="text" id="u2p1_ans9" data-answer="wrestlers"> <span class="verb-in-bracket">WRESTLE</span>. The Invictus Games helps people to feel better about themselves, and to feel like champions, not (10)<input type="text" id="u2p1_ans10" data-answer="losers"> <span class="verb-in-bracket">LOSE</span>.
+        </div>
+        <button id="check-button-u2p1" class="check-button">Kiểm tra Vocabulary 1</button>
+    </div>
+
+    <div class="quiz-container">
+        <h2>Vocabulary 2: Word Box</h2>
+        <p class="instructions"><b>Complete the sentences with the words in the box. There are two extra words you do not need.</b></p>
+        <div class="word-box">
+            <code>celebrate</code> <code>celebration</code> <code>competition</code> <code>competitive</code> <code>footballer</code> <code>gymnastics</code> <code>like</code> <code>line</code> <code>matches</code> <code>race</code> <code>racing</code> <code>slow</code> <code>team</code>
+        </div>
+        <div class="fill-in-text">
+            <ol>
+                <li>Eid is an annual <input type="text" id="u2p2_ans1" data-answer="celebration">.</li>
+                <li>Ivan got tired and started to <input type="text" id="u2p2_ans2" data-answer="slow"> down.</li>
+                <li>The <i>Tour de France</i> is a famous cycling <input type="text" id="u2p2_ans3" data-answer="race">.</li>
+                <li>Olive is very <input type="text" id="u2p2_ans4" data-answer="like"> her sister.</li>
+                <li><input type="text" id="u2p2_ans5" data-answer="Gymnastics"> is an Olympic sport.</li>
+                <li>There are fifteen players in a rugby <input type="text" id="u2p2_ans6" data-answer="team">.</li>
+                <li>Jason was first to cross the finish <input type="text" id="u2p2_ans7" data-answer="line">.</li>
+                <li>The sport of horse <input type="text" id="u2p2_ans8" data-answer="racing"> is popular in Ireland.</li>
+                <li>Jill is very <input type="text" id="u2p2_ans9" data-answer="competitive">. She hates losing.</li>
+                <li>We saw two <input type="text" id="u2p2_ans10" data-answer="matches"> at the hockey stadium.</li>
+            </ol>
+        </div>
+         <button id="check-button-u2p2" class="check-button">Kiểm tra Vocabulary 2</button>
+    </div>
+
+    <div class="quiz-container">
+        <h2>Grammar 3: Verb Forms</h2>
+        <p class="instructions"><b>Complete the text with the correct form of the verbs in brackets.</b></p>
+        <div class="fill-in-text">
+            (0) <u><b>Playing</b></u> <span class="verb-in-bracket">(play)</span> rounders is a lot of fun. It's like baseball, but it isn't as difficult. You don't have to (1)<input type="text" id="u2p3_ans1" data-answer="wear"> <span class="verb-in-bracket">(wear)</span> special clothes or caps and you can (2)<input type="text" id="u2p3_ans2" data-answer="use"> <span class="verb-in-bracket">(use)</span> a tennis ball when you play. The only thing you must (3)<input type="text" id="u2p3_ans3" data-answer="have"> <span class="verb-in-bracket">(have)</span> is a bat – rounders bats are shorter and lighter than baseball bats. Anyone can play. (4)<input type="text" id="u2p3_ans4" data-answer="Being"> <span class="verb-in-bracket">(be)</span> good at sport isn't important. There are girls and boys, young and old, on a rounders team, and they are only interested in (5)<input type="text" id="u2p3_ans5" data-answer="having"> <span class="verb-in-bracket">(have)</span> fun. (6)<input type="text" id="u2p3_ans6" data-answer="Winning"> <span class="verb-in-bracket">(win)</span> isn't the main thing. Of course, some people are better at (7)<input type="text" id="u2p3_ans7" data-answer="playing"> <span class="verb-in-bracket">(play)</span> rounders than others, but they don't want (8)<input type="text" id="u2p3_ans8" data-answer="to score"> <span class="verb-in-bracket">(score)</span> all the points. Everybody has a go. Personally, I love (9)<input type="text" id="u2p3_ans9" data-answer="playing"> <span class="verb-in-bracket">(play)</span> rounders because it's a game for all the family. You can (10)<input type="text" id="u2p3_ans10" data-answer="have"> <span class="verb-in-bracket">(have)</span> a great time together.
+        </div>
+        <button id="check-button-u2p3" class="check-button">Kiểm tra Grammar 3</button>
+    </div>
+
+    <div class="quiz-container">
+        <h2>Grammar 4: Multiple Choice</h2>
+        <p class="instructions"><b>Choose the correct option (A, B, C or D) to complete the sentences.</b></p>
+        <ol class="mcq-list">
+            <li class="mcq-item"><b>(0)</b> You <u><b>don't have to</b></u> buy a ticket. The museum is free on Saturdays.</li>
+            <li class="mcq-item" id="u2q4-1"><b>1.</b> Students ______ park their cars in front of reception. Those parking places are for visitors only.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u2q4-1" value="A" id="u2q4-1a"><label for="u2q4-1a">A can</label></div><div class="mcq-option"><input type="radio" name="u2q4-1" value="B" id="u2q4-1b"><label for="u2q4-1b">B don't have to</label></div><div class="mcq-option"><input type="radio" name="u2q4-1" value="C" id="u2q4-1c"><label for="u2q4-1c">C can't</label></div><div class="mcq-option"><input type="radio" name="u2q4-1" value="D" id="u2q4-1d"><label for="u2q4-1d">D have to</label></div></div></li>
+            <li class="mcq-item" id="u2q4-2"><b>2.</b> You ______ be late. If you miss the start of the play, they won't let you in.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u2q4-2" value="A" id="u2q4-2a"><label for="u2q4-2a">A can</label></div><div class="mcq-option"><input type="radio" name="u2q4-2" value="B" id="u2q4-2b"><label for="u2q4-2b">B don't have to</label></div><div class="mcq-option"><input type="radio" name="u2q4-2" value="C" id="u2q4-2c"><label for="u2q4-2c">C have to</label></div><div class="mcq-option"><input type="radio" name="u2q4-2" value="D" id="u2q4-2d"><label for="u2q4-2d">D mustn't</label></div></div></li>
+            <li class="mcq-item" id="u2q4-3"><b>3.</b> You ______ buy a ticket on the door or in advance – it's your choice.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u2q4-3" value="A" id="u2q4-3a"><label for="u2q4-3a">A can</label></div><div class="mcq-option"><input type="radio" name="u2q4-3" value="B" id="u2q4-3b"><label for="u2q4-3b">B have to</label></div><div class="mcq-option"><input type="radio" name="u2q4-3" value="C" id="u2q4-3c"><label for="u2q4-3c">C must</label></div><div class="mcq-option"><input type="radio" name="u2q4-3" value="D" id="u2q4-3d"><label for="u2q4-3d">D can't</label></div></div></li>
+            <li class="mcq-item" id="u2q4-4"><b>4.</b> You ______ wear a hat inside the chapel. It's not allowed.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u2q4-4" value="A" id="u2q4-4a"><label for="u2q4-4a">A must</label></div><div class="mcq-option"><input type="radio" name="u2q4-4" value="B" id="u2q4-4b"><label for="u2q4-4b">B don't have to</label></div><div class="mcq-option"><input type="radio" name="u2q4-4" value="C" id="u2q4-4c"><label for="u2q4-4c">C have to</label></div><div class="mcq-option"><input type="radio" name="u2q4-4" value="D" id="u2q4-4d"><label for="u2q4-4d">D mustn't</label></div></div></li>
+            <li class="mcq-item" id="u2q4-5"><b>5.</b> Joe ______ go to the party if he doesn't want to.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u2q4-5" value="A" id="u2q4-5a"><label for="u2q4-5a">A can't</label></div><div class="mcq-option"><input type="radio" name="u2q4-5" value="B" id="u2q4-5b"><label for="u2q4-5b">B doesn't have to</label></div><div class="mcq-option"><input type="radio" name="u2q4-5" value="C" id="u2q4-5c"><label for="u2q4-5c">C has to</label></div><div class="mcq-option"><input type="radio" name="u2q4-5" value="D" id="u2q4-5d"><label for="u2q4-5d">D mustn't</label></div></div></li>
+            <li class="mcq-item" id="u2q4-6"><b>6.</b> Do I ______ sign this form here?<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u2q4-6" value="A" id="u2q4-6a"><label for="u2q4-6a">A have to</label></div><div class="mcq-option"><input type="radio" name="u2q4-6" value="B" id="u2q4-6b"><label for="u2q4-6b">B can</label></div><div class="mcq-option"><input type="radio" name="u2q4-6" value="C" id="u2q4-6c"><label for="u2q4-6c">C must</label></div><div class="mcq-option"><input type="radio" name="u2q4-6" value="D" id="u2q4-6d"><label for="u2q4-6d">D can't</label></div></div></li>
+            <li
