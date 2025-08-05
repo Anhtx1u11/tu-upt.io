@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 4 Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            max-width: 800px;
+            width: 100%;
+        }
+        .quiz-container {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #1d4ed8;
+            text-align: center;
+            margin-top: 0;
+        }
+        .instructions {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        ol {
+            padding-left: 25px;
+        }
+        
+        /* --- Styles for Fill in the Blank --- */
+        .word-box {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 15px;
+            background-color: #eef2ff;
+            border: 1px solid #c7d2fe;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            justify-content: center;
+        }
+        .word-box code {
+            background-color: #ffffff;
+            padding: 4px 8px;
+            border-radius: 5px;
+            font-size: 1em;
+            font-weight: 500;
+        }
+        .fill-in-text {
+            font-size: 1.2em;
+            line-height: 2.5;
+        }
+        .fill-in-text input {
+            width: 140px;
+            border: none;
+            border-bottom: 2px solid #9ca3af;
+            font-size: 0.9em;
+            font-family: inherit;
+            text-align: center;
+            margin: 0 5px;
+            padding: 2px 5px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            vertical-align: middle;
+        }
+        .fill-in-text input:focus {
+            outline: none;
+            border-color: #4f46e5;
+            box-shadow: 0 1px 0 #4f46e5;
+        }
+        .fill-in-text input.correct {
+            border-color: #16a34a;
+            background-color: #f0fdf4;
+        }
+        .fill-in-text input.incorrect {
+            border-color: #dc2626;
+            background-color: #fef2f2;
+        }
+
+        /* --- Styles for Vocabulary 2 (Binary Choice) --- */
+        .binary-choice-list li { margin-bottom: 15px; font-size: 1.1em; line-height: 1.6;}
+        .choice {
+            font-weight: bold;
+            cursor: pointer;
+            padding: 2px 6px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .choice:hover { background-color: #eef2ff; }
+        .choice.selected { background-color: #c7d2fe; }
+        .choice.correct-choice { background-color: #dcfce7; color: #15803d; text-decoration: none !important; }
+        .choice.incorrect-choice { background-color: #fee2e2; color: #b91c1c; text-decoration: line-through;}
+        
+        /* --- Styles for Multiple Choice --- */
+        .mcq-list li { margin-bottom: 15px; font-size: 1.1em; line-height: 1.6;}
+        .mcq-options { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 8px; }
+        .mcq-option { display: flex; align-items: center; }
+        .mcq-option input[type="radio"] { margin-right: 8px; }
+        .mcq-option label { cursor: pointer; padding: 4px 8px; border-radius: 5px; transition: background-color 0.3s; }
+        .mcq-option label.correct-answer { background-color: #dcfce7; color: #15803d; font-weight: bold; }
+        .mcq-option label.incorrect-choice { background-color: #fee2e2; color: #b91c1c; text-decoration: line-through; }
+        
+        /* --- Styles for Sentence Transformation --- */
+        .transform-list li { margin-bottom: 20px; font-size: 1.1em; }
+        .transform-list .prompt { color: #555; }
+        .transform-list .capitals { font-weight: bold; display: block; margin: 5px 0; }
+        
+        /* --- General Styles --- */
+        .check-button { display: block; width: 100%; padding: 12px 20px; font-size: 1.1em; font-weight: bold; color: #fff; background-color: #2563eb; border: none; border-radius: 8px; cursor: pointer; margin-top: 30px; transition: background-color 0.3s; }
+        .check-button:hover { background-color: #1d4ed8; }
+        .score-display { margin-top: 20px; padding: 10px 15px; font-size: 1.2em; font-weight: bold; text-align: center; border-radius: 8px; display: none; }
+        .score-display.correct { background-color: #dcfce7; color: #15803d; }
+        .score-display.incorrect { background-color: #fee2e2; color: #b91c1c; }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Unit 3 Test</h1>
+
+    <div class="quiz-container">
+        <h2>Vocabulary 1</h2>
+        <p class="instructions"><b>Complete the text with the verbs in the box.</b></p>
+        <div class="word-box">
+            <code>book</code> <code>drop</code> <code>get off</code> <code>get on</code> <code>go by</code> <code>go on</code> <code>miss</code> <code>pay</code> <code>pick</code> <code>stop</code> <code>take</code>
+        </div>
+        <div class="fill-in-text">
+            It isn't easy to get to the volcano. You have to (0) <u><b>go by</b></u> taxi, then by train, then by bus, and, finally, you have to (1)<input type="text" id="u4p1_ans1" data-answer="go on"> foot. Ask the taxi driver to come early in the morning to (2)<input type="text" id="u4p1_ans2" data-answer="pick"> you up from your hotel and (3)<input type="text" id="u4p1_ans3" data-answer="drop"> you off at the train station. Make sure you leave early – you don't want to (4)<input type="text" id="u4p1_ans4" data-answer="miss"> the train. And make sure you (5)<input type="text" id="u4p1_ans5" data-answer="book"> your train ticket online before you go because the train is often full. (6)<input type="text" id="u4p1_ans6" data-answer="Take"> the train to the end of the line, then (7)<input type="text" id="u4p1_ans7" data-answer="get on"> the bus that goes up into the mountains. Make sure you have money with you because you have to (8)<input type="text" id="u4p1_ans8" data-answer="pay"> the fare on the bus. Ask the bus driver to (9)<input type="text" id="u4p1_ans9" data-answer="stop"> when you see the lake. Then (10)<input type="text" id="u4p1_ans10" data-answer="get off"> the bus and walk up the path to the right of the lake. It's a three kilometre walk to the volcano.
+        </div>
+        <button id="check-button-u4p1" class="check-button">Kiểm tra Vocabulary 1</button>
+    </div>
+
+    <div class="quiz-container">
+        <h2>Vocabulary 2</h2>
+        <p class="instructions"><b>Choose the correct option to complete the sentences.</b></p>
+        <ol class="binary-choice-list">
+            <li>It takes four days for the ship to <span class="choice" data-question="u4q2-1">commute</span> / <span class="choice" data-question="u4q2-1" data-answer="true">cross</span> the ocean.</li>
+            <li>The roads round here are very busy during the rush <span class="choice" data-question="u4q2-2" data-answer="true">hour</span> / <span class="choice" data-question="u4q2-2">period</span>.</li>
+            <li>The government wants to stop carbon <span class="choice" data-question="u4q2-3" data-answer="true">emissions</span> / <span class="choice" data-question="u4q2-3">produces</span>.</li>
+            <li>Sorry I'm late. There's a traffic <span class="choice" data-question="u4q2-4">limit</span> / <span class="choice" data-question="u4q2-4" data-answer="true">jam</span> in the city centre. The cars aren't moving.</li>
+            <li>The buses to town are <span class="choice" data-question="u4q2-5">traditional</span> / <span class="choice" data-question="u4q2-5" data-answer="true">frequent</span> – they come every ten minutes.</li>
+            <li>Although there's only one bus a day, it's very punctual / <span class="choice" data-question="u4q2-6" data-answer="true">convenient</span> for me because it stops near my house.</li>
+            <li>The new trains are very <span class="choice" data-question="u4q2-7" data-answer="true">comfortable</span> / <span class="choice" data-question="u4q2-7">traditional</span>. The seats are big and there's a lot of leg room.</li>
+            <li>The train is slow but <span class="choice" data-question="u4q2-8" data-answer="true">reliable</span> / <span class="choice" data-question="u4q2-8">punctual</span>. It never breaks down – you know you will get to your destination.</li>
+            <li>When you're in London, <span class="choice" data-question="u4q2-9">go</span> / <span class="choice" data-question="u4q2-9" data-answer="true">take</span> the underground. It's the quickest way to travel.</li>
+            <li>When you buy a ticket, ask for a <span class="choice" data-question="u4q2-10" data-answer="true">receipt</span> / <span class="choice" data-question="u4q2-10">change</span>. It proves that you have paid.</li>
+        </ol>
+        <button id="check-button-u4p2" class="check-button">Kiểm tra Vocabulary 2</button>
+    </div>
+
+    <div class="quiz-container">
+        <h2>Grammar 3</h2>
+        <p class="instructions"><b>Choose the correct option (A, B, C or D) to complete the sentences.</b></p>
+        <ol class="mcq-list">
+            <li>The road isn't as long <span class="mcq-option-inline"></span> some people think.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u4q3-1" value="A" id="u4q3-1a"><label for="u4q3-1a">A as</label></div><div class="mcq-option"><input type="radio" name="u4q3-1" value="B" id="u4q3-1b"><label for="u4q3-1b">B than</label></div><div class="mcq-option"><input type="radio" name="u4q3-1" value="C" id="u4q3-1c"><label for="u4q3-1c">C that</label></div><div class="mcq-option"><input type="radio" name="u4q3-1" value="D" id="u4q3-1d"><label for="u4q3-1d">D for</label></div></div></li>
+            <li>The new cruise ship is <span class="mcq-option-inline"></span> any built before.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u4q3-2" value="A" id="u4q3-2a"><label for="u4q3-2a">A big as</label></div><div class="mcq-option"><input type="radio" name="u4q3-2" value="B" id="u4q3-2b"><label for="u4q3-2b">B biggest than</label></div><div class="mcq-option"><input type="radio" name="u4q3-2" value="C" id="u4q3-2c"><label for="u4q3-2c">C bigger than</label></div><div class="mcq-option"><input type="radio" name="u4q3-2" value="D" id="u4q3-2d"><label for="u4q3-2d">D as big</label></div></div></li>
+            <li>This is one of <span class="mcq-option-inline"></span> traffic jams I can remember.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u4q3-3" value="A" id="u4q3-3a"><label for="u4q3-3a">A the badder</label></div><div class="mcq-option"><input type="radio" name="u4q3-3" value="B" id="u4q3-3b"><label for="u4q3-3b">B as bad as</label></div><div class="mcq-option"><input type="radio" name="u4q3-3" value="C" id="u4q3-3c"><label for="u4q3-3c">C the worst</label></div><div class="mcq-option"><input type="radio" name="u4q3-3" value="D" id="u4q3-3d"><label for="u4q3-3d">D worse than</label></div></div></li>
+            <li>Today is <span class="mcq-option-inline"></span> than yesterday.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u4q3-4" value="A" id="u4q3-4a"><label for="u4q3-4a">A sunnier</label></div><div class="mcq-option"><input type="radio" name="u4q3-4" value="B" id="u4q3-4b"><label for="u4q3-4b">B the sunnier</label></div><div class="mcq-option"><input type="radio" name="u4q3-4" value="C" id="u4q3-4c"><label for="u4q3-4c">C the sunniest</label></div><div class="mcq-option"><input type="radio" name="u4q3-4" value="D" id="u4q3-4d"><label for="u4q3-4d">D sunny</label></div></div></li>
+            <li>I prefer the train because it's <span class="mcq-option-inline"></span>.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u4q3-5" value="A" id="u4q3-5a"><label for="u4q3-5a">A reliable than</label></div><div class="mcq-option"><input type="radio" name="u4q3-5" value="B" id="u4q3-5b"><label for="u4q3-5b">B more reliable</label></div><div class="mcq-option"><input type="radio" name="u4q3-5" value="C" id="u4q3-5c"><label for="u4q3-5c">C as reliable as</label></div><div class="mcq-option"><input type="radio" name="u4q3-5" value="D" id="u4q3-5d"><label for="u4q3-5d">D far reliable</label></div></div></li>
+            <li>Which one is <span class="mcq-option-inline"></span>?<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u4q3-6" value="A" id="u4q3-6a"><label for="u4q3-6a">A tastier</label></div><div class="mcq-option"><input type="radio" name="u4q3-6" value="B" id="u4q3-6b"><label for="u4q3-6b">B more tasty</label></div><div class="mcq-option"><input type="radio" name="u4q3-6" value="C" id="u4q3-6c"><label for="u4q3-6c">C tasty as</label></div><div class="mcq-option"><input type="radio" name="u4q3-6" value="D" id="u4q3-6d"><label for="u4q3-6d">D tastier than</label></div></div></li>
+            <li>We want to find the <span class="mcq-option-inline"></span> restaurant.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u4q3-7" value="A" id="u4q3-7a"><label for="u4q3-7a">A near</label></div><div class="mcq-option"><input type="radio" name="u4q3-7" value="B" id="u4q3-7b"><label for="u4q3-7b">B nearly</label></div><div class="mcq-option"><input type="radio" name="u4q3-7" value="C" id="u4q3-7c"><label for="u4q3-7c">C nearer</label></div><div class="mcq-option"><input type="radio" name="u4q3-7" value="D" id="u4q3-7d"><label for="u4q3-7d">D nearest</label></div></div></li>
+            <li>Bikes <span class="mcq-option-inline"></span> cars.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u4q3-8" value="A" id="u4q3-8a"><label for="u4q3-8a">A are slower than</label></div><div class="mcq-option"><input type="radio" name="u4q3-8" value="B" id="u4q3-8b"><label for="u4q3-8b">B are as slow</label></div><div class="mcq-option"><input type="radio" name="u4q3-8" value="C" id="u4q3-8c"><label for="u4q3-8c">C are the slowest</label></div><div class="mcq-option"><input type="radio" name="u4q3-8" value="D" id="u4q3-8d"><label for="u4q3-8d">D aren't slowly</label></div></div></li>
+            <li>This is the <span class="mcq-option-inline"></span> of my life.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u4q3-9" value="A" id="u4q3-9a"><label for="u4q3-9a">A good day</label></div><div class="mcq-option"><input type="radio" name="u4q3-9" value="B" id="u4q3-9b"><label for="u4q3-9b">B better day</label></div><div class="mcq-option"><input type="radio" name="u4q3-9" value="C" id="u4q3-9c"><label for="u4q3-9c">C best day</label></div><div class="mcq-option"><input type="radio" name="u4q3-9" value="D" id="u4q3-9d"><label for="u4q3-9d">D as better day as</label></div></div></li>
+            <li>We aren't all <span class="mcq-option-inline"></span> as Tom.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u4q3-10" value="A" id="u4q3-10a"><label for="u4q3-10a">A clever</label></div><div class="mcq-option"><input type="radio" name="u4q3-10" value="B" id="u4q3-10b"><label for="u4q3-10b">B the cleverest</label></div><div class="mcq-option"><input type="radio" name="u4q3-10" value="C" id="u4q3-10c"><label for="u4q3-10c">C cleverer</label></div><div class="mcq-option"><input type="radio" name="u4q3-10" value="D" id="u4q3-10d"><label for="u4q3-10d">D as clever</label></div></div></li>
+        </ol>
+        <div id="u4p3-results" class="score-display"></div>
+        <button id="check-button-u4p3" class="check-button">Kiểm tra Grammar 3</button>
+    </div>
+
+    <div class="quiz-container">
+        <h2>Grammar 4</h2>
+        <p class="instructions"><b>Complete the second sentence so that it has a similar meaning to the first sentence. Use two to four words including the word provided in CAPITALS.</b></p>
+        <ol class="transform-list">
+            <li><div class="prompt">No man is faster than Usain Bolt.</div><div class="capitals">WORLD'S</div>Usain Bolt is <input type="text" id="u4p4_ans1" data-answer="the world's fastest"> man.</li>
+            <li><div class="prompt">Joe lives near the centre but Kerry's house is further away.</div><div class="capitals">CENTRE</div>Kerry's house is further from <input type="text" id="u4p4_ans2" data-answer="the centre than"> Joe's.</li>
+            <li><div class="prompt">Jenny isn't as good at maths as her sister.</div><div class="capitals">THAN</div>Jenny's sister is <input type="text" id="u4p4_ans3" data-answer="better at maths than"> Jenny.</li>
+            <li><div class="prompt">No singer in the school is as bad as Jack.</div><div class="capitals">THE</div>Jack is <input type="text" id="u4p4_ans4" data-answer="the worst singer"> in the school.</li>
+            <li><div class="prompt">Taking the train is safer than going by car.</div><div class="capitals">ISN'T</div>Going by car <input type="text" id="u4p4_ans5" data-answer="isn't as safe"> as taking the train.</li>
+            <li><div class="prompt">David is older than his brother but not by much.</div><div class="capitals">LITTLE</div>David is <input type="text" id="u4p4_ans6" data-answer="a little older than"> his brother.</li>
+            <li><div class="prompt">Taking the bus into town is much more convenient than taking the train.</div><div class="capitals">LOT</div>Taking the train into town is <input type="text" id="u4p4_ans7" data-answer="a lot less convenient|a lot more inconvenient"> than taking the bus.</li>
+            <li><div class="prompt">In my opinion, team sports are more exciting than individual sports.</div><div class="capitals">AS</div>I think individual sports <input type="text" id="u4p4_ans8" data-answer="aren't as exciting"> as team sports.</li>
+            <li><div class="prompt">The Hotel Grand isn't quite as expensive as the Hotel Luxe.</div><div class="capitals">BIT</div>The Hotel Luxe is <input type="text" id="u4p4_ans9" data-answer="a bit more expensive"> than the Hotel Grand.</li>
+            <li><div class="prompt">The students in Class A aren't as lazy as the students in Class F.</div><div class="capitals">ARE</div>The students in Class F <input type="text" id="u4p4_ans10" data-answer="are lazier than"> the students in Class A.</li>
+        </ol>
+        <button id="check-button-u4p4" class="check-button">Kiểm tra Grammar 4</button>
+    </div>
+</div>
+
+<script>
+    // --- Function for Fill-in-the-Blank Sections (Parts 1 & 4) ---
+    function checkFillInBlank(partIdPrefix) {
+        for (let i = 1; i <= 10; i++) {
+            const input = document.getElementById(`${partIdPrefix}_ans${i}`);
+            if (input) {
+                const userAnswer = input.value.trim().toLowerCase().replace(/\s+/g, ' ');
+                const correctAnswers = input.getAttribute('data-answer').toLowerCase().split('|');
+                
+                input.classList.remove('correct', 'incorrect');
+                
+                if (correctAnswers.some(answer => answer.trim() === userAnswer)) {
+                    input.classList.add('correct');
+                } else {
+                    input.classList.add('incorrect');
+                }
+            }
+        }
+    }
+
+    // Event Listeners for Fill-in-the-Blank Sections
+    document.getElementById('check-button-u4p1').addEventListener('click', () => checkFillInBlank('u4p1'));
+    document.getElementById('check-button-u4p4').addEventListener('click', () => checkFillInBlank('u4p4'));
+
+    // --- Script for Vocabulary 2 (Binary Choice) ---
+    const choiceSpans = document.querySelectorAll('.choice');
+    choiceSpans.forEach(span => {
+        span.addEventListener('click', function() {
+            const questionGroup = this.getAttribute('data-question');
+            document.querySelectorAll(`.choice[data-question="${questionGroup}"]`).forEach(s => s.classList.remove('selected'));
+            this.classList.add('selected');
+        });
+    });
+
+    document.getElementById('check-button-u4p2').addEventListener('click', function() {
+        for (let i = 1; i <= 10; i++) {
+            const questionGroup = `u4q2-${i}`;
+            const choices = document.querySelectorAll(`.choice[data-question="${questionGroup}"]`);
+            choices.forEach(choice => {
+                choice.classList.remove('correct-choice', 'incorrect-choice');
+                if (choice.getAttribute('data-answer') === 'true') {
+                    choice.classList.add('correct-choice');
+                }
+            });
+            const selectedChoice = document.querySelector(`.choice.selected[data-question="${questionGroup}"]`);
+            if (selectedChoice && selectedChoice.getAttribute('data-answer') !== 'true') {
+                selectedChoice.classList.add('incorrect-choice');
+            }
+        }
+    });
+
+    // --- Script for Grammar 3 (Multiple Choice) ---
+    document.getElementById('check-button-u4p3').addEventListener('click', function() {
+        const correctAnswers = {
+            'u4q3-1': 'A', 'u4q3-2': 'C', 'u4q3-3': 'C', 'u4q3-4': 'A', 'u4q3-5': 'B',
+            'u4q3-6': 'A', 'u4q3-7': 'D', 'u4q3-8': 'A', 'u4q3-9': 'C', 'u4q3-10': 'D'
+        };
+        let score = 0;
+        const totalQuestions = Object.keys(correctAnswers).length;
+
+        for (const questionId in correctAnswers) {
+            const correctAnswerValue = correctAnswers[questionId];
+            const questionElement = document.querySelector(`li:has(input[name="${questionId}"])`);
+            questionElement.querySelectorAll('label').forEach(l => l.classList.remove('correct-answer', 'incorrect-choice'));
+            
+            const correctLabel = questionElement.querySelector(`label[for="${questionId}${correctAnswerValue.toLowerCase()}"]`);
+            if(correctLabel) correctLabel.classList.add('correct-answer');
+            
+            const userAnswerInput = questionElement.querySelector(`input[name="${questionId}"]:checked`);
+            if (userAnswerInput) {
+                const userAnswerValue = userAnswerInput.value;
+                if (userAnswerValue === correctAnswerValue) {
+                    score++;
+                } else {
+                    const userLabel = questionElement.querySelector(`label[for="${userAnswerInput.id}"]`);
+                    if(userLabel) userLabel.classList.add('incorrect-choice');
+                }
+            }
+        }
+        
+        const resultsDiv = document.getElementById('u4p3-results');
+        resultsDiv.textContent = `Bạn đã đúng ${score} / ${totalQuestions} câu!`;
+        resultsDiv.style.display = 'block';
+        resultsDiv.classList.remove('correct', 'incorrect');
+        if (score > totalQuestions / 2) {
+             resultsDiv.classList.add('correct');
+        } else {
+             resultsDiv.classList.add('incorrect');
+        }
+    });
+</script>
+
+</body>
+</html>
