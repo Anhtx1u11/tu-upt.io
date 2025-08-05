@@ -4,6 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Unit 4 Test v2</title>
+     <script>
+        // 1. Chỉ định URL duy nhất được phép truy cập trang này
+        const allowedReferrer = 'https://anhtu1.id.vn/A-Main/t.anh/chon.html';
+
+        // 2. Kiểm tra trang mà người dùng vừa truy cập trước đó
+        //    Nếu không phải là trang được cho phép, hoặc nếu truy cập trực tiếp...
+        if (!document.referrer.startsWith(allowedReferrer)) {
+            // 3. ...thì chuyển hướng đến trang 'block.html'
+            window.location.href = 'block.html';
+        }
+    </script>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -263,3 +274,4 @@
 
 </body>
 </html>
+
