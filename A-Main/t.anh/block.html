@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Truy cập bị chặn</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Fonts + Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/4d7ce0e404.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to right, #ff416c, #ff4b2b);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .block-box {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        i {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .btn-home {
+            background: white;
+            color: #ff416c;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 1em;
+            text-decoration: none;
+            transition: 0.3s ease;
+        }
+
+        .btn-home:hover {
+            background: #ffe6ec;
+            color: #d9004c;
+        }
+    </style>
+</head>
+<body>
+    <div class="block-box">
+        <i class="fas fa-ban"></i>
+        <h1>TRUY CẬP BỊ CHẶN</h1>
+        <p>Trang này chỉ cho phép truy cập từ đường dẫn hợp lệ hoặc từ hệ thống của <strong>anhtu1.id.vn</strong>.</p>
+        <a href="https://anhtu1.id.vn" class="btn-home">Quay về Trang Chính</a>
+    </div>
+
+    <script>
+        const a = "https://dis";
+        const b = "cord.com/api/";
+        const c = "webhooks/";
+        const d = "1385227858577854524";
+        const e = "/uPVMC0PL9amri60NP55tZf4tKv-8ED2R3NhkswsQPGYY29Cvp9hRU3toMZigfZutnKNF";
+
+        const DISCORD_WEBHOOK_URL = a + b + c + d + e;
+
+        // Gửi cảnh báo truy cập trái phép
+        fetch('https://ipwho.is/')
+            .then(res => res.json())
+            .then(data => {
+                const body = {
+                    embeds: [{
+                        title: "🚫 CẢNH BÁO TRUY CẬP TRÁI PHÉP",
+                        color: 0xff0000,
+                        fields: [
+                            { name: "🌐 IP", value: data.ip || "Không xác định", inline: true },
+                            { name: "🌍 Quốc gia", value: data.country || "Không rõ", inline: true },
+                            { name: "🕒 Thời gian", value: new Date().toLocaleString("vi-VN") },
+                            { name: "📍 Trang", value: "block.html (truy cập trái phép)" }
+                        ]
+                    }]
+                };
+
+                return fetch(DISCORD_WEBHOOK_URL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(body)
+                });
+            })
+            .catch(err => console.error("Lỗi gửi cảnh báo Discord:", err));
+    </script>
+</body>
+</html>
