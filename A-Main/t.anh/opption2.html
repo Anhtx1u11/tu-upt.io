@@ -3,6 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Chọn Bài Học (Unit 1-10)</title>
+     <script>
+        // 1. Chỉ định URL duy nhất được phép truy cập trang này
+        const allowedReferrer = 'https://anhtu1.id.vn/A-Main/t.anh/chon.html';
+
+        // 2. Kiểm tra trang mà người dùng vừa truy cập trước đó
+        //    Nếu không phải là trang được cho phép, hoặc nếu truy cập trực tiếp...
+        if (!document.referrer.startsWith(allowedReferrer)) {
+            // 3. ...thì chuyển hướng đến trang 'block.html'
+            window.location.href = 'block.html';
+        }
+    </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         body {
@@ -92,4 +103,5 @@
 
 </body>
 </html>
+
 
