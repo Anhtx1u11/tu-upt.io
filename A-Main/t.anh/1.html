@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <script>
+      <script>
         // 1. Chỉ định URL duy nhất được phép truy cập trang này
         const allowedReferrer = 'https://anhtu1.id.vn/A-Main/t.anh/opption2.html';
 
@@ -193,10 +193,49 @@
             background-color: #fee2e2;
             color: #b91c1c;
         }
-       
-        
-       
 
+        /* ===== PHẦN CSS CHO GIAO DIỆN MOBILE (RESPONSIVE) ===== */
+        @media (max-width: 600px) {
+            body {
+                /* Giảm khoảng cách lề của toàn trang trên mobile */
+                padding: 10px;
+                /* Căn chỉnh các mục từ trên xuống, không phải từ giữa */
+                align-items: flex-start;
+            }
+
+            .container {
+                /* Giảm khoảng trống giữa các bài tập */
+                gap: 20px;
+            }
+
+            .quiz-container {
+                /* Giảm padding bên trong mỗi khung bài tập để tiết kiệm không gian */
+                padding: 20px 15px;
+            }
+
+            h2 {
+                /* Giảm cỡ chữ tiêu đề cho dễ nhìn hơn */
+                font-size: 1.4em;
+            }
+            
+            .instructions, .mcq-item, ol, .mcq-option label {
+                font-size: 1em; /* Giảm cỡ chữ hướng dẫn và câu hỏi */
+            }
+
+            .fill-in-text {
+                font-size: 1.05em; /* Giảm cỡ chữ phần điền từ */
+                line-height: 2.5;  /* Điều chỉnh lại chiều cao dòng cho dễ đọc */
+            }
+
+            .fill-in-text input {
+                /* Giảm độ rộng của ô nhập liệu để không bị tràn */
+                width: 90px;
+            }
+
+            .check-button {
+                font-size: 1em; /* Giảm cỡ chữ nút bấm */
+            }
+        }
     </style>
 </head>
 <body>
@@ -351,7 +390,4 @@
 </script>
 
 </body>
-
 </html>
-
-
