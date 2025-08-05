@@ -2,19 +2,20 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chọn Môn Học</title>
 
     <script>
-        // URL hợp lệ được phép truy cập
+        // 1. Chỉ định URL duy nhất được phép truy cập trang này
         const allowedReferrer = 'https://anhtu1.id.vn/A-Main/next.html';
 
-        // Kiểm tra xem trang giới thiệu (referrer) có phải là trang được cho phép không
-        // Nếu không đúng, chuyển hướng ngay đến trang block.html
+        // 2. Kiểm tra trang mà người dùng vừa truy cập trước đó
+        //    Nếu không phải là trang được cho phép, hoặc nếu truy cập trực tiếp...
         if (!document.referrer.startsWith(allowedReferrer)) {
+            // 3. ...thì chuyển hướng đến trang 'block.html'
             window.location.href = 'block.html';
         }
     </script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -29,23 +30,20 @@
             justify-content: center;
             align-items: center;
         }
-
         .container {
             background: white;
             padding: 40px 30px;
             border-radius: 20px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             text-align: center;
             width: 90%;
             max-width: 400px;
         }
-
         h1 {
             font-size: 28px;
             margin-bottom: 30px;
             color: #333;
         }
-
         .subject-btn {
             display: block;
             width: 100%;
@@ -56,15 +54,13 @@
             font-size: 18px;
             color: white;
             background-color: #4a90e2;
-            transition: 0.3s;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: transform 0.2s, background-color 0.2s;
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
         }
-
         .subject-btn:hover {
             background-color: #357ABD;
-            transform: scale(1.03);
+            transform: translateY(-3px);
         }
-
         .subject-btn i {
             margin-right: 10px;
         }
@@ -79,7 +75,7 @@
         <i class="fa-solid fa-book"></i> Tiếng Anh 2
     </button>
 
-    <button class="subject-btn" onclick="location.href='index.html'">
+    <button class="subject-btn" onclick="location.href='opption2.html'">
         <i class="fa-solid fa-book-open"></i> Tiếng Anh 3
     </button>
 </div>
