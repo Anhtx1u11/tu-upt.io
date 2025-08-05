@@ -193,6 +193,46 @@
             background-color: #fee2e2;
             color: #b91c1c;
         }
+        @media (max-width: 600px) {
+            body {
+                /* Giảm khoảng cách lề của toàn trang trên mobile */
+                padding: 10px;
+            }
+
+            .container {
+                /* Giảm khoảng trống giữa các bài tập */
+                gap: 20px;
+            }
+
+            .quiz-container {
+                /* Giảm padding bên trong mỗi khung bài tập để tiết kiệm không gian */
+                padding: 20px 15px;
+            }
+
+            h2 {
+                /* Giảm cỡ chữ tiêu đề cho dễ nhìn hơn */
+                font-size: 1.4em;
+            }
+            
+            .instructions, .mcq-item {
+                font-size: 1em; /* Giảm cỡ chữ hướng dẫn và câu hỏi */
+            }
+
+            .fill-in-text {
+                font-size: 1.05em; /* Giảm cỡ chữ phần điền từ */
+                line-height: 2.5;  /* Tăng chiều cao dòng một chút cho dễ đọc */
+            }
+
+            .fill-in-text input {
+                /* Giảm độ rộng của ô nhập liệu để không bị tràn */
+                width: 100px;
+            }
+
+            .check-button {
+                font-size: 1em; /* Giảm cỡ chữ nút bấm */
+            }
+        }
+       
 
     </style>
 </head>
@@ -350,3 +390,4 @@
 </body>
 
 </html>
+
