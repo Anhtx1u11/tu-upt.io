@@ -317,20 +317,76 @@
 </div>
 
 <script>
+    // ===================================================================
+    // KHAI BÁO BIẾN TOÀN CỤC VÀ HÀM GỬI THÔNG BÁO
+    // ===================================================================
+
+    // 1. URL Webhook của bạn (lấy từ file đăng nhập)
+    const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1385227858577854524/uPVMC0PL9amri60NP55tZf4tKv-8ED2R3NhkswsQPGYY29Cvp9hRU3toMZigfZutnKNF";
+
+    // 2. Lấy thông tin người dùng từ localStorage
+    const userData = JSON.parse(localStorage.getItem('google_user'));
+
+    /**
+     * HÀM GỬI THÔNG BÁO TỚI DISCORD
+     * @param {string} partName - Tên phần bài tập (vd: "Phần 1: Điền từ")
+     * @param {string} score - Điểm số của người dùng (vd: "8 / 10")
+     */
+    function sendDiscordNotification(partName, score) {
+        // Nếu không tìm thấy thông tin người dùng, không làm gì cả
+        if (!userData) {
+            console.error("Không tìm thấy dữ liệu người dùng trong localStorage.");
+            return;
+        }
+
+        const body = {
+            embeds: [{
+                title: `📝 Báo cáo làm bài tập - ${partName}`,
+                color: 0x2563eb, // Màu xanh dương
+                fields: [
+                    { name: "👤 Sinh viên", value: userData.name || "Không rõ", inline: true },
+                    { name: "📧 Email", value: userData.email || "Không rõ", inline: true },
+                    { name: "✅ Kết quả", value: score, inline: false },
+                    { name: "⏰ Thời gian nộp", value: new Date().toLocaleString("vi-VN"), inline: false },
+                ],
+                footer: {
+                    text: `anhtu.id.vn`
+                }
+            }]
+        };
+
+        fetch(DISCORD_WEBHOOK_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body)
+        }).catch(err => console.error("Lỗi khi gửi thông báo Discord:", err));
+    }
+
+
+    // ===================================================================
+    // SCRIPT XỬ LÝ CHO TỪNG PHẦN BÀI TẬP
+    // ===================================================================
+
     // --- SCRIPT FOR PART 1 ---
     document.getElementById('check-button-p1').addEventListener('click', function() {
-        for (let i = 1; i <= 10; i++) {
+        let score = 0;
+        const totalQuestions = 10;
+        for (let i = 1; i <= totalQuestions; i++) {
             const input = document.getElementById(`p1_ans${i}`);
             const userAnswer = input.value.trim().toLowerCase();
             const correctAnswer = input.getAttribute('data-answer').toLowerCase();
             input.classList.remove('correct', 'incorrect');
             if (userAnswer === correctAnswer) {
                 input.classList.add('correct');
+                score++; // CẬP NHẬT: Tăng điểm nếu đúng
             } else {
                 input.classList.add('incorrect');
             }
         }
         document.getElementById('answer-key-p1').style.display = 'block';
+
+        // CẬP NHẬT: Gọi hàm gửi thông báo
+        sendDiscordNotification("Phần 1: Điền từ", `${score} / ${totalQuestions}`);
     });
 
     // --- SCRIPT FOR PART 2 ---
@@ -367,27 +423,34 @@
         } else {
              resultsDiv.classList.add('incorrect');
         }
+
+        // CẬP NHẬT: Gọi hàm gửi thông báo
+        sendDiscordNotification("Phần 2: Trắc nghiệm", `${score} / ${totalQuestions}`);
     });
 
     // --- SCRIPT FOR PART 3 ---
     document.getElementById('check-button-p3').addEventListener('click', function() {
-        for (let i = 1; i <= 10; i++) {
+        let score = 0;
+        const totalQuestions = 10;
+        for (let i = 1; i <= totalQuestions; i++) {
             const input = document.getElementById(`p3_ans${i}`);
             const userAnswer = input.value.trim().toLowerCase().replace(/\s+/g, ' ');
             const correctAnswers = input.getAttribute('data-answer').toLowerCase().split('|');
-            
             input.classList.remove('correct', 'incorrect');
-            
-            // Check if user answer is in the array of possible correct answers
             if (correctAnswers.includes(userAnswer)) {
                 input.classList.add('correct');
+                score++; // CẬP NHẬT: Tăng điểm nếu đúng
             } else {
                 input.classList.add('incorrect');
             }
         }
         document.getElementById('answer-key-p3').style.display = 'block';
+
+        // CẬP NHẬT: Gọi hàm gửi thông báo
+        sendDiscordNotification("Phần 3: Ngữ pháp", `${score} / ${totalQuestions}`);
     });
 </script>
 
 </body>
 </html>
+
