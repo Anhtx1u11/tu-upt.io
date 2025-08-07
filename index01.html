@@ -239,7 +239,8 @@
         };
 
         localStorage.setItem("google_user", JSON.stringify(adminData));
-        localStorage.setItem("login_time", Date.now());
+        // KHÔNG LƯU MỐC THỜI GIAN CHO ADMIN ĐỂ CÓ PHIÊN ĐĂNG NHẬP VÔ HẠN
+        // localStorage.setItem("login_time", Date.now());
 
         const body = {
           embeds: [{
@@ -272,7 +273,6 @@
     }
   </script>
 
-  <!-- Banner Ads (nếu cần) -->
   <div style="text-align:center; margin-top: 20px;">
     <script type="text/javascript">
       atOptions = {
