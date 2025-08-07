@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life, Pre-Intermediate, Unit 5 Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            max-width: 800px;
+            width: 100%;
+        }
+        .quiz-container {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #1d4ed8;
+            text-align: center;
+            margin-top: 0;
+        }
+        .instructions {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            text-align: center;
+        }
+        ol {
+            padding-left: 0;
+            list-style-position: inside;
+        }
+        
+        /* --- Styles for Fill in the blank & Word Box --- */
+        .word-box {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 15px;
+            background-color: #eef2ff;
+            border: 1px solid #c7d2fe;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            justify-content: center;
+        }
+        .word-box code {
+            background-color: #ffffff;
+            padding: 4px 8px;
+            border-radius: 5px;
+            font-size: 1em;
+            font-weight: 500;
+        }
+        .fill-in-text {
+            font-size: 1.2em;
+            line-height: 2.5;
+        }
+        .fill-in-text input {
+            width: 140px;
+            border: none;
+            border-bottom: 2px solid #9ca3af;
+            font-size: 0.9em;
+            font-family: inherit;
+            text-align: center;
+            margin: 0 5px;
+            padding: 2px 5px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            vertical-align: middle;
+        }
+        .fill-in-text input:focus {
+            outline: none;
+            border-color: #4f46e5;
+            box-shadow: 0 1px 0 #4f46e5;
+        }
+        .fill-in-text input.correct {
+            border-color: #16a34a;
+            background-color: #f0fdf4;
+        }
+        .fill-in-text input.incorrect {
+            border-color: #dc2626;
+            background-color: #fef2f2;
+        }
+
+        /* --- Styles for Multiple Choice --- */
+        .mcq-list li { list-style-type: none; margin-bottom: 15px; font-size: 1.1em; line-height: 1.6;}
+        .mcq-options { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 8px; }
+        .mcq-option { display: flex; align-items: center; }
+        .mcq-option input[type="radio"] { margin-right: 8px; }
+        .mcq-option label { cursor: pointer; padding: 4px 8px; border-radius: 5px; transition: background-color 0.3s; }
+        .mcq-option label.correct-answer { background-color: #dcfce7; color: #15803d; font-weight: bold; }
+        .mcq-option label.incorrect-choice { background-color: #fee2e2; color: #b91c1c; text-decoration: line-through; }
+        
+        /* --- General Styles --- */
+        .check-button { display: block; width: 100%; padding: 12px 20px; font-size: 1.1em; font-weight: bold; color: #fff; background-color: #2563eb; border: none; border-radius: 8px; cursor: pointer; margin-top: 30px; transition: background-color 0.3s; }
+        .check-button:hover { background-color: #1d4ed8; }
+        .score-display { margin-top: 20px; padding: 10px 15px; font-size: 1.2em; font-weight: bold; text-align: center; border-radius: 8px; display: none; }
+        .score-display.correct { background-color: #dcfce7; color: #15803d; }
+        .score-display.incorrect { background-color: #fee2e2; color: #b91c1c; }
+
+        /* --- Styles for Mode Selection --- */
+        .hidden { display: none !important; }
+        .mode-buttons { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
+        #mode-shuffle { background-color: #f97316; }
+        #mode-shuffle:hover { background-color: #ea580c; }
+    </style>
+</head>
+<body>
+
+<div id="mode-selection" class="container">
+    <div class="quiz-container">
+        <h1>Chọn Chế độ Làm bài</h1>
+        <p class="instructions">Bạn muốn làm bài theo thứ tự gốc hay xáo trộn câu hỏi và đáp án?</p>
+        <div class="mode-buttons">
+            <button id="mode-normal" class="check-button">🚀 Chế độ Thường</button>
+            <button id="mode-shuffle" class="check-button">🔀 Chế độ Xáo trộn</button>
+        </div>
+    </div>
+</div>
+
+<div class="container hidden">
+    <h1>Life, Pre-Intermediate, Unit 5 Test</h1>
+
+    <div class="quiz-container">
+        <h2>Vocabulary 1: Odd One Out</h2>
+        <p class="instructions"><b>Choose the odd word out in each list.</b></p>
+        <ol class="mcq-list odd-one-out">
+            <li><b>0.</b><div class="mcq-options"><div class="mcq-option"><input type="radio" name="u5p1-0" value="A"><label>A ¼</label></div><div class="mcq-option"><input type="radio" name="u5p1-0" value="B"><label>B a quarter</label></div><div class="mcq-option"><input type="radio" name="u5p1-0" value="C" checked><label class="correct-answer">C a half</label></div><div class="mcq-option"><input type="radio" name="u5p1-0" value="D"><label>D 25%</label></div></div></li>
+            <li id="u5p1-1"><b>1.</b><div class="mcq-options"><div class="mcq-option"><input type="radio" name="u5p1-1" value="A" id="u5p1-1a"><label for="u5p1-1a">A about twenty</label></div><div class="mcq-option"><input type="radio" name="u5p1-1" value="B" id="u5p1-1b"><label for="u5p1-1b">B exactly twenty</label></div><div class="mcq-option"><input type="radio" name="u5p1-1" value="C" id="u5p1-1c"><label for="u5p1-1c">C approximately twenty</label></div><div class="mcq-option"><input type="radio" name="u5p1-1" value="D" id="u5p1-1d"><label for="u5p1-1d">D more or less twenty</label></div></div></li>
+            <li id="u5p1-2"><b>2.</b><div class="mcq-options"><div class="mcq-option"><input type="radio" name="u5p1-2" value="A" id="u5p1-2a"><label for="u5p1-2a">A scissors</label></div><div class="mcq-option"><input type="radio" name="u5p1-2" value="B" id="u5p1-2b"><label for="u5p1-2b">B glass</label></div><div class="mcq-option"><input type="radio" name="u5p1-2" value="C" id="u5p1-2c"><label for="u5p1-2c">C leather</label></div><div class="mcq-option"><input type="radio" name="u5p1-2" value="D" id="u5p1-2d"><label for="u5p1-2d">D plastic</label></div></div></li>
+            <li id="u5p1-3"><b>3.</b><div class="mcq-options"><div class="mcq-option"><input type="radio" name="u5p1-3" value="A" id="u5p1-3a"><label for="u5p1-3a">A paper</label></div><div class="mcq-option"><input type="radio" name="u5p1-3" value="B" id="u5p1-3b"><label for="u5p1-3b">B cardboard</label></div><div class="mcq-option"><input type="radio" name="u5p1-3" value="C" id="u5p1-3c"><label for="u5p1-3c">C wood</label></div><div class="mcq-option"><input type="radio" name="u5p1-3" value="D" id="u5p1-3d"><label for="u5p1-3d">D metal</label></div></div></li>
+            <li id="u5p1-4"><b>4.</b><div class="mcq-options"><div class="mcq-option"><input type="radio" name="u5p1-4" value="A" id="u5p1-4a"><label for="u5p1-4a">A carton</label></div><div class="mcq-option"><input type="radio" name="u5p1-4" value="B" id="u5p1-4b"><label for="u5p1-4b">B jar</label></div><div class="mcq-option"><input type="radio" name="u5p1-4" value="C" id="u5p1-4c"><label for="u5p1-4c">C plastic</label></div><div class="mcq-option"><input type="radio" name="u5p1-4" value="D" id="u5p1-4d"><label for="u5p1-4d">D bag</label></div></div></li>
+            <li id="u5p1-5"><b>5.</b><div class="mcq-options"><div class="mcq-option"><input type="radio" name="u5p1-5" value="A" id="u5p1-5a"><label for="u5p1-5a">A garbage</label></div><div class="mcq-option"><input type="radio" name="u5p1-5" value="B" id="u5p1-5b"><label for="u5p1-5b">B bin</label></div><div class="mcq-option"><input type="radio" name="u5p1-5" value="C" id="u5p1-5c"><label for="u5p1-5c">C trash</label></div><div class="mcq-option"><input type="radio" name="u5p1-5" value="D" id="u5p1-5d"><label for="u5p1-5d">D rubbish</label></div></div></li>
+            <li id="u5p1-6"><b>6.</b><div class="mcq-options"><div class="mcq-option"><input type="radio" name="u5p1-6" value="A" id="u5p1-6a"><label for="u5p1-6a">A under a half</label></div><div class="mcq-option"><input type="radio" name="u5p1-6" value="B" id="u5p1-6b"><label for="u5p1-6b">B less than a half</label></div><div class="mcq-option"><input type="radio" name="u5p1-6" value="C" id="u5p1-6c"><label for="u5p1-6c">C more than a half</label></div><div class="mcq-option"><input type="radio" name="u5p1-6" value="D" id="u5p1-6d"><label for="u5p1-6d">D nearly a half</label></div></div></li>
+            <li id="u5p1-7"><b>7.</b><div class="mcq-options"><div class="mcq-option"><input type="radio" name="u5p1-7" value="A" id="u5p1-7a"><label for="u5p1-7a">A request</label></div><div class="mcq-option"><input type="radio" name="u5p1-7" value="B" id="u5p1-7b"><label for="u5p1-7b">B demand</label></div><div class="mcq-option"><input type="radio" name="u5p1-7" value="C" id="u5p1-7c"><label for="u5p1-7c">C refund</label></div><div class="mcq-option"><input type="radio" name="u5p1-7" value="D" id="u5p1-7d"><label for="u5p1-7d">D ask for</label></div></div></li>
+            <li id="u5p1-8"><b>8.</b><div class="mcq-options"><div class="mcq-option"><input type="radio" name="u5p1-8" value="A" id="u5p1-8a"><label for="u5p1-8a">A can</label></div><div class="mcq-option"><input type="radio" name="u5p1-8" value="B" id="u5p1-8b"><label for="u5p1-8b">B box</label></div><div class="mcq-option"><input type="radio" name="u5p1-8" value="C" id="u5p1-8c"><label for="u5p1-8c">C metal</label></div><div class="mcq-option"><input type="radio" name="u5p1-8" value="D" id="u5p1-8d"><label for="u5p1-8d">D bottle</label></div></div></li>
+            <li id="u5p1-9"><b>9.</b><div class="mcq-options"><div class="mcq-option"><input type="radio" name="u5p1-9" value="A" id="u5p1-9a"><label for="u5p1-9a">A a lot</label></div><div class="mcq-option"><input type="radio" name="u5p1-9" value="B" id="u5p1-9b"><label for="u5p1-9b">B much</label></div><div class="mcq-option"><input type="radio" name="u5p1-9" value="C" id="u5p1-9c"><label for="u5p1-9c">C many</label></div><div class="mcq-option"><input type="radio" name="u5p1-9" value="D" id="u5p1-9d"><label for="u5p1-9d">D a little</label></div></div></li>
+            <li id="u5p1-10"><b>10.</b><div class="mcq-options"><div class="mcq-option"><input type="radio" name="u5p1-10" value="A" id="u5p1-10a"><label for="u5p1-10a">A leather</label></div><div class="mcq-option"><input type="radio" name="u5p1-10" value="B" id="u5p1-10b"><label for="u5p1-10b">B tank</label></div><div class="mcq-option"><input type="radio" name="u5p1-10" value="C" id="u5p1-10c"><label for="u5p1-10c">C paper</label></div><div class="mcq-option"><input type="radio" name="u5p1-10" value="D" id="u5p1-10d"><label for="u5p1-10d">D plastic</label></div></div></li>
+        </ol>
+        <button id="check-button-u5p1" class="check-button">Kiểm tra Vocabulary 1</button>
+    </div>
+
+    <div class="quiz-container">
+        <h2>Vocabulary 2: Word Box</h2>
+        <p class="instructions"><b>Complete the text with the words in the box.</b></p>
+        <div class="word-box">
+            <code>exactly</code> <code>figured out</code> <code>for</code> <code>glass</code> <code>made of</code> <code>nearly</code> <code>ordered</code> <code>panel</code> <code>rooftop</code> <code>shower</code> <code>taking</code> <code>time</code> <code>to</code>
+        </div>
+        <div class="fill-in-text">
+            Last month, we bought a solar (0) <u><b>panel</b></u> to put on our (1)<input type="text" id="u5p2_ans1" data-answer="rooftop">. It cost (2)<input type="text" id="u5p2_ans2" data-answer="nearly"> £100 – £98, in fact! Unfortunately, however, we haven't (3)<input type="text" id="u5p2_ans3" data-answer="figured out"> how to install it. It's (4)<input type="text" id="u5p2_ans4" data-answer="made of"> metal, plastic and (5)<input type="text" id="u5p2_ans5" data-answer="glass">, and it's surprisingly light. We want to use it (6)<input type="text" id="u5p2_ans6" data-answer="for"> heating water so that we can have a bath or take a (7)<input type="text" id="u5p2_ans7" data-answer="shower"> when we want to. I'm sure it'll be great once it's in place. We're really glad that we (8)<input type="text" id="u5p2_ans8" data-answer="ordered"> it online. It's just that it's (9)<input type="text" id="u5p2_ans9" data-answer="taking"> a long time to read through and understand all the instructions. I like to take (10)<input type="text" id="u5p2_ans10" data-answer="time"> to do things properly, you see.
+        </div>
+        <button id="check-button-u5p2" class="check-button">Kiểm tra Vocabulary 2</button>
+    </div>
+
+    <div class="quiz-container">
+        <h2>Grammar 3: Quantifiers</h2>
+        <p class="instructions"><b>Choose the correct option (A, B, C or D) to complete the sentences.</b></p>
+        <ol class="mcq-list quantifiers">
+            <li><b>0.</b> We didn't buy <u style="color: #1d4ed8; font-weight: bold;">any</u> boxes.</li>
+            <li id="u5p3-1"><b>1.</b> There aren't ______ places to recycle clothes.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u5p3-1" value="A" id="u5p3-1a"><label for="u5p3-1a">A some</label></div><div class="mcq-option"><input type="radio" name="u5p3-1" value="B" id="u5p3-1b"><label for="u5p3-1b">B much</label></div><div class="mcq-option"><input type="radio" name="u5p3-1" value="C" id="u5p3-1c"><label for="u5p3-1c">C a lot</label></div><div class="mcq-option"><input type="radio" name="u5p3-1" value="D" id="u5p3-1d"><label for="u5p3-1d">D many</label></div></div></li>
+            <li id="u5p3-2"><b>2.</b> Only ______ people stay here during the winter.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u5p3-2" value="A" id="u5p3-2a"><label for="u5p3-2a">A any</label></div><div class="mcq-option"><input type="radio" name="u5p3-2" value="B" id="u5p3-2b"><label for="u5p3-2b">B a few</label></div><div class="mcq-option"><input type="radio" name="u5p3-2" value="C" id="u5p3-2c"><label for="u5p3-2c">C a little</label></div><div class="mcq-option"><input type="radio" name="u5p3-2" value="D" id="u5p3-2d"><label for="u5p3-2d">D much</label></div></div></li>
+            <li id="u5p3-3"><b>3.</b> There are ______ different ways to save water.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u5p3-3" value="A" id="u5p3-3a"><label for="u5p3-3a">A a lot of</label></div><div class="mcq-option"><input type="radio" name="u5p3-3" value="B" id="u5p3-3b"><label for="u5p3-3b">B much</label></div><div class="mcq-option"><input type="radio" name="u5p3-3" value="C" id="u5p3-3c"><label for="u5p3-3c">C any</label></div><div class="mcq-option"><input type="radio" name="u5p3-3" value="D" id="u5p3-3d"><label for="u5p3-3d">D a</label></div></div></li>
+            <li id="u5p3-4"><b>4.</b> Hurry up. We don't have ______ time.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u5p3-4" value="A" id="u5p3-4a"><label for="u5p3-4a">A some</label></div><div class="mcq-option"><input type="radio" name="u5p3-4" value="B" id="u5p3-4b"><label for="u5p3-4b">B much</label></div><div class="mcq-option"><input type="radio" name="u5p3-4" value="C" id="u5p3-4c"><label for="u5p3-4c">C many</label></div><div class="mcq-option"><input type="radio" name="u5p3-4" value="D" id="u5p3-4d"><label for="u5p3-4d">D a few</label></div></div></li>
+            <li id="u5p3-5"><b>5.</b> Don't tell ______ journalists why we're here.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u5p3-5" value="A" id="u5p3-5a"><label for="u5p3-5a">A a</label></div><div class="mcq-option"><input type="radio" name="u5p3-5" value="B" id="u5p3-5b"><label for="u5p3-5b">B much</label></div><div class="mcq-option"><input type="radio" name="u5p3-5" value="C" id="u5p3-5c"><label for="u5p3-5c">C some</label></div><div class="mcq-option"><input type="radio" name="u5p3-5" value="D" id="u5p3-5d"><label for="u5p3-5d">D any</label></div></div></li>
+            <li id="u5p3-6"><b>6.</b> I take ______ sugar in my coffee.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u5p3-6" value="A" id="u5p3-6a"><label for="u5p3-6a">A a lot</label></div><div class="mcq-option"><input type="radio" name="u5p3-6" value="B" id="u5p3-6b"><label for="u5p3-6b">B a few</label></div><div class="mcq-option"><input type="radio" name="u5p3-6" value="C" id="u5p3-6c"><label for="u5p3-6c">C a little</label></div><div class="mcq-option"><input type="radio" name="u5p3-6" value="D" id="u5p3-6d"><label for="u5p3-6d">D any</label></div></div></li>
+            <li id="u5p3-7"><b>7.</b> We gave ______ money to charity.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u5p3-7" value="A" id="u5p3-7a"><label for="u5p3-7a">A some</label></div><div class="mcq-option"><input type="radio" name="u5p3-7" value="B" id="u5p3-7b"><label for="u5p3-7b">B any</label></div><div class="mcq-option"><input type="radio" name="u5p3-7" value="C" id="u5p3-7c"><label for="u5p3-7c">C many</label></div><div class="mcq-option"><input type="radio" name="u5p3-7" value="D" id="u5p3-7d"><label for="u5p3-7d">D a few</label></div></div></li>
+            <li id="u5p3-8"><b>8.</b> How ______ people did you talk to?<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u5p3-8" value="A" id="u5p3-8a"><label for="u5p3-8a">A little</label></div><div class="mcq-option"><input type="radio" name="u5p3-8" value="B" id="u5p3-8b"><label for="u5p3-8b">B much</label></div><div class="mcq-option"><input type="radio" name="u5p3-8" value="C" id="u5p3-8c"><label for="u5p3-8c">C any</label></div><div class="mcq-option"><input type="radio" name="u5p3-8" value="D" id="u5p3-8d"><label for="u5p3-8d">D many</label></div></div></li>
+            <li id="u5p3-9"><b>9.</b> Sally found ______ old photographs of her grandparents.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u5p3-9" value="A" id="u5p3-9a"><label for="u5p3-9a">A a little</label></div><div class="mcq-option"><input type="radio" name="u5p3-9" value="B" id="u5p3-9b"><label for="u5p3-9b">B much</label></div><div class="mcq-option"><input type="radio" name="u5p3-9" value="C" id="u5p3-9c"><label for="u5p3-9c">C any</label></div><div class="mcq-option"><input type="radio" name="u5p3-9" value="D" id="u5p3-9d"><label for="u5p3-9d">D a few</label></div></div></li>
+            <li id="u5p3-10"><b>10.</b> ______ students left early.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u5p3-10" value="A" id="u5p3-10a"><label for="u5p3-10a">A A little</label></div><div class="mcq-option"><input type="radio" name="u5p3-10" value="B" id="u5p3-10b"><label for="u5p3-10b">B A lot</label></div><div class="mcq-option"><input type="radio" name="u5p3-10" value="C" id="u5p3-10c"><label for="u5p3-10c">C Any</label></div><div class="mcq-option"><input type="radio" name="u5p3-10" value="D" id="u5p3-10d"><label for="u5p3-10d">D Some</label></div></div></li>
+        </ol>
+        <button id="check-button-u5p3" class="check-button">Kiểm tra Grammar 3</button>
+    </div>
+    
+    <div class="quiz-container">
+        <h2>Grammar 4: Articles</h2>
+        <p class="instructions"><b>Complete the text with <i>a, an, the</i> or <i>– (no article)</i>.</b></p>
+        <div class="fill-in-text">
+            Recently, I read (0) <u><b>an</b></u> extremely interesting article about (1)<input type="text" id="u5p4_ans1" data-answer="the"> world's most amazing buildings. (2)<input type="text" id="u5p4_ans2" data-answer="The"> first building on (3)<input type="text" id="u5p4_ans3" data-answer="the"> list is (4)<input type="text" id="u5p4_ans4" data-answer="-"> Angkor Wat. In (5)<input type="text" id="u5p4_ans5" data-answer="the"> article, it's described as (6)<input type="text" id="u5p4_ans6" data-answer="a"> beautiful temple in (7)<input type="text" id="u5p4_ans7" data-answer="-"> Cambodia. Second is (8)<input type="text" id="u5p4_ans8" data-answer="the"> Pyramid of Khufu in (9)<input type="text" id="u5p4_ans9" data-answer="-"> Egypt. (10)<input type="text" id="u5p4_ans10" data-answer="-"> millions of tourists visit these amazing places every year.
+        </div>
+        <button id="check-button-u5p4" class="check-button">Kiểm tra Grammar 4</button>
+    </div>
+
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --- DOM Elements ---
+    const modeSelection = document.getElementById('mode-selection');
+    const quizContainer = document.querySelector('.container:not(#mode-selection)');
+    const normalModeBtn = document.getElementById('mode-normal');
+    const shuffleModeBtn = document.getElementById('mode-shuffle');
+
+    // --- Master Answer Keys for sections that need dynamic updates ---
+    const masterAnswerKeys = {
+        'u5p1': { // Vocabulary 1
+            'u5p1-1': 'B', 'u5p1-2': 'A', 'u5p1-3': 'D', 'u5p1-4': 'C', 'u5p1-5': 'B',
+            'u5p1-6': 'C', 'u5p1-7': 'C', 'u5p1-8': 'C', 'u5p1-9': 'D', 'u5p1-10': 'B'
+        },
+        'u5p3': { // Grammar 3
+            'u5p3-1': 'D', 'u5p3-2': 'B', 'u5p3-3': 'A', 'u5p3-4': 'B', 'u5p3-5': 'D',
+            'u5p3-6': 'C', 'u5p3-7': 'A', 'u5p3-8': 'D', 'u5p3-9': 'D', 'u5p3-10': 'D'
+        }
+    };
+
+    // --- Shuffle Functions ---
+    function shuffleChildren(parent) {
+        if (!parent) return;
+        let children = Array.from(parent.children);
+        for (let i = children.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [children[i], children[j]] = [children[j], children[i]];
+        }
+        parent.innerHTML = ''; 
+        children.forEach(child => parent.appendChild(child));
+    }
+
+    function shuffleMcqAnswerTexts(listSelector) {
+        const mcqQuestions = document.querySelectorAll(`${listSelector} > li[id]`);
+        mcqQuestions.forEach(question => {
+            const options = Array.from(question.querySelectorAll('.mcq-option'));
+            if (options.length === 0) return;
+
+            const questionName = options[0].querySelector('input').name;
+            const partIdPrefix = questionName.split('-')[0];
+            
+            if (!masterAnswerKeys[partIdPrefix] || !masterAnswerKeys[partIdPrefix][questionName]) return;
+            
+            const originalCorrectLetter = masterAnswerKeys[partIdPrefix][questionName];
+            
+            let answerData = options.map(opt => {
+                const label = opt.querySelector('label');
+                const [letter, ...textParts] = label.textContent.trim().split(' ');
+                return { text: textParts.join(' '), isCorrect: letter === originalCorrectLetter };
+            });
+
+            for (let i = answerData.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [answerData[i], answerData[j]] = [answerData[j], answerData[i]];
+            }
+
+            let newCorrectLetter = '';
+            const newLetters = ['A', 'B', 'C', 'D'];
+            options.forEach((opt, index) => {
+                const label = opt.querySelector('label');
+                const currentLetter = newLetters[index];
+                const currentData = answerData[index];
+                label.textContent = `${currentLetter} ${currentData.text}`;
+                if (currentData.isCorrect) {
+                    newCorrectLetter = currentLetter;
+                }
+            });
+
+            masterAnswerKeys[partIdPrefix][questionName] = newCorrectLetter;
+        });
+    }
+
+    // --- Quiz Start Logic ---
+    function startQuiz(mode) {
+        modeSelection.classList.add('hidden');
+        quizContainer.classList.remove('hidden');
+
+        if (mode === 'shuffle') {
+            // Shuffle MCQ question order
+            shuffleChildren(document.querySelector('.odd-one-out'));
+            shuffleChildren(document.querySelector('.quantifiers'));
+            
+            // Shuffle word box in Vocab 2
+            shuffleChildren(document.querySelector('#check-button-u5p2').parentElement.querySelector('.word-box'));
+
+            // Shuffle answer texts only for the quantifiers section
+            shuffleMcqAnswerTexts('.quantifiers');
+        }
+    }
+
+    normalModeBtn.addEventListener('click', () => startQuiz('normal'));
+    shuffleModeBtn.addEventListener('click', () => startQuiz('shuffle'));
+
+    // =================================================================
+    // --- CHECKING LOGIC ---
+    // =================================================================
+    function checkFillInBlank(partIdPrefix) {
+        for (let i = 1; i <= 10; i++) {
+            const input = document.getElementById(`${partIdPrefix}_ans${i}`);
+            if (input) {
+                const userAnswer = input.value.trim().toLowerCase();
+                const correctAnswers = input.getAttribute('data-answer').toLowerCase().split('|');
+                input.classList.remove('correct', 'incorrect');
+                if (correctAnswers.includes(userAnswer)) {
+                    input.classList.add('correct');
+                } else {
+                    input.classList.add('incorrect');
+                }
+            }
+        }
+    }
+
+    function checkMultipleChoice(partIdPrefix, correctAnswers) {
+        let allCorrect = true;
+        for (const questionId in correctAnswers) {
+            const correctAnswerValue = correctAnswers[questionId];
+            const questionElement = document.getElementById(questionId);
+            if (!questionElement) continue;
+
+            questionElement.querySelectorAll('label').forEach(l => l.classList.remove('correct-answer', 'incorrect-choice'));
+            
+            const correctLabel = questionElement.querySelector(`label[for="${questionId}${correctAnswerValue.toLowerCase()}"]`);
+            if (correctLabel) correctLabel.classList.add('correct-answer');
+            
+            const userAnswerInput = questionElement.querySelector(`input[name="${questionId}"]:checked`);
+            if (userAnswerInput) {
+                const userAnswerValue = userAnswerInput.value;
+                if (userAnswerValue !== correctAnswerValue) {
+                    allCorrect = false;
+                    const userLabel = questionElement.querySelector(`label[for="${userAnswerInput.id}"]`);
+                    if (userLabel) userLabel.classList.add('incorrect-choice');
+                }
+            } else {
+                allCorrect = false; // Mark as incorrect if no answer is given
+            }
+        }
+    }
+    
+    // Listeners for Check Buttons
+    document.getElementById('check-button-u5p1').addEventListener('click', () => {
+        checkMultipleChoice('u5p1', masterAnswerKeys['u5p1']);
+    });
+    document.getElementById('check-button-u5p2').addEventListener('click', () => {
+        checkFillInBlank('u5p2');
+    });
+    document.getElementById('check-button-u5p3').addEventListener('click', () => {
+        checkMultipleChoice('u5p3', masterAnswerKeys['u5p3']);
+    });
+    document.getElementById('check-button-u5p4').addEventListener('click', () => {
+        checkFillInBlank('u5p4');
+    });
+});
+</script>
+
+</body>
+</html>

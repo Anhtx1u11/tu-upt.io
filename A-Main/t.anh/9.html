@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life, Pre-Intermediate, Unit 9 Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            max-width: 800px;
+            width: 100%;
+        }
+        .quiz-container {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #1d4ed8;
+            text-align: center;
+            margin-top: 0;
+        }
+        .instructions {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            text-align: center;
+        }
+        ol {
+            padding-left: 0;
+            list-style-position: inside;
+        }
+        
+        /* --- Styles for Fill in the blank --- */
+        .fill-in-text {
+            font-size: 1.2em;
+            line-height: 2.5;
+        }
+        .fill-in-text ol {
+            list-style-type: decimal;
+            padding-left: 20px;
+        }
+        .fill-in-text li {
+            margin-bottom: 12px;
+        }
+        .fill-in-text input {
+            width: 140px;
+            border: none;
+            border-bottom: 2px solid #9ca3af;
+            font-size: 0.9em;
+            font-family: inherit;
+            text-align: center;
+            margin: 0 5px;
+            padding: 2px 5px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            vertical-align: middle;
+        }
+        .fill-in-text input:focus {
+            outline: none;
+            border-color: #4f46e5;
+            box-shadow: 0 1px 0 #4f46e5;
+        }
+        .fill-in-text .verb-in-bracket {
+            font-family: monospace;
+            color: #555;
+            font-size: 0.9em;
+            text-transform: uppercase;
+        }
+        .fill-in-text input.correct {
+            border-color: #16a34a;
+            background-color: #f0fdf4;
+        }
+        .fill-in-text input.incorrect {
+            border-color: #dc2626;
+            background-color: #fef2f2;
+        }
+
+        /* --- Styles for Multiple Choice --- */
+        .mcq-list li { list-style-type: none; margin-bottom: 15px; font-size: 1.1em; line-height: 1.6;}
+        .mcq-options { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 8px; }
+        .mcq-option { display: flex; align-items: center; }
+        .mcq-option input[type="radio"] { margin-right: 8px; }
+        .mcq-option label { cursor: pointer; padding: 4px 8px; border-radius: 5px; transition: background-color 0.3s; }
+        .mcq-option label.correct-answer { background-color: #dcfce7; color: #15803d; font-weight: bold; }
+        .mcq-option label.incorrect-choice { background-color: #fee2e2; color: #b91c1c; text-decoration: line-through; }
+        
+        /* --- General Styles --- */
+        .check-button { display: block; width: 100%; padding: 12px 20px; font-size: 1.1em; font-weight: bold; color: #fff; background-color: #2563eb; border: none; border-radius: 8px; cursor: pointer; margin-top: 30px; transition: background-color 0.3s; }
+        .check-button:hover { background-color: #1d4ed8; }
+        
+        /* --- Styles for Mode Selection --- */
+        .hidden { display: none !important; }
+        .mode-buttons { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
+        #mode-shuffle { background-color: #f97316; }
+        #mode-shuffle:hover { background-color: #ea580c; }
+    </style>
+</head>
+<body>
+
+<div id="mode-selection" class="container">
+    <div class="quiz-container">
+        <h1>Chọn Chế độ Làm bài</h1>
+        <p class="instructions">Bạn muốn làm bài theo thứ tự gốc hay xáo trộn câu hỏi và đáp án?</p>
+        <div class="mode-buttons">
+            <button id="mode-normal" class="check-button">🚀 Chế độ Thường</button>
+            <button id="mode-shuffle" class="check-button">🔀 Chế độ Xáo trộn</button>
+        </div>
+    </div>
+</div>
+
+<div class="container hidden">
+    <h1>Life, Pre-Intermediate, Unit 9 Test</h1>
+
+    <div class="quiz-container">
+        <h2>Vocabulary 1: Multiple Choice</h2>
+        <p class="instructions"><b>Choose the correct option (A, B or C) to complete the sentences.</b></p>
+        <ol class="mcq-list vocab-mcq">
+            <li><b>0.</b> Last summer, we <u style="color: #1d4ed8; font-weight: bold;">went</u> abroad for our holidays.</li>
+            <li id="u9p1-1"><b>1.</b> You should ______ waiters a tip in the USA.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u9p1-1" value="A" id="u9p1-1a"><label for="u9p1-1a">A show</label></div><div class="mcq-option"><input type="radio" name="u9p1-1" value="B" id="u9p1-1b"><label for="u9p1-1b">B give</label></div><div class="mcq-option"><input type="radio" name="u9p1-1" value="C" id="u9p1-1c"><label for="u9p1-1c">C take</label></div></div></li>
+            <li id="u9p1-2"><b>2.</b> On holiday, we ______ on a campsite.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u9p1-2" value="A" id="u9p1-2a"><label for="u9p1-2a">A rented</label></div><div class="mcq-option"><input type="radio" name="u9p1-2" value="B" id="u9p1-2b"><label for="u9p1-2b">B stayed</label></div><div class="mcq-option"><input type="radio" name="u9p1-2" value="C" id="u9p1-2c"><label for="u9p1-2c">C spent</label></div></div></li>
+            <li id="u9p1-3"><b>3.</b> We left the cinema because the film was ______.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u9p1-3" value="A" id="u9p1-3a"><label for="u9p1-3a">A bore</label></div><div class="mcq-option"><input type="radio" name="u9p1-3" value="B" id="u9p1-3b"><label for="u9p1-3b">B bored</label></div><div class="mcq-option"><input type="radio" name="u9p1-3" value="C" id="u9p1-3c"><label for="u9p1-3c">C boring</label></div></div></li>
+            <li id="u9p1-4"><b>4.</b> This is no place ______ young children.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u9p1-4" value="A" id="u9p1-4a"><label for="u9p1-4a">A for</label></div><div class="mcq-option"><input type="radio" name="u9p1-4" value="B" id="u9p1-4b"><label for="u9p1-4b">B with</label></div><div class="mcq-option"><input type="radio" name="u9p1-4" value="C" id="u9p1-4c"><label for="u9p1-4c">C at</label></div></div></li>
+            <li id="u9p1-5"><b>5.</b> We have to ______ these challenges together.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u9p1-5" value="A" id="u9p1-5a"><label for="u9p1-5a">A head</label></div><div class="mcq-option"><input type="radio" name="u9p1-5" value="B" id="u9p1-5b"><label for="u9p1-5b">B arm</label></div><div class="mcq-option"><input type="radio" name="u9p1-5" value="C" id="u9p1-5c"><label for="u9p1-5c">C face</label></div></div></li>
+            <li id="u9p1-6"><b>6.</b> The festival will ______ place in August.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u9p1-6" value="A" id="u9p1-6a"><label for="u9p1-6a">A get</label></div><div class="mcq-option"><input type="radio" name="u9p1-6" value="B" id="u9p1-6b"><label for="u9p1-6b">B take</label></div><div class="mcq-option"><input type="radio" name="u9p1-6" value="C" id="u9p1-6c"><label for="u9p1-6c">C bring</label></div></div></li>
+            <li id="u9p1-7"><b>7.</b> We ______ from that area because of the high crime.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u9p1-7" value="A" id="u9p1-7a"><label for="u9p1-7a">A took across</label></div><div class="mcq-option"><input type="radio" name="u9p1-7" value="B" id="u9p1-7b"><label for="u9p1-7b">B moved away</label></div><div class="mcq-option"><input type="radio" name="u9p1-7" value="C" id="u9p1-7c"><label for="u9p1-7c">C went over</label></div></div></li>
+            <li id="u9p1-8"><b>8.</b> It isn't easy to earn a ______ in this industry.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u9p1-8" value="A" id="u9p1-8a"><label for="u9p1-8a">A live</label></div><div class="mcq-option"><input type="radio" name="u9p1-8" value="B" id="u9p1-8b"><label for="u9p1-8b">B life</label></div><div class="mcq-option"><input type="radio" name="u9p1-8" value="C" id="u9p1-8c"><label for="u9p1-8c">C living</label></div></div></li>
+            <li id="u9p1-9"><b>9.</b> After the concert, we ______ to meet Adele.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u9p1-9" value="A" id="u9p1-9a"><label for="u9p1-9a">A took</label></div><div class="mcq-option"><input type="radio" name="u9p1-9" value="B" id="u9p1-9b"><label for="u9p1-9b">B gave</label></div><div class="mcq-option"><input type="radio" name="u9p1-9" value="C" id="u9p1-9c"><label for="u9p1-9c">C got</label></div></div></li>
+            <li id="u9p1-10"><b>10.</b> We decided to ______ a hotel online.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u9p1-10" value="A" id="u9p1-10a"><label for="u9p1-10a">A book</label></div><div class="mcq-option"><input type="radio" name="u9p1-10" value="B" id="u9p1-10b"><label for="u9p1-10b">B play</label></div><div class="mcq-option"><input type="radio" name="u9p1-10" value="C" id="u9p1-10c"><label for="u9p1-10c">C make</label></div></div></li>
+        </ol>
+        <button id="check-button-u9p1" class="check-button">Kiểm tra Vocabulary 1</button>
+    </div>
+
+    <div class="quiz-container">
+        <h2>Vocabulary 2: Word Formation</h2>
+        <p class="instructions"><b>Complete the sentences with the correct form of the word in CAPITAL LETTERS.</b></p>
+        <div class="fill-in-text">
+            <ol class="word-formation-list">
+                <li><b>0.</b> <u><b>Skiing</b></u> is great fun. It's a fantastic sport. <span class="verb-in-bracket">SKI</span></li>
+                <li><b>1.</b> We drove to the south of France in a <input type="text" id="u9p2_ans1" data-answer="camper"> van and had a great holiday. <span class="verb-in-bracket">CAMP</span></li>
+                <li><b>2.</b> As soon as I return from my holiday, I <input type="text" id="u9p2_ans2" data-answer="unpack"> my suitcase and put all my clothes in the washing machine. <span class="verb-in-bracket">PACK</span></li>
+                <li><b>3.</b> We often go <input type="text" id="u9p2_ans3" data-answer="clubbing"> when we're on holiday. <span class="verb-in-bracket">CLUB</span></li>
+                <li><b>4.</b> I'm <input type="text" id="u9p2_ans4" data-answer="fascinated"> by this book about Russian history. <span class="verb-in-bracket">FASCINATE</span></li>
+                <li><b>5.</b> Are you <input type="text" id="u9p2_ans5" data-answer="frightened"> of the dark? <span class="verb-in-bracket">FRIGHTEN</span></li>
+                <li><b>6.</b> We stayed in an <input type="text" id="u9p2_ans6" data-answer="amazing"> hotel at the top of the mountain. <span class="verb-in-bracket">AMAZE</span></li>
+                <li><b>7.</b> I received a <input type="text" id="u9p2_ans7" data-answer="gift"> from my students. It was a lovely photo of the class in a photo frame. <span class="verb-in-bracket">GIVE</span></li>
+                <li><b>8.</b> We were <input type="text" id="u9p2_ans8" data-answer="annoyed"> by the noise coming from the house next door. <span class="verb-in-bracket">ANNOY</span></li>
+                <li><b>9.</b> Walking all day is very <input type="text" id="u9p2_ans9" data-answer="tiring">. <span class="verb-in-bracket">TIRE</span></li>
+                <li><b>10.</b> There were a lot of <input type="text" id="u9p2_ans10" data-answer="traders"> selling products at the market. <span class="verb-in-bracket">TRADE</span></li>
+            </ol>
+        </div>
+        <button id="check-button-u9p2" class="check-button">Kiểm tra Vocabulary 2</button>
+    </div>
+
+    <div class="quiz-container">
+        <h2>Grammar 3: Verb Tenses</h2>
+        <p class="instructions"><b>Complete the story with the correct past simple or past perfect form of the verbs in brackets.</b></p>
+        <div class="fill-in-text">
+            Last January, David and Emily (0) <u><b>flew</b></u> (fly) to Australia. It was a long flight and they (1)<input type="text" id="u9p3_ans1" data-answer="were"> (be) really tired by the time they got there. They (2)<input type="text" id="u9p3_ans2" data-answer="had never been"> (never / be) to Australia before, and they (3)<input type="text" id="u9p3_ans3" data-answer="had spent"> (spend) months saving up for the holiday, so they (4)<input type="text" id="u9p3_ans4" data-answer="felt"> (feel) incredibly excited to be there at last. Their friends (5)<input type="text" id="u9p3_ans5" data-answer="had told"> (tell) them what things to do in Australia. As a result, they (6)<input type="text" id="u9p3_ans6" data-answer="had booked"> (book) trips to Uluru and to the Great Barrier Reef before leaving England. However, on their first day in the country, it (7)<input type="text" id="u9p3_ans7" data-answer="was"> (be) so hot that they (8)<input type="text" id="u9p3_ans8" data-answer="decided"> (decide) not to go on any trips for a few days, but to head to the beach. Unfortunately, they (9)<input type="text" id="u9p3_ans9" data-answer="had forgotten"> (forget) their swimming costumes so they (10)<input type="text" id="u9p3_ans10" data-answer="had"> (have) to go shopping first to buy some. They couldn't believe they were in Australia at last – especially at a time of year when the weather was so awful in Europe!
+        </div>
+        <button id="check-button-u9p3" class="check-button">Kiểm tra Grammar 3</button>
+    </div>
+
+    <div class="quiz-container">
+        <h2>Grammar 4: Multiple Choice</h2>
+        <p class="instructions"><b>Choose the correct option (A, B or C) to complete the sentences.</b></p>
+        <ol class="mcq-list grammar-mcq">
+            <li><b>0.</b> I got up early and <u style="color: #1d4ed8; font-weight: bold;">walked</u> to school. I arrived at 8.30.</li>
+            <li id="u9p4-1"><b>1.</b> I didn't realize I ______ my mobile phone at the club until the next morning.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u9p4-1" value="A" id="u9p4-1a"><label for="u9p4-1a">A left</label></div><div class="mcq-option"><input type="radio" name="u9p4-1" value="B" id="u9p4-1b"><label for="u9p4-1b">B had left</label></div><div class="mcq-option"><input type="radio" name="u9p4-1" value="C" id="u9p4-1c"><label for="u9p4-1c">C were leaving</label></div></div></li>
+            <li id="u9p4-2"><b>2.</b> The waiter chased after him because he ______ paid his bill.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u9p4-2" value="A" id="u9p4-2a"><label for="u9p4-2a">A didn't</label></div><div class="mcq-option"><input type="radio" name="u9p4-2" value="B" id="u9p4-2b"><label for="u9p4-2b">B hadn't</label></div><div class="mcq-option"><input type="radio" name="u9p4-2" value="C" id="u9p4-2c"><label for="u9p4-2c">C wasn't</label></div></div></li>
+            <li id="u9p4-3"><b>3.</b> Many years ago, when he ______ in the army, my father went to Singapore.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u9p4-3" value="A" id="u9p4-3a"><label for="u9p4-3a">A was</label></div><div class="mcq-option"><input type="radio" name="u9p4-3" value="B" id="u9p4-3b"><label for="u9p4-3b">B had been</label></div><div class="mcq-option"><input type="radio" name="u9p4-3" value="C" id="u9p4-3c"><label for="u9p4-3c">C was being</label></div></div></li>
+            <li id="u9p4-4"><b>4.</b> We didn't go to the cinema with Kate because we ______ the film before.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u9p4-4" value="A" id="u9p4-4a"><label for="u9p4-4a">A saw</label></div><div class="mcq-option"><input type="radio" name="u9p4-4" value="B" id="u9p4-4b"><label for="u9p4-4b">B had seen</label></div><div class="mcq-option"><input type="radio" name="u9p4-4" value="C" id="u9p4-4c"><label for="u9p4-4c">C were seeing</label></div></div></li>
+            <li id="u9p4-5"><b>5.</b> Where ______ for your holidays?<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u9p4-5" value="A" id="u9p4-5a"><label for="u9p4-5a">A you went</label></div><div class="mcq-option"><input type="radio" name="u9p4-5" value="B" id="u9p4-5b"><label for="u9p4-5b">B did you go</label></div><div class="mcq-option"><input type="radio" name="u9p4-5" value="C" id="u9p4-5c"><label for="u9p4-5c">C went you</label></div></div></li>
+            <li id="u9p4-6"><b>6.</b> How many people ______ in this building?<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u9p4-6" value="A" id="u9p4-6a"><label for="u9p4-6a">A live</label></div><div class="mcq-option"><input type="radio" name="u9p4-6" value="B" id="u9p4-6b"><label for="u9p4-6b">B do live</label></div><div class="mcq-option"><input type="radio" name="u9p4-6" value="C" id="u9p4-6c"><label for="u9p4-6c">C do they live</label></div></div></li>
+            <li id="u9p4-7"><b>7.</b> Which student ______ this essay?<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u9p4-7" value="A" id="u9p4-7a"><label for="u9p4-7a">A has he written</label></div><div class="mcq-option"><input type="radio" name="u9p4-7" value="B" id="u9p4-7b"><label for="u9p4-7b">B has written</label></div><div class="mcq-option"><input type="radio" name="u9p4-7" value="C" id="u9p4-7c"><label for="u9p4-7c">C he has written</label></div></div></li>
+            <li id="u9p4-8"><b>8.</b> Why ______ like travelling so much?<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u9p4-8" value="A" id="u9p4-8a"><label for="u9p4-8a">A they</label></div><div class="mcq-option"><input type="radio" name="u9p4-8" value="B" id="u9p4-8b"><label for="u9p4-8b">B they do</label></div><div class="mcq-option"><input type="radio" name="u9p4-8" value="C" id="u9p4-8c"><label for="u9p4-8c">C do they</label></div></div></li>
+            <li id="u9p4-9"><b>9.</b> What ______ outside?<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u9p4-9" value="A" id="u9p4-9a"><label for="u9p4-9a">A is happening</label></div><div class="mcq-option"><input type="radio" name="u9p4-9" value="B" id="u9p4-9b"><label for="u9p4-9b">B is it happening</label></div><div class="mcq-option"><input type="radio" name="u9p4-9" value="C" id="u9p4-9c"><label for="u9p4-9c">C happening is</label></div></div></li>
+            <li id="u9p4-10"><b>10.</b> Who ______ the key to?<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u9p4-10" value="A" id="u9p4-10a"><label for="u9p4-10a">A has given</label></div><div class="mcq-option"><input type="radio" name="u9p4-10" value="B" id="u9p4-10b"><label for="u9p4-10b">B you are giving</label></div><div class="mcq-option"><input type="radio" name="u9p4-10" value="C" id="u9p4-10c"><label for="u9p4-10c">C did you give</label></div></div></li>
+        </ol>
+        <button id="check-button-u9p4" class="check-button">Kiểm tra Grammar 4</button>
+    </div>
+
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --- DOM Elements ---
+    const modeSelection = document.getElementById('mode-selection');
+    const quizContainer = document.querySelector('.container:not(#mode-selection)');
+    const normalModeBtn = document.getElementById('mode-normal');
+    const shuffleModeBtn = document.getElementById('mode-shuffle');
+
+    // --- Master Answer Keys ---
+    const masterAnswerKeys = {
+        'u9p1': {
+            'u9p1-1': 'B', 'u9p1-2': 'B', 'u9p1-3': 'C', 'u9p1-4': 'A', 'u9p1-5': 'C',
+            'u9p1-6': 'B', 'u9p1-7': 'B', 'u9p1-8': 'C', 'u9p1-9': 'C', 'u9p1-10': 'A'
+        },
+        'u9p4': {
+            'u9p4-1': 'B', 'u9p4-2': 'B', 'u9p4-3': 'A', 'u9p4-4': 'B', 'u9p4-5': 'B',
+            'u9p4-6': 'A', 'u9p4-7': 'B', 'u9p4-8': 'C', 'u9p4-9': 'A', 'u9p4-10': 'C'
+        }
+    };
+
+    // --- Shuffle Functions ---
+    function shuffleChildren(parent) {
+        if (!parent) return;
+        let children = Array.from(parent.children);
+        for (let i = children.length - 1; i > 0; i--) {
+            if (children[i].textContent.includes('0.')) continue;
+            const j = Math.floor(Math.random() * i) + 1;
+            if (children[j].textContent.includes('0.')) continue;
+            [children[i], children[j]] = [children[j], children[i]];
+        }
+        parent.innerHTML = ''; 
+        children.forEach(child => parent.appendChild(child));
+    }
+
+    function shuffleMcqAnswerTexts(listSelector) {
+        const mcqQuestions = document.querySelectorAll(`${listSelector} > li[id]`);
+        mcqQuestions.forEach(question => {
+            const options = Array.from(question.querySelectorAll('.mcq-option'));
+            if (options.length === 0) return;
+
+            const questionName = options[0].querySelector('input').name;
+            const partIdPrefix = questionName.split('-')[0];
+            
+            if (!masterAnswerKeys[partIdPrefix] || !masterAnswerKeys[partIdPrefix][questionName]) return;
+            
+            const originalCorrectLetter = masterAnswerKeys[partIdPrefix][questionName];
+            
+            const letters = ['A', 'B', 'C', 'D'];
+            let answerData = options.map((opt, index) => {
+                const label = opt.querySelector('label');
+                const letter = letters[index];
+                const text = label.textContent.substring(2);
+                return { text: text, isCorrect: letter === originalCorrectLetter };
+            });
+
+            for (let i = answerData.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [answerData[i], answerData[j]] = [answerData[j], answerData[i]];
+            }
+
+            let newCorrectLetter = '';
+            options.forEach((opt, index) => {
+                const label = opt.querySelector('label');
+                const currentLetter = letters[index];
+                const currentData = answerData[index];
+                label.textContent = `${currentLetter} ${currentData.text}`;
+                if (currentData.isCorrect) {
+                    newCorrectLetter = currentLetter;
+                }
+            });
+
+            masterAnswerKeys[partIdPrefix][questionName] = newCorrectLetter;
+        });
+    }
+
+    // --- Quiz Start Logic ---
+    function startQuiz(mode) {
+        modeSelection.classList.add('hidden');
+        quizContainer.classList.remove('hidden');
+
+        if (mode === 'shuffle') {
+            shuffleChildren(document.querySelector('.vocab-mcq'));
+            shuffleChildren(document.querySelector('.word-formation-list'));
+            shuffleChildren(document.querySelector('.grammar-mcq'));
+            shuffleMcqAnswerTexts('.vocab-mcq');
+            shuffleMcqAnswerTexts('.grammar-mcq');
+        }
+    }
+
+    normalModeBtn.addEventListener('click', () => startQuiz('normal'));
+    shuffleModeBtn.addEventListener('click', () => startQuiz('shuffle'));
+
+    // =================================================================
+    // --- CHECKING LOGIC ---
+    // =================================================================
+    function checkFillInBlank(partIdPrefix) {
+        for (let i = 1; i <= 10; i++) {
+            const input = document.getElementById(`${partIdPrefix}_ans${i}`);
+            if (input) {
+                const userAnswer = input.value.trim().toLowerCase();
+                const correctAnswers = input.getAttribute('data-answer').toLowerCase().split('|');
+                input.classList.remove('correct', 'incorrect');
+                if (correctAnswers.includes(userAnswer)) {
+                    input.classList.add('correct');
+                } else {
+                    input.classList.add('incorrect');
+                }
+            }
+        }
+    }
+
+    function checkMultipleChoice(partIdPrefix, correctAnswers) {
+        for (const questionId in correctAnswers) {
+            const correctAnswerValue = correctAnswers[questionId];
+            const questionElement = document.getElementById(questionId);
+            if (!questionElement) continue;
+
+            questionElement.querySelectorAll('label').forEach(l => l.classList.remove('correct-answer', 'incorrect-choice'));
+            
+            const correctLabel = questionElement.querySelector(`label[for="${questionId}${correctAnswerValue.toLowerCase()}"]`);
+            if (correctLabel) correctLabel.classList.add('correct-answer');
+            
+            const userAnswerInput = questionElement.querySelector(`input[name="${questionId}"]:checked`);
+            if (userAnswerInput) {
+                if (userAnswerInput.value !== correctAnswerValue) {
+                    const userLabel = questionElement.querySelector(`label[for="${userAnswerInput.id}"]`);
+                    if (userLabel) userLabel.classList.add('incorrect-choice');
+                }
+            }
+        }
+    }
+    
+    // Listeners for Check Buttons
+    document.getElementById('check-button-u9p1').addEventListener('click', () => checkMultipleChoice('u9p1', masterAnswerKeys['u9p1']));
+    document.getElementById('check-button-u9p2').addEventListener('click', () => checkFillInBlank('u9p2'));
+    document.getElementById('check-button-u9p3').addEventListener('click', () => checkFillInBlank('u9p3'));
+    document.getElementById('check-button-u9p4').addEventListener('click', () => checkMultipleChoice('u9p4', masterAnswerKeys['u9p4']));
+});
+</script>
+
+</body>
+</html>

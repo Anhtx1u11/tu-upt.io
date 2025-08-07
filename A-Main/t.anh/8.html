@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life, Pre-Intermediate, Unit 8 Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            max-width: 800px;
+            width: 100%;
+        }
+        .quiz-container {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #1d4ed8;
+            text-align: center;
+            margin-top: 0;
+        }
+        .instructions {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            text-align: center;
+        }
+        ol {
+            padding-left: 0;
+            list-style-position: inside;
+        }
+        
+        /* --- Styles for Fill in the blank --- */
+        .fill-in-text {
+            font-size: 1.2em;
+            line-height: 2.5;
+        }
+        .fill-in-text input {
+            width: 140px;
+            border: none;
+            border-bottom: 2px solid #9ca3af;
+            font-size: 0.9em;
+            font-family: inherit;
+            text-align: center;
+            margin: 0 5px;
+            padding: 2px 5px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            vertical-align: middle;
+        }
+        .fill-in-text input:focus {
+            outline: none;
+            border-color: #4f46e5;
+            box-shadow: 0 1px 0 #4f46e5;
+        }
+        .fill-in-text input.correct {
+            border-color: #16a34a;
+            background-color: #f0fdf4;
+        }
+        .fill-in-text input.incorrect {
+            border-color: #dc2626;
+            background-color: #fef2f2;
+        }
+        /* --- Styles for Sentence Combination (Grammar 4) --- */
+        .transform-list li { list-style-type: none; margin-bottom: 20px; font-size: 1.1em; }
+        .transform-list .prompt { color: #555; font-style: italic; }
+        .transform-list input { width: 95%; font-size: 1em; margin-top: 8px; }
+
+
+        /* --- Styles for Binary Choice --- */
+        .binary-choice-list li { list-style-type: none; margin-bottom: 15px; font-size: 1.1em; line-height: 1.6;}
+        .choice {
+            font-weight: bold;
+            cursor: pointer;
+            padding: 2px 6px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .choice:hover { background-color: #eef2ff; }
+        .choice.selected { background-color: #c7d2fe; }
+        .choice.correct-choice { background-color: #dcfce7; color: #15803d; text-decoration: none !important; }
+        .choice.incorrect-choice { background-color: #fee2e2; color: #b91c1c; text-decoration: line-through;}
+
+        /* --- Styles for Multiple Choice --- */
+        .mcq-list li { list-style-type: none; margin-bottom: 15px; font-size: 1.1em; line-height: 1.6;}
+        .mcq-options { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 8px; }
+        .mcq-option { display: flex; align-items: center; }
+        .mcq-option input[type="radio"] { margin-right: 8px; }
+        .mcq-option label { cursor: pointer; padding: 4px 8px; border-radius: 5px; transition: background-color 0.3s; }
+        .mcq-option label.correct-answer { background-color: #dcfce7; color: #15803d; font-weight: bold; }
+        .mcq-option label.incorrect-choice { background-color: #fee2e2; color: #b91c1c; text-decoration: line-through; }
+        
+        /* --- General Styles --- */
+        .check-button { display: block; width: 100%; padding: 12px 20px; font-size: 1.1em; font-weight: bold; color: #fff; background-color: #2563eb; border: none; border-radius: 8px; cursor: pointer; margin-top: 30px; transition: background-color 0.3s; }
+        .check-button:hover { background-color: #1d4ed8; }
+        
+        /* --- Styles for Mode Selection --- */
+        .hidden { display: none !important; }
+        .mode-buttons { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
+        #mode-shuffle { background-color: #f97316; }
+        #mode-shuffle:hover { background-color: #ea580c; }
+    </style>
+</head>
+<body>
+
+<div id="mode-selection" class="container">
+    <div class="quiz-container">
+        <h1>Chọn Chế độ Làm bài</h1>
+        <p class="instructions">Bạn muốn làm bài theo thứ tự gốc hay xáo trộn câu hỏi và đáp án?</p>
+        <div class="mode-buttons">
+            <button id="mode-normal" class="check-button">🚀 Chế độ Thường</button>
+            <button id="mode-shuffle" class="check-button">🔀 Chế độ Xáo trộn</button>
+        </div>
+    </div>
+</div>
+
+<div class="container hidden">
+    <h1>Life, Pre-Intermediate, Unit 8 Test</h1>
+
+    <div class="quiz-container">
+        <h2>Vocabulary 1: Prepositions</h2>
+        <p class="instructions"><b>Complete the text with the missing prepositions.</b></p>
+        <div class="fill-in-text">
+            One of the problems (0) <u><b>with</b></u> car keys is that they get lost or stolen. That's why manufacturers are thinking (1)<input type="text" id="u8p1_ans1" data-answer="of"> getting rid of car keys altogether. In the future, car owners who are bad (2)<input type="text" id="u8p1_ans2" data-answer="at"> remembering where their keys are will be able to download a smartphone app that will lock, unlock, and start the car using Bluetooth technology. If you've got more than one car, your smartphone will work (3)<input type="text" id="u8p1_ans3" data-answer="on"> each car, so you won't need to carry lots of keys. The idea (4)<input type="text" id="u8p1_ans4" data-answer="of"> having to depend (5)<input type="text" id="u8p1_ans5" data-answer="on"> a key will be a thing of the past. Scientists are also interested (6)<input type="text" id="u8p1_ans6" data-answer="in"> using smartphone technology to lock and unlock doors and windows around our homes. The idea is similar (7)<input type="text" id="u8p1_ans7" data-answer="to"> that being developed for cars. Homeowners will be able to set (8)<input type="text" id="u8p1_ans8" data-answer="up"> and log (9)<input type="text" id="u8p1_ans9" data-answer="in"> to a computer system that controls all the security around their home. Soon you won't need to remember your keys – you will just have to be good (10)<input type="text" id="u8p1_ans10" data-answer="at"> using the technology on your phone.
+        </div>
+        <button id="check-button-u8p1" class="check-button">Kiểm tra Vocabulary 1</button>
+    </div>
+
+    <div class="quiz-container">
+        <h2>Vocabulary 2: Collocations</h2>
+        <p class="instructions"><b>Choose the correct option to complete the sentences.</b></p>
+        <ol class="binary-choice-list">
+            <li><b>0.</b> I often <span class="choice">get</span> / <span class="choice correct-choice">make</span> bored on Sundays.</li>
+            <li data-question="u8p2-1"><b>1.</b> I'm sure I've <span class="choice">done</span> / <span class="choice" data-answer="true">made</span> a lot of mistakes already.</li>
+            <li data-question="u8p2-2"><b>2.</b> When did you first <span class="choice" data-answer="true">fall</span> / <span class="choice">be</span> in love?</li>
+            <li data-question="u8p2-3"><b>3.</b> We're having problems trying to <span class="choice">log</span> / <span class="choice" data-answer="true">connect</span> to the internet.</li>
+            <li data-question="u8p2-4"><b>4.</b> If you <span class="choice" data-answer="true">upload</span> / <span class="choice">subscribe</span> your photos to this site, we'll all be able to access them.</li>
+            <li data-question="u8p2-5"><b>5.</b> <span class="choice">Charge</span> / <span class="choice" data-answer="true">Push</span> the button to switch it on.</li>
+            <li data-question="u8p2-6"><b>6.</b> You can operate it using a remote <span class="choice" data-answer="true">control</span> / <span class="choice">charger</span>.</li>
+            <li data-question="u8p2-7"><b>7.</b> Push the lever <span class="choice" data-answer="true">forwards</span> / <span class="choice">for</span> to turn on the power.</li>
+            <li data-question="u8p2-8"><b>8.</b> There are about 150 <span class="choice">taken</span> / <span class="choice" data-answer="true">known</span> Aboriginal languages in Australia.</li>
+            <li data-question="u8p2-9"><b>9.</b> They carried the heavy camera <span class="choice">packings</span> / <span class="choice" data-answer="true">equipment</span> through the forest.</li>
+            <li data-question="u8p2-10"><b>10.</b> We hope to protect this environment <span class="choice" data-answer="true">forever</span> / <span class="choice">afterwards</span>. We don't want to lose it.</li>
+        </ol>
+        <button id="check-button-u8p2" class="check-button">Kiểm tra Vocabulary 2</button>
+    </div>
+
+    <div class="quiz-container">
+        <h2>Grammar 3: Conditionals</h2>
+        <p class="instructions"><b>Choose the correct option (A, B or C) to complete the sentences.</b></p>
+        <ol class="mcq-list conditionals-mcq">
+            <li><b>0.</b> If you <u style="color: #1d4ed8; font-weight: bold;">aren't</u> careful, you'll make a mistake.</li>
+            <li id="u8p3-1"><b>1.</b> What will Tom do if everything ______?<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u8p3-1" value="A" id="u8p3-1a"><label for="u8p3-1a">A goes wrong</label></div><div class="mcq-option"><input type="radio" name="u8p3-1" value="B" id="u8p3-1b"><label for="u8p3-1b">B will go wrong</label></div><div class="mcq-option"><input type="radio" name="u8p3-1" value="C" id="u8p3-1c"><label for="u8p3-1c">C might go wrong</label></div></div></li>
+            <li id="u8p3-2"><b>2.</b> If she leaves home, she ______ to learn how to cook.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u8p3-2" value="A" id="u8p3-2a"><label for="u8p3-2a">A will needs</label></div><div class="mcq-option"><input type="radio" name="u8p3-2" value="B" id="u8p3-2b"><label for="u8p3-2b">B will need</label></div><div class="mcq-option"><input type="radio" name="u8p3-2" value="C" id="u8p3-2c"><label for="u8p3-2c">C is needing</label></div></div></li>
+            <li id="u8p3-3"><b>3.</b> If we ______ hurry, we'll miss the start of the film.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u8p3-3" value="A" id="u8p3-3a"><label for="u8p3-3a">A aren't</label></div><div class="mcq-option"><input type="radio" name="u8p3-3" value="B" id="u8p3-3b"><label for="u8p3-3b">B don't</label></div><div class="mcq-option"><input type="radio" name="u8p3-3" value="C" id="u8p3-3c"><label for="u8p3-3c">C won't</label></div></div></li>
+            <li id="u8p3-4"><b>4.</b> What ______ if it rains?<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u8p3-4" value="A" id="u8p3-4a"><label for="u8p3-4a">A will do we</label></div><div class="mcq-option"><input type="radio" name="u8p3-4" value="B" id="u8p3-4b"><label for="u8p3-4b">B we will do</label></div><div class="mcq-option"><input type="radio" name="u8p3-4" value="C" id="u8p3-4c"><label for="u8p3-4c">C will we do</label></div></div></li>
+            <li id="u8p3-5"><b>5.</b> You'll be late if you ______ now.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u8p3-5" value="A" id="u8p3-5a"><label for="u8p3-5a">A aren't leaving</label></div><div class="mcq-option"><input type="radio" name="u8p3-5" value="B" id="u8p3-5b"><label for="u8p3-5b">B don't leave</label></div><div class="mcq-option"><input type="radio" name="u8p3-5" value="C" id="u8p3-5c"><label for="u8p3-5c">C won't leave</label></div></div></li>
+            <li id="u8p3-6"><b>6.</b> If I ______ my sandwiches, I buy something from the canteen.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u8p3-6" value="A" id="u8p3-6a"><label for="u8p3-6a">A forget</label></div><div class="mcq-option"><input type="radio" name="u8p3-6" value="B" id="u8p3-6b"><label for="u8p3-6b">B can forget</label></div><div class="mcq-option"><input type="radio" name="u8p3-6" value="C" id="u8p3-6c"><label for="u8p3-6c">C will forget</label></div></div></li>
+            <li id="u8p3-7"><b>7.</b> If we ______ online, we save ten per cent.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u8p3-7" value="A" id="u8p3-7a"><label for="u8p3-7a">A order</label></div><div class="mcq-option"><input type="radio" name="u8p3-7" value="B" id="u8p3-7b"><label for="u8p3-7b">B ordered</label></div><div class="mcq-option"><input type="radio" name="u8p3-7" value="C" id="u8p3-7c"><label for="u8p3-7c">C will order</label></div></div></li>
+            <li id="u8p3-8"><b>8.</b> Generally speaking, bikes ______ more fun if the weather's fine.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u8p3-8" value="A" id="u8p3-8a"><label for="u8p3-8a">A are being</label></div><div class="mcq-option"><input type="radio" name="u8p3-8" value="B" id="u8p3-8b"><label for="u8p3-8b">B will be</label></div><div class="mcq-option"><input type="radio" name="u8p3-8" value="C" id="u8p3-8c"><label for="u8p3-8c">C are</label></div></div></li>
+            <li id="u8p3-9"><b>9.</b> If you ______ for help, I'll be happy to come round.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u8p3-9" value="A" id="u8p3-9a"><label for="u8p3-9a">A ask</label></div><div class="mcq-option"><input type="radio" name="u8p3-9" value="B" id="u8p3-9b"><label for="u8p3-9b">B asked</label></div><div class="mcq-option"><input type="radio" name="u8p3-9" value="C" id="u8p3-9c"><label for="u8p3-9c">C will ask</label></div></div></li>
+            <li id="u8p3-10"><b>10.</b> Pets ______ kind to them.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u8p3-10" value="A" id="u8p3-10a"><label for="u8p3-10a">A are happy if people will be</label></div><div class="mcq-option"><input type="radio" name="u8p3-10" value="B" id="u8p3-10b"><label for="u8p3-10b">B will be happy if people will be</label></div><div class="mcq-option"><input type="radio" name="u8p3-10" value="C" id="u8p3-10c"><label for="u8p3-10c">C are happy if people are</label></div></div></li>
+        </ol>
+        <button id="check-button-u8p3" class="check-button">Kiểm tra Grammar 3</button>
+    </div>
+    
+    <div class="quiz-container">
+        <h2>Grammar 4: Relative Clauses</h2>
+        <p class="instructions"><b>Write one sentence using a relative pronoun to combine the two sentences provided.</b></p>
+        <ol class="transform-list">
+            <li><b>0.</b> <div class="prompt">We met a man. He was an inventor.</div> <u><b>We met a man who was an inventor.</b></u></li>
+            <li><div class="prompt"><b>1.</b> We arrived at a place. They make lifeboats there.</div> <input type="text" id="u8p4_ans1" data-answer="We arrived at a place where they make lifeboats."></li>
+            <li><div class="prompt"><b>2.</b> Josie has a cat. It can open the doors of cupboards.</div> <input type="text" id="u8p4_ans2" data-answer="Josie has a cat which can open the doors of cupboards.|Josie has a cat that can open the doors of cupboards."></li>
+            <li><div class="prompt"><b>3.</b> Peter doesn't like beaches. They are polluted.</div> <input type="text" id="u8p4_ans3" data-answer="Peter doesn't like beaches which are polluted.|Peter doesn't like beaches that are polluted."></li>
+            <li><div class="prompt"><b>4.</b> New York is a city. There are many exciting businesses there.</div> <input type="text" id="u8p4_ans4" data-answer="New York is a city where there are many exciting businesses."></li>
+            <li><div class="prompt"><b>5.</b> I met some friends. I knew them from school.</div> <input type="text" id="u8p4_ans5" data-answer="I met some friends who I knew from school.|I met some friends that I knew from school.|I met some friends (who) I knew from school.|I met some friends (that) I knew from school."></li>
+            <li><div class="prompt"><b>6.</b> South Korea is a country. It has many important electronic companies.</div> <input type="text" id="u8p4_ans6" data-answer="South Korea is a country which has many important electronic companies.|South Korea is a country that has many important electronic companies."></li>
+            <li><div class="prompt"><b>7.</b> My sister is a person. She gives me good advice.</div> <input type="text" id="u8p4_ans7" data-answer="My sister is a person who gives me good advice."></li>
+            <li><div class="prompt"><b>8.</b> The local theatre is a venue. Many people in our town meet there.</div> <input type="text" id="u8p4_ans8" data-answer="The local theatre is a venue where many people in our town meet."></li>
+            <li><div class="prompt"><b>9.</b> The museum is a building. I like it very much.</div> <input type="text" id="u8p4_ans9" data-answer="The museum is a building which I like very much.|The museum is a building that I like very much.|The museum is a building (which) I like very much.|The museum is a building (that) I like very much."></li>
+            <li><div class="prompt"><b>10.</b> The students are members of a club. It meets every Monday.</div> <input type="text" id="u8p4_ans10" data-answer="The students are members of a club which meets every Monday.|The students are members of a club that meets every Monday."></li>
+        </ol>
+        <button id="check-button-u8p4" class="check-button">Kiểm tra Grammar 4</button>
+    </div>
+
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --- DOM Elements ---
+    const modeSelection = document.getElementById('mode-selection');
+    const quizContainer = document.querySelector('.container:not(#mode-selection)');
+    const normalModeBtn = document.getElementById('mode-normal');
+    const shuffleModeBtn = document.getElementById('mode-shuffle');
+
+    // --- Master Answer Keys ---
+    const masterAnswerKeys = {
+        'u8p3': {
+            'u8p3-1': 'A', 'u8p3-2': 'B', 'u8p3-3': 'B', 'u8p3-4': 'C', 'u8p3-5': 'B',
+            'u8p3-6': 'A', 'u8p3-7': 'A', 'u8p3-8': 'C', 'u8p3-9': 'A', 'u8p3-10': 'C'
+        }
+    };
+
+    // --- Shuffle Functions ---
+    function shuffleChildren(parent) {
+        if (!parent) return;
+        let children = Array.from(parent.children);
+        for (let i = children.length - 1; i > 0; i--) {
+            // To prevent shuffling the example (item 0)
+            if (children[i].textContent.includes('0.')) continue;
+            const j = Math.floor(Math.random() * i) + 1;
+            if (children[j].textContent.includes('0.')) continue;
+            [children[i], children[j]] = [children[j], children[i]];
+        }
+        parent.innerHTML = ''; 
+        children.forEach(child => parent.appendChild(child));
+    }
+
+    function shuffleMcqAnswerTexts(listSelector) {
+        const mcqQuestions = document.querySelectorAll(`${listSelector} > li[id]`);
+        mcqQuestions.forEach(question => {
+            const options = Array.from(question.querySelectorAll('.mcq-option'));
+            if (options.length === 0) return;
+
+            const questionName = options[0].querySelector('input').name;
+            const partIdPrefix = questionName.split('-')[0];
+            
+            if (!masterAnswerKeys[partIdPrefix] || !masterAnswerKeys[partIdPrefix][questionName]) return;
+            
+            const originalCorrectLetter = masterAnswerKeys[partIdPrefix][questionName];
+            
+            const letters = ['A', 'B', 'C', 'D'];
+            let answerData = options.map((opt, index) => {
+                const label = opt.querySelector('label');
+                const letter = letters[index];
+                const text = label.textContent.substring(2); // Remove "A "
+                return { text: text, isCorrect: letter === originalCorrectLetter };
+            });
+
+            for (let i = answerData.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [answerData[i], answerData[j]] = [answerData[j], answerData[i]];
+            }
+
+            let newCorrectLetter = '';
+            options.forEach((opt, index) => {
+                const label = opt.querySelector('label');
+                const currentLetter = letters[index];
+                const currentData = answerData[index];
+                label.textContent = `${currentLetter} ${currentData.text}`;
+                if (currentData.isCorrect) {
+                    newCorrectLetter = currentLetter;
+                }
+            });
+
+            masterAnswerKeys[partIdPrefix][questionName] = newCorrectLetter;
+        });
+    }
+
+    // --- Quiz Start Logic ---
+    function startQuiz(mode) {
+        modeSelection.classList.add('hidden');
+        quizContainer.classList.remove('hidden');
+
+        if (mode === 'shuffle') {
+            shuffleChildren(document.querySelector('.binary-choice-list'));
+            shuffleChildren(document.querySelector('.conditionals-mcq'));
+            shuffleChildren(document.querySelector('.transform-list'));
+            shuffleMcqAnswerTexts('.conditionals-mcq');
+        }
+    }
+
+    normalModeBtn.addEventListener('click', () => startQuiz('normal'));
+    shuffleModeBtn.addEventListener('click', () => startQuiz('shuffle'));
+
+    // =================================================================
+    // --- CHECKING LOGIC ---
+    // =================================================================
+    function checkFillInBlank(partIdPrefix) {
+        for (let i = 1; i <= 10; i++) {
+            const input = document.getElementById(`${partIdPrefix}_ans${i}`);
+            if (input) {
+                const userAnswer = input.value.trim().replace(/\.$/, "").toLowerCase(); // Remove trailing period
+                const correctAnswers = input.getAttribute('data-answer').toLowerCase().split('|');
+                input.classList.remove('correct', 'incorrect');
+                
+                // Normalize correct answers for comparison
+                const normalizedCorrect = correctAnswers.map(ans => ans.trim().replace(/\.$/, ""));
+
+                if (normalizedCorrect.includes(userAnswer)) {
+                    input.classList.add('correct');
+                } else {
+                    input.classList.add('incorrect');
+                }
+            }
+        }
+    }
+    
+    function checkBinaryChoice() {
+         const questions = document.querySelectorAll('.binary-choice-list > li[data-question]');
+        questions.forEach(question => {
+            const choices = question.querySelectorAll('.choice');
+            choices.forEach(choice => {
+                choice.classList.remove('correct-choice', 'incorrect-choice');
+                if (choice.getAttribute('data-answer') === 'true') {
+                    choice.classList.add('correct-choice');
+                }
+            });
+            const selectedChoice = question.querySelector('.choice.selected');
+            if (selectedChoice && selectedChoice.getAttribute('data-answer') !== 'true') {
+                selectedChoice.classList.add('incorrect-choice');
+            }
+        });
+    }
+
+    function checkMultipleChoice(partIdPrefix, correctAnswers) {
+        for (const questionId in correctAnswers) {
+            const correctAnswerValue = correctAnswers[questionId];
+            const questionElement = document.getElementById(questionId);
+            if (!questionElement) continue;
+
+            questionElement.querySelectorAll('label').forEach(l => l.classList.remove('correct-answer', 'incorrect-choice'));
+            
+            const correctLabel = questionElement.querySelector(`label[for="${questionId}${correctAnswerValue.toLowerCase()}"]`);
+            if (correctLabel) correctLabel.classList.add('correct-answer');
+            
+            const userAnswerInput = questionElement.querySelector(`input[name="${questionId}"]:checked`);
+            if (userAnswerInput) {
+                if (userAnswerInput.value !== correctAnswerValue) {
+                    const userLabel = questionElement.querySelector(`label[for="${userAnswerInput.id}"]`);
+                    if (userLabel) userLabel.classList.add('incorrect-choice');
+                }
+            }
+        }
+    }
+    
+    // --- Listeners for Check Buttons ---
+    document.getElementById('check-button-u8p1').addEventListener('click', () => checkFillInBlank('u8p1'));
+    document.getElementById('check-button-u8p2').addEventListener('click', () => checkBinaryChoice());
+    document.getElementById('check-button-u8p3').addEventListener('click', () => checkMultipleChoice('u8p3', masterAnswerKeys['u8p3']));
+    document.getElementById('check-button-u8p4').addEventListener('click', () => checkFillInBlank('u8p4'));
+    
+    // --- Listener for Binary Choice Clicks ---
+     const choiceSpans = document.querySelectorAll('.choice');
+    choiceSpans.forEach(span => {
+        span.addEventListener('click', function() {
+            const questionGroup = this.parentElement.getAttribute('data-question');
+            if (questionGroup) {
+                document.querySelectorAll(`[data-question="${questionGroup}"] .choice`).forEach(s => s.classList.remove('selected'));
+                this.classList.add('selected');
+            }
+        });
+    });
+
+});
+</script>
+
+</body>
+</html>

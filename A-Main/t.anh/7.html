@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life, Pre-Intermediate, Unit 7 Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            max-width: 800px;
+            width: 100%;
+        }
+        .quiz-container {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #1d4ed8;
+            text-align: center;
+            margin-top: 0;
+        }
+        .instructions {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            text-align: center;
+        }
+        ol {
+            padding-left: 0;
+            list-style-position: inside;
+        }
+        
+        /* --- Styles for Fill in the blank --- */
+        .fill-in-text {
+            font-size: 1.2em;
+            line-height: 2.5;
+        }
+        .fill-in-text ol {
+            list-style-type: decimal;
+            padding-left: 20px;
+        }
+        .fill-in-text li {
+            margin-bottom: 12px;
+        }
+        .fill-in-text input {
+            width: 140px;
+            border: none;
+            border-bottom: 2px solid #9ca3af;
+            font-size: 0.9em;
+            font-family: inherit;
+            text-align: center;
+            margin: 0 5px;
+            padding: 2px 5px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            vertical-align: middle;
+        }
+        .fill-in-text input:focus {
+            outline: none;
+            border-color: #4f46e5;
+            box-shadow: 0 1px 0 #4f46e5;
+        }
+        .fill-in-text .verb-in-bracket {
+            font-family: monospace;
+            color: #555;
+            font-size: 0.9em;
+            text-transform: uppercase;
+        }
+        .fill-in-text input.correct {
+            border-color: #16a34a;
+            background-color: #f0fdf4;
+        }
+        .fill-in-text input.incorrect {
+            border-color: #dc2626;
+            background-color: #fef2f2;
+        }
+
+        /* --- Styles for Multiple Choice --- */
+        .mcq-list li { list-style-type: none; margin-bottom: 15px; font-size: 1.1em; line-height: 1.6;}
+        .mcq-options { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 8px; }
+        .mcq-option { display: flex; align-items: center; }
+        .mcq-option input[type="radio"] { margin-right: 8px; }
+        .mcq-option label { cursor: pointer; padding: 4px 8px; border-radius: 5px; transition: background-color 0.3s; }
+        .mcq-option label.correct-answer { background-color: #dcfce7; color: #15803d; font-weight: bold; }
+        .mcq-option label.incorrect-choice { background-color: #fee2e2; color: #b91c1c; text-decoration: line-through; }
+        
+        /* --- General Styles --- */
+        .check-button { display: block; width: 100%; padding: 12px 20px; font-size: 1.1em; font-weight: bold; color: #fff; background-color: #2563eb; border: none; border-radius: 8px; cursor: pointer; margin-top: 30px; transition: background-color 0.3s; }
+        .check-button:hover { background-color: #1d4ed8; }
+        
+        /* --- Styles for Mode Selection --- */
+        .hidden { display: none !important; }
+        .mode-buttons { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
+        #mode-shuffle { background-color: #f97316; }
+        #mode-shuffle:hover { background-color: #ea580c; }
+    </style>
+</head>
+<body>
+
+<div id="mode-selection" class="container">
+    <div class="quiz-container">
+        <h1>Chọn Chế độ Làm bài</h1>
+        <p class="instructions">Bạn muốn làm bài theo thứ tự gốc hay xáo trộn câu hỏi và đáp án?</p>
+        <div class="mode-buttons">
+            <button id="mode-normal" class="check-button">🚀 Chế độ Thường</button>
+            <button id="mode-shuffle" class="check-button">🔀 Chế độ Xáo trộn</button>
+        </div>
+    </div>
+</div>
+
+<div class="container hidden">
+    <h1>Life, Pre-Intermediate, Unit 7 Test</h1>
+
+    <div class="quiz-container">
+        <h2>Vocabulary 1: Multiple Choice</h2>
+        <p class="instructions"><b>Choose the correct option (A, B, C or D) to complete the sentences.</b></p>
+        <ol class="mcq-list vocab-mcq">
+            <li><b>0.</b> Sophie works Monday to Friday from 9 to 5 – it's a <u style="color: #1d4ed8; font-weight: bold;">full</u>-time job.</li>
+            <li id="u7p1-1"><b>1.</b> We're on the ground floor – the ______ is downstairs.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u7p1-1" value="A" id="u7p1-1a"><label for="u7p1-1a">A basement</label></div><div class="mcq-option"><input type="radio" name="u7p1-1" value="B" id="u7p1-1b"><label for="u7p1-1b">B first floor</label></div><div class="mcq-option"><input type="radio" name="u7p1-1" value="C" id="u7p1-1c"><label for="u7p1-1c">C third floor</label></div><div class="mcq-option"><input type="radio" name="u7p1-1" value="D" id="u7p1-1d"><label for="u7p1-1d">D top floor</label></div></div></li>
+            <li id="u7p1-2"><b>2.</b> Walk up the ______ on the left and you'll get to the canteen.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u7p1-2" value="A" id="u7p1-2a"><label for="u7p1-2a">A lift</label></div><div class="mcq-option"><input type="radio" name="u7p1-2" value="B" id="u7p1-2b"><label for="u7p1-2b">B stairs</label></div><div class="mcq-option"><input type="radio" name="u7p1-2" value="C" id="u7p1-2c"><label for="u7p1-2c">C exit</label></div><div class="mcq-option"><input type="radio" name="u7p1-2" value="D" id="u7p1-2d"><label for="u7p1-2d">D floor</label></div></div></li>
+            <li id="u7p1-3"><b>3.</b> Joe's job is boring and ______-paid. He doesn't earn much.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u7p1-3" value="A" id="u7p1-3a"><label for="u7p1-3a">A low</label></div><div class="mcq-option"><input type="radio" name="u7p1-3" value="B" id="u7p1-3b"><label for="u7p1-3b">B high</label></div><div class="mcq-option"><input type="radio" name="u7p1-3" value="C" id="u7p1-3c"><label for="u7p1-3c">C well</label></div><div class="mcq-option"><input type="radio" name="u7p1-3" value="D" id="u7p1-3d"><label for="u7p1-3d">D part</label></div></div></li>
+            <li id="u7p1-4"><b>4.</b> I'm a shop ______. I serve customers in the local supermarket.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u7p1-4" value="A" id="u7p1-4a"><label for="u7p1-4a">A officer</label></div><div class="mcq-option"><input type="radio" name="u7p1-4" value="B" id="u7p1-4b"><label for="u7p1-4b">B designer</label></div><div class="mcq-option"><input type="radio" name="u7p1-4" value="C" id="u7p1-4c"><label for="u7p1-4c">C representative</label></div><div class="mcq-option"><input type="radio" name="u7p1-4" value="D" id="u7p1-4d"><label for="u7p1-4d">D assistant</label></div></div></li>
+            <li id="u7p1-5"><b>5.</b> I need to ______ a call. I'll be back in a minute.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u7p1-5" value="A" id="u7p1-5a"><label for="u7p1-5a">A put</label></div><div class="mcq-option"><input type="radio" name="u7p1-5" value="B" id="u7p1-5b"><label for="u7p1-5b">B do</label></div><div class="mcq-option"><input type="radio" name="u7p1-5" value="C" id="u7p1-5c"><label for="u7p1-5c">C make</label></div><div class="mcq-option"><input type="radio" name="u7p1-5" value="D" id="u7p1-5d"><label for="u7p1-5d">D go</label></div></div></li>
+            <li id="u7p1-6"><b>6.</b> Have you ______ your bed? I hope your room is tidy.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u7p1-6" value="A" id="u7p1-6a"><label for="u7p1-6a">A done</label></div><div class="mcq-option"><input type="radio" name="u7p1-6" value="B" id="u7p1-6b"><label for="u7p1-6b">B made</label></div><div class="mcq-option"><input type="radio" name="u7p1-6" value="C" id="u7p1-6c"><label for="u7p1-6c">C set</label></div><div class="mcq-option"><input type="radio" name="u7p1-6" value="D" id="u7p1-6d"><label for="u7p1-6d">D put</label></div></div></li>
+            <li id="u7p1-7"><b>7.</b> I didn't ______ very well at school. I failed most of my exams.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u7p1-7" value="A" id="u7p1-7a"><label for="u7p1-7a">A show</label></div><div class="mcq-option"><input type="radio" name="u7p1-7" value="B" id="u7p1-7b"><label for="u7p1-7b">B score</label></div><div class="mcq-option"><input type="radio" name="u7p1-7" value="C" id="u7p1-7c"><label for="u7p1-7c">C do</label></div><div class="mcq-option"><input type="radio" name="u7p1-7" value="D" id="u7p1-7d"><label for="u7p1-7d">D make</label></div></div></li>
+            <li id="u7p1-8"><b>8.</b> Something ______ a noise in the forest. What was it?<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u7p1-8" value="A" id="u7p1-8a"><label for="u7p1-8a">A gave</label></div><div class="mcq-option"><input type="radio" name="u7p1-8" value="B" id="u7p1-8b"><label for="u7p1-8b">B made</label></div><div class="mcq-option"><input type="radio" name="u7p1-8" value="C" id="u7p1-8c"><label for="u7p1-8c">C went</label></div><div class="mcq-option"><input type="radio" name="u7p1-8" value="D" id="u7p1-8d"><label for="u7p1-8d">D did</label></div></div></li>
+            <li id="u7p1-9"><b>9.</b> To ______ for the job, call the manager.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u7p1-9" value="A" id="u7p1-9a"><label for="u7p1-9a">A place</label></div><div class="mcq-option"><input type="radio" name="u7p1-9" value="B" id="u7p1-9b"><label for="u7p1-9b">B apply</label></div><div class="mcq-option"><input type="radio" name="u7p1-9" value="C" id="u7p1-9c"><label for="u7p1-9c">C provide</label></div><div class="mcq-option"><input type="radio" name="u7p1-9" value="D" id="u7p1-9d"><label for="u7p1-9d">D make</label></div></div></li>
+            <li id="u7p1-10"><b>10.</b> There are only a few ______ staying in the hotel right now.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u7p1-10" value="A" id="u7p1-10a"><label for="u7p1-10a">A clients</label></div><div class="mcq-option"><input type="radio" name="u7p1-10" value="B" id="u7p1-10b"><label for="u7p1-10b">B customers</label></div><div class="mcq-option"><input type="radio" name="u7p1-10" value="C" id="u7p1-10c"><label for="u7p1-10c">C applicants</label></div><div class="mcq-option"><input type="radio" name="u7p1-10" value="D" id="u7p1-10d"><label for="u7p1-10d">D guests</label></div></div></li>
+        </ol>
+        <button id="check-button-u7p1" class="check-button">Kiểm tra Vocabulary 1</button>
+    </div>
+
+    <div class="quiz-container">
+        <h2>Vocabulary 2: Word Formation</h2>
+        <p class="instructions"><b>Complete the sentences with the correct form of the word in CAPITAL LETTERS.</b></p>
+        <div class="fill-in-text">
+            <ol class="word-formation-list">
+                <li><b>0.</b> I have a very <u><b>interesting</b></u> job. <span class="verb-in-bracket">INTEREST</span></li>
+                <li><b>1.</b> We need <input type="text" id="u7p2_ans1" data-answer="skilled"> workers such as electricians and plumbers. <span class="verb-in-bracket">SKILL</span></li>
+                <li><b>2.</b> Deep sea fishing can be a <input type="text" id="u7p2_ans2" data-answer="dangerous"> profession. <span class="verb-in-bracket">DANGER</span></li>
+                <li><b>3.</b> My uncle Tony is a sales <input type="text" id="u7p2_ans3" data-answer="representative"> for a company that makes dishwashers. <span class="verb-in-bracket">REPRESENT</span></li>
+                <li><b>4.</b> I'd like to be a fashion <input type="text" id="u7p2_ans4" data-answer="designer">. <span class="verb-in-bracket">DESIGN</span></li>
+                <li><b>5.</b> A well-known <input type="text" id="u7p2_ans5" data-answer="economist"> has said that prices will start to rise soon. <span class="verb-in-bracket">ECONOMY</span></li>
+                <li><b>6.</b> I always feel sorry for <input type="text" id="u7p2_ans6" data-answer="politicians"> - nobody seems to like them. <span class="verb-in-bracket">POLITICS</span></li>
+                <li><b>7.</b> My sister is a <input type="text" id="u7p2_ans7" data-answer="trainee"> teacher. She hopes to qualify as a full-time teacher next May. <span class="verb-in-bracket">TRAIN</span></li>
+                <li><b>8.</b> Wait for me near the <input type="text" id="u7p2_ans8" data-answer="entrance">. I'll come down in five minutes. <span class="verb-in-bracket">ENTER</span></li>
+                <li><b>9.</b> Jerry had to make a difficult <input type="text" id="u7p2_ans9" data-answer="decision">. He wasn't sure what to do. <span class="verb-in-bracket">DECIDE</span></li>
+                <li><b>10.</b> Please provide two <input type="text" id="u7p2_ans10" data-answer="references"> on your CV. <span class="verb-in-bracket">REFER</span></li>
+            </ol>
+        </div>
+        <button id="check-button-u7p2" class="check-button">Kiểm tra Vocabulary 2</button>
+    </div>
+
+    <div class="quiz-container">
+        <h2>Grammar 3: Verb Tenses</h2>
+        <p class="instructions"><b>Complete the text with the correct past simple or present perfect form of the verbs in brackets.</b></p>
+        <div class="fill-in-text">
+            Jack (0) <u><b>has worked</b></u> (work) in the language school for over 20 years. I (1)<input type="text" id="u7p3_ans1" data-answer="have known"> (know) him since I (2)<input type="text" id="u7p3_ans2" data-answer="started"> (start) working here in 2014. Recently, he (3)<input type="text" id="u7p3_ans3" data-answer="hasn't been"> (not be) very well, and, a few days ago, he (4)<input type="text" id="u7p3_ans4" data-answer="told"> (tell) me news that I wasn't expecting: he (5)<input type="text" id="u7p3_ans5" data-answer="has decided"> (decide) to retire. I think I'll miss him. For the last two years, Jack and I (6)<input type="text" id="u7p3_ans6" data-answer="have planned"> (plan) a number of courses together and I (7)<input type="text" id="u7p3_ans7" data-answer="have learned|have learnt"> (learn) a lot from him. When we first (8)<input type="text" id="u7p3_ans8" data-answer="started"> (start) working together I (9)<input type="text" id="u7p3_ans9" data-answer="didn't know"> (not know) much about teaching, to be honest. I (10)<input type="text" id="u7p3_ans10" data-answer="have become"> (become) a better teacher because of him. It's going to be lonely in the school without him!
+        </div>
+        <button id="check-button-u7p3" class="check-button">Kiểm tra Grammar 3</button>
+    </div>
+
+    <div class="quiz-container">
+        <h2>Grammar 4: Multiple Choice</h2>
+        <p class="instructions"><b>Choose the correct option (A, B, C or D) to complete the sentences.</b></p>
+        <ol class="mcq-list grammar-mcq">
+            <li><b>0.</b> How long <u style="color: #1d4ed8; font-weight: bold;">have</u> you worked in this office?</li>
+            <li id="u7p4-1"><b>1.</b> We've been here ______ hours.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u7p4-1" value="A" id="u7p4-1a"><label for="u7p4-1a">A in</label></div><div class="mcq-option"><input type="radio" name="u7p4-1" value="B" id="u7p4-1b"><label for="u7p4-1b">B over</label></div><div class="mcq-option"><input type="radio" name="u7p4-1" value="C" id="u7p4-1c"><label for="u7p4-1c">C for</label></div><div class="mcq-option"><input type="radio" name="u7p4-1" value="D" id="u7p4-1d"><label for="u7p4-1d">D since</label></div></div></li>
+            <li id="u7p4-2"><b>2.</b> They ______ oil in this region five years ago.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u7p4-2" value="A" id="u7p4-2a"><label for="u7p4-2a">A discover</label></div><div class="mcq-option"><input type="radio" name="u7p4-2" value="B" id="u7p4-2b"><label for="u7p4-2b">B discovered</label></div><div class="mcq-option"><input type="radio" name="u7p4-2" value="C" id="u7p4-2c"><label for="u7p4-2c">C were discovering</label></div><div class="mcq-option"><input type="radio" name="u7p4-2" value="D" id="u7p4-2d"><label for="u7p4-2d">D have discovered</label></div></div></li>
+            <li id="u7p4-3"><b>3.</b> Have you ______ had a job abroad?<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u7p4-3" value="A" id="u7p4-3a"><label for="u7p4-3a">A ever</label></div><div class="mcq-option"><input type="radio" name="u7p4-3" value="B" id="u7p4-3b"><label for="u7p4-3b">B for</label></div><div class="mcq-option"><input type="radio" name="u7p4-3" value="C" id="u7p4-3c"><label for="u7p4-3c">C long</label></div><div class="mcq-option"><input type="radio" name="u7p4-3" value="D" id="u7p4-3d"><label for="u7p4-3d">D last</label></div></div></li>
+            <li id="u7p4-4"><b>4.</b> What ______ when you saw him?<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u7p4-4" value="A" id="u7p4-4a"><label for="u7p4-4a">A do you do</label></div><div class="mcq-option"><input type="radio" name="u7p4-4" value="B" id="u7p4-4b"><label for="u7p4-4b">B did you do</label></div><div class="mcq-option"><input type="radio" name="u7p4-4" value="C" id="u7p4-4c"><label for="u7p4-4c">C have you done</label></div><div class="mcq-option"><input type="radio" name="u7p4-4" value="D" id="u7p4-4d"><label for="u7p4-4d">D are you doing</label></div></div></li>
+            <li id="u7p4-5"><b>5.</b> I've known Joe ______ primary school.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u7p4-5" value="A" id="u7p4-5a"><label for="u7p4-5a">A since</label></div><div class="mcq-option"><input type="radio" name="u7p4-5" value="B" id="u7p4-5b"><label for="u7p4-5b">B for</label></div><div class="mcq-option"><input type="radio" name="u7p4-5" value="C" id="u7p4-5c"><label for="u7p4-5c">C ever</label></div><div class="mcq-option"><input type="radio" name="u7p4-5" value="D" id="u7p4-5d"><label for="u7p4-5d">D last</label></div></div></li>
+            <li id="u7p4-6"><b>6.</b> My office is ______ the top floor.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u7p4-6" value="A" id="u7p4-6a"><label for="u7p4-6a">A in</label></div><div class="mcq-option"><input type="radio" name="u7p4-6" value="B" id="u7p4-6b"><label for="u7p4-6b">B at</label></div><div class="mcq-option"><input type="radio" name="u7p4-6" value="C" id="u7p4-6c"><label for="u7p4-6c">C from</label></div><div class="mcq-option"><input type="radio" name="u7p4-6" value="D" id="u7p4-6d"><label for="u7p4-6d">D on</label></div></div></li>
+            <li id="u7p4-7"><b>7.</b> They ran ______ the building through the emergency exit.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u7p4-7" value="A" id="u7p4-7a"><label for="u7p4-7a">A out of</label></div><div class="mcq-option"><input type="radio" name="u7p4-7" value="B" id="u7p4-7b"><label for="u7p4-7b">B up</label></div><div class="mcq-option"><input type="radio" name="u7p4-7" value="C" id="u7p4-7c"><label for="u7p4-7c">C down</label></div><div class="mcq-option"><input type="radio" name="u7p4-7" value="D" id="u7p4-7d"><label for="u7p4-7d">D next to</label></div></div></li>
+            <li id="u7p4-8"><b>8.</b> Be careful when you walk ______ the road.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u7p4-8" value="A" id="u7p4-8a"><label for="u7p4-8a">A through</label></div><div class="mcq-option"><input type="radio" name="u7p4-8" value="B" id="u7p4-8b"><label for="u7p4-8b">B across</label></div><div class="mcq-option"><input type="radio" name="u7p4-8" value="C" id="u7p4-8c"><label for="u7p4-8c">C opposite</label></div><div class="mcq-option"><input type="radio" name="u7p4-8" value="D" id="u7p4-8d"><label for="u7p4-8d">D at</label></div></div></li>
+            <li id="u7p4-9"><b>9.</b> They got ______ the car and drove away.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u7p4-9" value="A" id="u7p4-9a"><label for="u7p4-9a">A into</label></div><div class="mcq-option"><input type="radio" name="u7p4-9" value="B" id="u7p4-9b"><label for="u7p4-9b">B onto</label></div><div class="mcq-option"><input type="radio" name="u7p4-9" value="C" id="u7p4-9c"><label for="u7p4-9c">C up</label></div><div class="mcq-option"><input type="radio" name="u7p4-9" value="D" id="u7p4-9d"><label for="u7p4-9d">D down</label></div></div></li>
+            <li id="u7p4-10"><b>10.</b> The canteen is ______ the post room.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u7p4-10" value="A" id="u7p4-10a"><label for="u7p4-10a">A onto</label></div><div class="mcq-option"><input type="radio" name="u7p4-10" value="B" id="u7p4-10b"><label for="u7p4-10b">B next to</label></div><div class="mcq-option"><input type="radio" name="u7p4-10" value="C" id="u7p4-10c"><label for="u7p4-10c">C into</label></div><div class="mcq-option"><input type="radio" name="u7p4-10" value="D" id="u7p4-10d"><label for="u7p4-10d">D down</label></div></div></li>
+        </ol>
+        <button id="check-button-u7p4" class="check-button">Kiểm tra Grammar 4</button>
+    </div>
+
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --- DOM Elements ---
+    const modeSelection = document.getElementById('mode-selection');
+    const quizContainer = document.querySelector('.container:not(#mode-selection)');
+    const normalModeBtn = document.getElementById('mode-normal');
+    const shuffleModeBtn = document.getElementById('mode-shuffle');
+
+    // --- Master Answer Keys for sections that need dynamic updates ---
+    const masterAnswerKeys = {
+        'u7p1': { // Vocabulary 1
+            'u7p1-1': 'A', 'u7p1-2': 'B', 'u7p1-3': 'A', 'u7p1-4': 'D', 'u7p1-5': 'C',
+            'u7p1-6': 'B', 'u7p1-7': 'C', 'u7p1-8': 'B', 'u7p1-9': 'B', 'u7p1-10': 'D'
+        },
+        'u7p4': { // Grammar 4
+            'u7p4-1': 'C', 'u7p4-2': 'B', 'u7p4-3': 'A', 'u7p4-4': 'B', 'u7p4-5': 'A',
+            'u7p4-6': 'D', 'u7p4-7': 'A', 'u7p4-8': 'B', 'u7p4-9': 'A', 'u7p4-10': 'B'
+        }
+    };
+
+    // --- Shuffle Functions ---
+    function shuffleChildren(parent) {
+        if (!parent) return;
+        let children = Array.from(parent.children);
+        // Start from 1 to skip the example (item 0)
+        for (let i = children.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * i) + 1;
+            [children[i], children[j]] = [children[j], children[i]];
+        }
+        parent.innerHTML = ''; 
+        children.forEach(child => parent.appendChild(child));
+    }
+
+    function shuffleMcqAnswerTexts(listSelector) {
+        const mcqQuestions = document.querySelectorAll(`${listSelector} > li[id]`);
+        mcqQuestions.forEach(question => {
+            const options = Array.from(question.querySelectorAll('.mcq-option'));
+            if (options.length === 0) return;
+
+            const questionName = options[0].querySelector('input').name;
+            const partIdPrefix = questionName.split('-')[0];
+            
+            if (!masterAnswerKeys[partIdPrefix] || !masterAnswerKeys[partIdPrefix][questionName]) return;
+            
+            const originalCorrectLetter = masterAnswerKeys[partIdPrefix][questionName];
+            
+            let answerData = options.map(opt => {
+                const label = opt.querySelector('label');
+                const [letter, ...textParts] = label.textContent.trim().split(' ');
+                return { text: textParts.join(' '), isCorrect: letter === originalCorrectLetter };
+            });
+
+            for (let i = answerData.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [answerData[i], answerData[j]] = [answerData[j], answerData[i]];
+            }
+
+            let newCorrectLetter = '';
+            const newLetters = ['A', 'B', 'C', 'D'];
+            options.forEach((opt, index) => {
+                const label = opt.querySelector('label');
+                const currentLetter = newLetters[index];
+                const currentData = answerData[index];
+                label.textContent = `${currentLetter} ${currentData.text}`;
+                if (currentData.isCorrect) {
+                    newCorrectLetter = currentLetter;
+                }
+            });
+
+            masterAnswerKeys[partIdPrefix][questionName] = newCorrectLetter;
+        });
+    }
+
+    // --- Quiz Start Logic ---
+    function startQuiz(mode) {
+        modeSelection.classList.add('hidden');
+        quizContainer.classList.remove('hidden');
+
+        if (mode === 'shuffle') {
+            // Shuffle question order for shuffleable lists
+            shuffleChildren(document.querySelector('.vocab-mcq'));
+            shuffleChildren(document.querySelector('.word-formation-list'));
+            shuffleChildren(document.querySelector('.grammar-mcq'));
+
+            // Shuffle answer texts for both MCQ sections
+            shuffleMcqAnswerTexts('.vocab-mcq');
+            shuffleMcqAnswerTexts('.grammar-mcq');
+        }
+    }
+
+    normalModeBtn.addEventListener('click', () => startQuiz('normal'));
+    shuffleModeBtn.addEventListener('click', () => startQuiz('shuffle'));
+
+    // =================================================================
+    // --- CHECKING LOGIC ---
+    // =================================================================
+    function checkFillInBlank(partIdPrefix) {
+        for (let i = 1; i <= 10; i++) {
+            const input = document.getElementById(`${partIdPrefix}_ans${i}`);
+            if (input) {
+                const userAnswer = input.value.trim().toLowerCase();
+                const correctAnswers = input.getAttribute('data-answer').toLowerCase().split('|');
+                input.classList.remove('correct', 'incorrect');
+                if (correctAnswers.includes(userAnswer)) {
+                    input.classList.add('correct');
+                } else {
+                    input.classList.add('incorrect');
+                }
+            }
+        }
+    }
+
+    function checkMultipleChoice(partIdPrefix, correctAnswers) {
+        for (const questionId in correctAnswers) {
+            const correctAnswerValue = correctAnswers[questionId];
+            const questionElement = document.getElementById(questionId);
+            if (!questionElement) continue;
+
+            questionElement.querySelectorAll('label').forEach(l => l.classList.remove('correct-answer', 'incorrect-choice'));
+            
+            const correctLabel = questionElement.querySelector(`label[for="${questionId}${correctAnswerValue.toLowerCase()}"]`);
+            if (correctLabel) correctLabel.classList.add('correct-answer');
+            
+            const userAnswerInput = questionElement.querySelector(`input[name="${questionId}"]:checked`);
+            if (userAnswerInput) {
+                const userAnswerValue = userAnswerInput.value;
+                if (userAnswerValue !== correctAnswerValue) {
+                    const userLabel = questionElement.querySelector(`label[for="${userAnswerInput.id}"]`);
+                    if (userLabel) userLabel.classList.add('incorrect-choice');
+                }
+            }
+        }
+    }
+    
+    // Listeners for Check Buttons
+    document.getElementById('check-button-u7p1').addEventListener('click', () => {
+        checkMultipleChoice('u7p1', masterAnswerKeys['u7p1']);
+    });
+    document.getElementById('check-button-u7p2').addEventListener('click', () => {
+        checkFillInBlank('u7p2');
+    });
+    document.getElementById('check-button-u7p3').addEventListener('click', () => {
+        checkFillInBlank('u7p3');
+    });
+    document.getElementById('check-button-u7p4').addEventListener('click', () => {
+        checkMultipleChoice('u7p4', masterAnswerKeys['u7p4']);
+    });
+});
+</script>
+
+</body>
+</html>

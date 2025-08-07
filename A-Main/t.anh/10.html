@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life, Pre-Intermediate, Unit 10 Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            max-width: 800px;
+            width: 100%;
+        }
+        .quiz-container {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #1d4ed8;
+            text-align: center;
+            margin-top: 0;
+        }
+        .instructions {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            text-align: center;
+        }
+        ol {
+            padding-left: 0;
+            list-style-position: inside;
+        }
+        
+        /* --- Styles for Fill in the blank & Word Box --- */
+        .word-box {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 15px;
+            background-color: #eef2ff;
+            border: 1px solid #c7d2fe;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            justify-content: center;
+        }
+        .word-box code {
+            background-color: #ffffff;
+            padding: 4px 8px;
+            border-radius: 5px;
+            font-size: 1em;
+            font-weight: 500;
+        }
+        .fill-in-text {
+            font-size: 1.2em;
+            line-height: 2.5;
+        }
+        .fill-in-text input {
+            width: 140px;
+            border: none;
+            border-bottom: 2px solid #9ca3af;
+            font-size: 0.9em;
+            font-family: inherit;
+            text-align: center;
+            margin: 0 5px;
+            padding: 2px 5px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            vertical-align: middle;
+        }
+        .fill-in-text input:focus {
+            outline: none;
+            border-color: #4f46e5;
+            box-shadow: 0 1px 0 #4f46e5;
+        }
+        .fill-in-text .verb-in-bracket {
+            font-family: monospace;
+            color: #555;
+            font-size: 0.9em;
+            text-transform: uppercase;
+        }
+        .fill-in-text input.correct {
+            border-color: #16a34a;
+            background-color: #f0fdf4;
+        }
+        .fill-in-text input.incorrect {
+            border-color: #dc2626;
+            background-color: #fef2f2;
+        }
+        /* --- Styles for Sentence Transformation (Grammar 4) --- */
+        .transform-list li { list-style-type: none; margin-bottom: 20px; font-size: 1.1em; }
+        .transform-list .prompt { color: #555; font-style: italic; }
+        .transform-list .capitals { font-weight: bold; display: block; margin: 5px 0; }
+        .transform-list input { width: 95%; font-size: 1em; margin-top: 8px; }
+        
+        /* --- General Styles --- */
+        .check-button { display: block; width: 100%; padding: 12px 20px; font-size: 1.1em; font-weight: bold; color: #fff; background-color: #2563eb; border: none; border-radius: 8px; cursor: pointer; margin-top: 30px; transition: background-color 0.3s; }
+        .check-button:hover { background-color: #1d4ed8; }
+        
+        /* --- Styles for Mode Selection --- */
+        .hidden { display: none !important; }
+        .mode-buttons { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
+        #mode-shuffle { background-color: #f97316; }
+        #mode-shuffle:hover { background-color: #ea580c; }
+    </style>
+</head>
+<body>
+
+<div id="mode-selection" class="container">
+    <div class="quiz-container">
+        <h1>Chọn Chế độ Làm bài</h1>
+        <p class="instructions">Bạn muốn làm bài theo thứ tự gốc hay xáo trộn câu hỏi và đáp án?</p>
+        <div class="mode-buttons">
+            <button id="mode-normal" class="check-button">🚀 Chế độ Thường</button>
+            <button id="mode-shuffle" class="check-button">🔀 Chế độ Xáo trộn</button>
+        </div>
+    </div>
+</div>
+
+<div class="container hidden">
+    <h1>Life, Pre-Intermediate, Unit 10 Test</h1>
+
+    <div class="quiz-container">
+        <h2>Vocabulary 1: Word Box</h2>
+        <p class="instructions"><b>Complete the text with the words in the box.</b></p>
+        <div class="word-box">
+            <code>about us</code> <code>adverts</code> <code>basic</code> <code>contact</code> <code>content</code> <code>home</code> <code>link</code> <code>search</code> <code>up-to-date</code> <code>user-friendly</code> <code>withstand</code>
+        </div>
+        <div class="fill-in-text">
+            When designing the perfect (0) <u><b>website</b></u> for a business, it is important to make sure it is attractive and (1)<input type="text" id="u10p1_ans1" data-answer="user-friendly">. You don't want people to find it difficult to find their way around your website. When they click on a (2)<input type="text" id="u10p1_ans2" data-answer="link">, they should go to the page they expect. So, if they click on (3)<input type="text" id="u10p1_ans3" data-answer="about us">, it should go to a page that provides information about your company. If they click on (4)<input type="text" id="u10p1_ans4" data-answer="contact">, it should go to a page with your number and email address. The most important page is the (5)<input type="text" id="u10p1_ans5" data-answer="home"> page because it is the first page anybody sees when they go to your website. Keep it (6)<input type="text" id="u10p1_ans6" data-answer="basic"> – nobody wants to see lots of complicated graphics and images – and make sure it is free of (7)<input type="text" id="u10p1_ans7" data-answer="adverts"> – customers want to find out about you – they don't want to be sold things. In simple terms, make sure the (8)<input type="text" id="u10p1_ans8" data-answer="content"> you provide on the page is simple and necessary. It's a good idea to use the latest, (9)<input type="text" id="u10p1_ans9" data-answer="up-to-date"> software when designing your website as it needs to be reliable – hopefully, it will have to (10)<input type="text" id="u10p1_ans10" data-answer="withstand"> a lot of online traffic. You don't want it to crash all the time.
+        </div>
+        <button id="check-button-u10p1" class="check-button">Kiểm tra Vocabulary 1</button>
+    </div>
+
+    <div class="quiz-container">
+        <h2>Vocabulary 2: Word Formation</h2>
+        <p class="instructions"><b>Complete the text with the correct form of the word in CAPITAL LETTERS.</b></p>
+        <div class="fill-in-text">
+            <b>0.</b> This furniture is <u><b>old-fashioned</b></u>. It looks like it was made in the 1980s. <span class="verb-in-bracket">FASHIONED</span><br>
+            <b>1.</b> The toy company has launched a new <input type="text" id="u10p2_ans1" data-answer="product"> on the market. <span class="verb-in-bracket">PRODUCE</span><br>
+            <b>2.</b> Karen always wears very <input type="text" id="u10p2_ans2" data-answer="fashionable"> clothes. They are new and stylish. <span class="verb-in-bracket">FASHION</span><br>
+            <b>3.</b> There are a lot of <input type="text" id="u10p2_ans3" data-answer="advertisements"> in the magazine. Some take up the whole page. <span class="verb-in-bracket">ADVERTISE</span><br>
+            <b>4.</b> The company isn't very <input type="text" id="u10p2_ans4" data-answer="productive">. They only make thirty suitcases a week. <span class="verb-in-bracket">PRODUCE</span><br>
+            <b>5.</b> Oil <input type="text" id="u10p2_ans5" data-answer="producers"> are getting worried about the fall in the price of oil. <span class="verb-in-bracket">PRODUCE</span><br>
+            <b>6.</b> The screwdriver is a very <input type="text" id="u10p2_ans6" data-answer="useful"> invention. You can use it in many situations. <span class="verb-in-bracket">USE</span><br>
+            <b>7.</b> Gemma has a job in the <input type="text" id="u10p2_ans7" data-answer="advertising"> industry. <span class="verb-in-bracket">ADVERTISE</span><br>
+            <b>8.</b> Electricity is produced by the <input type="text" id="u10p2_ans8" data-answer="national"> grid. <span class="verb-in-bracket">NATION</span><br>
+            <b>9.</b> The <input type="text" id="u10p2_ans9" data-answer="production"> of plastic toys at the factory has stopped because of safety concerns. <span class="verb-in-bracket">PRODUCE</span><br>
+            <b>10.</b> Last year, we <input type="text" id="u10p2_ans10" data-answer="paid"> off the loan for the car. <span class="verb-in-bracket">PAY</span>
+        </div>
+        <button id="check-button-u10p2" class="check-button">Kiểm tra Vocabulary 2</button>
+    </div>
+
+    <div class="quiz-container">
+        <h2>Grammar 3: Verb Tenses</h2>
+        <p class="instructions"><b>Complete the text with the correct form of the verb in brackets. Use past simple active or passive or <i>used to</i> + infinitive.</b></p>
+        <div class="fill-in-text">
+            When I (0) <u><b>was</b></u> (be) young in the 1970s, people (1)<input type="text" id="u10p3_ans1" data-answer="used to do"> (do) amazing things with colour and design in their homes. My parents (2)<input type="text" id="u10p3_ans2" data-answer="used to have"> (have) a very large dining room. It was so big that they often (3)<input type="text" id="u10p3_ans3" data-answer="used to invite"> (invite) friends for dinner. Once, on their wedding anniversary, over twenty people (4)<input type="text" id="u10p3_ans4" data-answer="were served"> (serve) dinner there and my parents (5)<input type="text" id="u10p3_ans5" data-answer="didn't have"> (not have) any problems fitting them all round the table. The dining room walls were all different colours. I remember that one of them (6)<input type="text" id="u10p3_ans6" data-answer="used to be"> (be) blue and another orange, and a colourful painting (7)<input type="text" id="u10p3_ans7" data-answer="used to hang|was hung"> (hang) on the wall. My parents (8)<input type="text" id="u10p3_ans8" data-answer="didn't use to worry"> (not worry) about having too much colour in the room! The dining room table was enormous and had a fabulous design on it. My sister (9)<input type="text" id="u10p3_ans9" data-answer="used to hide"> (hide) under it. I don't know what (10)<input type="text" id="u10p3_ans10" data-answer="happened"> (happen) to that table. I wish I had it now!
+        </div>
+        <button id="check-button-u10p3" class="check-button">Kiểm tra Grammar 3</button>
+    </div>
+
+    <div class="quiz-container">
+        <h2>Grammar 4: Sentence Transformation</h2>
+        <p class="instructions"><b>Complete the second sentence so that it has a similar meaning to the first sentence. Use two to four words including the word provided in CAPITALS.</b></p>
+        <ol class="transform-list">
+             <li><b>0.</b> <div class="prompt">The teacher tells the students the rules at the beginning of the exam. <span class="capitals">TOLD</span></div> At the beginning of the exam, the students <u><b>are told</b></u> what the rules are.</li>
+            <li><div class="prompt"><b>1.</b> Did we send that letter to Mrs Harris? <span class="capitals">WAS</span></div> Do you know if <input type="text" id="u10p4_ans1" data-answer="that letter was sent"> to Mrs Harris?</li>
+            <li><div class="prompt"><b>2.</b> Experts believe that most people now have access to the internet. <span class="capitals">IT</span></div> <input type="text" id="u10p4_ans2" data-answer="It is believed"> that most people now have access to the internet.</li>
+            <li><div class="prompt"><b>3.</b> The local garage repaired my car. <span class="capitals">BY</span></div> My car <input type="text" id="u10p4_ans3" data-answer="was repaired by"> the local garage.</li>
+            <li><div class="prompt"><b>4.</b> They built the museum between 1920 and 1929. <span class="capitals">IN</span></div> The museum <input type="text" id="u10p4_ans4" data-answer="was built in"> the 1920s.</li>
+            <li><div class="prompt"><b>5.</b> Kathy didn't write that essay. <span class="capitals">BY</span></div> That essay <input type="text" id="u10p4_ans5" data-answer="wasn't written by"> Kathy.</li>
+            <li><div class="prompt"><b>6.</b> Tim bought both laptops in the department store. <span class="capitals">BOUGHT</span></div> Both laptops <input type="text" id="u10p4_ans6" data-answer="were bought"> in the department store.</li>
+            <li><div class="prompt"><b>7.</b> Tina didn't leave her bag on the bus. <span class="capitals">BAG</span></div> Tina's <input type="text" id="u10p4_ans7" data-answer="bag wasn't left"> on the bus.</li>
+            <li><div class="prompt"><b>8.</b> People send millions of emails every day. <span class="capitals">ARE</span></div> Millions of emails <input type="text" id="u10p4_ans8" data-answer="are sent"> every day.</li>
+            <li><div class="prompt"><b>9.</b> The duchess gave out the prizes. <span class="capitals">BY</span></div> The prizes <input type="text" id="u10p4_ans9" data-answer="were given out by"> the duchess.</li>
+            <li><div class="prompt"><b>10.</b> Everybody here knows me. <span class="capitals">I</span></div> <input type="text" id="u10p4_ans10" data-answer="I am known"> by everybody here.</li>
+        </ol>
+        <button id="check-button-u10p4" class="check-button">Kiểm tra Grammar 4</button>
+    </div>
+
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --- DOM Elements ---
+    const modeSelection = document.getElementById('mode-selection');
+    const quizContainer = document.querySelector('.container:not(#mode-selection)');
+    const normalModeBtn = document.getElementById('mode-normal');
+    const shuffleModeBtn = document.getElementById('mode-shuffle');
+
+    // --- Shuffle Functions ---
+    function shuffleChildren(parent) {
+        if (!parent) return;
+        let children = Array.from(parent.children);
+        for (let i = children.length - 1; i > 0; i--) {
+             if (children[i].textContent.includes('0.')) continue;
+            const j = Math.floor(Math.random() * i) + 1;
+             if (children[j].textContent.includes('0.')) continue;
+            [children[i], children[j]] = [children[j], children[i]];
+        }
+        parent.innerHTML = ''; 
+        children.forEach(child => parent.appendChild(child));
+    }
+
+    // --- Quiz Start Logic ---
+    function startQuiz(mode) {
+        modeSelection.classList.add('hidden');
+        quizContainer.classList.remove('hidden');
+
+        if (mode === 'shuffle') {
+            // Part 1: Shuffle words in the box
+            const wordBox = document.querySelector('#check-button-u10p1').parentElement.querySelector('.word-box');
+            shuffleChildren(wordBox);
+            
+            // Part 4: Shuffle question order
+            shuffleChildren(document.querySelector('.transform-list'));
+        }
+    }
+
+    normalModeBtn.addEventListener('click', () => startQuiz('normal'));
+    shuffleModeBtn.addEventListener('click', () => startQuiz('shuffle'));
+
+    // =================================================================
+    // --- CHECKING LOGIC ---
+    // =================================================================
+    function checkFillInBlank(partIdPrefix) {
+        for (let i = 1; i <= 10; i++) {
+            const input = document.getElementById(`${partIdPrefix}_ans${i}`);
+            if (input) {
+                const userAnswer = input.value.trim().toLowerCase();
+                const correctAnswers = input.getAttribute('data-answer').toLowerCase().split('|');
+                input.classList.remove('correct', 'incorrect');
+                if (correctAnswers.includes(userAnswer)) {
+                    input.classList.add('correct');
+                } else {
+                    input.classList.add('incorrect');
+                }
+            }
+        }
+    }
+    
+    // --- Listeners for Check Buttons ---
+    document.getElementById('check-button-u10p1').addEventListener('click', () => checkFillInBlank('u10p1'));
+    document.getElementById('check-button-u10p2').addEventListener('click', () => checkFillInBlank('u10p2'));
+    document.getElementById('check-button-u10p3').addEventListener('click', () => checkFillInBlank('u10p3'));
+    document.getElementById('check-button-u10p4').addEventListener('click', () => checkFillInBlank('u10p4'));
+});
+</script>
+
+</body>
+</html>
