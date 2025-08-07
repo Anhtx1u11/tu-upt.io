@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unit 4 Test</title>
+    <title>Unit 3 Test</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -38,6 +38,7 @@
             font-size: 1.1em;
             margin-bottom: 20px;
             line-height: 1.5;
+            text-align: center;
         }
         ol {
             padding-left: 25px;
@@ -127,11 +128,38 @@
         .score-display.correct { background-color: #dcfce7; color: #15803d; }
         .score-display.incorrect { background-color: #fee2e2; color: #b91c1c; }
 
+        /* --- Styles for Mode Selection --- */
+        .hidden {
+            display: none !important;
+        }
+        .mode-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        #mode-shuffle {
+            background-color: #f97316;
+        }
+        #mode-shuffle:hover {
+            background-color: #ea580c;
+        }
     </style>
 </head>
 <body>
 
-<div class="container">
+<div id="mode-selection" class="container">
+    <div class="quiz-container">
+        <h1>Chọn Chế độ Làm bài</h1>
+        <p class="instructions">Bạn muốn làm bài theo thứ tự gốc hay xáo trộn câu hỏi và đáp án?</p>
+        <div class="mode-buttons">
+            <button id="mode-normal" class="check-button">🚀 Chế độ Thường</button>
+            <button id="mode-shuffle" class="check-button">🔀 Chế độ Xáo trộn</button>
+        </div>
+    </div>
+</div>
+
+<div class="container hidden">
     <h1>Unit 3 Test</h1>
 
     <div class="quiz-container">
@@ -168,16 +196,16 @@
         <h2>Grammar 3</h2>
         <p class="instructions"><b>Choose the correct option (A, B, C or D) to complete the sentences.</b></p>
         <ol class="mcq-list">
-            <li>The road isn't as long <span class="mcq-option-inline"></span> some people think.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u4q3-1" value="A" id="u4q3-1a"><label for="u4q3-1a">A as</label></div><div class="mcq-option"><input type="radio" name="u4q3-1" value="B" id="u4q3-1b"><label for="u4q3-1b">B than</label></div><div class="mcq-option"><input type="radio" name="u4q3-1" value="C" id="u4q3-1c"><label for="u4q3-1c">C that</label></div><div class="mcq-option"><input type="radio" name="u4q3-1" value="D" id="u4q3-1d"><label for="u4q3-1d">D for</label></div></div></li>
-            <li>The new cruise ship is <span class="mcq-option-inline"></span> any built before.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u4q3-2" value="A" id="u4q3-2a"><label for="u4q3-2a">A big as</label></div><div class="mcq-option"><input type="radio" name="u4q3-2" value="B" id="u4q3-2b"><label for="u4q3-2b">B biggest than</label></div><div class="mcq-option"><input type="radio" name="u4q3-2" value="C" id="u4q3-2c"><label for="u4q3-2c">C bigger than</label></div><div class="mcq-option"><input type="radio" name="u4q3-2" value="D" id="u4q3-2d"><label for="u4q3-2d">D as big</label></div></div></li>
-            <li>This is one of <span class="mcq-option-inline"></span> traffic jams I can remember.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u4q3-3" value="A" id="u4q3-3a"><label for="u4q3-3a">A the badder</label></div><div class="mcq-option"><input type="radio" name="u4q3-3" value="B" id="u4q3-3b"><label for="u4q3-3b">B as bad as</label></div><div class="mcq-option"><input type="radio" name="u4q3-3" value="C" id="u4q3-3c"><label for="u4q3-3c">C the worst</label></div><div class="mcq-option"><input type="radio" name="u4q3-3" value="D" id="u4q3-3d"><label for="u4q3-3d">D worse than</label></div></div></li>
-            <li>Today is <span class="mcq-option-inline"></span> than yesterday.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u4q3-4" value="A" id="u4q3-4a"><label for="u4q3-4a">A sunnier</label></div><div class="mcq-option"><input type="radio" name="u4q3-4" value="B" id="u4q3-4b"><label for="u4q3-4b">B the sunnier</label></div><div class="mcq-option"><input type="radio" name="u4q3-4" value="C" id="u4q3-4c"><label for="u4q3-4c">C the sunniest</label></div><div class="mcq-option"><input type="radio" name="u4q3-4" value="D" id="u4q3-4d"><label for="u4q3-4d">D sunny</label></div></div></li>
-            <li>I prefer the train because it's <span class="mcq-option-inline"></span>.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u4q3-5" value="A" id="u4q3-5a"><label for="u4q3-5a">A reliable than</label></div><div class="mcq-option"><input type="radio" name="u4q3-5" value="B" id="u4q3-5b"><label for="u4q3-5b">B more reliable</label></div><div class="mcq-option"><input type="radio" name="u4q3-5" value="C" id="u4q3-5c"><label for="u4q3-5c">C as reliable as</label></div><div class="mcq-option"><input type="radio" name="u4q3-5" value="D" id="u4q3-5d"><label for="u4q3-5d">D far reliable</label></div></div></li>
-            <li>Which one is <span class="mcq-option-inline"></span>?<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u4q3-6" value="A" id="u4q3-6a"><label for="u4q3-6a">A tastier</label></div><div class="mcq-option"><input type="radio" name="u4q3-6" value="B" id="u4q3-6b"><label for="u4q3-6b">B more tasty</label></div><div class="mcq-option"><input type="radio" name="u4q3-6" value="C" id="u4q3-6c"><label for="u4q3-6c">C tasty as</label></div><div class="mcq-option"><input type="radio" name="u4q3-6" value="D" id="u4q3-6d"><label for="u4q3-6d">D tastier than</label></div></div></li>
-            <li>We want to find the <span class="mcq-option-inline"></span> restaurant.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u4q3-7" value="A" id="u4q3-7a"><label for="u4q3-7a">A near</label></div><div class="mcq-option"><input type="radio" name="u4q3-7" value="B" id="u4q3-7b"><label for="u4q3-7b">B nearly</label></div><div class="mcq-option"><input type="radio" name="u4q3-7" value="C" id="u4q3-7c"><label for="u4q3-7c">C nearer</label></div><div class="mcq-option"><input type="radio" name="u4q3-7" value="D" id="u4q3-7d"><label for="u4q3-7d">D nearest</label></div></div></li>
-            <li>Bikes <span class="mcq-option-inline"></span> cars.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u4q3-8" value="A" id="u4q3-8a"><label for="u4q3-8a">A are slower than</label></div><div class="mcq-option"><input type="radio" name="u4q3-8" value="B" id="u4q3-8b"><label for="u4q3-8b">B are as slow</label></div><div class="mcq-option"><input type="radio" name="u4q3-8" value="C" id="u4q3-8c"><label for="u4q3-8c">C are the slowest</label></div><div class="mcq-option"><input type="radio" name="u4q3-8" value="D" id="u4q3-8d"><label for="u4q3-8d">D aren't slowly</label></div></div></li>
-            <li>This is the <span class="mcq-option-inline"></span> of my life.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u4q3-9" value="A" id="u4q3-9a"><label for="u4q3-9a">A good day</label></div><div class="mcq-option"><input type="radio" name="u4q3-9" value="B" id="u4q3-9b"><label for="u4q3-9b">B better day</label></div><div class="mcq-option"><input type="radio" name="u4q3-9" value="C" id="u4q3-9c"><label for="u4q3-9c">C best day</label></div><div class="mcq-option"><input type="radio" name="u4q3-9" value="D" id="u4q3-9d"><label for="u4q3-9d">D as better day as</label></div></div></li>
-            <li>We aren't all <span class="mcq-option-inline"></span> as Tom.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u4q3-10" value="A" id="u4q3-10a"><label for="u4q3-10a">A clever</label></div><div class="mcq-option"><input type="radio" name="u4q3-10" value="B" id="u4q3-10b"><label for="u4q3-10b">B the cleverest</label></div><div class="mcq-option"><input type="radio" name="u4q3-10" value="C" id="u4q3-10c"><label for="u4q3-10c">C cleverer</label></div><div class="mcq-option"><input type="radio" name="u4q3-10" value="D" id="u4q3-10d"><label for="u4q3-10d">D as clever</label></div></div></li>
+            <li>The road isn't as long ______<span class="mcq-option-inline"></span> some people think.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u4q3-1" value="A" id="u4q3-1a"><label for="u4q3-1a">A as</label></div><div class="mcq-option"><input type="radio" name="u4q3-1" value="B" id="u4q3-1b"><label for="u4q3-1b">B than</label></div><div class="mcq-option"><input type="radio" name="u4q3-1" value="C" id="u4q3-1c"><label for="u4q3-1c">C that</label></div><div class="mcq-option"><input type="radio" name="u4q3-1" value="D" id="u4q3-1d"><label for="u4q3-1d">D for</label></div></div></li>
+            <li>The new cruise ship is ______<span class="mcq-option-inline"></span> any built before.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u4q3-2" value="A" id="u4q3-2a"><label for="u4q3-2a">A big as</label></div><div class="mcq-option"><input type="radio" name="u4q3-2" value="B" id="u4q3-2b"><label for="u4q3-2b">B biggest than</label></div><div class="mcq-option"><input type="radio" name="u4q3-2" value="C" id="u4q3-2c"><label for="u4q3-2c">C bigger than</label></div><div class="mcq-option"><input type="radio" name="u4q3-2" value="D" id="u4q3-2d"><label for="u4q3-2d">D as big</label></div></div></li>
+            <li>This is one of ______<span class="mcq-option-inline"></span> traffic jams I can remember.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u4q3-3" value="A" id="u4q3-3a"><label for="u4q3-3a">A the badder</label></div><div class="mcq-option"><input type="radio" name="u4q3-3" value="B" id="u4q3-3b"><label for="u4q3-3b">B as bad as</label></div><div class="mcq-option"><input type="radio" name="u4q3-3" value="C" id="u4q3-3c"><label for="u4q3-3c">C the worst</label></div><div class="mcq-option"><input type="radio" name="u4q3-3" value="D" id="u4q3-3d"><label for="u4q3-3d">D worse than</label></div></div></li>
+            <li>Today is ______<span class="mcq-option-inline"></span> than yesterday.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u4q3-4" value="A" id="u4q3-4a"><label for="u4q3-4a">A sunnier</label></div><div class="mcq-option"><input type="radio" name="u4q3-4" value="B" id="u4q3-4b"><label for="u4q3-4b">B the sunnier</label></div><div class="mcq-option"><input type="radio" name="u4q3-4" value="C" id="u4q3-4c"><label for="u4q3-4c">C the sunniest</label></div><div class="mcq-option"><input type="radio" name="u4q3-4" value="D" id="u4q3-4d"><label for="u4q3-4d">D sunny</label></div></div></li>
+            <li>I prefer the train because it's ______<span class="mcq-option-inline"></span>.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u4q3-5" value="A" id="u4q3-5a"><label for="u4q3-5a">A reliable than</label></div><div class="mcq-option"><input type="radio" name="u4q3-5" value="B" id="u4q3-5b"><label for="u4q3-5b">B more reliable</label></div><div class="mcq-option"><input type="radio" name="u4q3-5" value="C" id="u4q3-5c"><label for="u4q3-5c">C as reliable as</label></div><div class="mcq-option"><input type="radio" name="u4q3-5" value="D" id="u4q3-5d"><label for="u4q3-5d">D far reliable</label></div></div></li>
+            <li>Which one is ______<span class="mcq-option-inline"></span>?<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u4q3-6" value="A" id="u4q3-6a"><label for="u4q3-6a">A tastier</label></div><div class="mcq-option"><input type="radio" name="u4q3-6" value="B" id="u4q3-6b"><label for="u4q3-6b">B more tasty</label></div><div class="mcq-option"><input type="radio" name="u4q3-6" value="C" id="u4q3-6c"><label for="u4q3-6c">C tasty as</label></div><div class="mcq-option"><input type="radio" name="u4q3-6" value="D" id="u4q3-6d"><label for="u4q3-6d">D tastier than</label></div></div></li>
+            <li>We want to find the ______<span class="mcq-option-inline"></span> restaurant.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u4q3-7" value="A" id="u4q3-7a"><label for="u4q3-7a">A near</label></div><div class="mcq-option"><input type="radio" name="u4q3-7" value="B" id="u4q3-7b"><label for="u4q3-7b">B nearly</label></div><div class="mcq-option"><input type="radio" name="u4q3-7" value="C" id="u4q3-7c"><label for="u4q3-7c">C nearer</label></div><div class="mcq-option"><input type="radio" name="u4q3-7" value="D" id="u4q3-7d"><label for="u4q3-7d">D nearest</label></div></div></li>
+            <li>Bikes______ <span class="mcq-option-inline"></span> cars.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u4q3-8" value="A" id="u4q3-8a"><label for="u4q3-8a">A are slower than</label></div><div class="mcq-option"><input type="radio" name="u4q3-8" value="B" id="u4q3-8b"><label for="u4q3-8b">B are as slow</label></div><div class="mcq-option"><input type="radio" name="u4q3-8" value="C" id="u4q3-8c"><label for="u4q3-8c">C are the slowest</label></div><div class="mcq-option"><input type="radio" name="u4q3-8" value="D" id="u4q3-8d"><label for="u4q3-8d">D aren't slowly</label></div></div></li>
+            <li>This is the______ <span class="mcq-option-inline"></span> of my life.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u4q3-9" value="A" id="u4q3-9a"><label for="u4q3-9a">A good day</label></div><div class="mcq-option"><input type="radio" name="u4q3-9" value="B" id="u4q3-9b"><label for="u4q3-9b">B better day</label></div><div class="mcq-option"><input type="radio" name="u4q3-9" value="C" id="u4q3-9c"><label for="u4q3-9c">C best day</label></div><div class="mcq-option"><input type="radio" name="u4q3-9" value="D" id="u4q3-9d"><label for="u4q3-9d">D as better day as</label></div></div></li>
+            <li>We aren't all ______<span class="mcq-option-inline"></span> as Tom.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u4q3-10" value="A" id="u4q3-10a"><label for="u4q3-10a">A clever</label></div><div class="mcq-option"><input type="radio" name="u4q3-10" value="B" id="u4q3-10b"><label for="u4q3-10b">B the cleverest</label></div><div class="mcq-option"><input type="radio" name="u4q3-10" value="C" id="u4q3-10c"><label for="u4q3-10c">C cleverer</label></div><div class="mcq-option"><input type="radio" name="u4q3-10" value="D" id="u4q3-10d"><label for="u4q3-10d">D as clever</label></div></div></li>
         </ol>
         <div id="u4p3-results" class="score-display"></div>
         <button id="check-button-u4p3" class="check-button">Kiểm tra Grammar 3</button>
@@ -203,6 +231,98 @@
 </div>
 
 <script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --- DOM Elements ---
+    const modeSelection = document.getElementById('mode-selection');
+    const quizContainer = document.querySelector('.container:not(#mode-selection)');
+    const normalModeBtn = document.getElementById('mode-normal');
+    const shuffleModeBtn = document.getElementById('mode-shuffle');
+
+    // --- Master Answer Keys for sections that need dynamic updates ---
+    const masterAnswerKeys = {
+        'u4q3': { // Corresponds to Grammar 3
+            'u4q3-1': 'A', 'u4q3-2': 'C', 'u4q3-3': 'C', 'u4q3-4': 'A', 'u4q3-5': 'B',
+            'u4q3-6': 'A', 'u4q3-7': 'D', 'u4q3-8': 'A', 'u4q3-9': 'C', 'u4q3-10': 'D'
+        }
+    };
+
+    // --- Shuffle Functions ---
+    function shuffleChildren(parent) {
+        let children = Array.from(parent.children);
+        for (let i = children.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [children[i], children[j]] = [children[j], children[i]];
+        }
+        parent.innerHTML = ''; 
+        children.forEach(child => parent.appendChild(child));
+    }
+
+    function shuffleMcqAnswerTexts() {
+        const mcqQuestions = document.querySelectorAll('.mcq-list > li');
+        mcqQuestions.forEach(question => {
+            const options = Array.from(question.querySelectorAll('.mcq-option'));
+            if (options.length === 0) return;
+
+            const questionName = options[0].querySelector('input').name;
+            const partIdPrefix = questionName.split('-')[0];
+            
+            if (!masterAnswerKeys[partIdPrefix]) return;
+            const originalCorrectLetter = masterAnswerKeys[partIdPrefix][questionName];
+            
+            let answerData = options.map(opt => {
+                const label = opt.querySelector('label');
+                const [letter, ...textParts] = label.textContent.trim().split(' ');
+                return { text: textParts.join(' '), isCorrect: letter === originalCorrectLetter };
+            });
+
+            for (let i = answerData.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [answerData[i], answerData[j]] = [answerData[j], answerData[i]];
+            }
+
+            let newCorrectLetter = '';
+            const newLetters = ['A', 'B', 'C', 'D'];
+            options.forEach((opt, index) => {
+                const label = opt.querySelector('label');
+                const currentLetter = newLetters[index];
+                const currentData = answerData[index];
+                label.textContent = `${currentLetter} ${currentData.text}`;
+                if (currentData.isCorrect) {
+                    newCorrectLetter = currentLetter;
+                }
+            });
+
+            masterAnswerKeys[partIdPrefix][questionName] = newCorrectLetter;
+        });
+    }
+
+    // --- Quiz Start Logic ---
+    function startQuiz(mode) {
+        modeSelection.classList.add('hidden');
+        quizContainer.classList.remove('hidden');
+
+        if (mode === 'shuffle') {
+            // Shuffle words in Vocabulary 1 word box
+            const wordBox = document.querySelector('.word-box');
+            if (wordBox) shuffleChildren(wordBox);
+
+            // Shuffle question order for all list-based sections
+            const questionLists = document.querySelectorAll('.binary-choice-list, .mcq-list, .transform-list');
+            questionLists.forEach(list => shuffleChildren(list));
+
+            // Shuffle MCQ answer texts and update keys for Grammar 3
+            shuffleMcqAnswerTexts();
+        }
+    }
+
+    normalModeBtn.addEventListener('click', () => startQuiz('normal'));
+    shuffleModeBtn.addEventListener('click', () => startQuiz('shuffle'));
+
+    // =================================================================
+    // --- ORIGINAL CHECKING LOGIC (ADAPTED) ---
+    // =================================================================
+
     // --- Function for Fill-in-the-Blank Sections (Parts 1 & 4) ---
     function checkFillInBlank(partIdPrefix) {
         for (let i = 1; i <= 10; i++) {
@@ -222,7 +342,6 @@
         }
     }
 
-    // Event Listeners for Fill-in-the-Blank Sections
     document.getElementById('check-button-u4p1').addEventListener('click', () => checkFillInBlank('u4p1'));
     document.getElementById('check-button-u4p4').addEventListener('click', () => checkFillInBlank('u4p4'));
 
@@ -254,17 +373,15 @@
     });
 
     // --- Script for Grammar 3 (Multiple Choice) ---
-    document.getElementById('check-button-u4p3').addEventListener('click', function() {
-        const correctAnswers = {
-            'u4q3-1': 'A', 'u4q3-2': 'C', 'u4q3-3': 'C', 'u4q3-4': 'A', 'u4q3-5': 'B',
-            'u4q3-6': 'A', 'u4q3-7': 'D', 'u4q3-8': 'A', 'u4q3-9': 'C', 'u4q3-10': 'D'
-        };
+    function checkMultipleChoice(partIdPrefix, correctAnswers) {
         let score = 0;
         const totalQuestions = Object.keys(correctAnswers).length;
 
         for (const questionId in correctAnswers) {
             const correctAnswerValue = correctAnswers[questionId];
             const questionElement = document.querySelector(`li:has(input[name="${questionId}"])`);
+            if(!questionElement) continue;
+
             questionElement.querySelectorAll('label').forEach(l => l.classList.remove('correct-answer', 'incorrect-choice'));
             
             const correctLabel = questionElement.querySelector(`label[for="${questionId}${correctAnswerValue.toLowerCase()}"]`);
@@ -287,11 +404,17 @@
         resultsDiv.style.display = 'block';
         resultsDiv.classList.remove('correct', 'incorrect');
         if (score > totalQuestions / 2) {
-             resultsDiv.classList.add('correct');
+            resultsDiv.classList.add('correct');
         } else {
-             resultsDiv.classList.add('incorrect');
+            resultsDiv.classList.add('incorrect');
         }
+    }
+    
+    document.getElementById('check-button-u4p3').addEventListener('click', function() {
+        // Use the master key which may have been updated by shuffling
+        checkMultipleChoice('u4q3', masterAnswerKeys['u4q3']);
     });
+});
 </script>
 
 </body>
