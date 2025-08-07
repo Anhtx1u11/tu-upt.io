@@ -2,6 +2,7 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chọn Bài Học (Unit 1-10)</title>
     <script>
         // 1. Chỉ định URL duy nhất được phép truy cập trang này
@@ -9,13 +10,14 @@
 
         // 2. Kiểm tra trang mà người dùng vừa truy cập trước đó
         //    Nếu không phải là trang được cho phép, hoặc nếu truy cập trực tiếp...
-        if (!document.referrer.startsWith(allowedReferrer)) {
-            // 3. ...thì chuyển hướng đến trang 'block.html'
-            window.location.href = 'block.html';
-        }
+        // if (!document.referrer.startsWith(allowedReferrer)) {
+        //     // 3. ...thì chuyển hướng đến trang 'block.html'
+        //     window.location.href = 'block.html';
+        // }
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
+        /* --- General Styles --- */
         body {
             margin: 0;
             font-family: 'Poppins', sans-serif;
@@ -23,7 +25,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
+            padding: 20px; /* Thêm padding để card không dính vào cạnh màn hình nhỏ */
         }
 
         .card {
@@ -32,7 +35,8 @@
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             text-align: center;
-            width: 350px;
+            width: 100%; /* Cho phép card co giãn */
+            max-width: 400px; /* Giới hạn độ rộng tối đa */
             animation: fadeIn 1s ease;
         }
 
@@ -76,43 +80,33 @@
         .unit-button i {
             font-size: 18px;
         }
+        
+        /* --- Mobile Responsive Styles --- */
         @media (max-width: 600px) {
             body {
-                /* Giảm khoảng cách lề của toàn trang trên mobile */
-                padding: 10px;
+                padding: 15px; /* Giảm padding trên điện thoại */
+                align-items: flex-start; /* Căn nội dung lên đầu trên màn hình nhỏ */
+                padding-top: 5vh;
             }
 
-            .container {
-                /* Giảm khoảng trống giữa các bài tập */
-                gap: 20px;
+            .card {
+                padding: 25px 20px; /* Giảm padding bên trong card */
+                width: 100%; /* Đảm bảo card chiếm toàn bộ chiều rộng cho phép */
             }
 
-            .quiz-container {
-                /* Giảm padding bên trong mỗi khung bài tập để tiết kiệm không gian */
-                padding: 20px 15px;
-            }
-
-            h2 {
-                /* Giảm cỡ chữ tiêu đề cho dễ nhìn hơn */
-                font-size: 1.4em;
+            .card h1 {
+                font-size: 24px; /* Giảm cỡ chữ tiêu đề */
             }
             
-            .instructions, .mcq-item {
-                font-size: 1em; /* Giảm cỡ chữ hướng dẫn và câu hỏi */
+            /* THAY ĐỔI QUAN TRỌNG: Chuyển lưới thành 1 cột trên điện thoại */
+            .unit-grid {
+                grid-template-columns: 1fr; /* Chỉ 1 cột */
+                gap: 12px; /* Giảm khoảng cách giữa các nút */
             }
-
-            .fill-in-text {
-                font-size: 1.05em; /* Giảm cỡ chữ phần điền từ */
-                line-height: 2.5;  /* Tăng chiều cao dòng một chút cho dễ đọc */
-            }
-
-            .fill-in-text input {
-                /* Giảm độ rộng của ô nhập liệu để không bị tràn */
-                width: 100px;
-            }
-
-            .check-button {
-                font-size: 1em; /* Giảm cỡ chữ nút bấm */
+            
+            .unit-button {
+                padding: 18px 10px; /* Tăng chiều cao nút cho dễ bấm hơn */
+                font-size: 17px; /* Tăng nhẹ cỡ chữ cho dễ đọc */
             }
         }
         
