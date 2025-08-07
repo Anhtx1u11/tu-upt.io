@@ -1,8 +1,19 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <script>
+        // 1. Chỉ định URL duy nhất được phép truy cập trang này
+        const allowedReferrer = 'https://anhtu1.id.vn/A-Main/t.anh/opption2.html';
+
+        // 2. Kiểm tra trang mà người dùng vừa truy cập trước đó
+        //    Nếu không phải là trang được cho phép, hoặc nếu truy cập trực tiếp...
+        if (!document.referrer.startsWith(allowedReferrer)) {
+            // 3. ...thì chuyển hướng đến trang 'block.html'
+            window.location.href = 'block.html';
+        }
+    </script>
     <title>Unit 2 Test</title>
     <style>
         body {
@@ -249,4 +260,82 @@
             <li class="mcq-item" id="u2q4-4"><b>4.</b> You ______ wear a hat inside the chapel. It's not allowed.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u2q4-4" value="A" id="u2q4-4a"><label for="u2q4-4a">A must</label></div><div class="mcq-option"><input type="radio" name="u2q4-4" value="B" id="u2q4-4b"><label for="u2q4-4b">B don't have to</label></div><div class="mcq-option"><input type="radio" name="u2q4-4" value="C" id="u2q4-4c"><label for="u2q4-4c">C have to</label></div><div class="mcq-option"><input type="radio" name="u2q4-4" value="D" id="u2q4-4d"><label for="u2q4-4d">D mustn't</label></div></div></li>
             <li class="mcq-item" id="u2q4-5"><b>5.</b> Joe ______ go to the party if he doesn't want to.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u2q4-5" value="A" id="u2q4-5a"><label for="u2q4-5a">A can't</label></div><div class="mcq-option"><input type="radio" name="u2q4-5" value="B" id="u2q4-5b"><label for="u2q4-5b">B doesn't have to</label></div><div class="mcq-option"><input type="radio" name="u2q4-5" value="C" id="u2q4-5c"><label for="u2q4-5c">C has to</label></div><div class="mcq-option"><input type="radio" name="u2q4-5" value="D" id="u2q4-5d"><label for="u2q4-5d">D mustn't</label></div></div></li>
             <li class="mcq-item" id="u2q4-6"><b>6.</b> Do I ______ sign this form here?<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u2q4-6" value="A" id="u2q4-6a"><label for="u2q4-6a">A have to</label></div><div class="mcq-option"><input type="radio" name="u2q4-6" value="B" id="u2q4-6b"><label for="u2q4-6b">B can</label></div><div class="mcq-option"><input type="radio" name="u2q4-6" value="C" id="u2q4-6c"><label for="u2q4-6c">C must</label></div><div class="mcq-option"><input type="radio" name="u2q4-6" value="D" id="u2q4-6d"><label for="u2q4-6d">D can't</label></div></div></li>
-            <li
+            <li class="mcq-item" id="u2q4-7"><b>7.</b> I'm interested in ______ this club.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u2q4-7" value="A" id="u2q4-7a"><label for="u2q4-7a">A join</label></div><div class="mcq-option"><input type="radio" name="u2q4-7" value="B" id="u2q4-7b"><label for="u2q4-7b">B to join</label></div><div class="mcq-option"><input type="radio" name="u2q4-7" value="C" id="u2q4-7c"><label for="u2q4-7c">C joining</label></div><div class="mcq-option"><input type="radio" name="u2q4-7" value="D" id="u2q4-7d"><label for="u2q4-7d">D to joining</label></div></div></li>
+            <li class="mcq-item" id="u2q4-8"><b>8.</b> ______ cricket is popular in Australia.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u2q4-8" value="A" id="u2q4-8a"><label for="u2q4-8a">A Play</label></div><div class="mcq-option"><input type="radio" name="u2q4-8" value="B" id="u2q4-8b"><label for="u2q4-8b">B Playing</label></div><div class="mcq-option"><input type="radio" name="u2q4-8" value="C" id="u2q4-8c"><label for="u2q4-8c">C To play</label></div><div class="mcq-option"><input type="radio" name="u2q4-8" value="D" id="u2q4-8d"><label for="u2q4-8d">D to playing</label></div></div></li>
+            <li class="mcq-item" id="u2q4-9"><b>9.</b> I can't ______ my glasses.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u2q4-9" value="A" id="u2q4-9a"><label for="u2q4-9a">A find</label></div><div class="mcq-option"><input type="radio" name="u2q4-9" value="B" id="u2q4-9b"><label for="u2q4-9b">B finding</label></div><div class="mcq-option"><input type="radio" name="u2q4-9" value="C" id="u2q4-9c"><label for="u2q4-9c">C to find</label></div><div class="mcq-option"><input type="radio" name="u2q4-9" value="D" id="u2q4-9d"><label for="u2q4-9d">D to finding</label></div></div></li>
+            <li class="mcq-item" id="u2q4-10"><b>10.</b> We hate ______ all the time.<div class="mcq-options"><div class="mcq-option"><input type="radio" name="u2q4-10" value="A" id="u2q4-10a"><label for="u2q4-10a">A lose</label></div><div class="mcq-option"><input type="radio" name="u2q4-10" value="B" id="u2q4-10b"><label for="u2q4-10b">B losing</label></div><div class="mcq-option"><input type="radio" name="u2q4-10" value="C" id="u2q4-10c"><label for="u2q4-10c">C to lose</label></div><div class="mcq-option"><input type="radio" name="u2q4-10" value="D" id="u2q4-10d"><label for="u2q4-10d">D to losing</label></div></div></li>
+        </ol>
+        <div id="u2p4-results" class="score-display"></div>
+        <button id="check-button-u2p4" class="check-button">Kiểm tra Grammar 4</button>
+    </div>
+</div>
+
+<script>
+    // --- Generic Function for Fill-in-the-Blank Sections ---
+    function checkFillInBlank(partIdPrefix) {
+        for (let i = 1; i <= 10; i++) {
+            const input = document.getElementById(`${partIdPrefix}_ans${i}`);
+            if (input) {
+                const userAnswer = input.value.trim().toLowerCase();
+                const correctAnswer = input.getAttribute('data-answer').toLowerCase();
+                input.classList.remove('correct', 'incorrect');
+                if (userAnswer === correctAnswer) {
+                    input.classList.add('correct');
+                } else {
+                    input.classList.add('incorrect');
+                }
+            }
+        }
+    }
+
+    // Event Listeners for Fill-in-the-Blank Sections
+    document.getElementById('check-button-u2p1').addEventListener('click', () => checkFillInBlank('u2p1'));
+    document.getElementById('check-button-u2p2').addEventListener('click', () => checkFillInBlank('u2p2'));
+    document.getElementById('check-button-u2p3').addEventListener('click', () => checkFillInBlank('u2p3'));
+
+    // --- Script for Grammar 4: Multiple Choice ---
+    document.getElementById('check-button-u2p4').addEventListener('click', function() {
+        const correctAnswers = {
+            'u2q4-1': 'C', 'u2q4-2': 'D', 'u2q4-3': 'A', 'u2q4-4': 'D', 'u2q4-5': 'B',
+            'u2q4-6': 'A', 'u2q4-7': 'C', 'u2q4-8': 'B', 'u2q4-9': 'A', 'u2q4-10': 'B'
+        };
+        let score = 0;
+        const totalQuestions = Object.keys(correctAnswers).length;
+
+        for (const questionId in correctAnswers) {
+            const correctAnswerValue = correctAnswers[questionId];
+            const questionElement = document.getElementById(questionId);
+            
+            // Clear previous results
+            questionElement.querySelectorAll('label').forEach(l => l.classList.remove('correct-answer', 'incorrect-choice'));
+            
+            const correctLabel = questionElement.querySelector(`label[for="${questionId}${correctAnswerValue.toLowerCase()}"]`);
+            if(correctLabel) correctLabel.classList.add('correct-answer');
+            
+            const userAnswerInput = questionElement.querySelector(`input[name="${questionId}"]:checked`);
+            
+            if (userAnswerInput) {
+                const userAnswerValue = userAnswerInput.value;
+                if (userAnswerValue === correctAnswerValue) {
+                    score++;
+                } else {
+                    const userLabel = questionElement.querySelector(`label[for="${userAnswerInput.id}"]`);
+                    if(userLabel) userLabel.classList.add('incorrect-choice');
+                }
+            }
+        }
+        
+        const resultsDiv = document.getElementById('u2p4-results');
+        resultsDiv.textContent = `Bạn đã đúng ${score} / ${totalQuestions} câu!`;
+        resultsDiv.style.display = 'block';
+        resultsDiv.classList.remove('correct', 'incorrect');
+        if (score > totalQuestions / 2) {
+             resultsDiv.classList.add('correct');
+        } else {
+             resultsDiv.classList.add('incorrect');
+        }
+    });
+</script>
+
+</body>
+</html>
