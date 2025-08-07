@@ -1,44 +1,457 @@
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <title>Trang Bí Mật</title>
-  <script>
-    function generateRandomCode(length = 6) {
-      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-      let result = '';
-      for (let i = 0; i < length; i++) {
-        result += chars.charAt(Math.floor(Math.random() * chars.length));
-      }
-      return result;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <script>
+        // 1. Chỉ định URL duy nhất được phép truy cập trang này
+        const allowedReferrer = 'https://anhtu1.id.vn/A-Main/t.anh/opption2.html';
 
-    // Tạo 6 mã ngẫu nhiên mỗi lần tải trang
-    const validSecrets = Array.from({ length: 6 }, () => generateRandomCode());
-    console.log("Các mã bí mật hợp lệ trong phiên này:", validSecrets); // để bạn thấy
-
-    window.onload = function () {
-      const params = new URLSearchParams(window.location.search);
-      const secret = params.get('secret');
-
-      // Kiểm tra nếu mã hợp lệ
-      if (!validSecrets.includes(secret)) {
-        document.body.innerHTML = "<h1 style='color:red; text-align:center;'>🚫 Truy cập bị từ chối!</h1>";
-      } else {
-        localStorage.setItem('secret', secret); // lưu mã nếu hợp lệ
-      }
-
-      // Chặn reload nếu không có secret
-      if (!window.location.search.includes('secret=')) {
-        const saved = localStorage.getItem('secret');
-        if (!validSecrets.includes(saved)) {
-          document.body.innerHTML = "<h1 style='color:red; text-align:center;'>🚫 Truy cập không hợp lệ khi reload!</h1>";
+        // 2. Kiểm tra trang mà người dùng vừa truy cập trước đó
+        //    Nếu không phải là trang được cho phép, hoặc nếu truy cập trực tiếp...
+        if (!document.referrer.startsWith(allowedReferrer)) {
+            // 3. ...thì chuyển hướng đến trang 'block.html'
+            window.location.href = 'block.html';
         }
-      }
-    }
-  </script>
+    </script>
+    <title>Bài tập Tiếng Anh</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            max-width: 750px;
+            width: 100%;
+        }
+        .quiz-container {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #1d4ed8;
+            text-align: center;
+            margin-top: 0;
+        }
+        .instructions {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        
+        /* --- Styles for Part 1 & 3 (Fill in the blank) --- */
+        .word-box {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 15px;
+            background-color: #eef2ff;
+            border: 1px solid #c7d2fe;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            justify-content: center;
+        }
+        .word-box code {
+            background-color: #ffffff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+        .fill-in-text {
+            font-size: 1.2em;
+            line-height: 2.4;
+        }
+        .fill-in-text input {
+            width: 120px;
+            border: none;
+            border-bottom: 2px solid #9ca3af;
+            font-size: 1em;
+            font-family: inherit;
+            text-align: center;
+            margin: 0 5px;
+            padding: 2px 5px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            vertical-align: middle;
+        }
+        .fill-in-text input:focus {
+            outline: none;
+            border-color: #4f46e5;
+            box-shadow: 0 1px 0 #4f46e5;
+        }
+        .fill-in-text .verb-in-bracket {
+            font-family: monospace;
+            color: #555;
+            font-size: 0.9em;
+        }
+        .fill-in-text input.correct {
+            border-color: #16a34a;
+            background-color: #f0fdf4;
+        }
+        .fill-in-text input.incorrect {
+            border-color: #dc2626;
+            background-color: #fef2f2;
+        }
+        
+        /* --- Styles for Part 2 --- */
+        .mcq-list {
+            list-style-type: none;
+            padding-left: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .mcq-item {
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+        .mcq-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 8px;
+        }
+        .mcq-option {
+            display: flex;
+            align-items: center;
+        }
+        .mcq-option input[type="radio"] {
+            margin-right: 8px;
+        }
+        .mcq-option label {
+             cursor: pointer;
+             padding: 4px 8px;
+             border-radius: 5px;
+             transition: background-color 0.3s;
+        }
+        .mcq-option label.correct-answer {
+             background-color: #dcfce7; /* Green for correct */
+             color: #15803d;
+             font-weight: bold;
+        }
+        .mcq-option label.incorrect-choice {
+             background-color: #fee2e2; /* Red for incorrect */
+             color: #b91c1c;
+             text-decoration: line-through;
+        }
+        
+        /* --- General Styles --- */
+        .check-button {
+            display: block;
+            width: 100%;
+            padding: 12px 20px;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #fff;
+            background-color: #2563eb;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: background-color 0.3s;
+        }
+        .check-button:hover {
+            background-color: #1d4ed8;
+        }
+        .answer-key {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            display: none; /* Ẩn ban đầu */
+        }
+        .answer-key h3 {
+            margin-top: 0;
+            color: #334155;
+        }
+        .p2-results {
+            margin-top: 20px;
+            padding: 10px 15px;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 8px;
+            display: none; /* Ẩn ban đầu */
+        }
+        .p2-results.correct {
+            background-color: #dcfce7;
+            color: #15803d;
+        }
+        .p2-results.incorrect {
+            background-color: #fee2e2;
+            color: #b91c1c;
+        }
+
+        /* ===== PHẦN CSS CHO GIAO DIỆN MOBILE (RESPONSIVE) ===== */
+        @media (max-width: 600px) {
+            body {
+                /* Giảm khoảng cách lề của toàn trang trên mobile */
+                padding: 10px;
+                /* Căn chỉnh các mục từ trên xuống, không phải từ giữa */
+                align-items: flex-start;
+            }
+
+            .container {
+                /* Giảm khoảng trống giữa các bài tập */
+                gap: 20px;
+            }
+
+            .quiz-container {
+                /* Giảm padding bên trong mỗi khung bài tập để tiết kiệm không gian */
+                padding: 20px 15px;
+            }
+
+            h2 {
+                /* Giảm cỡ chữ tiêu đề cho dễ nhìn hơn */
+                font-size: 1.4em;
+            }
+            
+            .instructions, .mcq-item, ol, .mcq-option label {
+                font-size: 1em; /* Giảm cỡ chữ hướng dẫn và câu hỏi */
+            }
+
+            .fill-in-text {
+                font-size: 1.05em; /* Giảm cỡ chữ phần điền từ */
+                line-height: 2.5;  /* Điều chỉnh lại chiều cao dòng cho dễ đọc */
+            }
+
+            .fill-in-text input {
+                /* Giảm độ rộng của ô nhập liệu để không bị tràn */
+                width: 90px;
+            }
+
+            .check-button {
+                font-size: 1em; /* Giảm cỡ chữ nút bấm */
+            }
+        }
+    </style>
 </head>
 <body>
-  <h1>✅ Chào mừng bạn đến với trang bí mật!</h1>
+
+<div class="container">
+    <div class="quiz-container">
+        <h2>Phần 1: Điền từ vào chỗ trống</h2>
+        <p class="instructions"><b>Complete the text with the verbs in the box. There is one extra word you do not need.</b></p>
+        <div class="word-box">
+            <code>do</code> <code>fall</code> <code>feel</code> <code>get</code> <code>go</code> <code>make</code> <code>play</code> <code>stay</code> <code>take</code> <code>wake</code> <code>watch</code> <code>work</code>
+        </div>
+        <p class="fill-in-text">
+            I usually (0) <u><b>wake</b></u> up very early – at four o'clock. I lie in bed for a few minutes, then I 
+            (1)<input type="text" id="p1_ans1" data-answer="get"> up and start my day. I take the bus to the post office where I pick up all the letters and parcels for my area and put them in the van. I'm a postman, you see. I 
+            (2)<input type="text" id="p1_ans2" data-answer="work"> long hours and I rarely 
+            (3)<input type="text" id="p1_ans3" data-answer="take"> a break, so, at the end of the day, I 
+            (4)<input type="text" id="p1_ans4" data-answer="feel"> really tired. I don't 
+            (5)<input type="text" id="p1_ans5" data-answer="stay"> up late in the evening and 
+            (6)<input type="text" id="p1_ans6" data-answer="watch"> TV. I usually 
+            (7)<input type="text" id="p1_ans7" data-answer="go"> to bed at eight and I 
+            (8)<input type="text" id="p1_ans8" data-answer="fall"> asleep very quickly. On Sundays, I have a day off. I 
+            (9)<input type="text" id="p1_ans9" data-answer="do"> some gardening and sometimes I 
+            (10)<input type="text" id="p1_ans10" data-answer="play"> tennis but, mostly, I sleep.
+        </p>
+        <button id="check-button-p1" class="check-button">Kiểm tra Phần 1</button>
+        <div id="answer-key-p1" class="answer-key">
+            <h3>Đáp án đúng</h3>
+            <p>1. get &nbsp; 2. work &nbsp; 3. take &nbsp; 4. feel &nbsp; 5. stay <br> 6. watch &nbsp; 7. go &nbsp; 8. fall &nbsp; 9. do &nbsp; 10. play</p>
+        </div>
+    </div>
+
+    <div class="quiz-container">
+        <h2>Phần 2: Chọn đáp án đúng</h2>
+        <p class="instructions"><b>Choose the correct option (A, B or C) to complete the sentences.</b></p>
+        <ol class="mcq-list">
+            <li class="mcq-item"><b>(0)</b> Graham <u><b>goes</b></u> fishing every weekend.</li>
+            <li class="mcq-item" id="q2-1"><b>1.</b> Janice doesn't ______ home until ten on weekdays. <div class="mcq-options"><div class="mcq-option"><input type="radio" name="q2-1" value="A" id="q2-1a"><label for="q2-1a">A. take</label></div><div class="mcq-option"><input type="radio" name="q2-1" value="B" id="q2-1b"><label for="q2-1b">B. fall</label></div><div class="mcq-option"><input type="radio" name="q2-1" value="C" id="q2-1c"><label for="q2-1c">C. get</label></div></div></li>
+            <li class="mcq-item" id="q2-2"><b>2.</b> I ______ karate at the sports centre. <div class="mcq-options"><div class="mcq-option"><input type="radio" name="q2-2" value="A" id="q2-2a"><label for="q2-2a">A. play</label></div><div class="mcq-option"><input type="radio" name="q2-2" value="B" id="q2-2b"><label for="q2-2b">B. do</label></div><div class="mcq-option"><input type="radio" name="q2-2" value="C" id="q2-2c"><label for="q2-2c">C. go</label></div></div></li>
+            <li class="mcq-item" id="q2-3"><b>3.</b> Rebecca's ______ her homework right now. <div class="mcq-options"><div class="mcq-option"><input type="radio" name="q2-3" value="A" id="q2-3a"><label for="q2-3a">A. making</label></div><div class="mcq-option"><input type="radio" name="q2-3" value="B" id="q2-3b"><label for="q2-3b">B. doing</label></div><div class="mcq-option"><input type="radio" name="q2-3" value="C" id="q2-3c"><label for="q2-3c">C. going</label></div></div></li>
+            <li class="mcq-item" id="q2-4"><b>4.</b> I like ______ cards. <div class="mcq-options"><div class="mcq-option"><input type="radio" name="q2-4" value="A" id="q2-4a"><label for="q2-4a">A. playing</label></div><div class="mcq-option"><input type="radio" name="q2-4" value="B" id="q2-4b"><label for="q2-4b">B. doing</label></div><div class="mcq-option"><input type="radio" name="q2-4" value="C" id="q2-4c"><label for="q2-4c">C. going</label></div></div></li>
+            <li class="mcq-item" id="q2-5"><b>5.</b> You'll ______ better in a few days. <div class="mcq-options"><div class="mcq-option"><input type="radio" name="q2-5" value="A" id="q2-5a"><label for="q2-5a">A. make</label></div><div class="mcq-option"><input type="radio" name="q2-5" value="B" id="q2-5b"><label for="q2-5b">B. feel</label></div><div class="mcq-option"><input type="radio" name="q2-5" value="C" id="q2-5c"><label for="q2-5c">C. go</label></div></div></li>
+            <li class="mcq-item" id="q2-6"><b>6.</b> I've got a sore ______. <div class="mcq-options"><div class="mcq-option"><input type="radio" name="q2-6" value="A" id="q2-6a"><label for="q2-6a">A. cough</label></div><div class="mcq-option"><input type="radio" name="q2-6" value="B" id="q2-6b"><label for="q2-6b">B. throat</label></div><div class="mcq-option"><input type="radio" name="q2-6" value="C" id="q2-6c"><label for="q2-6c">C. ache</label></div></div></li>
+            <li class="mcq-item" id="q2-7"><b>7.</b> I've got ______ ache. <div class="mcq-options"><div class="mcq-option"><input type="radio" name="q2-7" value="A" id="q2-7a"><label for="q2-7a">A. head</label></div><div class="mcq-option"><input type="radio" name="q2-7" value="B" id="q2-7b"><label for="q2-7b">B. nose</label></div><div class="mcq-option"><input type="radio" name="q2-7" value="C" id="q2-7c"><label for="q2-7c">C. stomach</label></div></div></li>
+            <li class="mcq-item" id="q2-8"><b>8.</b> ______ these pills for your backache. <div class="mcq-options"><div class="mcq-option"><input type="radio" name="q2-8" value="A" id="q2-8a"><label for="q2-8a">A. Make</label></div><div class="mcq-option"><input type="radio" name="q2-8" value="B" id="q2-8b"><label for="q2-8b">B. Do</label></div><div class="mcq-option"><input type="radio" name="q2-8" value="C" id="q2-8c"><label for="q2-8c">C. Take</label></div></div></li>
+            <li class="mcq-item" id="q2-9"><b>9.</b> I don't like ______ shopping. <div class="mcq-options"><div class="mcq-option"><input type="radio" name="q2-9" value="A" id="q2-9a"><label for="q2-9a">A. making</label></div><div class="mcq-option"><input type="radio" name="q2-9" value="B" id="q2-9b"><label for="q2-9b">B. taking</label></div><div class="mcq-option"><input type="radio" name="q2-9" value="C" id="q2-9c"><label for="q2-9c">C. going</label></div></div></li>
+            <li class="mcq-item" id="q2-10"><b>10.</b> Can you ______ the piano? <div class="mcq-options"><div class="mcq-option"><input type="radio" name="q2-10" value="A" id="q2-10a"><label for="q2-10a">A. play</label></div><div class="mcq-option"><input type="radio" name="q2-10" value="B" id="q2-10b"><label for="q2-10b">B. do</label></div><div class="mcq-option"><input type="radio" name="q2-10" value="C" id="q2-10c"><label for="q2-10c">C. stay</label></div></div></li>
+        </ol>
+        <div id="p2-results" class="p2-results"></div>
+        <button id="check-button-p2" class="check-button">Kiểm tra Phần 2</button>
+    </div>
+    
+    <div class="quiz-container">
+        <h2>Phần 3: Ngữ pháp (Thì hiện tại)</h2>
+        <p class="instructions"><b>Complete the email with the correct present simple or present continuous form of the verbs in brackets.</b></p>
+        <div class="fill-in-text">
+            Hi Jenny<br><br>
+            I (0) <u><b>am doing</b></u> <span class="verb-in-bracket">(do)</span> a course in Spanish at the moment. My best friend Susie and I 
+            (1)<input type="text" id="p3_ans1" data-answer="are staying"> <span class="verb-in-bracket">(stay)</span> with a host family in Madrid. They're very friendly and talkative – Spanish people 
+            (2)<input type="text" id="p3_ans2" data-answer="talk"> <span class="verb-in-bracket">(talk)</span> a lot! On the course, we 
+            (3)<input type="text" id="p3_ans3" data-answer="have"> <span class="verb-in-bracket">(have)</span> lessons every day in the morning, but we 
+            (4)<input type="text" id="p3_ans4" data-answer="don't go|do not go"> <span class="verb-in-bracket">(not go)</span> to lessons in the afternoon. What 
+            (5)<input type="text" id="p3_ans5" data-answer="do we do"> <span class="verb-in-bracket">(we / do)</span> in the afternoon? Well, we 
+            (6)<input type="text" id="p3_ans6" data-answer="usually study"> <span class="verb-in-bracket">(usually / study)</span>, but sometimes we 
+            (7)<input type="text" id="p3_ans7" data-answer="go"> <span class="verb-in-bracket">(go)</span> shopping. Right now, Susie 
+            (8)<input type="text" id="p3_ans8" data-answer="isn't studying|is not studying"> <span class="verb-in-bracket">(not study)</span> – she 
+            (9)<input type="text" id="p3_ans9" data-answer="'s listening|is listening"> <span class="verb-in-bracket">(listen)</span> to music in her room. It's very loud! Anyway, what's your news, Jenny? 
+            (10)<input type="text" id="p3_ans10" data-answer="Are you doing"> <span class="verb-in-bracket">(you / do)</span> anything interesting this summer?
+            <br><br>
+            Write soon.
+            <br><br>
+            Alex
+        </div>
+        <button id="check-button-p3" class="check-button">Kiểm tra Phần 3</button>
+        <div id="answer-key-p3" class="answer-key">
+            <h3>Đáp án đúng</h3>
+            <p>1. are staying &nbsp; 2. talk &nbsp; 3. have &nbsp; 4. don't go &nbsp; 5. do we do <br> 6. usually study &nbsp; 7. go &nbsp; 8. isn't studying &nbsp; 9. 's listening / is listening &nbsp; 10. Are you doing</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ===================================================================
+    // KHAI BÁO BIẾN TOÀN CỤC VÀ HÀM GỬI THÔNG BÁO
+    // ===================================================================
+
+    // 1. URL Webhook của bạn (lấy từ file đăng nhập)
+    const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1385227858577854524/uPVMC0PL9amri60NP55tZf4tKv-8ED2R3NhkswsQPGYY29Cvp9hRU3toMZigfZutnKNF";
+
+    // 2. Lấy thông tin người dùng từ localStorage
+    const userData = JSON.parse(localStorage.getItem('google_user'));
+
+    /**
+     * HÀM GỬI THÔNG BÁO TỚI DISCORD
+     * @param {string} partName - Tên phần bài tập (vd: "Phần 1: Điền từ")
+     * @param {string} score - Điểm số của người dùng (vd: "8 / 10")
+     */
+    function sendDiscordNotification(partName, score) {
+        // Nếu không tìm thấy thông tin người dùng, không làm gì cả
+        if (!userData) {
+            console.error("Không tìm thấy dữ liệu người dùng trong localStorage.");
+            return;
+        }
+
+        const body = {
+            embeds: [{
+                title: `📝 Báo cáo làm bài tập - ${partName}`,
+                color: 0x2563eb, // Màu xanh dương
+                fields: [
+                    { name: "👤 Sinh viên", value: userData.name || "Không rõ", inline: true },
+                    { name: "📧 Email", value: userData.email || "Không rõ", inline: true },
+                    { name: "✅ Kết quả", value: score, inline: false },
+                    { name: "⏰ Thời gian nộp", value: new Date().toLocaleString("vi-VN"), inline: false },
+                ],
+                footer: {
+                    text: `anhtu.id.vn`
+                }
+            }]
+        };
+
+        fetch(DISCORD_WEBHOOK_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body)
+        }).catch(err => console.error("Lỗi khi gửi thông báo Discord:", err));
+    }
+
+
+    // ===================================================================
+    // SCRIPT XỬ LÝ CHO TỪNG PHẦN BÀI TẬP
+    // ===================================================================
+
+    // --- SCRIPT FOR PART 1 ---
+    document.getElementById('check-button-p1').addEventListener('click', function() {
+        let score = 0;
+        const totalQuestions = 10;
+        for (let i = 1; i <= totalQuestions; i++) {
+            const input = document.getElementById(`p1_ans${i}`);
+            const userAnswer = input.value.trim().toLowerCase();
+            const correctAnswer = input.getAttribute('data-answer').toLowerCase();
+            input.classList.remove('correct', 'incorrect');
+            if (userAnswer === correctAnswer) {
+                input.classList.add('correct');
+                score++; // CẬP NHẬT: Tăng điểm nếu đúng
+            } else {
+                input.classList.add('incorrect');
+            }
+        }
+        document.getElementById('answer-key-p1').style.display = 'block';
+
+        // CẬP NHẬT: Gọi hàm gửi thông báo
+        sendDiscordNotification("Phần 1: Điền từ", `${score} / ${totalQuestions}`);
+    });
+
+    // --- SCRIPT FOR PART 2 ---
+    document.getElementById('check-button-p2').addEventListener('click', function() {
+        const correctAnswers = {
+            'q2-1': 'C', 'q2-2': 'B', 'q2-3': 'B', 'q2-4': 'A', 'q2-5': 'B',
+            'q2-6': 'B', 'q2-7': 'C', 'q2-8': 'C', 'q2-9': 'C', 'q2-10': 'A'
+        };
+        let score = 0;
+        const totalQuestions = Object.keys(correctAnswers).length;
+        for (const questionId in correctAnswers) {
+            const correctAnswerValue = correctAnswers[questionId];
+            const questionElement = document.getElementById(questionId);
+            questionElement.querySelectorAll('label').forEach(l => l.classList.remove('correct-answer', 'incorrect-choice'));
+            const correctLabel = questionElement.querySelector(`label[for="${questionId}${correctAnswerValue.toLowerCase()}"]`);
+            if(correctLabel) correctLabel.classList.add('correct-answer');
+            const userAnswerInput = questionElement.querySelector(`input[name="${questionId}"]:checked`);
+            if (userAnswerInput) {
+                const userAnswerValue = userAnswerInput.value;
+                if (userAnswerValue === correctAnswerValue) {
+                    score++;
+                } else {
+                    const userLabel = questionElement.querySelector(`label[for="${userAnswerInput.id}"]`);
+                    if(userLabel) userLabel.classList.add('incorrect-choice');
+                }
+            }
+        }
+        const resultsDiv = document.getElementById('p2-results');
+        resultsDiv.textContent = `Bạn đã đúng ${score} / ${totalQuestions} câu!`;
+        resultsDiv.style.display = 'block';
+        resultsDiv.classList.remove('correct', 'incorrect');
+        if (score > totalQuestions / 2) {
+             resultsDiv.classList.add('correct');
+        } else {
+             resultsDiv.classList.add('incorrect');
+        }
+
+        // CẬP NHẬT: Gọi hàm gửi thông báo
+        sendDiscordNotification("Phần 2: Trắc nghiệm", `${score} / ${totalQuestions}`);
+    });
+
+    // --- SCRIPT FOR PART 3 ---
+    document.getElementById('check-button-p3').addEventListener('click', function() {
+        let score = 0;
+        const totalQuestions = 10;
+        for (let i = 1; i <= totalQuestions; i++) {
+            const input = document.getElementById(`p3_ans${i}`);
+            const userAnswer = input.value.trim().toLowerCase().replace(/\s+/g, ' ');
+            const correctAnswers = input.getAttribute('data-answer').toLowerCase().split('|');
+            input.classList.remove('correct', 'incorrect');
+            if (correctAnswers.includes(userAnswer)) {
+                input.classList.add('correct');
+                score++; // CẬP NHẬT: Tăng điểm nếu đúng
+            } else {
+                input.classList.add('incorrect');
+            }
+        }
+        document.getElementById('answer-key-p3').style.display = 'block';
+
+        // CẬP NHẬT: Gọi hàm gửi thông báo
+        sendDiscordNotification("Phần 3: Ngữ pháp", `${score} / ${totalQuestions}`);
+    });
+</script>
+
 </body>
 </html>
+
