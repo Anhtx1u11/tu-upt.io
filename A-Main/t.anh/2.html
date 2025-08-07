@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <script>
+    <script>
         // 1. Chỉ định URL duy nhất được phép truy cập trang này
         const allowedReferrer = 'https://anhtu1.id.vn/A-Main/t.anh/opption2.html';
 
@@ -11,7 +11,7 @@
         //    Nếu không phải là trang được cho phép, hoặc nếu truy cập trực tiếp...
         if (!document.referrer.startsWith(allowedReferrer)) {
             // 3. ...thì chuyển hướng đến trang 'block.html'
-            window.location.href = 'block.html';
+            // window.location.href = 'block.html'; // Tạm thời vô hiệu hóa để dễ kiểm tra
         }
     </script>
     <title>Unit 2 Test</title>
@@ -49,6 +49,7 @@
             font-size: 1.1em;
             margin-bottom: 20px;
             line-height: 1.5;
+            text-align: center;
         }
         
         /* --- Styles for Fill in the blank --- */
@@ -76,6 +77,7 @@
         }
         .fill-in-text ol {
             padding-left: 20px;
+            list-style-type: decimal;
         }
         .fill-in-text li {
             margin-bottom: 12px;
@@ -172,17 +174,6 @@
         .check-button:hover {
             background-color: #1d4ed8;
         }
-        .answer-key {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #f8fafc;
-            border: 1px solid #e2e8f0;
-            display: none; /* Ẩn ban đầu */
-        }
-        .answer-key h3 {
-            margin-top: 0;
-            color: #334155;
-        }
         .score-display {
             margin-top: 20px;
             padding: 10px 15px;
@@ -200,12 +191,39 @@
             background-color: #fee2e2;
             color: #b91c1c;
         }
-
+        
+        /* --- Styles for Mode Selection --- */
+        .hidden {
+            display: none !important;
+        }
+        .mode-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        #mode-shuffle {
+            background-color: #f97316;
+        }
+        #mode-shuffle:hover {
+            background-color: #ea580c;
+        }
     </style>
 </head>
 <body>
 
-<div class="container">
+<div id="mode-selection" class="container">
+    <div class="quiz-container">
+        <h1>Chọn Chế độ Làm bài</h1>
+        <p class="instructions">Bạn muốn làm bài theo thứ tự gốc hay xáo trộn câu hỏi và đáp án?</p>
+        <div class="mode-buttons">
+            <button id="mode-normal" class="check-button">🚀 Chế độ Thường</button>
+            <button id="mode-shuffle" class="check-button">🔀 Chế độ Xáo trộn</button>
+        </div>
+    </div>
+</div>
+
+<div class="container hidden">
     <h1>Unit 2 Test</h1>
 
     <div class="quiz-container">
@@ -271,6 +289,97 @@
 </div>
 
 <script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --- DOM Elements ---
+    const modeSelection = document.getElementById('mode-selection');
+    const quizContainer = document.querySelector('.container:not(#mode-selection)');
+    const normalModeBtn = document.getElementById('mode-normal');
+    const shuffleModeBtn = document.getElementById('mode-shuffle');
+
+    // --- Master Answer Keys for sections that need dynamic updates ---
+    const masterAnswerKeys = {
+        'u2q4': {
+            'u2q4-1': 'C', 'u2q4-2': 'D', 'u2q4-3': 'A', 'u2q4-4': 'D', 'u2q4-5': 'B',
+            'u2q4-6': 'A', 'u2q4-7': 'C', 'u2q4-8': 'B', 'u2q4-9': 'A', 'u2q4-10': 'B'
+        }
+    };
+
+    // --- Shuffle Functions ---
+    function shuffleChildren(parent) {
+        if (!parent) return;
+        let children = Array.from(parent.children);
+        for (let i = children.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [children[i], children[j]] = [children[j], children[i]];
+        }
+        parent.innerHTML = ''; 
+        children.forEach(child => parent.appendChild(child));
+    }
+
+    function shuffleMcqAnswerTexts() {
+        const mcqQuestions = document.querySelectorAll('.mcq-list > .mcq-item[id]');
+        mcqQuestions.forEach(question => {
+            const options = Array.from(question.querySelectorAll('.mcq-option'));
+            if (options.length === 0) return;
+
+            const questionName = options[0].querySelector('input').name;
+            const partIdPrefix = questionName.split('-')[0];
+            
+            if (!masterAnswerKeys[partIdPrefix] || !masterAnswerKeys[partIdPrefix][questionName]) return;
+            
+            const originalCorrectLetter = masterAnswerKeys[partIdPrefix][questionName];
+            
+            let answerData = options.map(opt => {
+                const label = opt.querySelector('label');
+                const [letter, ...textParts] = label.textContent.trim().split(' ');
+                return { text: textParts.join(' '), isCorrect: letter === originalCorrectLetter };
+            });
+
+            for (let i = answerData.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [answerData[i], answerData[j]] = [answerData[j], answerData[i]];
+            }
+
+            let newCorrectLetter = '';
+            const newLetters = ['A', 'B', 'C', 'D'];
+            options.forEach((opt, index) => {
+                const label = opt.querySelector('label');
+                const currentLetter = newLetters[index];
+                const currentData = answerData[index];
+                label.textContent = `${currentLetter} ${currentData.text}`;
+                if (currentData.isCorrect) {
+                    newCorrectLetter = currentLetter;
+                }
+            });
+
+            masterAnswerKeys[partIdPrefix][questionName] = newCorrectLetter;
+        });
+    }
+
+    // --- Quiz Start Logic ---
+    function startQuiz(mode) {
+        modeSelection.classList.add('hidden');
+        quizContainer.classList.remove('hidden');
+
+        if (mode === 'shuffle') {
+            // Part 2: Shuffle words in the box and question order
+            shuffleChildren(document.querySelector('#check-button-u2p2').parentElement.querySelector('.word-box'));
+            shuffleChildren(document.querySelector('#check-button-u2p2').parentElement.querySelector('.fill-in-text ol'));
+            
+            // Part 4: Shuffle question order and answer texts
+            shuffleChildren(document.querySelector('.mcq-list'));
+            shuffleMcqAnswerTexts();
+        }
+    }
+
+    normalModeBtn.addEventListener('click', () => startQuiz('normal'));
+    shuffleModeBtn.addEventListener('click', () => startQuiz('shuffle'));
+
+    // =================================================================
+    // --- CHECKING LOGIC ---
+    // =================================================================
+
     // --- Generic Function for Fill-in-the-Blank Sections ---
     function checkFillInBlank(partIdPrefix) {
         for (let i = 1; i <= 10; i++) {
@@ -288,39 +397,33 @@
         }
     }
 
-    // Event Listeners for Fill-in-the-Blank Sections
     document.getElementById('check-button-u2p1').addEventListener('click', () => checkFillInBlank('u2p1'));
     document.getElementById('check-button-u2p2').addEventListener('click', () => checkFillInBlank('u2p2'));
     document.getElementById('check-button-u2p3').addEventListener('click', () => checkFillInBlank('u2p3'));
 
-    // --- Script for Grammar 4: Multiple Choice ---
-    document.getElementById('check-button-u2p4').addEventListener('click', function() {
-        const correctAnswers = {
-            'u2q4-1': 'C', 'u2q4-2': 'D', 'u2q4-3': 'A', 'u2q4-4': 'D', 'u2q4-5': 'B',
-            'u2q4-6': 'A', 'u2q4-7': 'C', 'u2q4-8': 'B', 'u2q4-9': 'A', 'u2q4-10': 'B'
-        };
+    // --- Function for Grammar 4: Multiple Choice ---
+    function checkMultipleChoice(partIdPrefix, correctAnswers) {
         let score = 0;
         const totalQuestions = Object.keys(correctAnswers).length;
 
         for (const questionId in correctAnswers) {
             const correctAnswerValue = correctAnswers[questionId];
             const questionElement = document.getElementById(questionId);
-            
-            // Clear previous results
+            if (!questionElement) continue;
+
             questionElement.querySelectorAll('label').forEach(l => l.classList.remove('correct-answer', 'incorrect-choice'));
             
             const correctLabel = questionElement.querySelector(`label[for="${questionId}${correctAnswerValue.toLowerCase()}"]`);
-            if(correctLabel) correctLabel.classList.add('correct-answer');
+            if (correctLabel) correctLabel.classList.add('correct-answer');
             
             const userAnswerInput = questionElement.querySelector(`input[name="${questionId}"]:checked`);
-            
             if (userAnswerInput) {
                 const userAnswerValue = userAnswerInput.value;
                 if (userAnswerValue === correctAnswerValue) {
                     score++;
                 } else {
                     const userLabel = questionElement.querySelector(`label[for="${userAnswerInput.id}"]`);
-                    if(userLabel) userLabel.classList.add('incorrect-choice');
+                    if (userLabel) userLabel.classList.add('incorrect-choice');
                 }
             }
         }
@@ -334,7 +437,12 @@
         } else {
              resultsDiv.classList.add('incorrect');
         }
+    }
+
+    document.getElementById('check-button-u2p4').addEventListener('click', function() {
+        checkMultipleChoice('u2q4', masterAnswerKeys['u2q4']);
     });
+});
 </script>
 
 </body>
