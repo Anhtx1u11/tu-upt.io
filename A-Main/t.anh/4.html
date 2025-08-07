@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -39,6 +38,7 @@
             font-size: 1.1em;
             margin-bottom: 20px;
             line-height: 1.5;
+            text-align: center;
         }
         ol {
             padding-left: 25px;
@@ -108,11 +108,38 @@
         .score-display.correct { background-color: #dcfce7; color: #15803d; }
         .score-display.incorrect { background-color: #fee2e2; color: #b91c1c; }
 
+        /* --- Styles for Mode Selection --- */
+        .hidden {
+            display: none !important;
+        }
+        .mode-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Khoảng cách giữa 2 nút */
+            margin-top: 20px;
+        }
+        #mode-shuffle {
+            background-color: #f97316; /* Màu cam */
+        }
+        #mode-shuffle:hover {
+            background-color: #ea580c;
+        }
     </style>
 </head>
 <body>
 
-<div class="container">
+<div id="mode-selection" class="container">
+    <div class="quiz-container">
+        <h1>Chọn Chế độ Làm bài</h1>
+        <p class="instructions">Bạn muốn làm bài theo thứ tự gốc hay xáo trộn câu hỏi và đáp án?</p>
+        <div class="mode-buttons">
+            <button id="mode-normal" class="check-button">🚀 Chế độ Thường</button>
+            <button id="mode-shuffle" class="check-button">🔀 Chế độ Xáo trộn</button>
+        </div>
+    </div>
+</div>
+
+<div class="container hidden">
     <h1>Unit 4 Test v2</h1>
 
     <div class="quiz-container">
@@ -158,7 +185,13 @@
         <h2>Grammar 3</h2>
         <p class="instructions"><b>Complete the text with the correct past simple or past continuous form of the verbs in brackets.</b></p>
         <div class="fill-in-text">
-            Ellen MacArthur (0) <u><b>was</b></u> <span class="verb-in-bracket">(be)</span> born in Derbyshire in the UK in 1976. She (1)<input type="text" id="u4v2p3_ans1" data-answer="grew"> <span class="verb-in-bracket">(grow)</span> up far from the sea, and her parents and brothers (2)<input type="text" id="u4v2p3_ans2" data-answer="weren't|were not"> <span class="verb-in-bracket">(not be)</span> very interested in sailing. However, she (3)<input type="text" id="u4v2p3_ans3" data-answer="had"> <span class="verb-in-bracket">(have)</span> an aunt who was a yachtswoman and she (4)<input type="text" id="u4v2p3_ans4" data-answer="learned|learnt"> <span class="verb-in-bracket">(learn)</span> to sail while she (5)<input type="text" id="u4v2p3_ans5" data-answer="was staying"> <span class="verb-in-bracket">(stay)</span> with her aunt on the east coast of England. Ellen (6)<input type="text" id="u4v2p3_ans6" data-answer="bought"> <span class="verb-in-bracket">(buy)</span> her first small boat while she (7)<input type="text" id="u4v2p3_ans7" data-answer="was studying"> <span class="verb-in-bracket">(study)</span> at school. After that, she (8)<input type="text" id="u4v2p3_ans8" data-answer="spent"> <span class="verb-in-bracket">(spend)</span> all her free time sailing. In 2005, she (9)<input type="text" id="u4v2p3_ans9" data-answer="became"> <span class="verb-in-bracket">(become)</span> world famous when she (10)<input type="text" id="u4v2p3_ans10" data-answer="broke"> <span class="verb-in-bracket">(break)</span> the world record for the fastest solo circumnavigation of the globe in a yacht.
+            <ol>
+                <li>Ellen MacArthur (0) <u><b>was</b></u> <span class="verb-in-bracket">(be)</span> born in Derbyshire in the UK in 1976. She (1)<input type="text" id="u4v2p3_ans1" data-answer="grew"> <span class="verb-in-bracket">(grow)</span> up far from the sea, and her parents and brothers (2)<input type="text" id="u4v2p3_ans2" data-answer="weren't|were not"> <span class="verb-in-bracket">(not be)</span> very interested in sailing.</li>
+                <li>However, she (3)<input type="text" id="u4v2p3_ans3" data-answer="had"> <span class="verb-in-bracket">(have)</span> an aunt who was a yachtswoman and she (4)<input type="text" id="u4v2p3_ans4" data-answer="learned|learnt"> <span class="verb-in-bracket">(learn)</span> to sail while she (5)<input type="text" id="u4v2p3_ans5" data-answer="was staying"> <span class="verb-in-bracket">(stay)</span> with her aunt on the east coast of England.</li>
+                <li>Ellen (6)<input type="text" id="u4v2p3_ans6" data-answer="bought"> <span class="verb-in-bracket">(buy)</span> her first small boat while she (7)<input type="text" id="u4v2p3_ans7" data-answer="was studying"> <span class="verb-in-bracket">(study)</span> at school.</li>
+                <li>After that, she (8)<input type="text" id="u4v2p3_ans8" data-answer="spent"> <span class="verb-in-bracket">(spend)</span> all her free time sailing.</li>
+                <li>In 2005, she (9)<input type="text" id="u4v2p3_ans9" data-answer="became"> <span class="verb-in-bracket">(become)</span> world famous when she (10)<input type="text" id="u4v2p3_ans10" data-answer="broke"> <span class="verb-in-bracket">(break)</span> the world record for the fastest solo circumnavigation of the globe in a yacht.</li>
+            </ol>
         </div>
         <button id="check-button-u4v2p3" class="check-button">Kiểm tra Grammar 3</button>
     </div>
@@ -184,11 +217,113 @@
 </div>
 
 <script>
-    // --- Generic Function for Fill-in-the-Blank Sections ---
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --- Các phần tử DOM ---
+    const modeSelection = document.getElementById('mode-selection');
+    const quizContainer = document.querySelector('.container:not(#mode-selection)');
+    const normalModeBtn = document.getElementById('mode-normal');
+    const shuffleModeBtn = document.getElementById('mode-shuffle');
+
+    // --- Nơi lưu trữ đáp án gốc ---
+    // Được đưa ra ngoài để có thể truy cập và cập nhật sau khi xáo trộn
+    const masterAnswerKeys = {
+        'u4v2p1': {
+            'u4v2p1-1': 'A', 'u4v2p1-2': 'D', 'u4v2p1-3': 'C', 'u4v2p1-4': 'A', 'u4v2p1-5': 'B',
+            'u4v2p1-6': 'D', 'u4v2p1-7': 'C', 'u4v2p1-8': 'B', 'u4v2p1-9': 'C', 'u4v2p1-10': 'B'
+        },
+        'u4v2p4': {
+            'u4v2p4-1': 'B', 'u4v2p4-2': 'C', 'u4v2p4-3': 'A', 'u4v2p4-4': 'A', 'u4v2p4-5': 'B',
+            'u4v2p4-6': 'C', 'u4v2p4-7': 'A', 'u4v2p4-8': 'B', 'u4v2p4-9': 'D', 'u4v2p4-10': 'B'
+        }
+    };
+
+    // --- Các hàm xáo trộn ---
+    function shuffleChildren(parent) {
+        let children = Array.from(parent.children);
+        for (let i = children.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [children[i], children[j]] = [children[j], children[i]];
+        }
+        parent.innerHTML = ''; 
+        children.forEach(child => parent.appendChild(child));
+    }
+
+    // --- HÀM MỚI: Xáo trộn nội dung đáp án trắc nghiệm ---
+    function shuffleMcqAnswerTexts() {
+        const mcqQuestions = document.querySelectorAll('.mcq-list > li');
+
+        mcqQuestions.forEach(question => {
+            const options = Array.from(question.querySelectorAll('.mcq-option'));
+            if (options.length === 0) return;
+
+            const questionName = options[0].querySelector('input').name;
+            const partIdPrefix = questionName.split('-')[0];
+            const originalCorrectLetter = masterAnswerKeys[partIdPrefix][questionName];
+            
+            // 1. Lấy dữ liệu gốc: văn bản và thông tin đúng/sai
+            let answerData = options.map(opt => {
+                const label = opt.querySelector('label');
+                const [letter, ...textParts] = label.textContent.trim().split(' ');
+                return {
+                    text: textParts.join(' '),
+                    isCorrect: letter === originalCorrectLetter
+                };
+            });
+
+            // 2. Xáo trộn mảng dữ liệu
+            for (let i = answerData.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [answerData[i], answerData[j]] = [answerData[j], answerData[i]];
+            }
+
+            // 3. Cập nhật lại giao diện và tìm vị trí (A,B,C,D) mới của đáp án đúng
+            let newCorrectLetter = '';
+            const newLetters = ['A', 'B', 'C', 'D'];
+            options.forEach((opt, index) => {
+                const label = opt.querySelector('label');
+                const currentLetter = newLetters[index];
+                const currentData = answerData[index];
+
+                label.textContent = `${currentLetter} ${currentData.text}`;
+                if (currentData.isCorrect) {
+                    newCorrectLetter = currentLetter;
+                }
+            });
+
+            // 4. Cập nhật lại key đáp án đúng
+            masterAnswerKeys[partIdPrefix][questionName] = newCorrectLetter;
+        });
+    }
+
+    // --- Hàm bắt đầu bài kiểm tra ---
+    function startQuiz(mode) {
+        modeSelection.classList.add('hidden');
+        quizContainer.classList.remove('hidden');
+
+        if (mode === 'shuffle') {
+            // Xáo trộn câu hỏi (giữ nguyên)
+            const questionLists = document.querySelectorAll('ol.mcq-list, .fill-in-text > ol');
+            questionLists.forEach(list => {
+                shuffleChildren(list);
+            });
+            // Xáo trộn nội dung đáp án (logic mới)
+            shuffleMcqAnswerTexts();
+        }
+    }
+
+    // --- Gán sự kiện cho các nút chọn chế độ ---
+    normalModeBtn.addEventListener('click', () => startQuiz('normal'));
+    shuffleModeBtn.addEventListener('click', () => startQuiz('shuffle'));
+
+    // =================================================================
+    // --- CODE KIỂM TRA ĐÁP ÁN ---
+    // =================================================================
+
     function checkFillInBlank(partIdPrefix) {
-        for (let i = 1; i <= 10; i++) {
-            const input = document.getElementById(`${partIdPrefix}_ans${i}`);
-            if (input) {
+        const inputs = document.querySelectorAll(`[id^="${partIdPrefix}_ans"]`);
+        inputs.forEach(input => {
+             if (input) {
                 const userAnswer = input.value.trim().toLowerCase().replace(/\s+/g, ' ');
                 const correctAnswers = input.getAttribute('data-answer').toLowerCase().split('|');
                 
@@ -200,10 +335,9 @@
                     input.classList.add('incorrect');
                 }
             }
-        }
+        });
     }
 
-    // --- Generic Function for Multiple Choice Sections ---
     function checkMultipleChoice(partIdPrefix, correctAnswers) {
         let score = 0;
         const totalQuestions = Object.keys(correctAnswers).length;
@@ -212,6 +346,8 @@
             const correctAnswerValue = correctAnswers[questionId];
             const questionElement = document.querySelector(`li:has(input[name="${questionId}"])`);
             
+            if (!questionElement) continue;
+
             questionElement.querySelectorAll('label').forEach(l => l.classList.remove('correct-answer', 'incorrect-choice'));
             
             const correctLabel = questionElement.querySelector(`label[for="${questionId}${correctAnswerValue.toLowerCase()}"]`);
@@ -244,22 +380,15 @@
     document.getElementById('check-button-u4v2p2').addEventListener('click', () => checkFillInBlank('u4v2p2'));
     document.getElementById('check-button-u4v2p3').addEventListener('click', () => checkFillInBlank('u4v2p3'));
 
+    // Các listener này giờ sẽ sử dụng `masterAnswerKeys` đã được cập nhật
     document.getElementById('check-button-u4v2p1').addEventListener('click', () => {
-        const answers = {
-            'u4v2p1-1': 'A', 'u4v2p1-2': 'D', 'u4v2p1-3': 'C', 'u4v2p1-4': 'A', 'u4v2p1-5': 'B',
-            'u4v2p1-6': 'D', 'u4v2p1-7': 'C', 'u4v2p1-8': 'B', 'u4v2p1-9': 'C', 'u4v2p1-10': 'B'
-        };
-        checkMultipleChoice('u4v2p1', answers);
+        checkMultipleChoice('u4v2p1', masterAnswerKeys['u4v2p1']);
     });
 
     document.getElementById('check-button-u4v2p4').addEventListener('click', () => {
-        const answers = {
-            'u4v2p4-1': 'B', 'u4v2p4-2': 'D', 'u4v2p4-3': 'A', 'u4v2p4-4': 'A', 'u4v2p4-5': 'B',
-            'u4v2p4-6': 'C', 'u4v2p4-7': 'A', 'u4v2p4-8': 'B', 'u4v2p4-9': 'D', 'u4v2p4-10': 'B'
-        };
-        checkMultipleChoice('u4v2p4', answers);
+        checkMultipleChoice('u4v2p4', masterAnswerKeys['u4v2p4']);
     });
-
+});
 </script>
 
 </body>
