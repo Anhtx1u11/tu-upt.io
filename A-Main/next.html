@@ -3,180 +3,40 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-   <script>
-        // 1. Chỉ định URL duy nhất được phép truy cập trang này
-        const allowedReferrer = 'https://anhtu1.id.vn/index01.html';
-
-        // 2. Kiểm tra trang mà người dùng vừa truy cập trước đó
-        //    Nếu không phải là trang được cho phép, hoặc nếu truy cập trực tiếp...
-        if (!document.referrer.startsWith(allowedReferrer)) {
-            // 3. ...thì chuyển hướng đến trang 'block.html'
-            window.location.href = 'block.html';
-        }
-    </script>
+  <script>
+    // 1. Chỉ định URL duy nhất được phép truy cập trang này
+    const allowedReferrer = 'https://anhtu1.id.vn/index01.html';
+    // 2. Kiểm tra trang mà người dùng vừa truy cập trước đó
+    //    Nếu không phải là trang được cho phép, hoặc nếu truy cập trực tiếp...
+    if (!document.referrer.startsWith(allowedReferrer)) {
+      // 3. ...thì chuyển hướng đến trang 'block.html'
+      window.location.href = 'block.html';
+    }
+  </script>
   <title>Admin - Nguyễn Anh Tú K16TH0070</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
-    html {
-      scroll-behavior: smooth;
-    }
-    body {
-      display: flex;
-      height: 100vh;
-      flex-direction: column;
-      background: #f5f5f5;
-    }
-
-    .sidebar {
-      width: 250px;
-      background: #2c3e50;
-      color: white;
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100%;
-      padding-top: 60px;
-      transition: 0.3s;
-      z-index: 10;
-    }
-
-    .sidebar.hidden {
-      transform: translateX(-100%);
-    }
-
-    .sidebar h2 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .sidebar ul {
-      list-style: none;
-    }
-
-    .sidebar a,
-    .sidebar li a {
-      display: block;
-      padding: 15px 20px;
-      text-decoration: none;
-      color: white;
-    }
-
-    .sidebar li:hover,
-    .sidebar a:hover {
-      background: #34495e;
-    }
-
-    .main {
-      flex-grow: 1;
-      margin-left: 250px;
-      padding: 20px;
-      transition: 0.3s;
-    }
-
-    .main.full {
-      margin-left: 0;
-    }
-
-    .header {
-      background: white;
-      color: green;
-      padding: 10px 20px;
-      height: 100px;
-      position: fixed;
-      top: 0;
-      width: 100%;
-      z-index: 100;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .header-top {
-      display: flex;
-      align-items: center;
-      height: 60px;
-    }
-
-    .hamburger {
-      font-size: 24px;
-      cursor: pointer;
-      margin-right: 20px;
-    }
-
-    .marquee-container {
-      background: red;
-      color: yellow;
-      padding: 3px 10px;
-      white-space: nowrap;
-      overflow: hidden;
-    }
-
-    .marquee-text {
-      display: inline-block;
-      padding-left: 100%;
-      animation: marquee 10s linear infinite;
-    }
-
-    @keyframes marquee {
-      0%   { transform: translateX(0); }
-      100% { transform: translateX(-100%); }
-    }
-
-    .content {
-      margin-top: 120px;
-      padding-bottom: 100px;
-    }
-
-    .container {
-      background: white;
-      padding: 30px;
-      margin: 20px auto;
-      border-radius: 15px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-      text-align: center;
-      max-width: 400px;
-    }
-
-    .btn {
-      display: block;
-      width: 100%;
-      padding: 15px;
-      background: #3498db;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      margin: 10px 0;
-      font-size: 16px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: background 0.3s;
-      text-align: center;
-    }
-
-    .btn:hover {
-      background: #2980b9;
-    }
-
-    @media (max-width: 768px) {
-      .sidebar {
-        transform: translateX(-100%);
-        position: fixed;
-        z-index: 999;
-      }
-
-      .sidebar.active {
-        transform: translateX(0);
-      }
-
-      .main {
-        margin-left: 0;
-      }
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: Arial, sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { display: flex; height: 100vh; flex-direction: column; background: #f5f5f5; }
+    .sidebar { width: 250px; background: #2c3e50; color: white; position: fixed; top: 0; left: 0; height: 100%; padding-top: 60px; transition: 0.3s; z-index: 10; }
+    .sidebar.hidden { transform: translateX(-100%); }
+    .sidebar h2 { text-align: center; margin-bottom: 20px; }
+    .sidebar ul { list-style: none; }
+    .sidebar a, .sidebar li a { display: block; padding: 15px 20px; text-decoration: none; color: white; }
+    .sidebar li:hover, .sidebar a:hover { background: #34495e; }
+    .main { flex-grow: 1; margin-left: 250px; padding: 20px; transition: 0.3s; }
+    .main.full { margin-left: 0; }
+    .header { background: white; color: green; padding: 10px 20px; height: 100px; position: fixed; top: 0; width: 100%; z-index: 100; display: flex; flex-direction: column; justify-content: center; }
+    .header-top { display: flex; align-items: center; height: 60px; }
+    .hamburger { font-size: 24px; cursor: pointer; margin-right: 20px; }
+    .marquee-container { background: red; color: yellow; padding: 3px 10px; white-space: nowrap; overflow: hidden; }
+    .marquee-text { display: inline-block; padding-left: 100%; animation: marquee 10s linear infinite; }
+    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+    .content { margin-top: 120px; padding-bottom: 100px; }
+    .container { background: white; padding: 30px; margin: 20px auto; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); text-align: center; max-width: 400px; }
+    .btn { display: block; width: 100%; padding: 15px; background: #3498db; color: white; border: none; border-radius: 8px; margin: 10px 0; font-size: 16px; cursor: pointer; text-decoration: none; transition: background 0.3s; text-align: center; }
+    .btn:hover { background: #2980b9; }
+    @media (max-width: 768px) { .sidebar { transform: translateX(-100%); position: fixed; z-index: 999; } .sidebar.active { transform: translateX(0); } .main { margin-left: 0; } }
   </style>
 </head>
 <body>
@@ -193,8 +53,7 @@
         <img src="https://flagcdn.com/w40/vn.png" alt="VN" style="width: 20px; height: 15px; vertical-align: middle; margin-right: 5px;">
         Thống kê IP
       </a>
-        <li><a href="cloud/cloud.html">☁️ Save Data Cloud</a></li>
-
+      <li><a href="cloud/cloud.html">☁️ Save Data Cloud</a></li>
       <br><br><br><br><br><br>
       <li><a href="https://Bom.so/fbtu" target="_blank" style="color: yellow;">👉 Liên Hệ - Anh Tú</a></li>
     </ul>
@@ -214,25 +73,21 @@
 
     <div class="content">
       <h2 style="text-align: center; color: #2ecc71;">Chào mừng đến với trang Admin!</h2>
-
       <div style="display: flex; justify-content: center; gap: 10px; margin: 20px 0;">
         <a class="btn" style="background: yellowgreen; color: blue;" href="https://upt.edu.vn">Website UPT</a>
         <a class="btn" style="background: brown; color: yellow;" href="https://fit.upt.edu.vn">FIT-UPT</a>
       </div>
-
       <div style="text-align: center;">
         <a class="btn" style="background: rgb(0, 89, 255);" href="maclenin/macle.html">Mác-Lê-Nin</a>
         <a class="btn" style="background: blueviolet;" href="t.anh/chon.html">Tiếng Anh</a>
         <a class="btn" style="background: bisque; color: red;" href="404.html">PLDC</a>
       </div>
-
       <div class="container">
         <h3>📧 Tài khoản đã đăng nhập</h3>
         <p><strong>👤 Tên:</strong> <span id="user-name">...</span></p>
         <p><strong>Email:</strong> <span id="user-email">...</span></p>
         <button class="btn" style="background: crimson;" onclick="logout()">🚪 Đăng xuất</button>
       </div>
-
       <div class="container" id="thongke">
         <h3>📊 Thống kê truy cập</h3>
         <p>Địa chỉ IP của bạn là: <span id="user-ip">Đang tải...</span></p>
@@ -241,17 +96,18 @@
       </div>
     </div>
   </div>
-<script>
-  fetch("https://api.ipify.org?format=json")
-    .then(response => response.json())
-    .then(data => {
-      document.getElementById("user-ip").innerText = data.ip;
-    })
-    .catch(error => {
-      console.error("Không thể lấy địa chỉ IP:", error);
-      document.getElementById("user-ip").innerText = "Không xác định";
-    });
-</script>
+
+  <script>
+    fetch("https://api.ipify.org?format=json")
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById("user-ip").innerText = data.ip;
+      })
+      .catch(error => {
+        console.error("Không thể lấy địa chỉ IP:", error);
+        document.getElementById("user-ip").innerText = "Không xác định";
+      });
+  </script>
 
   <script>
     function toggleSidebar() {
@@ -262,7 +118,7 @@
       main.classList.toggle("full");
     }
 
-    // --- Xác thực Google OAuth ---
+    // --- Xác thực ---
     window.addEventListener("DOMContentLoaded", () => {
       const userData = localStorage.getItem("google_user");
       if (!userData) {
@@ -272,7 +128,10 @@
 
       try {
         const user = JSON.parse(userData);
-        if (!user.email.endsWith("@stu.upt.edu.vn")) {
+        // === THAY ĐỔI 1: CHO PHÉP ADMIN HOẶC EMAIL SINH VIÊN ===
+        // Nếu email không kết thúc bằng "@stu.upt.edu.vn" VÀ cũng không phải là email admin
+        // thì mới bị chặn.
+        if (!user.email.endsWith("@stu.upt.edu.vn") && user.email !== "admin@anhtu1.id.vn") {
           localStorage.removeItem("google_user");
           window.location.href = "https://anhtu1.id.vn";
           return;
@@ -296,9 +155,15 @@
 
     function handleCredentialResponse(response) {
       const user = parseJwt(response.credential);
-      if (user.email && user.email.endsWith("@stu.upt.edu.vn")) {
+      const isAdmin = user.email === "admin@anhtu1.id.vn";
+      const isStudent = user.email && user.email.endsWith("@stu.upt.edu.vn");
+
+      if (isAdmin || isStudent) {
         localStorage.setItem("google_user", JSON.stringify(user));
-        localStorage.setItem("login_time", Date.now());
+        // Chỉ lưu thời gian đăng nhập cho sinh viên, không lưu cho admin
+        if (isStudent) {
+            localStorage.setItem("login_time", Date.now());
+        }
         sendToTelegram(user, true);
         window.location.href = "A-Main/next.html";
       } else {
@@ -322,7 +187,19 @@
       });
     }
 
+    // === THAY ĐỔI 2: KHÔNG TÍNH GIỜ ĐĂNG NHẬP CHO ADMIN ===
     setInterval(() => {
+      const userData = localStorage.getItem("google_user");
+      // Nếu không có dữ liệu người dùng, không làm gì cả.
+      if (!userData) return;
+      
+      const user = JSON.parse(userData);
+      // Nếu người dùng là admin, bỏ qua kiểm tra thời gian.
+      if (user.email === "admin@anhtu1.id.vn") {
+        return;
+      }
+      
+      // Chỉ kiểm tra thời gian với người dùng không phải admin
       const loginTime = localStorage.getItem("login_time");
       if (loginTime && Date.now() - Number(loginTime) > 2 * 60 * 1000) {
         localStorage.clear();
@@ -330,20 +207,19 @@
       }
     }, 5000);
   </script>
-<div style="text-align:center; margin-top: 20px;">
-  <script type="text/javascript">
-    atOptions = {
-      'key' : 'f64c23f293ff6d9f949aacb41e254dcd',
-      'format' : 'iframe',
-      'height' : 60,
-      'width' : 468,
-      'params' : {}
-    };
-  </script>
-  <script type="text/javascript" src="//www.highperformanceformat.com/f64c23f293ff6d9f949aacb41e254dcd/invoke.js"></script>
-</div>
+
+  <div style="text-align:center; margin-top: 20px;">
+    <script type="text/javascript">
+      atOptions = {
+        'key': 'f64c23f293ff6d9f949aacb41e254dcd',
+        'format': 'iframe',
+        'height': 60,
+        'width': 468,
+        'params': {}
+      };
+    </script>
+    <script type="text/javascript" src="//www.highperformanceformat.com/f64c23f293ff6d9f949aacb41e254dcd/invoke.js"></script>
+  </div>
 
 </body>
 </html>
-
-
