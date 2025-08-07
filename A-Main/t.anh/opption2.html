@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Chọn Bài Học (Unit 1-10)</title>
-     <script>
+    <script>
         // 1. Chỉ định URL duy nhất được phép truy cập trang này
         const allowedReferrer = 'https://anhtu1.id.vn/A-Main/t.anh/chon.html';
 
@@ -115,7 +115,7 @@
                 font-size: 1em; /* Giảm cỡ chữ nút bấm */
             }
         }
-       
+        
     </style>
 </head>
 <body>
@@ -136,13 +136,30 @@
     </div>
 
     <script>
+    /**
+     * Hàm này được gọi khi một nút Unit được nhấn.
+     * Nó sẽ tạo một token bảo mật và chuyển hướng đến trang bài học tương ứng.
+     * @param {number} unitNumber - Số thứ tự của bài học (1, 2, 3,...)
+     */
     function goToUnit(unitNumber) {
-        window.location.href = unitNumber + '.html';
+        // 1. Tạo token bảo mật dùng một lần
+        // Lấy thời gian hiện tại (timestamp)
+        const timestamp = Date.now();
+        // Tạo một chuỗi ngẫu nhiên ngắn (nonce)
+        const nonce = Math.random().toString(36).substring(2, 8);
+        // Kết hợp lại thành token
+        const token = `${timestamp}:${nonce}`;
+
+        // 2. Xây dựng URL đích
+        // Tên file bài học, ví dụ: "1.html", "2.html",...
+        const targetFile = unitNumber + '.html';
+        // Gắn token vào URL dưới dạng một tham số truy vấn (query parameter)
+        const finalUrl = `${targetFile}?token=${token}`;
+        
+        // 3. Chuyển hướng người dùng đến trang bài học với URL đã có token
+        window.location.href = finalUrl;
     }
-</script>
+    </script>
 
 </body>
 </html>
-
-
-
