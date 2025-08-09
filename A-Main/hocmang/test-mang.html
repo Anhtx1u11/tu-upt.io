@@ -210,6 +210,7 @@
             background-image: url('https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png');
             background-size: contain; background-repeat: no-repeat;
             background-position: center; background-color: #fff;
+            
         }
         .screen-lan-only::before {
             content: "NO INTERNET\A USE LAN"; white-space: pre-wrap;
@@ -345,7 +346,6 @@
         #connect-all-btn { background-color: var(--green-success); }
         #cancel-connect-btn { background-color: var(--red-error); }
         
-        /* ADDED: Styles for Help Button and Modal */
         #help-btn {
             position: absolute;
             top: 15px;
@@ -419,7 +419,7 @@
             <button id="import-btn">Nhập File 📂</button>
             <button id="export-btn">Xuất File 💾</button>
         </div>
-        <h3>Nhật ký hệ thống</h3>
+         <h3>Nhật ký hệ thống</h3>
         <div class="log-panel"><ul id="log-list"></ul></div>
         <div class="control-buttons">
             <select id="add-device-select">
@@ -436,12 +436,12 @@
             <button id="auto-ip-btn" title="Cấp IP cho các thiết bị chưa có IP và kết nối tới Router">Cấp IP tự động (DHCP)</button>
             <button id="add-ddos-btn" title="Tạo một server DDoS. Nối dây server này vào Router để bắt đầu tấn công.">Tấn công DDoS 💀</button>
         </div>
-        <div class="batch-controls" style="color: green;">
+        <div class="batch-controls">
             <h3>Thao tác hàng loạt</h3>
             <input type="number" id="multi-pc-count" placeholder="Số lượng" value="5" min="1">
-            <button id="add-multi-pc-btn" style="color: white;background-color: #0d6efd;" >Thêm nhiều PC</button>
+            <button id="add-multi-pc-btn" style="background-color: blue;color: white;">Thêm nhiều PC</button>
         </div>
-        
+       
     </aside>
 </div>
 
@@ -541,15 +541,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const vpnStatus = document.getElementById('vpn-status');
     const infoModalCloseBtn = document.getElementById('info-modal-close-btn');
 
-    // ADDED: Constants for the new help modal
     const helpBtn = document.getElementById('help-btn');
     const helpModal = document.getElementById('help-modal');
     const helpModalCloseBtn = document.getElementById('help-modal-close-btn');
 
     let devices = {};
     let cables = {};
-    let deviceCounter = 0;
+    // MODIFIED: Replaced single counter with per-type counters and a unique ID counter.
+    let idCounter = 0;
+    let deviceCounters = {};
     let cableCounter = 0;
+    
     let draggedDevice = null;
     let offsetX, offsetY;
     let isPingMode = false;
@@ -590,6 +592,10 @@ document.addEventListener('DOMContentLoaded', () => {
         devices = {};
         cables = {};
         ddosIntervals = {};
+        // MODIFIED: Reset all counters
+        idCounter = 0;
+        deviceCounters = {};
+        cableCounter = 0;
         logList.innerHTML = '';
         addLog("Không gian làm việc đã được dọn dẹp.", "info");
     };
@@ -648,9 +654,17 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const addDevice = (type, name, icon, ipEnabled = true) => {
-        deviceCounter++;
-        const deviceId = `device-${deviceCounter}`;
-        const deviceName = `${name}-${deviceCounter}`;
+        // MODIFIED: Use separate counters for ID and name
+        idCounter++;
+        const deviceId = `device-${idCounter}`;
+
+        if (!deviceCounters[type]) {
+            deviceCounters[type] = 0;
+        }
+        deviceCounters[type]++;
+        const deviceName = `${name}-${deviceCounters[type]}`;
+        // END MODIFICATION
+
         const workspaceRect = workspace.getBoundingClientRect();
         const deviceWidthWithMargin = 120;
         const deviceHeightWithMargin = 145;
@@ -918,86 +932,89 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    const exportState=()=>{if(Object.keys(devices).length===0){addLog("Không có gì để xuất. Hãy thêm thiết bị.","error");return}const e=Object.entries(devices).map(([e,t])=>({id:e,name:t.name,type:t.type,ipEnabled:t.ipEnabled,vpnEnabled:t.vpnEnabled,vpnIp:t.vpnIp,publicIp:t.type==="router"?t.publicIp:null,privateIp:t.privateIp,left:t.element.style.left,top:t.element.style.top})),t=Object.entries(cables).map(([e,t])=>({from:t.from,to:t.to})),o={deviceCounter,cableCounter,devices:e,cables:t},a=JSON.stringify(o,null,2),n=new Blob([a],{type:"application/json"}),i=URL.createObjectURL(n),d=document.createElement("a");d.href=i,d.download="network-simulation.json",document.body.appendChild(d),d.click(),document.body.removeChild(d),URL.revokeObjectURL(i),addLog("Đã xuất trạng thái mạng ra file thành công!","success")},loadState=e=>{clearWorkspace();try{deviceCounter=e.deviceCounter||0,cableCounter=e.cableCounter||0,e.devices.forEach(e=>{const t=createDeviceElement(e);workspace.appendChild(t),devices[e.id]={element:t,name:e.name,type:e.type,ipEnabled:e.ipEnabled,vpnEnabled:e.vpnEnabled,vpnIp:e.vpnIp,publicIp:e.publicIp,privateIp:e.privateIp,connectedRouterId:null}}),e.cables.forEach(e=>createCable(e.from,e.to)),updateAllDeviceStates(),addLog("Đã tải trạng thái mạng từ file thành công!","success")}catch(e){console.error("Lỗi khi tải trạng thái:",e),addLog("File trạng thái không hợp lệ hoặc bị lỗi.","error"),clearWorkspace()}},handleManualIpChange=e=>{const t=e.target.closest(".device").id,o=devices[t];if(!o)return;const a=e.target.value.trim();o.privateIp!==a&&(addLog(`Đã cập nhật IP của ${o.name} thành ${a||"chưa có"}.`,"info"),o.privateIp=a||null,updateAllDeviceStates())},createCable=(e,t)=>{if(!devices[e]||!devices[t])return;if(Object.values(cables).some(o=>(o.from===e&&o.to===t)||(o.from===t&&o.to===e)))return void addLog(`Kết nối giữa ${devices[e].name} và ${devices[t].name} đã tồn tại!`,"warn");cableCounter++;const o=`cable-${cableCounter}`,a=document.createElementNS("http://www.w3.org/2000/svg","line");a.id=o,a.setAttribute("stroke","var(--cable-color)"),a.setAttribute("stroke-width","4"),a.addEventListener("contextmenu",e=>{e.preventDefault(),showCableContextMenu(e.clientX,e.clientY,o)}),cableSvg.appendChild(a),cables[o]={from:e,to:t,element:a},addLog(`Đã nối ${devices[e].name} và ${devices[t].name}.`,"success"),updateAllDeviceStates()},removeCable=(e,t=!0)=>{const o=cables[e];if(o){const a=devices[o.from]?.name||"thiết bị đã xóa",n=devices[o.to]?.name||"thiết bị đã xóa";addLog(`Đã xóa kết nối giữa ${a} và ${n}.`,"warn"),o.element.parentNode&&cableSvg.removeChild(o.element),delete cables[e],t&&updateAllDeviceStates()}},updateCablePositions=()=>{Object.values(cables).forEach(e=>{const t=devices[e.from]?.element,o=devices[e.to]?.element;if(t&&o){const a=t.getBoundingClientRect(),n=o.getBoundingClientRect(),i=workspace.getBoundingClientRect(),d=a.left+a.width/2-i.left,r=a.top+a.height/2-i.top,c=n.left+n.width/2-i.left,s=n.top+n.height/2-i.top;e.element.setAttribute("x1",d),e.element.setAttribute("y1",r),e.element.setAttribute("x2",c),e.element.setAttribute("y2",s)}})},updateDeviceIpDisplayInWorkspace=e=>{const t=devices[e];if(!t||!t.ipEnabled)return;const o=t.element.querySelector(".public-ip-on-device");if(!o)return;t.vpnEnabled?(t.vpnIp||(t.vpnIp=`45.8.${Math.floor(254*Math.random())+1}.${Math.floor(254*Math.random())+1}`),o.textContent=t.vpnIp,o.style.color="var(--green-success)",o.title="IP Proxy/VPN"):(o.textContent=t.publicIp||"Chưa kết nối",o.style.color="var(--secondary-yellow)",o.title="IP Public (từ Router)")},findPath=(e,t)=>{const o=[{id:e,path:[e]}],a=new Set([e]);for(;o.length>0;){const{id:n,path:i}=o.shift();if(n===t)return i;Object.values(cables).forEach(t=>{let d=null;t.from===n?d=t.to:t.to===n&&(d=t.from),d&&!a.has(d)&&(a.add(d),o.push({id:d,path:[...i,d]}))})}return null},checkForConflicts=()=>{const e={};Object.values(devices).forEach(t=>{t.element.classList.remove("ip-conflict");const e=t.element.querySelector(".device-screen");e&&e.classList.remove("screen-ip-conflict-visuals")}),Object.entries(devices).forEach(([t,o])=>{o.privateIp&&(e[o.privateIp]||(e[o.privateIp]=[]),e[o.privateIp].push(t))}),Object.values(e).forEach(e=>{if(e.length>1){const t=devices[e[0]].privateIp;addLog(`Phát hiện trùng IP: ${t}`,"error"),e.forEach(e=>{const t=devices[e];if(t){t.element.classList.add("ip-conflict");const e=t.element.querySelector(".device-screen");e&&(e.className="device-screen screen-ip-conflict-visuals",t.element.classList.add("has-connection"))}})}})},runDhcp=()=>{addLog("Bắt đầu tiến trình cấp IP (DHCP)...","warn");const e=Object.entries(devices).filter(([,e])=>"router"===e.type);e.forEach(([e,t],o)=>{let a=`192.168.${o+1}.`,n=10;const i=Object.entries(devices).filter(([t,o])=>findPathToRouter(t).routerId===e);i.forEach(([,e])=>{if(e.ipEnabled&&!e.privateIp){let t;do{t=a+n++}while(Object.values(devices).some(e=>e.privateIp===t));e.privateIp=t;const o=e.element.querySelector(".ip-input");o&&(o.value=e.privateIp),addLog(`Đã cấp IP ${e.privateIp} cho ${e.name}`,"success")}})}),updateAllDeviceStates(),addLog("Hoàn tất cấp IP.","success")};
-
-    function onDeviceDoubleClick(e){const t=e.currentTarget.id;"pc"===devices[t].type||"phone"===devices[t].type?showDeviceInfoModal(t):void 0}
-
-    function onDeviceClick(e){
-        if(pingInProgress || e.target.closest(".ip-input, .connect-btn")) return;
-        const deviceId = e.currentTarget.id;
-        if(isPingMode) {
-            if (pingSourceDevice && pingSourceDevice !== deviceId) {
-                executePing(pingSourceDevice, deviceId);
-            }
+    const exportState = () => {
+        if (Object.keys(devices).length === 0) {
+            addLog("Không có gì để xuất. Hãy thêm thiết bị.", "error");
+            return;
         }
-    }
+        const deviceData = Object.entries(devices).map(([id, dev]) => ({
+            id: id, name: dev.name, type: dev.type,
+            ipEnabled: dev.ipEnabled, vpnEnabled: dev.vpnEnabled, vpnIp: dev.vpnIp,
+            publicIp: dev.type === "router" ? dev.publicIp : null, privateIp: dev.privateIp,
+            left: dev.element.style.left, top: dev.element.style.top
+        }));
+        const cableData = Object.entries(cables).map(([id, cable]) => ({ from: cable.from, to: cable.to }));
 
-    function onMouseDown(e){
-        if(isConnecting || pingInProgress || e.target.closest(".ip-input, .remove-btn, .ping-btn, .connect-btn")) return;
-        draggedDevice=e.currentTarget;
-        draggedDevice.style.cursor="grabbing";
-        draggedDevice.style.zIndex=1000;
-        const t=draggedDevice.getBoundingClientRect();
-        offsetX=e.clientX-t.left,offsetY=e.clientY-t.top;
-        document.addEventListener("mousemove",onMouseMove);
-        document.addEventListener("mouseup",onMouseUp);
-    }
-    
-    function onConnectStart(e) {
-        e.stopPropagation(); 
-        isConnecting = true;
-        connectionSourceId = e.target.closest('.device').id;
-
-        const sourceDevice = devices[connectionSourceId].element;
-        const workspaceRect = workspace.getBoundingClientRect();
-        const sourceRect = sourceDevice.getBoundingClientRect();
-
-        const startX = sourceRect.left + sourceRect.width / 2 - workspaceRect.left;
-        const startY = sourceRect.top + sourceRect.height / 2 - workspaceRect.top;
-
-        tempCableLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
-        tempCableLine.setAttribute('stroke', 'var(--secondary-yellow)');
-        tempCableLine.setAttribute('stroke-width', '4');
-        tempCableLine.setAttribute('stroke-dasharray', '5 5');
-        tempCableLine.setAttribute('x1', startX);
-        tempCableLine.setAttribute('y1', startY);
-        tempCableLine.setAttribute('x2', startX);
-        tempCableLine.setAttribute('y2', startY);
-        cableSvg.appendChild(tempCableLine);
-
-        document.addEventListener('mousemove', onConnectMove);
-        document.addEventListener('mouseup', onConnectEnd, { once: true });
-    }
-
-    function onConnectMove(e) {
-        if (!isConnecting || !tempCableLine) return;
-        const workspaceRect = workspace.getBoundingClientRect();
-        const mouseX = e.clientX - workspaceRect.left;
-        const mouseY = e.clientY - workspaceRect.top;
-        tempCableLine.setAttribute('x2', mouseX);
-        tempCableLine.setAttribute('y2', mouseY);
-    }
-
-    function onConnectEnd(e) {
-        if (tempCableLine) {
-            tempCableLine.remove();
-            tempCableLine = null;
-        }
-
-        const targetElement = document.elementFromPoint(e.clientX, e.clientY)?.closest('.device');
-
-        if (targetElement && devices[targetElement.id] && targetElement.id !== connectionSourceId) {
-            createCable(connectionSourceId, targetElement.id);
-        }
+        // MODIFIED: Save new counter states
+        const state = { idCounter, deviceCounters, cableCounter, devices: deviceData, cables: cableData };
         
-        isConnecting = false;
-        connectionSourceId = null;
-        document.removeEventListener('mousemove', onConnectMove);
-    }
+        const stateJson = JSON.stringify(state, null, 2);
+        const blob = new Blob([stateJson], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'network-simulation.json';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        addLog("Đã xuất trạng thái mạng ra file thành công!", "success");
+    };
 
+    const loadState = (state) => {
+        clearWorkspace();
+        try {
+            // MODIFIED: Restore counters with backward compatibility
+            idCounter = state.idCounter || state.deviceCounter || 0; 
+            cableCounter = state.cableCounter || 0;
+            deviceCounters = state.deviceCounters || {};
+
+            // If loading an old save file, reconstruct per-type counters
+            if (!state.deviceCounters && state.devices) {
+                addLog("Tệp lưu cũ được phát hiện, đang tạo lại bộ đếm...", "warn");
+                state.devices.forEach(device => {
+                    if (!deviceCounters[device.type]) {
+                        deviceCounters[device.type] = 0;
+                    }
+                    const match = device.name.match(/-(\d+)$/);
+                    if (match) {
+                        const num = parseInt(match[1], 10);
+                        if (num > deviceCounters[device.type]) {
+                            deviceCounters[device.type] = num;
+                        }
+                    }
+                });
+            }
+            // END MODIFICATION
+
+            state.devices.forEach(devData => {
+                const deviceElement = createDeviceElement(devData);
+                workspace.appendChild(deviceElement);
+                devices[devData.id] = {
+                    element: deviceElement, name: devData.name, type: devData.type,
+                    ipEnabled: devData.ipEnabled, vpnEnabled: devData.vpnEnabled, vpnIp: devData.vpnIp,
+                    publicIp: devData.publicIp, privateIp: devData.privateIp, connectedRouterId: null
+                };
+            });
+            state.cables.forEach(cableData => createCable(cableData.from, cableData.to));
+            updateAllDeviceStates();
+            addLog("Đã tải trạng thái mạng từ file thành công!", "success");
+        } catch (error) {
+            console.error("Lỗi khi tải trạng thái:", error);
+            addLog("File trạng thái không hợp lệ hoặc bị lỗi.", "error");
+            clearWorkspace();
+        }
+    };
+
+    const handleManualIpChange=e=>{const t=e.target.closest(".device").id,o=devices[t];if(!o)return;const a=e.target.value.trim();o.privateIp!==a&&(addLog(`Đã cập nhật IP của ${o.name} thành ${a||"chưa có"}.`,"info"),o.privateIp=a||null,updateAllDeviceStates())},createCable=(e,t)=>{if(!devices[e]||!devices[t])return;if(Object.values(cables).some(o=>(o.from===e&&o.to===t)||(o.from===t&&o.to===e)))return void addLog(`Kết nối giữa ${devices[e].name} và ${devices[t].name} đã tồn tại!`,"warn");cableCounter++;const o=`cable-${cableCounter}`,a=document.createElementNS("http://www.w3.org/2000/svg","line");a.id=o,a.setAttribute("stroke","var(--cable-color)"),a.setAttribute("stroke-width","4"),a.addEventListener("contextmenu",e=>{e.preventDefault(),showCableContextMenu(e.clientX,e.clientY,o)}),cableSvg.appendChild(a),cables[o]={from:e,to:t,element:a},addLog(`Đã nối ${devices[e].name} và ${devices[t].name}.`,"success"),updateAllDeviceStates()},removeCable=(e,t=!0)=>{const o=cables[e];if(o){const a=devices[o.from]?.name||"thiết bị đã xóa",n=devices[o.to]?.name||"thiết bị đã xóa";addLog(`Đã xóa kết nối giữa ${a} và ${n}.`,"warn"),o.element.parentNode&&cableSvg.removeChild(o.element),delete cables[e],t&&updateAllDeviceStates()}},updateCablePositions=()=>{Object.values(cables).forEach(e=>{const t=devices[e.from]?.element,o=devices[e.to]?.element;if(t&&o){const a=t.getBoundingClientRect(),n=o.getBoundingClientRect(),i=workspace.getBoundingClientRect(),d=a.left+a.width/2-i.left,r=a.top+a.height/2-i.top,c=n.left+n.width/2-i.left,s=n.top+n.height/2-i.top;e.element.setAttribute("x1",d),e.element.setAttribute("y1",r),e.element.setAttribute("x2",c),e.element.setAttribute("y2",s)}})},updateDeviceIpDisplayInWorkspace=e=>{const t=devices[e];if(!t||!t.ipEnabled)return;const o=t.element.querySelector(".public-ip-on-device");if(!o)return;t.vpnEnabled?(t.vpnIp||(t.vpnIp=`45.8.${Math.floor(254*Math.random())+1}.${Math.floor(254*Math.random())+1}`),o.textContent=t.vpnIp,o.style.color="var(--green-success)",o.title="IP Proxy/VPN"):(o.textContent=t.publicIp||"Chưa kết nối",o.style.color="var(--secondary-yellow)",o.title="IP Public (từ Router)")},findPath=(e,t)=>{const o=[{id:e,path:[e]}],a=new Set([e]);for(;o.length>0;){const{id:n,path:i}=o.shift();if(n===t)return i;Object.values(cables).forEach(t=>{let d=null;t.from===n?d=t.to:t.to===n&&(d=t.from),d&&!a.has(d)&&(a.add(d),o.push({id:d,path:[...i,d]}))})}return null},checkForConflicts=()=>{const e={};Object.values(devices).forEach(t=>{t.element.classList.remove("ip-conflict");const e=t.element.querySelector(".device-screen");e&&e.classList.remove("screen-ip-conflict-visuals")}),Object.entries(devices).forEach(([t,o])=>{o.privateIp&&(e[o.privateIp]||(e[o.privateIp]=[]),e[o.privateIp].push(t))}),Object.values(e).forEach(e=>{if(e.length>1){const t=devices[e[0]].privateIp;addLog(`Phát hiện trùng IP: ${t}`,"error"),e.forEach(e=>{const t=devices[e];if(t){t.element.classList.add("ip-conflict");const e=t.element.querySelector(".device-screen");e&&(e.className="device-screen screen-ip-conflict-visuals",t.element.classList.add("has-connection"))}})}})},runDhcp=()=>{addLog("Bắt đầu tiến trình cấp IP (DHCP)...","warn");const e=Object.entries(devices).filter(([,e])=>"router"===e.type);e.forEach(([e,t],o)=>{let a=`192.168.${o+1}.`,n=10;const i=Object.entries(devices).filter(([t,o])=>findPathToRouter(t).routerId===e);i.forEach(([,e])=>{if(e.ipEnabled&&!e.privateIp){let t;do{t=a+n++}while(Object.values(devices).some(e=>e.privateIp===t));e.privateIp=t;const o=e.element.querySelector(".ip-input");o&&(o.value=e.privateIp),addLog(`Đã cấp IP ${e.privateIp} cho ${e.name}`,"success")}})}),updateAllDeviceStates(),addLog("Hoàn tất cấp IP.","success")};
+    function onDeviceDoubleClick(e){const t=e.currentTarget.id;"pc"===devices[t].type||"phone"===devices[t].type?showDeviceInfoModal(t):void 0}
+    function onDeviceClick(e){if(pingInProgress||e.target.closest(".ip-input, .connect-btn"))return;const t=e.currentTarget.id;if(isPingMode&&pingSourceDevice&&pingSourceDevice!==t)executePing(pingSourceDevice,t)}
+    function onMouseDown(e){if(isConnecting||pingInProgress||e.target.closest(".ip-input, .remove-btn, .ping-btn, .connect-btn"))return;draggedDevice=e.currentTarget,draggedDevice.style.cursor="grabbing",draggedDevice.style.zIndex=1e3;const t=draggedDevice.getBoundingClientRect();offsetX=e.clientX-t.left,offsetY=e.clientY-t.top,document.addEventListener("mousemove",onMouseMove),document.addEventListener("mouseup",onMouseUp)}
+    function onConnectStart(e){e.stopPropagation(),isConnecting=!0,connectionSourceId=e.target.closest(".device").id;const t=devices[connectionSourceId].element,o=workspace.getBoundingClientRect(),a=t.getBoundingClientRect(),n=a.left+a.width/2-o.left,i=a.top+a.height/2-o.top;tempCableLine=document.createElementNS("http://www.w3.org/2000/svg","line"),tempCableLine.setAttribute("stroke","var(--secondary-yellow)"),tempCableLine.setAttribute("stroke-width","4"),tempCableLine.setAttribute("stroke-dasharray","5 5"),tempCableLine.setAttribute("x1",n),tempCableLine.setAttribute("y1",i),tempCableLine.setAttribute("x2",n),tempCableLine.setAttribute("y2",i),cableSvg.appendChild(tempCableLine),document.addEventListener("mousemove",onConnectMove),document.addEventListener("mouseup",onConnectEnd,{once:!0})}
+    function onConnectMove(e){if(!isConnecting||!tempCableLine)return;const t=workspace.getBoundingClientRect(),o=e.clientX-t.left,a=e.clientY-t.top;tempCableLine.setAttribute("x2",o),tempCableLine.setAttribute("y2",a)}
+    function onConnectEnd(e){tempCableLine&&(tempCableLine.remove(),tempCableLine=null);const t=document.elementFromPoint(e.clientX,e.clientY)?.closest(".device");t&&devices[t.id]&&t.id!==connectionSourceId&&createCable(connectionSourceId,t.id),isConnecting=!1,connectionSourceId=null,document.removeEventListener("mousemove",onConnectMove)}
     function onMouseMove(e){if(!draggedDevice)return;const t=workspace.getBoundingClientRect();let o=e.clientX-offsetX-t.left,a=e.clientY-offsetY-t.top;o=Math.max(0,Math.min(o,workspace.clientWidth-draggedDevice.offsetWidth)),a=Math.max(0,Math.min(a,workspace.clientHeight-draggedDevice.offsetHeight)),draggedDevice.style.left=`${o}px`,draggedDevice.style.top=`${a}px`,updateCablePositions()}function onMouseUp(){draggedDevice&&(draggedDevice.style.cursor="grab",draggedDevice.style.zIndex="auto"),draggedDevice=null,document.removeEventListener("mousemove",onMouseMove),document.removeEventListener("mouseup",onMouseUp)}const startPing=e=>{if(isConnecting||pingInProgress)return void addLog("Không thể Ping khi đang thực hiện hành động khác.","error");isPingMode=!0,pingSourceDevice=e,Object.values(devices).forEach(e=>e.element.classList.remove("ping-source")),devices[e].element.classList.add("ping-source"),workspace.style.cursor="pointer",addLog(`Chế độ Ping: Từ ${devices[e].name}. Chọn thiết bị đích.`,"warn")},cancelPingSelection=()=>{isPingMode=!1,pingSourceDevice&&devices[pingSourceDevice]&&devices[pingSourceDevice].element.classList.remove("ping-source"),pingSourceDevice=null,workspace.style.cursor="default",addLog("Đã hủy chế độ chọn Ping.","info")},endPingProcess=()=>{pingInProgress&&(pingTimeoutId&&clearTimeout(pingTimeoutId),pingTimeoutId=null,pingInProgress=!1,workspace.classList.remove("ping-isolation-mode"),cableSvg.classList.remove("ping-isolation-mode"),document.querySelectorAll(".ping-active").forEach(e=>e.classList.remove("ping-active")),pingOverlay.style.display="none",pingLogDisplay.innerHTML="",addLog("Tiến trình Ping đã kết thúc.","info"))},animatePingPackets=(e,t=1e3)=>{for(let o=0;o<e.length-1;o++){const a=e[o],n=e[o+1],i=Object.values(cables).find(e=>(e.from===a&&e.to===n)||(e.from===n&&e.to===a));i&&setTimeout(()=>{if(!pingInProgress)return;const e=i.element.cloneNode();e.removeAttribute("id"),e.classList.add("cable-ping"),e.style.animationDuration=`${t/1e3}s`,cableSvg.appendChild(e),e.addEventListener("animationend",()=>{e.parentNode===cableSvg&&cableSvg.removeChild(e)});const o=i.element.getAttribute("x1"),a=i.element.getAttribute("y1"),n=i.element.getAttribute("x2"),d=i.element.getAttribute("y2"),r=document.createElementNS("http://www.w3.org/2000/svg","text");r.textContent="ping",r.classList.add("ping-packet-text");const c=document.createElementNS("http://www.w3.org/2000/svg","animateMotion");c.setAttribute("dur",`${t/1e3}s`),c.setAttribute("fill","freeze"),c.setAttribute("path",`M${o},${a} L${n},${d}`),r.appendChild(c),cableSvg.appendChild(r),setTimeout(()=>{r.parentNode===cableSvg&&cableSvg.removeChild(r)},t)},o*t)}},executePing=(e,t)=>{const o=devices[e],a=devices[t],n=a.privateIp||a.name;cancelPingSelection(),addLog(`Bắt đầu ping từ ${o.name} đến ${a.name}...`,"info");const i=findPath(e,t);pingInProgress=!0,workspace.classList.add("ping-isolation-mode"),cableSvg.classList.add("ping-isolation-mode"),pingOverlay.style.display="flex",pingLogDisplay.innerHTML="";const d=(e,t="white")=>{const o=document.createElement("p");o.textContent=e,o.style.color=t,pingLogDisplay.appendChild(o),pingLogDisplay.scrollTop=pingLogDisplay.scrollHeight};if(i){i.forEach(e=>devices[e].element.classList.add("ping-active"));for(let e=0;e<i.length-1;e++){const t=Object.values(cables).find(o=>(o.from===i[e]&&o.to===i[e+1])||(o.from===i[e+1]&&o.to===i[e]));t&&t.element.classList.add("ping-active")}d(`Pinging ${a.name} [${n}] with 32 bytes of data:`);let e=0;const t=1500,r=()=>{if(!pingInProgress)return;if(e>=4)return d(`\nPing statistics for ${n}:`),d("     Packets: Sent = 4, Received = 4, Lost = 0 (0% loss)","var(--secondary-yellow)"),void(pingTimeoutId=setTimeout(endPingProcess,2e3));const o=2*(i.length-1)+Math.floor(10*Math.random());d(`Reply from ${n}: bytes=32 time=${o}ms TTL=128`,"var(--green-success)"),animatePingPackets(i,1e3),e++,pingTimeoutId=setTimeout(r,t)};r()}else o.element.classList.add("ping-active"),a.element.classList.add("ping-active"),d(`Pinging ${a.name} [${n}]...`),d("Request timed out.","var(--red-error)"),pingTimeoutId=setTimeout(()=>{pingInProgress&&(d("Request timed out.","var(--red-error)"),d(`\nPing statistics for ${n}:`),d("     Packets: Sent = 2, Received = 0, Lost = 2 (100% loss)","var(--secondary-yellow)"),pingTimeoutId=setTimeout(endPingProcess,3e3))},1500)},showConnectionModal=(e,t)=>{modalTitle.textContent=`Kết nối ${t} với các thiết bị`,connectionModal.dataset.newDeviceId=e,deviceFilterButtons.querySelector("button.active")?.classList.remove("active"),deviceFilterButtons.querySelector('button[data-filter="all"]').classList.add("active"),populateDeviceList("all"),connectionModal.style.display="flex"},hideConnectionModal=()=>{connectionModal.style.display="none"},isAlreadyConnectedToSwitchOrRouter=e=>Object.values(cables).some(t=>{let o=null;if(t.from===e)o=t.to;else{if(t.to!==e)return!1;o=t.from}return o&&devices[o]&&("switch"===devices[o].type||"router"===devices[o].type)}),populateDeviceList=e=>{deviceSelectionList.innerHTML="";const t=Object.entries(devices).filter(([e,t])=>("pc"===t.type||"phone"===t.type)&&!isAlreadyConnectedToSwitchOrRouter(e)).filter(([,t])=>"all"===e||t.type===e);if(0===t.length)return void(deviceSelectionList.innerHTML='<p style="text-align:center; width:100%; padding: 20px 0;">Không có thiết bị nào phù hợp.</p>');t.forEach(([e,t])=>{const o=document.createElement("div");o.className="device-list-item",o.textContent=`${t.name} ${"pc"===t.type?"💻":"📱"}`,o.dataset.deviceId=e,o.addEventListener("click",()=>o.classList.toggle("selected")),deviceSelectionList.appendChild(o)})},showDeviceInfoModal=e=>{const t=devices[e];t&&(deviceInfoModal.dataset.currentDeviceId=e,infoModalTitle.textContent=`Thông tin ${t.name}`,infoDeviceName.textContent=t.name,infoPrivateIp.textContent=t.privateIp||"Chưa được cấp",vpnToggle.checked=t.vpnEnabled,updateVpnDisplay(e),deviceInfoModal.style.display="flex")},hideDeviceInfoModal=()=>{deviceInfoModal.style.display="none"},updateVpnDisplay=e=>{const t=devices[e];if(!t)return;const o=deviceInfoModal.querySelector(".vpn-info-label"),a=deviceInfoModal.querySelector("#info-vpn-ip");infoPublicIp.textContent=t.publicIp||"Không có Internet",infoPublicIp.style.color=t.publicIp?"var(--secondary-yellow)":"var(--red-error)",t.vpnEnabled?(t.vpnIp||(t.vpnIp=`45.8.${Math.floor(254*Math.random())+1}.${Math.floor(254*Math.random())+1}`),a.textContent=t.vpnIp,a.style.color="var(--green-success)",o.style.display="",a.style.display="",vpnStatus.textContent="Đang BẬT"):(o.style.display="none",a.style.display="none",vpnStatus.textContent="Đang TẮT")},showCableContextMenu=(e,t,o)=>{removeCableContextMenu();const a=document.createElement("div");a.id="cable-context-menu",a.style.left=`${e}px`,a.style.top=`${t}px`,a.innerHTML="<button>Xóa kết nối</button>",document.body.appendChild(a),a.querySelector("button").addEventListener("click",()=>{removeCable(o),removeCableContextMenu()})},removeCableContextMenu=()=>{document.getElementById("cable-context-menu")?.remove()};
 
-    // --- EVENT LISTENERS ---
     addSelectedDeviceBtn.addEventListener('click', () => {
         const selectedType = addDeviceSelect.value;
         switch (selectedType) {
@@ -1009,9 +1026,7 @@ document.addEventListener('DOMContentLoaded', () => {
             case 'anti-ddos-system': addDevice('anti-ddos-system', 'Anti-DDoS', '🛡️✨', false); break;
         }
     });
-
     addDdosBtn.addEventListener('click', () => addDevice('ddos', 'DDoS Server', '💀', false));
-    
     autoIpBtn.addEventListener('click', runDhcp);
     addMultiPcBtn.addEventListener('click', () => {
         const count = parseInt(multiPcCountInput.value, 10);
@@ -1020,7 +1035,6 @@ document.addEventListener('DOMContentLoaded', () => {
         for (let i = 0; i < count; i++) addDevice('pc', 'PC', '💻');
         addLog(`Đã tạo xong ${count} PC.`, "success");
     });
-    
     exportBtn.addEventListener('click', exportState);
     importBtn.addEventListener('click', () => importFileInput.click());
     importFileInput.addEventListener('change', (e) => {
@@ -1031,17 +1045,12 @@ document.addEventListener('DOMContentLoaded', () => {
         reader.readAsText(file);
         e.target.value = null;
     });
-
     cancelPingBtn.addEventListener('click', endPingProcess);
     cancelConnectBtn.addEventListener('click', hideConnectionModal);
     infoModalCloseBtn.addEventListener('click', hideDeviceInfoModal);
-
-    // ADDED: Event listeners for the help modal
     helpBtn.addEventListener('click', () => { helpModal.style.display = 'flex'; });
     helpModalCloseBtn.addEventListener('click', () => { helpModal.style.display = 'none'; });
     helpModal.addEventListener('click', (e) => { if (e.target === helpModal) { helpModal.style.display = 'none'; } });
-
-
     vpnToggle.addEventListener('change', (e) => {
         const deviceId = deviceInfoModal.dataset.currentDeviceId;
         if (!deviceId || !devices[deviceId]) return;
@@ -1050,7 +1059,6 @@ document.addEventListener('DOMContentLoaded', () => {
         updateVpnDisplay(deviceId);
         updateDeviceIpDisplayInWorkspace(deviceId);
     });
-
     connectSelectedBtn.addEventListener('click', () => {
         const newDeviceId = connectionModal.dataset.newDeviceId;
         if (!newDeviceId) return;
@@ -1074,7 +1082,6 @@ document.addEventListener('DOMContentLoaded', () => {
             populateDeviceList(e.target.dataset.filter);
         }
     });
-
     document.addEventListener('click', (e) => {
         if (!e.target.closest('#cable-context-menu') && !e.target.closest('#cable-svg line')) {
             removeCableContextMenu();
@@ -1090,7 +1097,6 @@ document.addEventListener('DOMContentLoaded', () => {
             removeCableContextMenu();
         }
     });
-
     new ResizeObserver(updateCablePositions).observe(workspace);
     addLog("Chào mừng! Nhấn nút '?' để xem hướng dẫn.", "success");
 });
