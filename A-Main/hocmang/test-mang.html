@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mô Phỏng Mạng Toàn Diện - DDoS & VLAN Effects</title>
-    <script src="https://anhtu1.id.vn/A-Main/js/check-referrer.js"></script>
+      <script src="https://anhtu1.id.vn/A-Main/js/check-referrer.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
@@ -151,14 +151,25 @@
             animation: clean-signal-flow 1.2s linear infinite;
         }
 
-        .ping-packet-text {
+        /* New Style for YouTube Connection */
+        .cable-youtube-connect {
+            stroke: #FF0000;
+            stroke-width: 4px;
+            stroke-dasharray: 10 10;
+            stroke-dashoffset: 250;
+            animation: data-flow 2.5s linear forwards; /* Slower animation */
+            pointer-events: none;
+        }
+
+        .ping-packet-text, .youtube-packet-text {
             font-family: 'Courier New', Courier, monospace;
             font-size: 12px;
             font-weight: bold;
-            fill: var(--secondary-yellow);
             pointer-events: none;
             text-anchor: middle;
         }
+        .ping-packet-text { fill: var(--secondary-yellow); }
+        .youtube-packet-text { fill: #FF0000; }
 
 
         .device {
@@ -358,13 +369,14 @@
         #cable-context-menu { position: absolute; background-color: var(--bg-dark); border: 1px solid var(--border-color); border-radius: 5px; padding: 5px; z-index: 3000; }
         #cable-context-menu button { background: none; border: none; color: var(--red-error); padding: 8px 12px; cursor: pointer; width: 100%; text-align: left; }
         #cable-context-menu button:hover { background-color: var(--red-error); color: white; }
-        .workspace.ping-isolation-mode .device:not(.ping-active) { opacity: 0.1; pointer-events: none; }
-        #cable-svg.ping-isolation-mode line:not(.ping-active) { opacity: 0.05; }
-        .device.ping-active { box-shadow: 0 0 20px var(--primary-blue); border-color: var(--primary-blue); z-index: 1001; }
-        #ping-overlay { position: absolute; bottom: 10px; left: 10px; width: calc(100% - 20px); max-width: 500px;  background: rgba(20, 20, 30, 0.85); border: 1px solid var(--border-color); backdrop-filter: blur(5px); border-radius: 8px; z-index: 1500; padding: 15px; display: none; flex-direction: column; box-sizing: border-box; }
-        #ping-log-display { font-family: 'Courier New', Courier, monospace; color: white; font-size: 14px; height: 120px; overflow-y: auto; background-color: #111118; padding: 10px; border-radius: 5px; margin-bottom: 10px; }
-        #ping-log-display p { margin: 0 0 5px 0; }
-        #cancel-ping-btn { background-color: var(--red-error); color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        .workspace.action-in-progress .device:not(.action-active) { opacity: 0.1; pointer-events: none; }
+        #cable-svg.action-in-progress line:not(.action-active) { opacity: 0.05; }
+        .device.action-active { box-shadow: 0 0 20px var(--primary-blue); border-color: var(--primary-blue); z-index: 1001; }
+        #action-overlay { position: absolute; bottom: 10px; left: 10px; width: calc(100% - 20px); max-width: 500px;  background: rgba(20, 20, 30, 0.85); border: 1px solid var(--border-color); backdrop-filter: blur(5px); border-radius: 8px; z-index: 1500; padding: 15px; display: none; flex-direction: column; box-sizing: border-box; }
+        #action-log-display { font-family: 'Courier New', Courier, monospace; color: white; font-size: 14px; height: 120px; overflow-y: auto; background-color: #111118; padding: 10px; border-radius: 5px; margin-bottom: 10px; }
+        #action-log-display p { margin: 0 0 5px 0; }
+        #cancel-action-btn { background-color: var(--red-error); color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        
         #device-info-modal .modal-content, #connection-modal .modal-content { max-width: 450px; }
         #device-info-modal h4, #connection-modal h4 { text-align: center; font-size: 1.2rem; }
         .info-grid { display: grid; grid-template-columns: 120px 1fr; gap: 12px; font-size: 1rem; margin-bottom: 20px; font-family: 'Courier New', Courier, monospace; }
@@ -378,7 +390,10 @@
         input:checked + .slider { background-color: var(--green-success); }
         input:focus + .slider { box-shadow: 0 0 1px var(--green-success); }
         input:checked + .slider:before { transform: translateX(26px); }
-        #info-modal-close-btn { background-color: var(--red-error); margin-top: 10px; color:white; border:none; padding: 10px; border-radius: 8px; cursor:pointer; }
+        #info-modal-close-btn, #connect-youtube-btn { margin-top: 10px; color:white; border:none; padding: 10px; border-radius: 8px; cursor:pointer; width: 100%; }
+        #info-modal-close-btn { background-color: var(--purple-action); }
+        #connect-youtube-btn { background-color: #c4302b; } /* YouTube Red */
+
         .vpn-info-label, #info-vpn-ip { display: none; }
         .modal-filters { display: flex; gap: 10px; margin-bottom: 15px; }
         .modal-filters button { flex-grow: 1; padding: 8px; border: 1px solid var(--border-color); background: var(--bg-dark); color: var(--text-light); border-radius: 6px; cursor: pointer; transition: background-color 0.2s; }
@@ -527,9 +542,9 @@
     <div class="workspace" id="workspace">
         <svg id="cable-svg"></svg>
         <div id="ddos-packet-container"></div>
-        <div id="ping-overlay">
-            <div id="ping-log-display"></div>
-            <button id="cancel-ping-btn">Hủy Ping</button>
+        <div id="action-overlay">
+            <div id="action-log-display"></div>
+            <button id="cancel-action-btn">Hủy</button>
         </div>
     </div>
     <aside class="controls-panel">
@@ -598,6 +613,7 @@
             </label>
             <span id="vpn-status">Đang TẮT</span>
         </div>
+        <button id="connect-youtube-btn">Connect to YouTube</button>
         <button id="info-modal-close-btn">Đóng</button>
     </div>
 </div>
@@ -669,9 +685,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const importBtn = document.getElementById('import-btn');
     const importFileInput = document.getElementById('import-file-input');
 
-    const pingOverlay = document.getElementById('ping-overlay');
-    const pingLogDisplay = document.getElementById('ping-log-display');
-    const cancelPingBtn = document.getElementById('cancel-ping-btn');
+    const actionOverlay = document.getElementById('action-overlay');
+    const actionLogDisplay = document.getElementById('action-log-display');
+    const cancelActionBtn = document.getElementById('cancel-action-btn');
 
     const connectionModal = document.getElementById('connection-modal');
     const modalTitle = document.getElementById('modal-title');
@@ -689,6 +705,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const vpnToggle = document.getElementById('vpn-toggle');
     const vpnStatus = document.getElementById('vpn-status');
     const infoModalCloseBtn = document.getElementById('info-modal-close-btn');
+    const connectYoutubeBtn = document.getElementById('connect-youtube-btn'); // New button ref
 
     const vlanModal = document.getElementById('vlan-modal');
     const vlanModalTitle = document.getElementById('vlan-modal-title');
@@ -712,12 +729,15 @@ document.addEventListener('DOMContentLoaded', () => {
     
     let draggedDevice = null;
     let offsetX, offsetY;
+    
+    // Action states
+    let currentAction = null; // Can be 'ping', 'youtube', or null
+    let actionTimeoutId = null;
     let isPingMode = false;
-    let pingInProgress = false;
     let pingSourceDevice = null;
-    let pingTimeoutId = null;
+
     let ddosIntervals = {};
-    let scrubbingIntervals = {}; // New state for scrubbing animation
+    let scrubbingIntervals = {};
 
     let isConnecting = false;
     let connectionSourceId = null;
@@ -746,7 +766,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // New function to stop scrubbing animation
     const stopScrubbingAnimation = (routerId) => {
         if (scrubbingIntervals[routerId]) {
             clearInterval(scrubbingIntervals[routerId]);
@@ -762,7 +781,7 @@ document.addEventListener('DOMContentLoaded', () => {
         cableSvg.innerHTML = '';
         ddosPacketContainer.innerHTML = '';
         Object.keys(ddosIntervals).forEach(stopDdosAnimation);
-        Object.keys(scrubbingIntervals).forEach(stopScrubbingAnimation); // Clear scrubbing anims
+        Object.keys(scrubbingIntervals).forEach(stopScrubbingAnimation);
         devices = {};
         cables = {};
         ddosIntervals = {};
@@ -902,7 +921,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const isRouterScrubbed = (routerId) => !!getConnectedProtectionDevice(routerId, 'anti-ddos-system');
     const isRouterProtectedByFirewall = (routerId) => !!getConnectedProtectionDevice(routerId, 'firewall');
 
-    // New animation function for scrubbing effect
     const startScrubbingAnimation = (routerId, antiDdosId) => {
         if (scrubbingIntervals[routerId]) return;
 
@@ -982,7 +1000,6 @@ document.addEventListener('DOMContentLoaded', () => {
             el.classList.remove('cable-under-ddos', 'device-ddos-victim', 'under-ddos', 'ddos-protected', 'vpn-protected', 'cable-clean-signal');
         });
 
-        // Stop all scrubbing animations before re-evaluating
         Object.keys(scrubbingIntervals).forEach(stopScrubbingAnimation);
 
         const attackedRouterIds = new Set();
@@ -1006,9 +1023,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             addLog(`🛡️✨ Hệ thống Anti-DDoS đang lọc lưu lượng tấn công vào ${neighbor.name}.`, 'success');
                         }
                         startDdosAnimation(ddosId, neighborId);
-                        startScrubbingAnimation(neighborId, antiDdosId); // Start new scrubbing animation
+                        startScrubbingAnimation(neighborId, antiDdosId);
                         
-                        // Add class for clean signal cable
                         const cleanSignalCable = Object.values(cables).find(c => (c.from === neighborId && c.to === antiDdosId) || (c.to === neighborId && c.from === antiDdosId));
                         if(cleanSignalCable) {
                             cleanSignalCable.element.classList.add('cable-clean-signal');
@@ -1099,7 +1115,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if(router.element.querySelector('.public-ip-display')) {
                 router.element.querySelector('.public-ip-display').textContent = router.publicIp;
             }
-            // Use a proper pathfinding algorithm to assign public IP
             const reachableDevices = findReachableDevices(router.element.id);
             reachableDevices.forEach(devId => {
                  if(devices[devId]) {
@@ -1123,7 +1138,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const screen = device.element.querySelector('.device-screen');
             if (!screen) return;
             
-            // Priority: Conflict/DDoS visuals override everything
             if (device.element.classList.contains('ip-conflict')) {
                 screen.className = "device-screen screen-ip-conflict-visuals";
                 device.element.classList.add("has-connection");
@@ -1131,15 +1145,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             if (device.element.classList.contains('under-ddos') || device.element.classList.contains('device-ddos-victim')) {
                 device.element.classList.add('has-connection');
-                // The DDoS classes already handle the screen content
                 return;
             }
             
-            // Clear previous state
             device.element.classList.remove('has-connection');
             screen.classList.remove('screen-internet', 'screen-lan-only', 'screen-internet-icon');
 
-            // Check VPN or Anti-DDoS protection
             if (device.element.classList.contains('vpn-protected')) {
                 device.element.classList.add('has-connection');
                 screen.className = 'device-screen screen-internet';
@@ -1151,7 +1162,6 @@ document.addEventListener('DOMContentLoaded', () => {
                  return;
             }
 
-            // Regular connectivity check
             const hasInternet = !!device.publicIp;
             const isConnected = Object.values(cables).some(c => c.from === id || c.to === id);
 
@@ -1293,7 +1303,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const toName = devices[cable.to]?.name || 'thiết bị đã xóa';
             addLog(`Đã xóa kết nối giữa ${fromName} và ${toName}.`, 'warn');
 
-            // Clean up VLAN assignment
             Object.values(devices).filter(d => d.type === 'router-v2').forEach(router => {
                 if(router.vlanAssignments && router.vlanAssignments[cableId]) {
                     delete router.vlanAssignments[cableId];
@@ -1388,12 +1397,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (neighborId && !visited.has(neighborId)) {
                     const currentNode = devices[currentId];
-                    // VLAN Check at Router V2
                     if (currentNode?.type === 'router-v2') {
                         const vlanIn = currentNode.vlanAssignments[lastCableId];
                         const vlanOut = currentNode.vlanAssignments[cableId];
                         if (vlanIn !== vlanOut) {
-                            return; // Block path if VLANs don't match
+                            return;
                         }
                     }
                     visited.add(neighborId);
@@ -1401,33 +1409,48 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         }
-        return null; // No path found
+        return null;
     };
 
     const checkForConflicts = () => {
-        const ipMap = {};
+        const privateIpMap = {};
+        const publicIpMap = {};
+        
         Object.values(devices).forEach(dev => {
             dev.element.classList.remove('ip-conflict');
         });
 
         Object.entries(devices).forEach(([id, device]) => {
             if (device.privateIp) {
-                if (!ipMap[device.privateIp]) {
-                    ipMap[device.privateIp] = [];
+                if (!privateIpMap[device.privateIp]) {
+                    privateIpMap[device.privateIp] = [];
                 }
-                ipMap[device.privateIp].push(id);
+                privateIpMap[device.privateIp].push(id);
+            }
+            if ((device.type === 'router' || device.type === 'router-v2') && device.publicIp) {
+                 if (!publicIpMap[device.publicIp]) {
+                    publicIpMap[device.publicIp] = [];
+                }
+                publicIpMap[device.publicIp].push(id);
             }
         });
 
-        Object.values(ipMap).forEach(ids => {
+        Object.values(privateIpMap).forEach(ids => {
             if (ids.length > 1) {
                 const conflictIp = devices[ids[0]].privateIp;
-                addLog(`Phát hiện trùng IP: ${conflictIp}`, 'error');
+                addLog(`Phát hiện trùng IP Private: ${conflictIp}`, 'error');
                 ids.forEach(id => {
-                    const device = devices[id];
-                    if (device) {
-                        device.element.classList.add('ip-conflict');
-                    }
+                    devices[id]?.element.classList.add('ip-conflict');
+                });
+            }
+        });
+
+        Object.values(publicIpMap).forEach(ids => {
+            if (ids.length > 1) {
+                const conflictIp = devices[ids[0]].publicIp;
+                addLog(`Phát hiện trùng IP Public: ${conflictIp}`, 'error');
+                ids.forEach(id => {
+                    devices[id]?.element.classList.add('ip-conflict');
                 });
             }
         });
@@ -1459,7 +1482,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
             } else if (router.type === 'router-v2') {
-                // DHCP for each configured VLAN
                 router.vlans.forEach(vlan => {
                     let subnet = `192.168.${vlan.id}.`;
                     let lastOctet = 10;
@@ -1481,7 +1503,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                 });
 
-                // DHCP for untagged devices
                 let untaggedSubnet = `192.168.254.`;
                 let untaggedLastOctet = 10;
                 const untaggedDevices = Object.entries(cables)
@@ -1518,7 +1539,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function onDeviceClick(e) {
-        if (pingInProgress || e.target.closest('.ip-input, .connect-btn')) return;
+        if (currentAction || e.target.closest('.ip-input, .connect-btn')) return;
         const deviceId = e.currentTarget.id;
         if (isPingMode && pingSourceDevice && pingSourceDevice !== deviceId) {
             executePing(pingSourceDevice, deviceId);
@@ -1526,7 +1547,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function onMouseDown(e) {
-        if (isConnecting || pingInProgress || e.target.closest('.ip-input, .remove-btn, .ping-btn, .connect-btn')) return;
+        if (isConnecting || currentAction || e.target.closest('.ip-input, .remove-btn, .ping-btn, .connect-btn')) return;
         draggedDevice = e.currentTarget;
         draggedDevice.style.cursor = 'grabbing';
         draggedDevice.style.zIndex = 1000;
@@ -1603,9 +1624,28 @@ document.addEventListener('DOMContentLoaded', () => {
         document.removeEventListener('mousemove', onMouseMove);
         document.removeEventListener('mouseup', onMouseUp);
     }
+    
+    // --- Action Functions (Ping, YouTube Connect, etc.) ---
+
+    function endCurrentAction() {
+        if (!currentAction) return;
+
+        if (actionTimeoutId) clearTimeout(actionTimeoutId);
+        actionTimeoutId = null;
+
+        workspace.classList.remove('action-in-progress');
+        cableSvg.classList.remove('action-in-progress');
+        document.querySelectorAll('.action-active').forEach(el => el.classList.remove('action-active'));
+        
+        actionOverlay.style.display = 'none';
+        actionLogDisplay.innerHTML = '';
+        
+        addLog(`Hành động (${currentAction}) đã kết thúc.`, 'info');
+        currentAction = null;
+    }
 
     const startPing = (deviceId) => {
-        if (isConnecting || pingInProgress) {
+        if (isConnecting || currentAction) {
             addLog('Không thể Ping khi đang thực hiện hành động khác.', 'error');
             return;
         }
@@ -1627,53 +1667,37 @@ document.addEventListener('DOMContentLoaded', () => {
         addLog('Đã hủy chế độ chọn Ping.', 'info');
     };
 
-    const endPingProcess = () => {
-        if (!pingInProgress) return;
-        if (pingTimeoutId) clearTimeout(pingTimeoutId);
-        pingTimeoutId = null;
-        pingInProgress = false;
-        workspace.classList.remove('ping-isolation-mode');
-        cableSvg.classList.remove('ping-isolation-mode');
-        document.querySelectorAll('.ping-active').forEach(el => el.classList.remove('ping-active'));
-        pingOverlay.style.display = 'none';
-        pingLogDisplay.innerHTML = '';
-        addLog('Tiến trình Ping đã kết thúc.', 'info');
-    };
-
-    const animatePingPackets = (path, durationPerHop = 1000) => {
+    const animatePath = (path, { packetClass, text, textClass, durationPerHop }) => {
         for (let i = 0; i < path.length - 1; i++) {
             const fromId = path[i];
             const toId = path[i+1];
             const cable = Object.values(cables).find(c => (c.from === fromId && c.to === toId) || (c.from === toId && c.to === fromId));
             if (cable) {
                 setTimeout(() => {
-                    if (!pingInProgress) return;
-                    const pingLine = cable.element.cloneNode();
-                    pingLine.removeAttribute('id');
-                    pingLine.classList.add('cable-ping');
-                    pingLine.style.animationDuration = `${durationPerHop / 1000}s`;
-                    cableSvg.appendChild(pingLine);
-                    pingLine.addEventListener('animationend', () => {
-                        if (pingLine.parentNode === cableSvg) cableSvg.removeChild(pingLine);
-                    });
+                    if (!currentAction) return;
+                    const animLine = cable.element.cloneNode();
+                    animLine.removeAttribute('id');
+                    animLine.classList.add(packetClass);
+                    animLine.style.animationDuration = `${durationPerHop / 1000}s`;
+                    cableSvg.appendChild(animLine);
+                    animLine.addEventListener('animationend', () => animLine.remove());
 
                     const x1 = cable.element.getAttribute('x1');
                     const y1 = cable.element.getAttribute('y1');
                     const x2 = cable.element.getAttribute('x2');
                     const y2 = cable.element.getAttribute('y2');
+                    
                     const textEl = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                    textEl.textContent = 'ping';
-                    textEl.classList.add('ping-packet-text');
+                    textEl.textContent = text;
+                    textEl.classList.add(textClass);
 
                     const motion = document.createElementNS('http://www.w3.org/2000/svg', 'animateMotion');
-                    motion.setAttribute('dur', `${durationPerHop/1000}s`);
+                    motion.setAttribute('dur', `${durationPerHop / 1000}s`);
                     motion.setAttribute('fill', 'freeze');
                     motion.setAttribute('path', `M${x1},${y1} L${x2},${y2}`);
                     textEl.appendChild(motion);
                     cableSvg.appendChild(textEl);
-                    setTimeout(() => {
-                        if (textEl.parentNode === cableSvg) cableSvg.removeChild(textEl);
-                    }, durationPerHop);
+                    setTimeout(() => textEl.remove(), durationPerHop);
 
                 }, i * durationPerHop);
             }
@@ -1681,6 +1705,10 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     
     const executePing = (sourceId, targetId) => {
+        if (currentAction) {
+            addLog("Không thể thực hiện hành động mới khi đang có tiến trình khác.", "error");
+            return;
+        }
         const sourceDevice = devices[sourceId];
         const targetDevice = devices[targetId];
         const targetName = targetDevice.privateIp || targetDevice.name;
@@ -1688,56 +1716,110 @@ document.addEventListener('DOMContentLoaded', () => {
         addLog(`Bắt đầu ping từ ${sourceDevice.name} đến ${targetDevice.name}...`, 'info');
         
         const path = findPath(sourceId, targetId);
-        pingInProgress = true;
-        workspace.classList.add('ping-isolation-mode');
-        cableSvg.classList.add('ping-isolation-mode');
-        pingOverlay.style.display = 'flex';
-        pingLogDisplay.innerHTML = '';
+        currentAction = 'ping';
+        workspace.classList.add('action-in-progress');
+        cableSvg.classList.add('action-in-progress');
+        actionOverlay.style.display = 'flex';
+        actionLogDisplay.innerHTML = '';
         
-        const logPing = (message, color = 'white') => {
+        const logAction = (message, color = 'white') => {
             const p = document.createElement('p');
             p.textContent = message;
             p.style.color = color;
-            pingLogDisplay.appendChild(p);
-            pingLogDisplay.scrollTop = pingLogDisplay.scrollHeight;
+            actionLogDisplay.appendChild(p);
+            actionLogDisplay.scrollTop = actionLogDisplay.scrollHeight;
         };
 
         if (path) {
-            path.forEach(id => devices[id].element.classList.add('ping-active'));
+            path.forEach(id => devices[id].element.classList.add('action-active'));
             for (let i = 0; i < path.length - 1; i++) {
                 const cable = Object.values(cables).find(c => (c.from === path[i] && c.to === path[i+1]) || (c.from === path[i+1] && c.to === path[i]));
-                if (cable) cable.element.classList.add('ping-active');
+                if (cable) cable.element.classList.add('action-active');
             }
-            logPing(`Pinging ${targetDevice.name} [${targetName}] with 32 bytes of data:`);
+            logAction(`Pinging ${targetDevice.name} [${targetName}] with 32 bytes of data:`);
             let count = 0;
             const interval = 1500;
             const sendReply = () => {
-                if (!pingInProgress) return;
+                if (currentAction !== 'ping') return;
                 if (count >= 4) {
-                    logPing(`\nPing statistics for ${targetName}:`);
-                    logPing(`    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss)`, 'var(--secondary-yellow)');
-                    pingTimeoutId = setTimeout(endPingProcess, 2000);
+                    logAction(`\nPing statistics for ${targetName}:`);
+                    logAction(`    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss)`, 'var(--secondary-yellow)');
+                    actionTimeoutId = setTimeout(endCurrentAction, 2000);
                     return;
                 }
                 const latency = (path.length - 1) * 2 + Math.floor(Math.random() * 10);
-                logPing(`Reply from ${targetName}: bytes=32 time=${latency}ms TTL=128`, 'var(--green-success)');
-                animatePingPackets(path, 1000);
+                logAction(`Reply from ${targetName}: bytes=32 time=${latency}ms TTL=128`, 'var(--green-success)');
+                animatePath(path, { packetClass: 'cable-ping', text: 'ping', textClass: 'ping-packet-text', durationPerHop: 1000});
                 count++;
-                pingTimeoutId = setTimeout(sendReply, interval);
+                actionTimeoutId = setTimeout(sendReply, interval);
             };
             sendReply();
         } else {
-            sourceDevice.element.classList.add('ping-active');
-            targetDevice.element.classList.add('ping-active');
-            logPing(`Pinging ${targetDevice.name} [${targetName}]...`);
-            logPing('Request timed out.', 'var(--red-error)');
-            pingTimeoutId = setTimeout(() => {
-                if(!pingInProgress) return;
-                logPing('Request timed out.', 'var(--red-error)');
-                logPing(`\nPing statistics for ${targetName}:`);
-                logPing(`    Packets: Sent = 2, Received = 0, Lost = 2 (100% loss)`, 'var(--secondary-yellow)');
-                pingTimeoutId = setTimeout(endPingProcess, 3000);
+            sourceDevice.element.classList.add('action-active');
+            targetDevice.element.classList.add('action-active');
+            logAction(`Pinging ${targetDevice.name} [${targetName}]...`);
+            logAction('Request timed out.', 'var(--red-error)');
+            actionTimeoutId = setTimeout(() => {
+                if(currentAction !== 'ping') return;
+                logAction('Request timed out.', 'var(--red-error)');
+                logAction(`\nPing statistics for ${targetName}:`);
+                logAction(`    Packets: Sent = 2, Received = 0, Lost = 2 (100% loss)`, 'var(--secondary-yellow)');
+                actionTimeoutId = setTimeout(endCurrentAction, 3000);
             }, 1500);
+        }
+    };
+
+    const executeYoutubeConnection = (sourceId) => {
+        if (currentAction) {
+            addLog("Không thể thực hiện hành động mới khi đang có tiến trình khác.", "error");
+            return;
+        }
+        const sourceDevice = devices[sourceId];
+        const routerId = sourceDevice.connectedRouterId;
+
+        addLog(`Bắt đầu kết nối đến YouTube từ ${sourceDevice.name}...`, 'info');
+
+        if (!routerId) {
+            addLog(`${sourceDevice.name} không có kết nối Internet.`, 'error');
+            return;
+        }
+
+        const path = findPath(sourceId, routerId);
+        currentAction = 'youtube';
+        workspace.classList.add('action-in-progress');
+        cableSvg.classList.add('action-in-progress');
+        actionOverlay.style.display = 'flex';
+        actionLogDisplay.innerHTML = '';
+
+        const logAction = (message, color = 'white') => {
+            const p = document.createElement('p');
+            p.textContent = message;
+            p.style.color = color;
+            actionLogDisplay.appendChild(p);
+            actionLogDisplay.scrollTop = actionLogDisplay.scrollHeight;
+        };
+
+        if (path) {
+            path.forEach(id => devices[id].element.classList.add('action-active'));
+            for (let i = 0; i < path.length - 1; i++) {
+                const cable = Object.values(cables).find(c => (c.from === path[i] && c.to === path[i+1]) || (c.from === path[i+1] && c.to === path[i]));
+                if (cable) cable.element.classList.add('action-active');
+            }
+            logAction(`Connecting to YouTube via ${devices[routerId].name}...`);
+            const durationPerHop = 2000;
+            animatePath(path, { packetClass: 'cable-youtube-connect', text: 'YT', textClass: 'youtube-packet-text', durationPerHop: durationPerHop});
+
+            const totalDuration = (path.length - 1) * durationPerHop;
+            actionTimeoutId = setTimeout(() => {
+                if (currentAction !== 'youtube') return;
+                logAction(`Connected to YouTube successfully!`, 'var(--green-success)');
+                actionTimeoutId = setTimeout(endCurrentAction, 2500);
+            }, totalDuration);
+
+        } else {
+             sourceDevice.element.classList.add('action-active');
+             logAction(`Lỗi: Không tìm thấy đường dẫn đến router.`, 'var(--red-error)');
+             actionTimeoutId = setTimeout(endCurrentAction, 3000);
         }
     };
     
@@ -1959,10 +2041,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
         reader.readAsText(file);
-        e.target.value = null; // Reset for next import
+        e.target.value = null;
     });
     
-    cancelPingBtn.addEventListener('click', endPingProcess);
+    cancelActionBtn.addEventListener('click', endCurrentAction);
     cancelConnectBtn.addEventListener('click', hideConnectionModal);
     infoModalCloseBtn.addEventListener('click', hideDeviceInfoModal);
     helpBtn.addEventListener('click', () => { helpModal.style.display = 'flex'; });
@@ -1977,6 +2059,14 @@ document.addEventListener('DOMContentLoaded', () => {
         updateVpnDisplay(deviceId);
         updateDeviceIpDisplayInWorkspace(deviceId);
         updateAllDeviceStates(); 
+    });
+
+    connectYoutubeBtn.addEventListener('click', () => {
+        const deviceId = deviceInfoModal.dataset.currentDeviceId;
+        if (deviceId) {
+            hideDeviceInfoModal();
+            executeYoutubeConnection(deviceId);
+        }
     });
 
     connectSelectedBtn.addEventListener('click', () => {
@@ -2054,7 +2144,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.key === 'Escape') {
             if (helpModal.style.display === 'flex') { helpModal.style.display = 'none'; return; }
             if (vlanModal.style.display === 'flex') { hideVlanModal(); return; }
-            if (pingInProgress) { endPingProcess(); return; }
+            if (currentAction) { endCurrentAction(); return; }
             if (isPingMode) { cancelPingSelection(); return; }
             hideConnectionModal();
             hideDeviceInfoModal();
