@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mô Phỏng Mạng Toàn Diện - DDoS & VLAN Effects</title>
-   <script src="https://anhtu1.id.vn/A-Main/js/check-referrer.js"></script>
+    <script src="https://anhtu1.id.vn/A-Main/js/check-referrer.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
@@ -58,7 +58,11 @@
         @keyframes ddos-cable-flow {
             to { stroke-dashoffset: -100; }
         }
-
+        
+        /* New Anti-DDoS Animations */
+        @keyframes clean-signal-flow {
+            to { stroke-dashoffset: -100; }
+        }
 
         body {
             font-family: 'Roboto', sans-serif;
@@ -115,6 +119,17 @@
             animation-fill-mode: forwards;
         }
 
+        .scrub-packet-in { /* New class for scrubbing visualization */
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background-color: var(--red-error);
+            border-radius: 50%;
+            box-shadow: 0 0 6px var(--red-error);
+            animation-name: ddos-packet-flow;
+            animation-timing-function: linear;
+            animation-fill-mode: forwards;
+        }
 
         .cable-ping {
             stroke: var(--secondary-yellow); stroke-width: 4px;
@@ -129,6 +144,12 @@
             animation: ddos-cable-flow 1s linear infinite;
         }
 
+        .cable-clean-signal { /* New class for clean traffic visualization */
+            stroke: var(--green-success);
+            stroke-width: 5px;
+            stroke-dasharray: 8 10;
+            animation: clean-signal-flow 1.2s linear infinite;
+        }
 
         .ping-packet-text {
             font-family: 'Courier New', Courier, monospace;
@@ -227,6 +248,7 @@
             background-image: url('https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png');
             background-size: contain; background-repeat: no-repeat;
             background-position: center; background-color: #fff;
+            background-position: 1px;
         }
 
         .screen-internet-icon {
@@ -234,7 +256,7 @@
         }
         .screen-internet-icon::before {
             content: "🌐";
-            font-size: 28px;
+            font-size: 50px;
             color: var(--primary-blue);
         }
         
@@ -493,7 +515,7 @@
             margin-top: 20px;
         }
          .vlan-modal-buttons button {
-            flex-grow: 1;
+           flex-grow: 1;
          }
     </style>
 </head>
@@ -516,7 +538,7 @@
             <button id="import-btn">Nhập File 📂</button>
             <button id="export-btn">Xuất File 💾</button>
         </div>
-         <h3>Nhật ký hệ thống</h3>
+        <h3>Nhật ký hệ thống</h3>
         <div class="log-panel"><ul id="log-list"></ul></div>
         <div class="control-buttons">
             <select id="add-device-select">
@@ -695,6 +717,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let pingSourceDevice = null;
     let pingTimeoutId = null;
     let ddosIntervals = {};
+    let scrubbingIntervals = {}; // New state for scrubbing animation
 
     let isConnecting = false;
     let connectionSourceId = null;
@@ -723,6 +746,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    // New function to stop scrubbing animation
+    const stopScrubbingAnimation = (routerId) => {
+        if (scrubbingIntervals[routerId]) {
+            clearInterval(scrubbingIntervals[routerId]);
+            delete scrubbingIntervals[routerId];
+        }
+    };
+
     const clearWorkspace = () => {
         Object.values(devices).forEach(d => {
             if (d.attackTimeoutId) clearTimeout(d.attackTimeoutId);
@@ -731,9 +762,11 @@ document.addEventListener('DOMContentLoaded', () => {
         cableSvg.innerHTML = '';
         ddosPacketContainer.innerHTML = '';
         Object.keys(ddosIntervals).forEach(stopDdosAnimation);
+        Object.keys(scrubbingIntervals).forEach(stopScrubbingAnimation); // Clear scrubbing anims
         devices = {};
         cables = {};
         ddosIntervals = {};
+        scrubbingIntervals = {};
         idCounter = 0;
         deviceCounters = {};
         cableCounter = 0;
@@ -852,22 +885,63 @@ document.addEventListener('DOMContentLoaded', () => {
         delete devices[deviceId];
         updateAllDeviceStates();
     };
-    
-    const isRouterProtectedBy = (routerId, protectionType) => {
-        return Object.values(cables).some(cable => {
+
+    const getConnectedProtectionDevice = (routerId, protectionType) => {
+        for (const cable of Object.values(cables)) {
             let neighborId = null;
             if (cable.from === routerId) neighborId = cable.to;
             else if (cable.to === routerId) neighborId = cable.from;
 
             if (neighborId && devices[neighborId] && devices[neighborId].type === protectionType) {
-                return true;
+                return neighborId; // Return the ID of the protection device
             }
-            return false;
-        });
+        }
+        return null;
     };
     
-    const isRouterScrubbed = (routerId) => isRouterProtectedBy(routerId, 'anti-ddos-system');
-    const isRouterProtectedByFirewall = (routerId) => isRouterProtectedBy(routerId, 'firewall');
+    const isRouterScrubbed = (routerId) => !!getConnectedProtectionDevice(routerId, 'anti-ddos-system');
+    const isRouterProtectedByFirewall = (routerId) => !!getConnectedProtectionDevice(routerId, 'firewall');
+
+    // New animation function for scrubbing effect
+    const startScrubbingAnimation = (routerId, antiDdosId) => {
+        if (scrubbingIntervals[routerId]) return;
+
+        const routerDevice = devices[routerId]?.element;
+        const antiDdosDevice = devices[antiDdosId]?.element;
+        if (!routerDevice || !antiDdosDevice) return;
+
+        scrubbingIntervals[routerId] = setInterval(() => {
+            if (!devices[routerId] || !devices[antiDdosId]) {
+                stopScrubbingAnimation(routerId);
+                return;
+            }
+            const routerRect = routerDevice.getBoundingClientRect();
+            const antiDdosRect = antiDdosDevice.getBoundingClientRect();
+            const workspaceRect = workspace.getBoundingClientRect();
+
+            const startX = routerRect.left + routerRect.width / 2 - workspaceRect.left + (Math.random() - 0.5) * 40;
+            const startY = routerRect.top + routerRect.height / 2 - workspaceRect.top + (Math.random() - 0.5) * 40;
+            const endX = antiDdosRect.left + antiDdosRect.width / 2 - workspaceRect.left;
+            const endY = antiDdosRect.top + antiDdosRect.height / 2 - workspaceRect.top;
+
+            const packet = document.createElement('div');
+            packet.className = 'scrub-packet-in';
+            packet.style.left = `${startX}px`;
+            packet.style.top = `${startY}px`;
+            
+            const translateX = endX - startX;
+            const translateY = endY - startY;
+            const distance = Math.sqrt(translateX * translateX + translateY * translateY);
+            const duration = distance / 250; 
+
+            packet.style.setProperty('--tx', `${translateX}px`);
+            packet.style.setProperty('--ty', `${translateY}px`);
+            packet.style.animationDuration = `${Math.max(0.3, duration)}s`;
+            
+            ddosPacketContainer.appendChild(packet);
+            packet.addEventListener('animationend', () => packet.remove());
+        }, 120);
+    };
 
     const startDdosAnimation = (ddosId, routerId) => {
         if (ddosIntervals[ddosId]) return;
@@ -904,9 +978,12 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     
     const updateDdosState = () => {
-        document.querySelectorAll('.cable-under-ddos, .device-ddos-victim, .under-ddos, .ddos-protected, .vpn-protected').forEach(el => {
-            el.classList.remove('cable-under-ddos', 'device-ddos-victim', 'under-ddos', 'ddos-protected', 'vpn-protected');
+        document.querySelectorAll('.cable-under-ddos, .device-ddos-victim, .under-ddos, .ddos-protected, .vpn-protected, .cable-clean-signal').forEach(el => {
+            el.classList.remove('cable-under-ddos', 'device-ddos-victim', 'under-ddos', 'ddos-protected', 'vpn-protected', 'cable-clean-signal');
         });
+
+        // Stop all scrubbing animations before re-evaluating
+        Object.keys(scrubbingIntervals).forEach(stopScrubbingAnimation);
 
         const attackedRouterIds = new Set();
         const scrubbedRouterIds = new Set();
@@ -923,11 +1000,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (neighbor && (neighbor.type === 'router' || neighbor.type === 'router-v2')) {
                     if (isRouterScrubbed(neighborId)) {
+                        const antiDdosId = getConnectedProtectionDevice(neighborId, 'anti-ddos-system');
                         scrubbedRouterIds.add(neighborId);
                         if (!ddosServer.isAttacking) {
                             addLog(`🛡️✨ Hệ thống Anti-DDoS đang lọc lưu lượng tấn công vào ${neighbor.name}.`, 'success');
                         }
                         startDdosAnimation(ddosId, neighborId);
+                        startScrubbingAnimation(neighborId, antiDdosId); // Start new scrubbing animation
+                        
+                        // Add class for clean signal cable
+                        const cleanSignalCable = Object.values(cables).find(c => (c.from === neighborId && c.to === antiDdosId) || (c.to === neighborId && c.from === antiDdosId));
+                        if(cleanSignalCable) {
+                            cleanSignalCable.element.classList.add('cable-clean-signal');
+                        }
+
                         isActivelyAttacking = true;
 
                     } else if (isRouterProtectedByFirewall(neighborId)) {
@@ -975,8 +1061,8 @@ document.addEventListener('DOMContentLoaded', () => {
                  if (device.vpnEnabled) {
                      device.element.classList.add('vpn-protected');
                      if (!device.element.dataset.notifiedProtected) {
-                        addLog(`✅ ${device.name} được bảo vệ bởi VPN riêng.`, 'success');
-                        device.element.dataset.notifiedProtected = true;
+                         addLog(`✅ ${device.name} được bảo vệ bởi VPN riêng.`, 'success');
+                         device.element.dataset.notifiedProtected = true;
                      }
                  } else {
                      device.element.classList.add('device-ddos-victim');
@@ -1017,9 +1103,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const reachableDevices = findReachableDevices(router.element.id);
             reachableDevices.forEach(devId => {
                  if(devices[devId]) {
-                    devices[devId].publicIp = router.publicIp;
-                    devices[devId].connectedRouterId = router.element.id;
-                }
+                     devices[devId].publicIp = router.publicIp;
+                     devices[devId].connectedRouterId = router.element.id;
+                 }
             })
         });
         Object.keys(devices).forEach(updateDeviceIpDisplayInWorkspace);
@@ -1364,7 +1450,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (device && device.ipEnabled && !device.privateIp) {
                          let newIp;
                          do {
-                            newIp = subnet + lastOctet++;
+                             newIp = subnet + lastOctet++;
                          } while (Object.values(devices).some(d => d.privateIp === newIp));
                          device.privateIp = newIp;
                          const ipInput = device.element.querySelector('.ip-input');
@@ -1383,9 +1469,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     devicesInVlan.forEach(device => {
                         if (device && device.ipEnabled && !device.privateIp) {
-                            let newIp;
+                             let newIp;
                              do {
-                                newIp = subnet + lastOctet++;
+                                 newIp = subnet + lastOctet++;
                              } while (Object.values(devices).some(d => d.privateIp === newIp));
                              device.privateIp = newIp;
                              const ipInput = device.element.querySelector('.ip-input');
@@ -1404,9 +1490,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 untaggedDevices.forEach(device => {
                      if (device && device.ipEnabled && !device.privateIp) {
-                        let newIp;
+                         let newIp;
                          do {
-                            newIp = untaggedSubnet + untaggedLastOctet++;
+                             newIp = untaggedSubnet + untaggedLastOctet++;
                          } while (Object.values(devices).some(d => d.privateIp === newIp));
                          device.privateIp = newIp;
                          const ipInput = device.element.querySelector('.ip-input');
@@ -1983,4 +2069,3 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
-
