@@ -5,101 +5,6 @@
   <title>Đăng nhập bằng tài khoản @stu.upt.edu.vn</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="google-signin-client_id" content="269825672835-sc59uotj8vd92vracvo5dl0okbin4a0f.apps.googleusercontent.com" />
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding-top: 80px;
-      background: #f9f9f9;
-    }
-
-    #error-message {
-      color: red;
-      margin-top: 20px;
-      font-weight: bold;
-    }
-
-    #login-box {
-      background: #ffffff;
-      padding: 40px;
-      margin: auto;
-      max-width: 400px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-    }
-
-    h2 {
-      color: #007bff;
-      margin-bottom: 20px;
-    }
-
-    .admin-login {
-      margin-top: 20px;
-      font-size: 13px;
-      color: #333;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .admin-login input {
-      width: 140px;
-      padding: 6px 8px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 13px;
-    }
-
-    .admin-login button {
-      padding: 6px 12px;
-      font-size: 13px;
-      background: #007bff;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    .admin-login button:hover {
-      background: #0056b3;
-    }
-  </style>
-</head>
-
-<body>
-  <h2>Nguyễn Anh Tú - K16THO0070</h2>
-
-  <div style="text-align: center; margin-bottom: 20px;">
-    <img src="logo.jpg" alt="Đại học Phan Thiết - Khoa CNTT" style="max-width: 100%; height: auto;" />
-  </div>
-
-  <div id="login-box">
-    <h2>👤 Đăng nhập bằng tài khoản Google UPT</h2>
-    <div id="g_id_onload"
-      data-client_id="269825672835-sc59uotj8vd92vracvo5dl0okbin4a0f.apps.googleusercontent.com"
-      data-callback="handleCredentialResponse"
-      data-auto_prompt="false"
-    ></div>
-    <div class="g_id_signin"
-      data-type="standard"
-      data-size="large"
-      data-theme="outline"
-      data-text="sign_in_with"
-      data-shape="rectangular"
-      data-logo_alignment="left"
-    ></div>
-
-    <div class="admin-login">
-      <input type="password" id="admin-code" placeholder="Admin Code" />
-      <button onclick="adminLogin()">Admin Login</button>
-    </div>
-
-    <div id="error-message"></div>
-  </div>
-
   <script>
     const ALLOWED_DOMAIN = "@stu.upt.edu.vn";
     const REDIRECT_PAGE = "A-Main/next.html";
@@ -272,6 +177,102 @@
       }
     }
   </script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding-top: 80px;
+      background: #f9f9f9;
+    }
+
+    #error-message {
+      color: red;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    #login-box {
+      background: #ffffff;
+      padding: 40px;
+      margin: auto;
+      max-width: 400px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+
+    h2 {
+      color: #007bff;
+      margin-bottom: 20px;
+    }
+
+    .admin-login {
+      margin-top: 20px;
+      font-size: 13px;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .admin-login input {
+      width: 140px;
+      padding: 6px 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 13px;
+    }
+
+    .admin-login button {
+      padding: 6px 12px;
+      font-size: 13px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .admin-login button:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>Nguyễn Anh Tú - K16THO0070</h2>
+
+  <div style="text-align: center; margin-bottom: 20px;">
+    <img src="logo.jpg" alt="Đại học Phan Thiết - Khoa CNTT" style="max-width: 100%; height: auto;" />
+  </div>
+
+  <div id="login-box">
+    <h2>👤 Đăng nhập bằng tài khoản Google UPT</h2>
+    <div id="g_id_onload"
+      data-client_id="269825672835-sc59uotj8vd92vracvo5dl0okbin4a0f.apps.googleusercontent.com"
+      data-callback="handleCredentialResponse"
+      data-auto_prompt="false"
+    ></div>
+    <div class="g_id_signin"
+      data-type="standard"
+      data-size="large"
+      data-theme="outline"
+      data-text="sign_in_with"
+      data-shape="rectangular"
+      data-logo_alignment="left"
+    ></div>
+
+    <div class="admin-login">
+      <input type="password" id="admin-code" placeholder="Admin Code" />
+      <button onclick="adminLogin()">Admin Login</button>
+    </div>
+
+    <div id="error-message"></div>
+  </div>
+
+  
 
   <div style="text-align:center; margin-top: 20px;">
     <script type="text/javascript">
