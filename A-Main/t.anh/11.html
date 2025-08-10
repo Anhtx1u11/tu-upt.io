@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reading Practice | Units 1-5</title>
+      <script>
+        // 1. Chỉ định URL duy nhất được phép truy cập trang này
+        const allowedReferrer = 'https://anhtu1.id.vn/A-Main/t.anh/opption2.html';
+
+        // 2. Kiểm tra trang mà người dùng vừa truy cập trước đó
+        //    Nếu không phải là trang được cho phép, hoặc nếu truy cập trực tiếp...
+        if (!document.referrer.startsWith(allowedReferrer)) {
+            // 3. ...thì chuyển hướng đến trang 'block.html'
+            window.location.href = 'block.html';
+        }
+    </script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #1c1e21;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .main-container {
+            max-width: 800px;
+            width: 100%;
+        }
+        h1, h2 {
+            color: #1d4ed8;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+        .unit-container {
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        .passage {
+            background-color: #f8f9fa;
+            border-left: 4px solid #1d4ed8;
+            padding: 15px;
+            margin-bottom: 25px;
+            font-size: 1.05em;
+        }
+        .question-block {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+        .question-text {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .options label {
+            display: block;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+        .options input, .options select, .options .input-answer {
+            margin-right: 10px;
+        }
+        .input-answer {
+             width: 50px;
+             text-align: center;
+             font-size: 1em;
+             border: 1px solid #ccc;
+             border-radius: 4px;
+             padding: 5px;
+        }
+        .check-button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #fff;
+            background-color: #2563eb;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+        .check-button:hover {
+            background-color: #1d4ed8;
+        }
+        .score {
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-top: 20px;
+            color: #1d4ed8;
+        }
+        .result-indicator {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        .correct {
+            color: #16a34a;
+        }
+        .incorrect {
+            color: #dc2626;
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-container">
+    <h1>📝 Reading Comprehension Practice</h1>
+
+    <div id="unit1" class="unit-container">
+        <h2>Unit 1: A day in the life of Mark Zuckerberg</h2>
+        <div class="passage">
+            Mark Zuckerberg is a busy guy. He runs Facebook, the social media giant, so it isn’t surprising that the technology wonder kid has quite a lot to do throughout the day. Despite being responsible for a company that makes over $400 billion every year, amazingly Zuckerberg still makes the time to exercise regularly, travel often, and spend time with his young family. How does he do it? Zuckerberg tries to keep his choices in life simple. Most people spend a lot of time thinking about what to wear or what to cook, where to go and what to do, but Zuckerberg never thinks about these things. He wakes up at the same time every day, checks Facebook and WhatsApp on his phone, then he usually works out in his personal gym at home. Zuckerberg typically exercises about three times a week, and sometimes he goes jogging with his pet dog. There’s nothing unusual about Zuckerberg’s diet. After exercising, he eats what he feels like for breakfast, then he’s ready for the day. Zuckerberg doesn’t like to waste time on small decisions. That’s also why he wears the same thing almost every day: jeans, trainers and a grey t-shirt. It’s not because he’s lazy or hates fashion, but because he doesn’t want to think about clothes. He wants to think about important things. Zuckerberg works 50 to 60 hours a week for his company, Facebook, but he thinks about the social media platform constantly. ‘I spend most of my time thinking about how to connect the world and serve our community better, but a lot of that time isn’t in our office or meeting with people,’ he says. Most of his work is away from the office – when he’s thinking of new ideas. When he’s not working, Zuckerberg spends some of his time learning new things. Currently, he’s studying Mandarin Chinese. He also tries to read as many books as he can — in 2015, he read a new book every two weeks. He believes in having personal goals in life – he thinks that we feel better when we learn or do new things. Travelling or working, Zuckerberg also spends a lot of time with his wife, Dr Priscilla Chan, and his two children. Like all parents, he thinks it’s important to have time with his family when they are young and growing up.
+        </div>
+        <div class="questions-container">
+            <div class="question-block" data-correct="B">
+                <p class="question-text">1. How does the writer feel about Zuckerberg’s lifestyle?</p>
+                <div class="options">
+                    <label><input type="radio" name="q1-1" value="A"> A. He thinks he shouldn’t work a lot of hours.</label>
+                    <label><input type="radio" name="q1-1" value="B"> B. He is surprised that he does so many things.</label>
+                    <label><input type="radio" name="q1-1" value="C"> C. He says he doesn’t have any time with his family.</label>
+                </div><span class="result-indicator"></span>
+            </div>
+            <div class="question-block" data-correct="C">
+                <p class="question-text">2. In the writer’s opinion, how is Mark Zuckerberg different from other people?</p>
+                <div class="options">
+                    <label><input type="radio" name="q1-2" value="A"> A. He does more exercise than most people.</label>
+                    <label><input type="radio" name="q1-2" value="B"> B. He spends more time using technology than other people.</label>
+                    <label><input type="radio" name="q1-2" value="C"> C. He spends very little time thinking about things like food or clothes.</label>
+                </div><span class="result-indicator"></span>
+            </div>
+            <div class="question-block" data-correct="B">
+                <p class="question-text">3. How often does Mark Zuckerberg do exercise?</p>
+                <div class="options">
+                    <label><input type="radio" name="q1-3" value="A"> A. every day</label>
+                    <label><input type="radio" name="q1-3" value="B"> B. quite often</label>
+                    <label><input type="radio" name="q1-3" value="C"> C. not very often</label>
+                </div><span class="result-indicator"></span>
+            </div>
+            <div class="question-block" data-correct="B">
+                <p class="question-text">4. In paragraph 2, what does ‘works out’ mean?</p>
+                <div class="options">
+                    <label><input type="radio" name="q1-4" value="A"> A. does a job</label>
+                    <label><input type="radio" name="q1-4" value="B"> B. does some exercise</label>
+                    <label><input type="radio" name="q1-4" value="C"> C. calls people</label>
+                </div><span class="result-indicator"></span>
+            </div>
+            <div class="question-block" data-correct="B">
+                <p class="question-text">5. What does Mark Zuckerberg eat for breakfast?</p>
+                <div class="options">
+                    <label><input type="radio" name="q1-5" value="A"> A. the same things every day</label>
+                    <label><input type="radio" name="q1-5" value="B"> B. whatever he wants to eat</label>
+                    <label><input type="radio" name="q1-5" value="C"> C. a special diet</label>
+                </div><span class="result-indicator"></span>
+            </div>
+            <div class="question-block" data-correct="C">
+                <p class="question-text">6. What do we find out about the clothes Mark Zuckerberg wears?</p>
+                <div class="options">
+                    <label><input type="radio" name="q1-6" value="A"> A. He never wears T-shirts.</label>
+                    <label><input type="radio" name="q1-6" value="B"> B. He often wears old clothes.</label>
+                    <label><input type="radio" name="q1-6" value="C"> C. He usually wears the same clothes.</label>
+                </div><span class="result-indicator"></span>
+            </div>
+            <div class="question-block" data-correct="B">
+                <p class="question-text">7. What does the writer say about Mark Zuckerberg’s work?</p>
+                <div class="options">
+                    <label><input type="radio" name="q1-7" value="A"> A. He is constantly in his office.</label>
+                    <label><input type="radio" name="q1-7" value="B"> B. He often isn’t at the company.</label>
+                    <label><input type="radio" name="q1-7" value="C"> C. He doesn’t think about the company a lot.</label>
+                </div><span class="result-indicator"></span>
+            </div>
+            <div class="question-block" data-correct="B">
+                <p class="question-text">8. According to the writer, what is Mark Zuckerberg doing these days?</p>
+                <div class="options">
+                    <label><input type="radio" name="q1-8" value="A"> A. reading two books a week</label>
+                    <label><input type="radio" name="q1-8" value="B"> B. learning a new language</label>
+                    <label><input type="radio" name="q1-8" value="C"> C. travelling</label>
+                </div><span class="result-indicator"></span>
+            </div>
+            <div class="question-block" data-correct="C">
+                <p class="question-text">9. What do we find out about his private life?</p>
+                <div class="options">
+                    <label><input type="radio" name="q1-9" value="A"> A. He isn’t married yet.</label>
+                    <label><input type="radio" name="q1-9" value="B"> B. He doesn’t have any kids.</label>
+                    <label><input type="radio" name="q1-9" value="C"> C. He is a father.</label>
+                </div><span class="result-indicator"></span>
+            </div>
+            <div class="question-block" data-correct="A">
+                <p class="question-text">10. In paragraph 4, what does ‘personal goals’ mean?</p>
+                <div class="options">
+                    <label><input type="radio" name="q1-10" value="A"> A. things he wants to do in life</label>
+                    <label><input type="radio" name="q1-10" value="B"> B. people who are important to him in life</label>
+                    <label><input type="radio" name="q1-10" value="C"> C. characteristics that he has</label>
+                </div><span class="result-indicator"></span>
+            </div>
+        </div>
+        <button class="check-button" onclick="checkAnswers('unit1')">Kiểm tra Unit 1</button>
+        <div class="score" id="score-unit1"></div>
+    </div>
+    
+    <div id="unit2" class="unit-container">
+        <h2>Unit 2: Wimbledon</h2>
+        <div class="passage">
+             Wimbledon is the oldest tennis tournament in the world, and all the top tennis players want to win it. It’s very different from most of the other international tournaments, not only because it’s important and it’s on grass, but because players have to follow some very old-fashioned rules. Firstly, for example, they have to wear white – white sports shoes and socks as well as white tops and white shorts or skirts. Nowadays, they can wear some colour on their clothes, but only if the colour is one centimetre wide or less. The rule is unpopular with some players because they think it is old-fashioned, and it makes people think that tennis is not a modern sport. They also want to wear what they feel like wearing, and some would like to wear advertising on their clothes, but they can’t. Other players like the rule – it makes Wimbledon feel special and different. Women are allowed to wear shorts at Wimbledon, but most players prefer to wear sports dresses or skirts. Roger Federer, one of the most successful men’s players, sometimes wears a smart, white evening jacket when he walks on to the court at Wimbledon! He takes it off when he starts the match! Another tradition is also unusual in tennis. At Wimbledon, female players are called Miss or Mrs. So, the umpire will say, for example, ‘Game, Set and Match to Miss Williams’ at the end of the match. Again, some people like the tradition, but other players think it’s too old-fashioned. Why can’t they use their whole name or just their surname like they do with the men? In other ways, Wimbledon is a very modern tournament. The Centre Court at Wimbledon is a fantastic place to play and watch tennis. It has an expensive and brilliantly-designed roof, so players don’t have to stop playing when it rains – something that is not uncommon in London, even in July, when the tournament takes place. Winners get over £2 million in prize money, and losing finalists get half that amount. The tournament makes a lot of money, not just from ticket sales, but also from television money, and from sales of food and souvenirs. Wimbledon is famous for selling strawberries and cream, and visitors eat an amazing 140,000 servings of strawberries every year. That’s a lot of strawberries – and a great tradition!
+        </div>
+        <div class="questions-container">
+            <p><strong>Are the sentences right (R), wrong (W), or doesn’t say (DS)?</strong></p>
+            <div class="question-block" data-correct="R">
+                <p class="question-text">1. Both men and women have to wear the same colour clothes at Wimbledon.</p>
+                <div class="options"><label><input type="radio" name="q2-1" value="R"> R</label><label><input type="radio" name="q2-1" value="W"> W</label><label><input type="radio" name="q2-1" value="DS"> DS</label></div><span class="result-indicator"></span>
+            </div>
+            <div class="question-block" data-correct="R">
+                <p class="question-text">2. Wearing a blue top is not allowed at Wimbledon.</p>
+                 <div class="options"><label><input type="radio" name="q2-2" value="R"> R</label><label><input type="radio" name="q2-2" value="W"> W</label><label><input type="radio" name="q2-2" value="DS"> DS</label></div><span class="result-indicator"></span>
+            </div>
+            <div class="question-block" data-correct="W">
+                <p class="question-text">3. Most tennis players hate the rules about clothes at Wimbledon.</p>
+                 <div class="options"><label><input type="radio" name="q2-3" value="R"> R</label><label><input type="radio" name="q2-3" value="W"> W</label><label><input type="radio" name="q2-3" value="DS"> DS</label></div><span class="result-indicator"></span>
+            </div>
+            <div class="question-block" data-correct="DS">
+                <p class="question-text">4. A lot of people think that tennis is an old-fashioned sport.</p>
+                 <div class="options"><label><input type="radio" name="q2-4" value="R"> R</label><label><input type="radio" name="q2-4" value="W"> W</label><label><input type="radio" name="q2-4" value="DS"> DS</label></div><span class="result-indicator"></span>
+            </div>
+            <div class="question-block" data-correct="R">
+                <p class="question-text">5. Players don’t wear advertising on their clothes at Wimbledon.</p>
+                 <div class="options"><label><input type="radio" name="q2-5" value="R"> R</label><label><input type="radio" name="q2-5" value="W"> W</label><label><input type="radio" name="q2-5" value="DS"> DS</label></div><span class="result-indicator"></span>
+            </div>
+            <div class="question-block" data-correct="W">
+                <p class="question-text">6. Men and women are called by their formal title (Mr, Mrs, etc.) at Wimbledon.</p>
+                 <div class="options"><label><input type="radio" name="q2-6" value="R"> R</label><label><input type="radio" name="q2-6" value="W"> W</label><label><input type="radio" name="q2-6" value="DS"> DS</label></div><span class="result-indicator"></span>
+            </div>
+            <div class="question-block" data-correct="W">
+                <p class="question-text">7. The Centre Court at Wimbledon is old-fashioned.</p>
+                 <div class="options"><label><input type="radio" name="q2-7" value="R"> R</label><label><input type="radio" name="q2-7" value="W"> W</label><label><input type="radio" name="q2-7" value="DS"> DS</label></div><span class="result-indicator"></span>
+            </div>
+            <div class="question-block" data-correct="W">
+                <p class="question-text">8. Winners and losers in the final get almost the same money.</p>
+                 <div class="options"><label><input type="radio" name="q2-8" value="R"> R</label><label><input type="radio" name="q2-8" value="W"> W</label><label><input type="radio" name="q2-8" value="DS"> DS</label></div><span class="result-indicator"></span>
+            </div>
+            <div class="question-block" data-correct="DS">
+                <p class="question-text">9. Wimbledon makes most of its money from TV.</p>
+                 <div class="options"><label><input type="radio" name="q2-9" value="R"> R</label><label><input type="radio" name="q2-9" value="W"> W</label><label><input type="radio" name="q2-9" value="DS"> DS</label></div><span class="result-indicator"></span>
+            </div>
+            <div class="question-block" data-correct="R">
+                <p class="question-text">10. Eating strawberries is very popular at Wimbledon.</p>
+                 <div class="options"><label><input type="radio" name="q2-10" value="R"> R</label><label><input type="radio" name="q2-10" value="W"> W</label><label><input type="radio" name="q2-10" value="DS"> DS</label></div><span class="result-indicator"></span>
+            </div>
+        </div>
+        <button class="check-button" onclick="checkAnswers('unit2')">Kiểm tra Unit 2</button>
+        <div class="score" id="score-unit2"></div>
+    </div>
+    
+    <div id="unit3" class="unit-container">
+        <h2>Unit 3: Taking the ferry</h2>
+        <div class="passage">
+            <p><strong>A</strong><br>Nowadays, bridges and tunnels mean that it’s easier and quicker, and often cheaper, to drive to places, or to take the train, than it is to cross rivers or seas on a ferry. The eight-kilometre-long Oresund Bridge links Sweden to Denmark, changing what was a long trip into what is now an easy commute. The Channel Tunnel between England and France means that you can leave one country and arrive in the other before you finish drinking your cappuccino. The problem is that cars and underground trains are not as romantic as ferries. It may be faster to use modern transport options but many people still prefer to take the ferry.</p>
+            <p><strong>B</strong><br>Having time to look at the scenery, to relax and breathe, and to feel you are moving along slowly and naturally are just some of the reasons why travellers and commuters often prefer ferries. Urban ferry rides, which are short and cheap, are a daily ritual for many people. In Hong Kong, for example, many commuters choose the slow ferry over the fast underground when crossing Victoria Harbour. Enjoying the sea breeze at sunset makes many feel much better than being in a crowded train. From the ferry, you can see Hong Kong’s office towers in multi-coloured lights, attractive mountain tops, and the occasional historic ship sailing by. It’s better to get home late, feeling relaxed, than to get home early, feeling stressed.</p>
+            <p><strong>C</strong><br>In New York City, more than 100,000 people ride ferries daily, and, every day, 80,000 people use ferries to get about Kerala in India. From the deck of the Staten Island ferry, which takes twenty-five minutes to go from New York to Staten Island, you can see amazing skyscrapers and monuments like the Statue of Liberty. From a ferry in Kerala, you can see kids riding bicycles and workers picking bananas and coconuts or laying laundry out to dry.</p>
+            <p><strong>D</strong><br>Taking a ferry is a great way to get a feel for the rhythms of a place and even to meet some fellow passengers. In south-eastern Alaska, for example, the ferry system is the water highway for Alaskans. Being on the ferry is the best way to meet the locals. People tell stories and make friends on the ferries, and look at the scenery, thinking about why they love living in Alaska. As a visitor, it is a way to fall in love with the place.</p>
+        </div>
+        <div class="questions-container">
+            <p><strong>Match the questions to the paragraphs (A–D).</strong></p>
+            <div class="question-block" data-correct="D">
+                <p class="question-text">1. says that tourists get to know people from the area by taking this ferry?</p>
+                <div class="options"><input class="input-answer" type="text" maxlength="1"></div><span class="result-indicator"></span>
+            </div>
+            <div class="question-block" data-correct="C">
+                <p class="question-text">2. tells you how long one of the ferry journeys lasts?</p>
+                <div class="options"><input class="input-answer" type="text" maxlength="1"></div><span class="result-indicator"></span>
+            </div>
+            <div class="question-block" data-correct="D">
+                <p class="question-text">3. says that people like this place more after going on a ferry ride?</p>
+                <div class="options"><input class="input-answer" type="text" maxlength="1"></div><span class="result-indicator"></span>
+            </div>
+            <div class="question-block" data-correct="B">
+                <p class="question-text">4. describes how people feel better after a ferry ride at the end of a working day?</p>
+                <div class="options"><input class="input-answer" type="text" maxlength="1"></div><span class="result-indicator"></span>
+            </div>
+            <div class="question-block" data-correct="A">
+                <p class="question-text">5. describes the exact distance of a particular journey?</p>
+                <div class="options"><input class="input-answer" type="text" maxlength="1"></div><span class="result-indicator"></span>
+            </div>
+            <div class="question-block" data-correct="A">
+                <p class="question-text">6. says why people don’t have to take ferries anymore?</p>
+                <div class="options"><input class="input-answer" type="text" maxlength="1"></div><span class="result-indicator"></span>
+            </div>
+            <div class="question-block" data-correct="C">
+                <p class="question-text">7. describes two countries with very different ferry experiences?</p>
+                <div class="options"><input class="input-answer" type="text" maxlength="1"></div><span class="result-indicator"></span>
+            </div>
+            <div class="question-block" data-correct="A">
+                <p class="question-text">8. describes different ways of travelling from one country to another?</p>
+                <div class="options"><input class="input-answer" type="text" maxlength="1"></div><span class="result-indicator"></span>
+            </div>
+            <div class="question-block" data-correct="A">
+                <p class="question-text">9. says that ferries are more expensive than other types of transport? (Answer A, B, C, D, or DS for Doesn't Say)</p>
+                <div class="options"><input class="input-answer" type="text" maxlength="2"></div><span class="result-indicator"></span>
+            </div>
+            <div class="question-block" data-correct="C">
+                <p class="question-text">10. describes how you can see people working from this ferry?</p>
+                <div class="options"><input class="input-answer" type="text" maxlength="1"></div><span class="result-indicator"></span>
+            </div>
+        </div>
+        <button class="check-button" onclick="checkAnswers('unit3')">Kiểm tra Unit 3</button>
+        <div class="score" id="score-unit3"></div>
+    </div>
+    
+    <div id="unit4" class="unit-container">
+        <h2>Unit 4: Two adventurers of the year</h2>
+        <div class="passage">
+            <p><strong>Krzysztof Starnawski</strong><br>When Polish explorer Krzysztof Starnawski was eighteen years old, he went on a diving course and tried to dive, but couldn’t because he had problems with pressure in his ears. A few years later, he decided to take up a new challenge: caving. From the start, he loved his new sport. In Poland, there are a number of deep caves and Krzysztof began to explore them. Every time he reached the end of a new cave, he came across deep, dark water, but he knew that he couldn’t go into the water because of his ears. Then, during a cycling trip, he met a diving instructor who taught him how to deal with the problems with his ears. As a result, he completed a diving course. He was interested in an underwater cave in the Czech Republic called Hranicka Propast. The cave was deeper than any he knew. He wondered how deep it really was and spent many hours diving into the cave to explore it. Eventually, he decided that it wasn’t safe to dive any deeper so he started using an ROV, a type of robot explorer, to go down into the cave. In November 2016, the ROV hit the bottom, 404 metres below the surface. It was the deepest underwater cave in the world.</p>
+            <p><strong>Ashima Shiraishi</strong><br>A New Yorker, Ashima Shiraishi discovered rock climbing when she was six years old. She was playing with friends after school in Central Park and saw some men on a climbing wall known as Rat Rock. She decided that she wanted to have a try. She started climbing in trainers and kept falling, but she loved it. She was having so much fun that she didn’t mind that the men were laughing at her because she was hopeless at climbing. Eventually she got to the top. From that moment she was determined to be a champion climber. Ashima’s climbing is a family effort. Her father travels round the world with her, and her mother helps make the clothes she wears. Although only fifteen, she is a champion American rock climber, and well known in her own country. Many people believe that she could be the best climber in the world one day. Ashima’s ambition is to win an Olympic medal at the next Olympic Games. Her talent and her dreams are big.</p>
+        </div>
+        <div class="questions-container">
+            <p><strong>Is the following information given for Krzysztof (K), Ashima (A) or both of them (B)?</strong></p>
+            <div class="question-block" data-correct="A">
+                <p class="question-text">1. Their plans for the future</p>
+                <div class="options"><label><input type="radio" name="q4-1" value="K"> K</label><label><input type="radio" name="q4-1" value="A"> A</label><label><input type="radio" name="q4-1" value="B"> B</label></div><span class="result-indicator"></span>
+            </div>
+            <div class="question-block" data-correct="K">
+                <p class="question-text">2. A course they did once</p>
+                <div class="options"><label><input type="radio" name="q4-2" value="K"> K</label><label><input type="radio" name="q4-2" value="A"> A</label><label><input type="radio" name="q4-2" value="B"> B</label></div><span class="result-indicator"></span>
+            </div>
+            <div class="question-block" data-correct="A">
+                <p class="question-text">3. How people in their family help them</p>
+                <div class="options"><label><input type="radio" name="q4-3" value="K"> K</label><label><input type="radio" name="q4-3" value="A"> A</label><label><input type="radio" name="q4-3" value="B"> B</label></div><span class="result-indicator"></span>
+            </div>
+            <div class="question-block" data-correct="B">
+                <p class="question-text">4. Why they are famous now</p>
+                <div class="options"><label><input type="radio" name="q4-4" value="K"> K</label><label><input type="radio" name="q4-4" value="A"> A</label><label><input type="radio" name="q4-4" value="B"> B</label></div><span class="result-indicator"></span>
+            </div>
+            <div class="question-block" data-correct="K">
+                <p class="question-text">5. A place they were the first person to go to</p>
+                <div class="options"><label><input type="radio" name="q4-5" value="K"> K</label><label><input type="radio" name="q4-5" value="A"> A</label><label><input type="radio" name="q4-5" value="B"> B</label></div><span class="result-indicator"></span>
+            </div>
+            <div class="question-block" data-correct="B">
+                <p class="question-text">6. Where they first started doing a new sport or skill</p>
+                <div class="options"><label><input type="radio" name="q4-6" value="K"> K</label><label><input type="radio" name="q4-6" value="A"> A</label><label><input type="radio" name="q4-6" value="B"> B</label></div><span class="result-indicator"></span>
+            </div>
+            <div class="question-block" data-correct="K">
+                <p class="question-text">7. A medical problem they had</p>
+                <div class="options"><label><input type="radio" name="q4-7" value="K"> K</label><label><input type="radio" name="q4-7" value="A"> A</label><label><input type="radio" name="q4-7" value="B"> B</label></div><span class="result-indicator"></span>
+            </div>
+            <div class="question-block" data-correct="B">
+                <p class="question-text">8. Problems they had when they first tried a new sport or skill</p>
+                <div class="options"><label><input type="radio" name="q4-8" value="K"> K</label><label><input type="radio" name="q4-8" value="A"> A</label><label><input type="radio" name="q4-8" value="B"> B</label></div><span class="result-indicator"></span>
+            </div>
+            <div class="question-block" data-correct="K">
+                <p class="question-text">9. Two different sports or skills they can do</p>
+                <div class="options"><label><input type="radio" name="q4-9" value="K"> K</label><label><input type="radio" name="q4-9" value="A"> A</label><label><input type="radio" name="q4-9" value="B"> B</label></div><span class="result-indicator"></span>
+            </div>
+            <div class="question-block" data-correct="B">
+                <p class="question-text">10. How they felt after trying a sport or skill for the first time</p>
+                <div class="options"><label><input type="radio" name="q4-10" value="K"> K</label><label><input type="radio" name="q4-10" value="A"> A</label><label><input type="radio" name="q4-10" value="B"> B</label></div><span class="result-indicator"></span>
+            </div>
+        </div>
+        <button class="check-button" onclick="checkAnswers('unit4')">Kiểm tra Unit 4</button>
+        <div class="score" id="score-unit4"></div>
+    </div>
+    
+    <div id="unit5" class="unit-container">
+        <h2>Unit 5: Fresno – the recycling city</h2>
+        <div class="passage">
+            <p>Fresno in California is a small community 200 miles north of Los Angeles, mostly known for its agriculture. (0) __ B __ While many cities recycle 30 to 50 per cent of their waste, Fresno recycles as much as 73 per cent of its rubbish.</p>
+            <p>(1) <select data-correct="D" class="gap-fill"><option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option></select> Fresno is proud of being a city that is great at recycling.</p>
+            <p>Patrick Wiemiller, Fresno’s public utilities director, showed me how the city does it. ‘We provide a lot of education,’ Wiemiller told me as we drove across town. ‘To really get people to recycle, you have to change a family’s behaviour. We find the best way of doing this is through children in the schools.’ (2) <select data-correct="G" class="gap-fill"><option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option></select> Mums and dads are more likely to listen to messages from family members than to messages from public officials.</p>
+            <p>As a result, the public utilities department is now confident that recycling 90 per cent of all waste is a possible goal. (3) <select data-correct="F" class="gap-fill"><option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option></select> That may sound impossible, but it is a great aim to have.</p>
+            <p>With so much waste to recycle, there are big challenges for private companies that have to recycle all the waste. (4) <select data-correct="A" class="gap-fill"><option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option></select> ‘When we started, it was just paper, aluminium, tin, and glass,’ Mohoff said. ‘Now we can do all kinds of plastics. And film too.’ In total, that is nearly 7,000 tons of things that Fresnans throw out each month that end up being reused.</p>
+            <p>Why does a community like Fresno care so deeply about recycling? One Fresnan farmer explained that aside from feeling they should look after the planet, it’s all about agriculture. (5) <select data-correct="E" class="gap-fill"><option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option></select> But putting nutritious material back into soils improves crops and livestock – and ultimately, the strawberries, pistachios, or garlic that the rest of the country gets from this region.</p>
+        </div>
+        <div class="questions-container">
+            <p><strong>Complete the gaps with the missing sentences (A–G).</strong></p>
+            <ul>
+                <li><strong>A.</strong> John Mohoff of Sunset Waste Systems took me through his processing facility, a big place that sorts plastics, metals and papers.</li>
+                <li><strong>B.</strong> But, among cities with more than 100,000 people, Fresno is one of the best at recycling.</li>
+                <li><strong>C.</strong> These results are better than many people in the city predicted.</li>
+                <li><strong>D.</strong> That means that the city produces more reusable material than most other cities and is, ultimately, a healthier city than most.</li>
+                <li><strong>E.</strong> A landfill is not good for the countryside – it produces little value for farmland.</li>
+                <li><strong>F.</strong> One day, the city’s government has ambitions to produce zero waste.</li>
+                <li><strong>G.</strong> Asking school kids to persuade their parents to do more recycling has been very successful.</li>
+            </ul>
+        </div>
+        <button class="check-button" onclick="checkAnswers('unit5')">Kiểm tra Unit 5</button>
+        <div class="score" id="score-unit5"></div>
+    </div>
+</div>
+
+<script>
+    function checkAnswers(unitId) {
+        const unit = document.getElementById(unitId);
+        const questions = unit.querySelectorAll('.question-block, .gap-fill');
+        let score = 0;
+        
+        questions.forEach((question, index) => {
+            const correctAnswer = question.dataset.correct;
+            let userAnswer = '';
+            
+            // Determine the question type and get the user's answer
+            const radio = question.querySelector('input[type="radio"]:checked');
+            const textInput = question.querySelector('input.input-answer');
+            const select = question.tagName === 'SELECT' ? question : null;
+
+            if (radio) {
+                userAnswer = radio.value;
+            } else if (textInput) {
+                userAnswer = textInput.value.trim().toUpperCase();
+            } else if (select) {
+                userAnswer = select.value;
+            }
+
+            const resultIndicator = question.tagName === 'SELECT' 
+                ? question.parentElement.appendChild(document.createElement('span')) 
+                : question.querySelector('.result-indicator');
+            
+            if (!resultIndicator) return;
+            
+            resultIndicator.className = 'result-indicator'; // Reset class
+
+            if (userAnswer === correctAnswer) {
+                score++;
+                resultIndicator.textContent = '✔️';
+                resultIndicator.classList.add('correct');
+            } else {
+                resultIndicator.textContent = `❌ (Đáp án: ${correctAnswer})`;
+                resultIndicator.classList.add('incorrect');
+            }
+        });
+        
+        const scoreDiv = unit.querySelector('.score');
+        const totalQuestions = unitId === 'unit5' ? 5 : 10;
+        scoreDiv.textContent = `Điểm của bạn: ${score} / ${totalQuestions}`;
+    }
+</script>
+
+</body>
+</html>
