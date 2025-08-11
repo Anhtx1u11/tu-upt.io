@@ -5,19 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chọn Bài Học (Unit 1-10)</title>
     <script>
-        // 1. Chỉ định URL duy nhất được phép truy cập trang này
         const allowedReferrer = 'https://anhtu1.id.vn/A-Main/t.anh/chon.html';
-
-        // 2. Kiểm tra trang mà người dùng vừa truy cập trước đó
-        //    Nếu không phải là trang được cho phép, hoặc nếu truy cập trực tiếp...
         if (!document.referrer.startsWith(allowedReferrer)) {
-        //    // 3. ...thì chuyển hướng đến trang 'block.html'
             window.location.href = 'block.html';
-         }
+        }
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        /* --- General Styles --- */
         body {
             margin: 0;
             font-family: 'Poppins', sans-serif;
@@ -26,17 +20,39 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 20px; /* Thêm padding để card không dính vào cạnh màn hình nhỏ */
+            padding: 20px;
+            flex-direction: column;
+        }
+
+        /* ⚠️ Thanh cảnh báo */
+        .warning {
+            background: #ff0000;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+            animation: blink 1s infinite;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
 
         .card {
             background: white;
-            padding: 30px 40px;
+            padding: 25px 30px;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             text-align: center;
-            width: 100%; /* Cho phép card co giãn */
-            max-width: 400px; /* Giới hạn độ rộng tối đa */
+            width: 100%;
+            max-width: 400px;
             animation: fadeIn 1s ease;
         }
 
@@ -46,7 +62,7 @@
         }
 
         .card h1 {
-            font-size: 28px;
+            font-size: 26px;
             color: #333;
             margin-bottom: 20px;
         }
@@ -54,22 +70,22 @@
         .unit-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
+            gap: 12px;
         }
 
         .unit-button {
             background: #4CAF50;
             color: white;
             border: none;
-            border-radius: 12px;
-            padding: 15px 10px;
-            font-size: 16px;
+            border-radius: 10px;
+            padding: 10px 5px; /* 🔹 Nút nhỏ hơn */
+            font-size: 14px; /* 🔹 Chữ nhỏ hơn */
             cursor: pointer;
             transition: transform 0.2s, background 0.3s;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 6px;
         }
 
         .unit-button:hover {
@@ -78,41 +94,43 @@
         }
 
         .unit-button i {
-            font-size: 18px;
+            font-size: 16px;
         }
-        
-        /* --- Mobile Responsive Styles --- */
+
         @media (max-width: 600px) {
             body {
-                padding: 15px; /* Giảm padding trên điện thoại */
-                align-items: flex-start; /* Căn nội dung lên đầu trên màn hình nhỏ */
+                padding: 15px;
+                align-items: flex-start;
                 padding-top: 5vh;
             }
 
             .card {
-                padding: 25px 20px; /* Giảm padding bên trong card */
-                width: 100%; /* Đảm bảo card chiếm toàn bộ chiều rộng cho phép */
+                padding: 20px 15px;
             }
 
             .card h1 {
-                font-size: 24px; /* Giảm cỡ chữ tiêu đề */
+                font-size: 22px;
             }
-            
-            /* THAY ĐỔI QUAN TRỌNG: Chuyển lưới thành 1 cột trên điện thoại */
+
             .unit-grid {
-                grid-template-columns: 1fr; /* Chỉ 1 cột */
-                gap: 12px; /* Giảm khoảng cách giữa các nút */
+                grid-template-columns: 1fr;
+                gap: 10px;
             }
-            
+
             .unit-button {
-                padding: 18px 10px; /* Tăng chiều cao nút cho dễ bấm hơn */
-                font-size: 17px; /* Tăng nhẹ cỡ chữ cho dễ đọc */
+                padding: 14px 8px;
+                font-size: 15px;
             }
         }
-        
     </style>
 </head>
 <body>
+    <!-- ⚠️ Cảnh báo -->
+    <div class="warning">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        Mọi trách nhiệm bạn phải chịu trách nhiệm
+    </div>
+
     <div class="card">
         <h1><i class="fa-solid fa-book"></i> Chọn Bài Học</h1>
         <div class="unit-grid">
@@ -126,39 +144,20 @@
             <button class="unit-button" onclick="goToUnit(8)"><i class="fa-solid fa-book-open"></i> Unit 8</button>
             <button class="unit-button" onclick="goToUnit(9)"><i class="fa-solid fa-book-open"></i> Unit 9</button>
             <button class="unit-button" onclick="goToUnit(10)"><i class="fa-solid fa-book-open"></i> Unit 10</button>
-             <button class="unit-button" onclick="goToUnit(11)"><i class="fa-solid fa-book-open"></i> Reading 1-5</button>
+            <button class="unit-button" onclick="goToUnit(11)"><i class="fa-solid fa-book-open"></i> Reading 1-5</button>
             <button class="unit-button" onclick="goToUnit(12)"><i class="fa-solid fa-book-open"></i> Reading 6-10</button>
         </div>
     </div>
 
     <script>
-    /**
-     * Hàm này được gọi khi một nút Unit được nhấn.
-     * Nó sẽ tạo một token bảo mật và chuyển hướng đến trang bài học tương ứng.
-     * @param {number} unitNumber - Số thứ tự của bài học (1, 2, 3,...)
-     */
     function goToUnit(unitNumber) {
-        // 1. Tạo token bảo mật dùng một lần
-        // Lấy thời gian hiện tại (timestamp)
         const timestamp = Date.now();
-        // Tạo một chuỗi ngẫu nhiên ngắn (nonce)
         const nonce = Math.random().toString(36).substring(2, 8);
-        // Kết hợp lại thành token
         const token = `${timestamp}:${nonce}`;
-
-        // 2. Xây dựng URL đích
-        // Tên file bài học, ví dụ: "1.html", "2.html",...
         const targetFile = unitNumber + '.html';
-        // Gắn token vào URL dưới dạng một tham số truy vấn (query parameter)
         const finalUrl = `${targetFile}?token=${token}`;
-        
-        // 3. Chuyển hướng người dùng đến trang bài học với URL đã có token
         window.location.href = finalUrl;
     }
     </script>
-
 </body>
 </html>
-
-
-
