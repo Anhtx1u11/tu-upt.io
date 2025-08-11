@@ -1,0 +1,1164 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+:root {
+    --bg-dark: #1e1e2f;
+    --bg-light: #27293d;
+    --primary-blue: #0d6efd;
+    --secondary-yellow: #ffc107;
+    --text-light: #e0e0e0;
+    --border-color: #44475a;
+    --red-error: #e53935;
+    --green-success: #43a047;
+    --purple-action: #6f42c1;
+    --cable-color: #78909c;
+    --export-color: #20c997;
+    --import-color: #17a2b8;
+    --ddos-color: #b71c1c;
+    /* VLAN Colors */
+    --vlan-color-1: #e91e63;
+    --vlan-color-2: #9c27b0;
+    --vlan-color-3: #3f51b5;
+    --vlan-color-4: #03a9f4;
+    --vlan-color-5: #009688;
+    --vlan-color-6: #8bc34a;
+    --vlan-color-7: #ff9800;
+    --vlan-color-8: #795548;
+}
+
+@keyframes blink-error {
+    0% {
+        box-shadow: 0 0 10px var(--red-error);
+    }
+    50% {
+        box-shadow: none;
+    }
+    100% {
+        box-shadow: 0 0 10px var(--red-error);
+    }
+}
+
+@keyframes highlight-success {
+    0% {
+        box-shadow: 0 0 12px var(--green-success);
+    }
+    100% {
+        box-shadow: none;
+    }
+}
+
+@keyframes data-flow {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes ddos-pulse {
+    0% {
+        box-shadow: 0 0 18px var(--red-error), inset 0 0 10px rgba(255, 82, 82, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 8px var(--red-error), inset 0 0 4px rgba(255, 82, 82, 0.2);
+    }
+    100% {
+        box-shadow: 0 0 18px var(--red-error), inset 0 0 10px rgba(255, 82, 82, 0.5);
+    }
+}
+
+@keyframes ddos-packet-flow {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+        transform: translate(var(--tx), var(--ty));
+    }
+}
+
+@keyframes ddos-cable-flow {
+    to {
+        stroke-dashoffset: -100;
+    }
+}
+
+/* New Anti-DDoS Animations */
+@keyframes clean-signal-flow {
+    to {
+        stroke-dashoffset: -100;
+    }
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+    width: 95%;
+    max-width: 1600px;
+    height: 90vh;
+    background-color: var(--bg-light);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-color);
+    position: relative;
+}
+
+.workspace {
+    flex-grow: 1;
+    position: relative;
+    overflow: hidden;
+    background-image: radial-gradient(var(--border-color) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+#cable-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+#cable-svg line {
+    pointer-events: all;
+    cursor: pointer;
+    transition: opacity 0.4s ease-in-out, stroke 0.3s linear;
+}
+
+#ddos-packet-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.ddos-packet {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background-color: var(--secondary-yellow);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--secondary-yellow);
+    animation-name: ddos-packet-flow;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+}
+
+.scrub-packet-in {
+    /* New class for scrubbing visualization */
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background-color: var(--red-error);
+    border-radius: 50%;
+    box-shadow: 0 0 6px var(--red-error);
+    animation-name: ddos-packet-flow;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+}
+
+.cable-ping {
+    stroke: var(--secondary-yellow);
+    stroke-width: 4px;
+    stroke-dasharray: 8 12;
+    stroke-dashoffset: 200;
+    animation: data-flow 1.5s linear forwards;
+    pointer-events: none;
+}
+
+.cable-under-ddos {
+    stroke: var(--red-error);
+    stroke-dasharray: 10 15;
+    animation: ddos-cable-flow 1s linear infinite;
+}
+
+.cable-clean-signal {
+    /* New class for clean traffic visualization */
+    stroke: var(--green-success);
+    stroke-width: 5px;
+    stroke-dasharray: 8 10;
+    animation: clean-signal-flow 1.2s linear infinite;
+}
+
+/* New Style for YouTube Connection */
+.cable-youtube-connect {
+    stroke: #FF0000;
+    stroke-width: 4px;
+    stroke-dasharray: 10 10;
+    stroke-dashoffset: 250;
+    animation: data-flow 2.5s linear forwards;
+    /* Slower animation */
+    pointer-events: none;
+}
+
+.ping-packet-text,
+.youtube-packet-text {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12px;
+    font-weight: bold;
+    pointer-events: none;
+    text-anchor: middle;
+}
+
+.ping-packet-text {
+    fill: var(--secondary-yellow);
+}
+
+.youtube-packet-text {
+    fill: #FF0000;
+}
+
+.device {
+    background-color: var(--bg-dark);
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    padding: 8px;
+    text-align: center;
+    width: 100px;
+    height: 125px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    position: absolute;
+    user-select: none;
+    cursor: grab;
+    transition: box-shadow 0.3s, border-color 0.3s, opacity 0.4s ease-in-out, height 0.3s;
+}
+
+.device:hover {
+    border-color: var(--primary-blue);
+}
+
+.device.selected-for-connection {
+    border-color: var(--secondary-yellow);
+    box-shadow: 0 0 15px var(--secondary-yellow);
+}
+
+.device.ip-conflict {
+    border-style: dashed;
+    animation: blink-error 1.5s infinite;
+}
+
+.device.highlight {
+    animation: highlight-success 1s ease-out;
+}
+
+.device.ping-source {
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 15px var(--primary-blue);
+}
+
+.device.ddos-server {
+    border-color: var(--ddos-color);
+    background-color: #3f2a3a;
+}
+
+/* Style for inactive DDoS server */
+.device.ddos-server.attack-inactive {
+    opacity: 0.5;
+    border-style: dashed;
+}
+
+.device.under-ddos {
+    animation: ddos-pulse 1s infinite;
+    border-color: var(--red-error);
+}
+
+.device.ddos-protected {
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 15px var(--primary-blue), inset 0 0 8px rgba(13, 110, 253, 0.5);
+}
+
+/* NEW: Class for firewall-protected router */
+.device.firewall-protected {
+    border-color: var(--green-success);
+    box-shadow: 0 0 15px var(--green-success), inset 0 0 8px rgba(67, 160, 71, 0.5);
+}
+
+.device.vpn-protected {
+    border-color: var(--green-success);
+    box-shadow: 0 0 15px var(--green-success), inset 0 0 8px rgba(67, 160, 71, 0.5);
+}
+
+.device.device-ddos-victim {
+    opacity: 0.6;
+    border-color: var(--red-error);
+    pointer-events: none;
+}
+
+.device-icon {
+    font-size: 2rem;
+}
+
+.device-name {
+    font-weight: bold;
+    margin: 4px 0;
+    font-size: 14px;
+}
+
+.ip-input {
+    width: 90%;
+    background-color: var(--bg-light);
+    border: 1px solid var(--border-color);
+    color: var(--text-light);
+    border-radius: 4px;
+    padding: 3px;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 11px;
+    margin-bottom: 3px;
+    cursor: text;
+}
+
+.public-ip-display {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 11px;
+    color: var(--secondary-yellow);
+    padding: 3px;
+    background-color: #111118;
+    border-radius: 4px;
+    width: 90%;
+    margin: 0 auto;
+    min-height: 19px;
+    box-sizing: border-box;
+}
+
+.public-ip-on-device {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 10px;
+    color: var(--secondary-yellow);
+    background-color: #2c2e43;
+    border-radius: 3px;
+    padding: 2px 4px;
+    margin-top: 2px;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    box-sizing: border-box;
+    min-height: 17px;
+    transition: color 0.3s;
+}
+
+.device-screen {
+    position: absolute;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 65px;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 4px;
+    z-index: 2;
+    pointer-events: none;
+    transition: all 0.5s;
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.device.has-connection .device-screen {
+    opacity: 1;
+}
+
+.screen-internet {
+    background-image: url('https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #fff;
+    background-position: 1px;
+}
+
+.screen-internet-icon {
+    background-color: var(--bg-dark);
+}
+
+.screen-internet-icon::before {
+    content: "🌐";
+    font-size: 50px;
+    color: var(--primary-blue);
+}
+
+.screen-lan-only::before {
+    content: "NO INTERNET\A USE LAN";
+    white-space: pre-wrap;
+    color: var(--secondary-yellow);
+    font-size: 8px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.screen-ip-conflict-visuals {
+    background-color: var(--red-error) !important;
+}
+
+.screen-ip-conflict-visuals::before {
+    content: "TRÙNG IP";
+    color: var(--secondary-yellow);
+    font-size: 14px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px black;
+}
+
+.device.under-ddos .device-screen {
+    opacity: 1;
+    background-color: var(--ddos-color) !important;
+}
+
+.device.under-ddos .device-screen::before {
+    content: "OVERLOAD!\A(DDoS)";
+    white-space: pre-wrap;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px black;
+    text-align: center;
+}
+
+.device.device-ddos-victim .device-screen {
+    opacity: 1;
+    background: var(--red-error) !important;
+}
+
+.device.device-ddos-victim .device-screen::before {
+    content: "MẤT KẾT NỐI";
+    color: white;
+    font-weight: bold;
+    font-size: 10px;
+    text-align: center;
+}
+
+.remove-btn,
+.ping-btn,
+.connect-btn {
+    position: absolute;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s;
+    z-index: 10;
+}
+
+.remove-btn {
+    top: -7px;
+    right: -7px;
+    background: var(--red-error);
+}
+
+.ping-btn {
+    bottom: -7px;
+    right: -7px;
+    background: var(--primary-blue);
+    font-size: 12px;
+}
+
+.connect-btn {
+    bottom: -7px;
+    left: -7px;
+    background: var(--secondary-yellow);
+    font-size: 12px;
+}
+
+.device:hover .remove-btn,
+.device:hover .ping-btn,
+.device:hover .connect-btn {
+    opacity: 1;
+}
+
+.controls-panel {
+    flex-basis: 350px;
+    flex-shrink: 0;
+    background-color: var(--bg-dark);
+    padding: 20px;
+    border-left: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.controls-panel h3 {
+    margin-top: 0;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+.io-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.io-buttons button {
+    flex-grow: 1;
+    padding: 10px;
+    font-size: 1rem;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#export-btn {
+    background-color: var(--import-color);
+}
+
+#import-btn {
+    background-color: var(--export-color);
+}
+
+.control-buttons button,
+.batch-controls button {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: background-color 0.2s, opacity 0.2s;
+}
+
+.controls-panel select {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    color: var(--text-light);
+    background-color: var(--bg-light);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23e0e0e0' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1em;
+}
+
+#add-selected-device-btn {
+    background-color: var(--primary-blue);
+}
+
+#auto-ip-btn {
+    background-color: var(--green-success);
+}
+
+#add-ddos-btn {
+    background-color: var(--ddos-color);
+}
+
+.batch-controls {
+    margin-top: 15px;
+}
+
+.batch-controls input {
+    width: calc(100% - 22px);
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-light);
+    color: var(--text-light);
+    font-size: 1rem;
+}
+
+.log-panel {
+    margin-top: 20px;
+    flex-grow: 1;
+    background-color: #111118;
+    border-radius: 8px;
+    padding: 15px;
+    overflow-y: auto;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 13px;
+    min-height: 150px;
+}
+
+#log-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#log-list li {
+    padding: 4px 0;
+    border-bottom: 1px dashed var(--border-color);
+    word-break: break-word;
+}
+
+.log-success {
+    color: var(--green-success);
+}
+
+.log-error {
+    color: var(--red-error);
+    font-weight: bold;
+}
+
+.log-info {
+    color: var(--text-light);
+}
+
+.log-warn {
+    color: var(--secondary-yellow);
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.modal-content {
+    background: var(--bg-light);
+    padding: 25px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 700px;
+    max-height: 80vh;
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-content h4 {
+    margin-top: 0;
+    color: var(--secondary-yellow);
+}
+
+#cable-context-menu {
+    position: absolute;
+    background-color: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    padding: 5px;
+    z-index: 3000;
+}
+
+#cable-context-menu button {
+    background: none;
+    border: none;
+    color: var(--red-error);
+    padding: 8px 12px;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+}
+
+#cable-context-menu button:hover {
+    background-color: var(--red-error);
+    color: white;
+}
+
+.workspace.action-in-progress .device:not(.action-active) {
+    opacity: 0.1;
+    pointer-events: none;
+}
+
+#cable-svg.action-in-progress line:not(.action-active) {
+    opacity: 0.05;
+}
+
+.device.action-active {
+    box-shadow: 0 0 20px var(--primary-blue);
+    border-color: var(--primary-blue);
+    z-index: 1001;
+}
+
+#action-overlay {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    width: calc(100% - 20px);
+    max-width: 500px;
+    background: rgba(20, 20, 30, 0.85);
+    border: 1px solid var(--border-color);
+    backdrop-filter: blur(5px);
+    border-radius: 8px;
+    z-index: 1500;
+    padding: 15px;
+    display: none;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+#action-log-display {
+    font-family: 'Courier New', Courier, monospace;
+    color: white;
+    font-size: 14px;
+    height: 120px;
+    overflow-y: auto;
+    background-color: #111118;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+#action-log-display p {
+    margin: 0 0 5px 0;
+}
+
+#cancel-action-btn {
+    background-color: var(--red-error);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#device-info-modal .modal-content,
+#connection-modal .modal-content {
+    max-width: 450px;
+}
+
+#device-info-modal h4,
+#connection-modal h4 {
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 12px;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.info-grid span:first-child {
+    font-weight: bold;
+    text-align: right;
+    color: var(--secondary-yellow);
+}
+
+.info-grid span:last-child {
+    background-color: #111118;
+    padding: 5px 8px;
+    border-radius: 4px;
+    word-break: break-all;
+}
+
+.vpn-control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin: 10px 0 20px 0;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked+.slider {
+    background-color: var(--green-success);
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px var(--green-success);
+}
+
+input:checked+.slider:before {
+    transform: translateX(26px);
+}
+
+#info-modal-close-btn,
+#connect-youtube-btn {
+    margin-top: 10px;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+}
+
+#info-modal-close-btn {
+    background-color: var(--purple-action);
+}
+
+#connect-youtube-btn {
+    background-color: #c4302b;
+}
+
+/* YouTube Red */
+.vpn-info-label,
+#info-vpn-ip {
+    display: none;
+}
+
+.modal-filters {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.modal-filters button {
+    flex-grow: 1;
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-dark);
+    color: var(--text-light);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.modal-filters button:hover {
+    background-color: #3a3c53;
+}
+
+.modal-filters button.active {
+    background-color: var(--primary-blue);
+    border-color: var(--primary-blue);
+    color: white;
+}
+
+#device-selection-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 15px;
+    overflow-y: auto;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    flex-grow: 1;
+    margin-bottom: 20px;
+    min-height: 100px;
+}
+
+.device-list-item {
+    background: var(--bg-dark);
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    border: 2px solid transparent;
+    transition: border-color 0.2s, background-color 0.2s;
+    font-size: 14px;
+}
+
+.device-list-item:hover {
+    border-color: var(--primary-blue);
+}
+
+.device-list-item.selected {
+    border-color: var(--secondary-yellow);
+    background-color: #3a3c53;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.modal-buttons button {
+    padding: 10px 15px;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    flex-grow: 1;
+}
+
+#connect-selected-btn {
+    background-color: var(--primary-blue);
+}
+
+#connect-all-btn {
+    background-color: var(--green-success);
+}
+
+#cancel-connect-btn {
+    background-color: var(--red-error);
+}
+
+#help-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    background: var(--bg-light);
+    color: var(--secondary-yellow);
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1002;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+#help-btn:hover {
+    background-color: var(--secondary-yellow);
+    color: var(--bg-dark);
+}
+
+#help-content {
+    flex-grow: 1;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+#help-content ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#help-content li {
+    padding: 8px 0;
+    border-bottom: 1px dashed var(--border-color);
+}
+
+#help-content li:last-child {
+    border-bottom: none;
+}
+
+#help-content strong {
+    color: var(--secondary-yellow);
+}
+
+#help-modal-close-btn {
+    background-color: var(--primary-blue);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+}
+
+/* VLAN Modal Styles */
+#vlan-modal .modal-content {
+    max-width: 600px;
+}
+
+.vlan-section {
+    background-color: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.vlan-section h5 {
+    margin: 0 0 10px 0;
+    color: var(--primary-blue);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 8px;
+}
+
+#vlan-creator {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+#vlan-creator input {
+    flex-grow: 1;
+    padding: 8px;
+    background-color: var(--bg-light);
+    border: 1px solid var(--border-color);
+    color: var(--text-light);
+    border-radius: 5px;
+}
+
+#vlan-creator button {
+    padding: 8px 12px;
+    background-color: var(--green-success);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#vlan-port-assignments {
+    max-height: 250px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.vlan-port-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px dashed var(--border-color);
+}
+
+.vlan-port-item:last-child {
+    border-bottom: none;
+}
+
+.vlan-port-item span {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.vlan-port-item select {
+    background-color: var(--bg-light);
+    border: 1px solid var(--border-color);
+    color: var(--text-light);
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.vlan-modal-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.vlan-modal-buttons button {
+    flex-grow: 1;
+}
+
+/* --- WiFi Modal Styles --- */
+#wifi-modal .modal-content {
+    max-width: 500px;
+}
+
+#wifi-network-list {
+    flex-grow: 1;
+    overflow-y: auto;
+    background-color: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 10px;
+    min-height: 200px;
+}
+
+.wifi-network-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+    border-bottom: 1px dashed var(--border-color);
+    transition: background-color 0.2s;
+}
+
+.wifi-network-item:last-child {
+    border-bottom: none;
+}
+
+.wifi-network-item:hover {
+    background-color: #3a3c53;
+}
+
+.wifi-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.wifi-ssid {
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: var(--text-light);
+}
+
+.wifi-ssid .wifi-icon {
+    margin-right: 8px;
+}
+
+.wifi-public-ip {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.9rem;
+    color: var(--secondary-yellow);
+}
+
+.wifi-connect-btn {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background-color: var(--primary-blue);
+    transition: background-color 0.2s;
+}
+
+.wifi-connect-btn:hover {
+    background-color: #0b5ed7;
+}
+
+.wifi-connect-btn.connected {
+    background-color: var(--green-success);
+    cursor: default;
+}
