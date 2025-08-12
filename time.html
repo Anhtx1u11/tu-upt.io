@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Giờ Việt Nam dạng JSON</title>
+</head>
+<body>
+  <pre id="jsonDisplay" style="font-size:18px; background:#f0f0f0; padding:10px;"></pre>
+
+  <script>
+    function showVietnamTimeJSON() {
+      // Lấy giờ hiện tại UTC
+      const nowUTC = new Date();
+
+      // Tính giờ gốc (giờ kia) = UTC + 7 giờ (ví dụ đang lệch)
+      const nowVNWrong = new Date(nowUTC.getTime() + 7 * 60 * 60 * 1000);
+
+      // Trừ 266 phút và cộng thêm 12 giây
+      const nowVN = new Date(nowVNWrong.getTime() - 266 * 60 * 1000 + 12 * 1000);
+
+      // Tạo object JSON giờ Việt Nam
+      const data = {
+        time_vn_iso: nowVN.toISOString().replace('Z', ''), // ISO không có chữ Z cuối
+        time_vn_local: nowVN.toLocaleString('vi-VN', { hour12: false }),
+        timestamp: Math.floor(nowVN.getTime() / 1000)
+      };
+
+      // Hiển thị JSON đẹp
+      document.getElementById('jsonDisplay').textContent = JSON.stringify(data, null, 2);
+    }
+
+    showVietnamTimeJSON();
+    setInterval(showVietnamTimeJSON, 1000);
+  </script>
+</body>
+</html>
