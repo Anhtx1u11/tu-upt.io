@@ -1,0 +1,20 @@
+[
+  {
+    "lop": "K16THO1",
+    "mon": "Lập trình Python Nâng cao",
+    "gio": "20:25",
+    "phong": "A.101"
+  },
+  {
+    "lop": "K16NNA2",
+    "mon": "Tiếng Anh Giao tiếp 3",
+    "gio": "21:00",
+    "phong": "B.205"
+  },
+  {
+    "lop": "K16LOG1",
+    "mon": "Quản trị Chuỗi cung ứng",
+    "gio": "08:00",
+    "phong": "C.303"
+  }
+]
