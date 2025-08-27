@@ -33,6 +33,21 @@ body {
     background-color: var(--background-white);
 }
 
+.nutclick{
+    margin: 0 auto;
+    text-align: center;
+    background-color: rgb(140, 184, 140);
+    color: black;
+   
+    border-radius: 20px;
+    height: 40px;
+    width: 180px;
+}
+.nutclick:hover{
+    background-color: red;
+    color: white;
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
