@@ -183,7 +183,9 @@
       font-family: Arial, sans-serif;
       text-align: center;
       padding-top: 80px;
-      background: #f9f9f9;
+        background: linear-gradient(180deg, #0f172a, #1e3a8a);
+      color: #e6eef8;
+      background-size: cover;
     }
 
     #error-message {
@@ -238,15 +240,31 @@
     .admin-login button:hover {
       background: #0056b3;
     }
+    .button {
+     background-color: green;
+     color: white;
+     padding: 10px 20px;
+     border-radius: 30px;
+    }
+    .button:hover {
+      background-color: blue;
+      cursor: pointer;
+    }
   </style>
 </head>
 
 <body>
+  <div style="text-align: center; margin-bottom: 20px; border-radius: 20px;">
+    <img  src="https://anhtu1.id.vn/logo.jpg" alt="Đại học Phan Thiết - Khoa CNTT" style="max-width: 50%; height: auto; border-radius: 80px;" />
+  </div>
   <h2>Nguyễn Anh Tú - K16THO0070</h2>
 
-  <div style="text-align: center; margin-bottom: 20px;">
-    <img src="logo.jpg" alt="Đại học Phan Thiết - Khoa CNTT" style="max-width: 100%; height: auto;" />
-  </div>
+  <button class="button" onclick="window.location.href='https://anhtu1.id.vn/blog';">
+    Click Sang Trang Blog Của Mình
+  </button  >
+
+  <br><br>
+  
 
   <div id="login-box">
     <h2>👤 Đăng nhập bằng tài khoản Google UPT</h2>
@@ -268,11 +286,12 @@
       <input type="password" id="admin-code" placeholder="Admin Code" />
       <button onclick="adminLogin()">Admin Login</button>
     </div>
-
+     
     <div id="error-message"></div>
   </div>
-
   
+
+  <br><br><br><br><br><br><br><br><br><br><br><br><br
 
   <div style="text-align:center; margin-top: 20px;">
   
