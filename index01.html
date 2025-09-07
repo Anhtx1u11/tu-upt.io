@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -203,11 +204,7 @@
       border-radius: 8px;
     }
 
-    h2 {
-      color: #007bff;
-      margin-bottom: 20px;
-    }
-
+   
     .admin-login {
       margin-top: 20px;
       font-size: 13px;
@@ -250,14 +247,38 @@
       background-color: blue;
       cursor: pointer;
     }
+    .noti{
+        animation: move 2s infinite;
+        color: blue;
+        background-color: yellow;
+        max-width: 400px;
+        text-align: center;
+        border-radius: 20px;
+        margin: 0 auto;
+    }
+    @keyframes move{
+        0%{
+            transform: translateY(0px);
+        }
+        50%{
+            transform: translateY(-45px);
+        }
+        100%{
+            transform: translateY(0px);
+        }
+    }
   </style>
 </head>
 
 <body>
+
+    
+
   <div style="text-align: center; margin-bottom: 20px; border-radius: 20px;">
     <img  src="https://anhtu1.id.vn/logo.jpg" alt="Đại học Phan Thiết - Khoa CNTT" style="max-width: 50%; height: auto; border-radius: 80px;" />
   </div>
-  <h2>Nguyễn Anh Tú - K16THO0070</h2>
+  <br><br>
+  <h2 class="noti">Nguyễn Anh Tú - K16THO0070</h2>
 
   <button class="button" onclick="window.location.href='https://anhtu1.id.vn/blog';">
     Click Sang Trang Blog Của Mình
@@ -267,7 +288,7 @@
   
 
   <div id="login-box">
-    <h2>👤 Đăng nhập bằng tài khoản Google UPT</h2>
+    <h2 style="color:rgb(13, 13, 225) ;">👤 Đăng nhập bằng tài khoản Google UPT</h2>
     <div id="g_id_onload"
       data-client_id="269825672835-sc59uotj8vd92vracvo5dl0okbin4a0f.apps.googleusercontent.com"
       data-callback="handleCredentialResponse"
