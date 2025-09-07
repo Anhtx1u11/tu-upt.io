@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>📌 Tool Gửi Tin Nhắn Zalo từ Google Sheets</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Highlight.js -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #2c3e50, #3498db);
+      color: #fff;
+      scroll-behavior: smooth;
+    }
+    header {
+      padding: 80px 0 40px;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 2.8rem;
+      font-weight: bold;
+    }
+    section {
+      margin: 60px 0;
+    }
+    .card {
+      border-radius: 15px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+    }
+    footer {
+      margin-top: 50px;
+      text-align: center;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.3);
+    }
+    #backToTop {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#">Zalo Sheets Bot</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#gioithieu">Giới thiệu</a></li>
+          <li class="nav-item"><a class="nav-link" href="#congnghe">Công nghệ</a></li>
+          <li class="nav-item"><a class="nav-link" href="#quytrinh">Quy trình</a></li>
+          <li class="nav-item"><a class="nav-link" href="#demo">Demo Code</a></li>
+          <li class="nav-item"><a class="nav-link" href="#lienhe">Liên hệ</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <h1>🚀 Tool Gửi Tin Nhắn Zalo Tự Động</h1>
+      <p class="lead">Kết nối Google Sheets ➝ Lọc học viên chưa đóng học phí ➝ Gửi tin nhắn Zalo tự động</p>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <!-- Giới thiệu -->
+    <section id="gioithieu">
+      <div class="card bg-dark text-light shadow-lg p-4">
+        <h3>📖 Giới thiệu</h3>
+        <p>
+          Đây là một công cụ được viết bằng <b>C#</b>, sử dụng <b>Google Sheets API</b> và <b>Selenium WebDriver</b> để tự động gửi tin nhắn Zalo tới phụ huynh học viên.
+        </p>
+        <ul>
+          <li>✅ Đọc dữ liệu từ Google Sheets.</li>
+          <li>✅ Lọc học viên <b>chưa đóng học phí</b>.</li>
+          <li>✅ Tự động mở Zalo Web và gửi tin nhắn.</li>
+          <li>✅ Cá nhân hóa nội dung: tên học viên, lớp, số tiền.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Công nghệ -->
+    <section id="congnghe">
+      <div class="card bg-primary text-light shadow-lg p-4">
+        <h3>🛠 Công nghệ sử dụng</h3>
+        <div class="row">
+          <div class="col-md-6">
+            <ul>
+              <li><b>Google Sheets API</b> ➝ Lấy dữ liệu học viên.</li>
+              <li><b>Selenium + ChromeDriver</b> ➝ Điều khiển trình duyệt.</li>
+              <li><b>Zalo Web</b> ➝ Nơi gửi tin nhắn.</li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <ul>
+              <li><b>C# .NET</b> ➝ Ngôn ngữ lập trình.</li>
+              <li><b>OAuth2 Service Account</b> ➝ Kết nối Google Sheets.</li>
+              <li><b>Console App</b> ➝ Giao diện chạy tool.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quy trình -->
+    <section id="quytrinh">
+      <div class="card bg-success text-light shadow-lg p-4">
+        <h3>📌 Quy trình hoạt động</h3>
+        <ol>
+          <li>📂 Đọc danh sách học viên từ Google Sheets.</li>
+          <li>🔍 Lọc ra học viên có trạng thái <b>CHƯA ĐÓNG</b>.</li>
+          <li>🌐 Mở Zalo Web với Chrome.</li>
+          <li>💬 Gửi tin nhắn nhắc nhở học phí đến phụ huynh.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Demo Code -->
+    <section id="demo">
+      <div class="card bg-dark text-light shadow-lg p-4">
+        <h3>💻 Demo Code</h3>
+        <button class="btn btn-warning mb-3" data-bs-toggle="collapse" data-bs-target="#codeBlock">📂 Xem code C#</button>
+        <div id="codeBlock" class="collapse">
+          <pre><code class="language-csharp">
+using Google.Apis.Auth.OAuth2;
+using Google.Apis.Sheets.v4;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium;
+
+class HocVien {
+    public string Ten { get; set; }
+    public string Lop { get; set; }
+    public string HocPhi { get; set; }
+    public string Sdt { get; set; }
+}
+
+class Program {
+    static void Main() {
+        Console.WriteLine("Tool gửi tin nhắn Zalo từ Google Sheets...");
+        // 1. Đọc dữ liệu từ Google Sheets
+        // 2. Lọc học viên chưa đóng
+        // 3. Mở Chrome và gửi tin nhắn Zalo
+    }
+}
+          </code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Liên hệ -->
+    <section id="lienhe">
+      <div class="card bg-info text-dark shadow-lg p-4">
+        <h3>📞 Liên hệ</h3>
+        <p>
+          👨‍💻 Tác giả: <b>Anh Tú Coder</b><br>
+          📱 SĐT: <b>0927013848</b><br>
+          🌐 Facebook: <a href="https://bom.so/fbtu" target="_blank">bom.so/fbtu</a>
+        </p>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    <p>© 2025 - Tool Zalo Sheets Bot | Design with ❤️ Anh Tú IT</p>
+  </footer>
+
+  <!-- Nút cuộn lên đầu -->
+  <button id="backToTop" class="btn btn-danger rounded-circle">
+    ⬆
+  </button>
+
+  <!-- Bootstrap JS + Highlight.js -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>
+    hljs.highlightAll();
+
+    // Hiện nút cuộn lên đầu
+    const btn = document.getElementById("backToTop");
+    window.onscroll = function() {
+      if (document.documentElement.scrollTop > 200) {
+        btn.style.display = "block";
+      } else {
+        btn.style.display = "none";
+      }
+    };
+    btn.onclick = function() {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+  </script>
+</body>
+</html>
