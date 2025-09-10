@@ -1,6 +1,6 @@
 {
   "name": "PWA Demo App",
-  "short_name": "PWA",
+  "short_name": "UPT APP",
   "start_url": "/web13/index.html",
   "scope": "/web13/",
   "display": "standalone",
@@ -19,4 +19,5 @@
     }
   ]
 }
+
 
