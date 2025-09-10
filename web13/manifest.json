@@ -8,9 +8,9 @@
   "theme_color": "#0078d7",
   "icons": [
     {
-      "src": "/web13/icons/icon-192x192.png",
+      "src": "/web13/icons/icon-192x192.jpg",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/jpeg"
     },
     {
       "src": "/web13/icons/icon-512x512.png",
