@@ -1,3 +1,4 @@
+
 :root {
     --primary-color: #3b608e;
     --secondary-color: #648cbe;
@@ -20,9 +21,8 @@
     box-sizing: border-box;
 }
 
-html, body {
+html {
     scroll-behavior: smooth;
-    overflow-x: hidden; /* fix tràn ngang */
 }
 
 body {
@@ -38,6 +38,7 @@ body {
     text-align: center;
     background-color: rgb(140, 184, 140);
     color: black;
+   
     border-radius: 20px;
     height: 40px;
     width: 180px;
@@ -48,11 +49,9 @@ body {
 }
 
 .container {
-    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 15px;
-    box-sizing: border-box;
 }
 
 a {
@@ -89,6 +88,7 @@ img {
 }
 
 /* 3. HEADER STYLES */
+/* - Top Header */
 .top-header {
     background-color: #f3f7fb;
     padding: 10px 0;
@@ -224,11 +224,6 @@ img {
     background-color: rgba(15, 34, 57, 0.7);
 }
 
-.hero-content {
-    padding: 0 15px;
-    text-align: center;
-}
-
 .hero-content h1 {
     font-family: var(--font-heading);
     font-size: 64px;
@@ -327,6 +322,7 @@ img {
 }
 
 /* 8. FOOTER STYLES */
+/* - Main Footer */
 .footer {
     background-image: url('https://vutuananhdev.id.vn/datafiles/web30s/upload/images/1101-1200/30S-03-1194/footer-bg.png');
     background-size: cover;
@@ -454,6 +450,7 @@ img {
 }
 
 /* 9. COMPONENTS */
+/* - Buttons */
 .btn {
     display: inline-flex;
     align-items: center;
@@ -526,7 +523,7 @@ img {
     color: var(--text-dark);
     font-weight: 700;
     margin-bottom: 10px;
-    height: 54px;
+    height: 54px; /* for 2 lines */
     overflow: hidden;
 }
 
@@ -542,6 +539,7 @@ img {
     color: var(--accent-color);
     margin-bottom: 15px;
 }
+
 
 /* - Blog Card */
 .blog-card {
@@ -582,7 +580,7 @@ img {
     color: var(--text-dark);
     margin-bottom: 15px;
     line-height: 1.4;
-    height: 56px;
+    height: 56px; /* for 2 lines */
     overflow: hidden;
 }
 
@@ -634,22 +632,41 @@ img {
     background-color: var(--primary-color);
     color: var(--background-white);
 }
+.btn_top {
+    background: rgb(141, 153, 78);
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+    display: none; /* ban đầu ẩn */
+    position: absolute;   /* cố định theo màn hình */
+    bottom: 20px;      /* cách mép dưới 20px */
+    right: 20px;       /* cách mép phải 20px */
+    cursor: pointer;
+    text-align: center;
+    line-height: 60px;
+    font-size: 28px;
+    color: white;
+}
+.btn_top:hover {
+    background: green;
+}
+
 
 /* 11. RESPONSIVE DESIGN */
-@media (max-width: 724px) {
+@media (max-width: 1024px) {
     .nav-menu {
-        display: flex;
+        display: none;
         flex-direction: column;
         position: fixed;
         top: 0;
-        right: -100%;
+        right: -300px;
+        width: 300px;
         height: 100vh;
-        width: 250px;
         background-color: var(--background-white);
         padding-top: 80px;
         box-shadow: -5px 0 15px rgba(0,0,0,0.1);
         transition: right 0.4s ease;
-        z-index: 1000;
+        gap: 0;
     }
     
     .nav-menu.active {
