@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -21,8 +20,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <header class="top-header">
+    <header id="top" class="top-header">
         <div class="container">
             <div class="contact-info">
                 <a href="tel:0927013848"></i> 📲0927013848</a>
@@ -50,12 +48,14 @@
                 <li class="nav-item"><a href="https://bom.so/fbtu" class="nav-link">Liên hệ</a></li>
             </ul>
             <a href="http://zalo.me/0927013848" class="btn btn-primary btn-nav">Đặt lịch <i class="fas fa-arrow-right"></i></a>
+            <div href="#top" id="clickk" class="btn_top">
+            <a>↑</a>
+            </div>
             <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle menu">
                 <i class="far fa-bars"></i>
             </button>
         </div>
     </nav>
-
     <main>
         <section  data-aos="fade-up" id="home" class="hero-section" >
             <div class="hero-background"></div>
@@ -68,7 +68,6 @@
         </section>
         <section data-aos="fade-up" id="about" class="about-section">
             <div class="container">
-                
                 <div data-aos="fade-up" class="about-image-column">
                     <img src="https://anhtu1.id.vn/img/anhtu2.jpg">
                 </div>
@@ -90,7 +89,7 @@
                 </div>
             </div>
         </section>
-
+        
         <section id="courses" class="courses-section">
             <div  data-aos="fade-right" class="container">
                  <p class="section-subtitle">Thông Tin Phổ Biến Về Sinh Viên</p>
@@ -233,7 +232,7 @@
 
 
            
-        <section data-aos="fade-up" id="blog" class="blog-section">
+        <section id="blog" class="blog-section">
             <div data-aos="fade-up" class="container">
                 <p class="section-subtitle">Tin tức & Blogs</p>
                 <h2 class="section-title">Bài viết gần đây</h2>
@@ -250,7 +249,7 @@
                         </div>
                     </article>
                 
-                     <article data-aos="fade-right" class="blog-card">
+                     <article class="blog-card">
                         <img src="https://anhtu1.id.vn/A-Main/buycode/tuvi.jpg" alt="Blog post image" class="blog-image">
                         <div class="blog-content">
                             <div class="blog-meta">
@@ -272,54 +271,6 @@
                             <a href="#" class="blog-readmore">Xem chi tiết <i class="fas fa-arrow-right"></i></a>
                         </div>
                     </article>
-                     <article data-aos="fade-up" class="blog-card">
-                        <img src="https://anhtu1.id.vn/img/img1.jpg" alt="Blog post image" class="blog-image">
-                        <div class="blog-content">
-                            <div class="blog-meta">
-                                <span><i class="fal fa-clock"></i> 01/09/2025</span>
-                                <span><i class="fas fa-eye"></i> 1.9K lượt xem</span>
-                            </div>
-                            <span>
-                                <img src="https://flagcdn.com/w40/vn.png" alt="VN" style="width: 20px; height: 15px; vertical-align: middle; margin-right: 5px;">
-                                 <h3 class="blog-title">Website Báo Việt Nam 🇻🇳 </h3>
-                            </span>
-                           
-                            
-                            <a href="https:\\anhtu1.id.vn/blog/bao/" class="blog-readmore">Xem chi tiết <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </article>
-                    <article data-aos="fade-left" class="blog-card">
-                        <img src="https://anhtu1.id.vn/blog/img/img2.jpg" alt="Blog post image" class="blog-image">
-                        <div class="blog-content">
-                            <div class="blog-meta">
-                                <span><i class="fal fa-clock"></i> 05/09/2025</span>
-                                <span><i class="fas fa-eye"></i> 1.2K lượt xem</span>
-                            </div>
-                            <span>
-                               
-                                 <h3 class="blog-title">🔱Tool Code C# Auto Tải Video Mới Của Channel</h3>
-                            </span>
-                           
-                            
-                            <a href="https:\\anhtu1.id.vn/blog/tool1/" class="blog-readmore">Xem chi tiết <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </article>
-                     <article data-aos="fade-up" class="blog-card">
-                        <img src="https://anhtu1.id.vn/blog/img/img4.jpg" alt="Blog post image" class="blog-image">
-                        <div class="blog-content">
-                            <div class="blog-meta">
-                                <span><i class="fal fa-clock"></i> 07/09/2025</span>
-                                <span><i class="fas fa-eye"></i> 2.7K lượt xem</span>
-                            </div>
-                            <span>
-                               
-                                 <h3 class="blog-title">🔱Tool Code C# Auto Send Tin Nhắn Qua Zalo🚀</h3>
-                            </span>
-                           
-                            
-                            <a href="https:\\anhtu1.id.vn/blog/tool2/" class="blog-readmore">Xem chi tiết <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </article>
                  </div>
             </div>
         </section>
@@ -330,13 +281,13 @@
         <div class="footer-main">
             <div class="container">
                 <div class="footer-column about-us">
-                    <img style="border-radius: 14px;" src="https://media4.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3Mzl3b3o2ZjZpemh5cTdpdHhlYnFldmNzZWkyZnE3YWh5d2NuYnh2ZyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/TxVsEUyZrJGChlif0f/giphy.webp" alt="Chibi logo" class="footer-logo">
+                    <img src="https://vutuananhdev.id.vn/datafiles/72730/upload/images/logo/chibi_2(2).png" alt="Chibi logo" class="footer-logo">
                     <p>🚀 Chúng tôi cam kết mang đến những giải pháp tối ưu, 🌐 luôn đổi mới theo xu hướng hiện đại để giúp bạn 💡 nâng cao năng lực và 📈 bắt kịp sự phát triển không ngừng của công nghệ.</p>
                     <div class="social-media">
-                        <a href="https://bom.so/fbtu" target="_blank" aria-label="Facebook"> <img style="border-radius: 15px;" src="https://cdn.pixabay.com/animation/2022/08/03/02/53/02-53-46-792_512.gif" > </i></a>
-                        <a href="https://zalo.me/0927013848" target="_blank" aria-label="Zalo"> <img style="border-radius: 15px;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjxcMtQ-_eHCXrwt5ZONvt8g2ER4f5th0NFbeayGPc7ISwzGILfZpCS1oZxKnlOIB1rmU&usqp=CAU" > </a> <a href="https://www.youtube.com/@ANHTUCODER    " target="_blank" aria-label="Youtube"><img style="border-radius: 15px;" src="https://cdn.pixabay.com/animation/2023/04/25/21/18/21-18-02-636_512.gif" ></i></a>
-                        <a href="https://www.tiktok.com/@anh.t.ang.hc.code" target="_blank" aria-label="Tiktok"><img style="border-radius: 10px;" src="https://cdn.tgdd.vn/Files/2021/03/11/1334328/nytimes1_800x600.gif" ></i></a>
-                        <a href="https://www.instagram.com/" target="_blank" aria-label="Instagram"><img style="border-radius: 15px;" src="https://cdn.pixabay.com/animation/2022/10/25/08/42/08-42-34-926_512.gif" ></i></a>
+                        <a href="https://bom.so/fbtu" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://zalo.me/0927013848" target="_blank" aria-label="Zalo"><i class="fab fa-viber"></i></a> <a href="https://www.youtube.com/@ANHTUCODER    " target="_blank" aria-label="Youtube"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.tiktok.com/@anh.t.ang.hc.code" target="_blank" aria-label="Tiktok"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://www.instagram.com/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
                 <div class="footer-column quick-links">
@@ -376,6 +327,21 @@
 </html>
 <script>
   AOS.init();
+  
+  const clickk = document.getElementById("clickk");
+
+  window.onscroll = function(){
+    if(document.documentElement.scrollTop > 200){
+        clickk.style.display = "block"
+    }
+    else{
+        clickk.style.display = "none"
+    }
+}
+clickk.onclick = function () {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+};
+
 </script>
 
 
