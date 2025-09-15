@@ -1,11 +1,167 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <title>Đăng nhập bằng tài khoản @stu.upt.edu.vn</title>
+  <title>Đăng nhập UPT</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="google-signin-client_id" content="269825672835-sc59uotj8vd92vracvo5dl0okbin4a0f.apps.googleusercontent.com" />
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: url('https://images.unsplash.com/photo-1470770841072-f978cf4d019e') no-repeat center center/cover;
+      color: #f0f4fa;
+      text-align: center;
+    }
+
+    .banner {
+      margin-top: 40px;
+    }
+    .banner img {
+      
+      border-radius: 2%;
+      border: 1px solid black;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      width: 600px;
+    }
+
+    .noti {
+      margin-top: 20px;
+      padding: 10px;
+      display: inline-block;
+      background: yellow;
+      color: blue;
+      border-radius: 20px;
+      animation: move 2s infinite;
+      font-weight: bold;
+    }
+    @keyframes move {
+      0%   { transform: translateY(0px); }
+      50%  { transform: translateY(-20px); }
+      100% { transform: translateY(0px); }
+    }
+
+    .button {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 30px;
+      background: green;
+      color: #fff;
+      font-size: 15px;
+      cursor: pointer;  z
+    }
+    .button:hover {
+      background: blue;
+    }
+
+    #login-box {
+      margin: 40px auto;
+      max-width: 400px;
+      padding: 30px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+      color: #333;
+    }
+    #login-box h2 {
+      margin-bottom: 20px;
+      color: #0a3d91;
+    }
+
+    .admin-login {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+    .admin-login input {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      flex: 1;
+    }
+    .admin-login button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      background: #007bff;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .admin-login button:hover {
+      background: #0056b3;
+    }
+
+    #error-message {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    @media (max-width: 600px) {
+      #login-box {
+        margin: 20px;
+        padding: 20px;
+      }
+      .banner img {
+        width: 300px;
+      }
+       .noti {
+      margin-top: 20px;
+      font-size: 20px;
+      padding: 7px 7px;
+      display: inline-block;
+      background: yellow;
+      color: blue;
+      border-radius: 20px;
+      animation: move 2s infinite;
+      font-weight: bold;
+    }
+    @keyframes move {
+      0%   { transform: translateY(0px); }
+      50%  { transform: translateY(-20px); }
+      100% { transform: translateY(0px); }
+    }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="banner">
+    <img src="https://anhtu1.id.vn/logo.jpg" alt="Đại học Phan Thiết - Khoa CNTT" />
+  </div>
+<br><br>
+  <h2 class="noti">Nguyễn Anh Tú - K16THO0070</h2>
+  <br>
+  <button class="button" onclick="window.location.href='https://anhtu1.id.vn/blog';">
+    🌐 Sang Blog Cá Nhân
+  </button>
+
+  <div id="login-box">
+    <h2>👤 Đăng nhập Google UPT</h2>
+    <div id="g_id_onload"
+      data-client_id="269825672835-sc59uotj8vd92vracvo5dl0okbin4a0f.apps.googleusercontent.com"
+      data-callback="handleCredentialResponse"
+      data-auto_prompt="false"></div>
+    <div class="g_id_signin"
+      data-type="standard"
+      data-size="large"
+      data-theme="outline"
+      data-text="sign_in_with"
+      data-shape="rectangular"
+      data-logo_alignment="left"></div>
+
+    <div class="admin-login">
+      <input type="password" id="admin-code" placeholder="Admin Code" />
+      <button onclick="adminLogin()">Admin Login</button>
+    </div>
+    <div id="error-message"></div>
+  </div>
+<br><br><br><br><br><br>
   <script>
     const ALLOWED_DOMAIN = "@stu.upt.edu.vn";
     const REDIRECT_PAGE = "A-Main/next.html";
@@ -13,13 +169,7 @@
     const ADMIN_CODE = "K16THO0070.";
     const ADMIN_EMAIL = "admin@anhtu1.id.vn";
 
-    const a = "https://dis";
-    const b = "cord.com/api/";
-    const c = "webhooks/";
-    const d = "1385227858577854524";
-    const e = "/uPVMC0PL9amri60NP55tZf4tKv-8ED2R3NhkswsQPGYY29Cvp9hRU3toMZigfZutnKNF";
-
-    const DISCORD_WEBHOOK_URL = a + b + c + d + e;
+    const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1385227858577854524/uPVMC0PL9amri60NP55tZf4tKv-8ED2R3NhkswsQPGYY29Cvp9hRU3toMZigfZutnKNF";
 
     let clientIP = "";
     window.ipReady = false;
@@ -30,35 +180,24 @@
         const data = await res.json();
         clientIP = data.ip || "";
         const countryCode = data.country_code || "";
-
         window.ipReady = true;
-
-        if (countryCode !== "VN") {
-          window.location.href = BLOCK_PAGE;
-        }
-      } catch (error) {
-        console.error("Lỗi khi kiểm tra IP:", error);
+        if (countryCode !== "VN") window.location.href = BLOCK_PAGE;
+      } catch {
         window.location.href = BLOCK_PAGE;
       }
     }
-
     window.onload = checkISP;
 
     function parseJwt(token) {
       const base64Url = token.split(".")[1];
       const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-      const jsonPayload = decodeURIComponent(
-        atob(base64).split("").map(c =>
-          "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2)
-        ).join("")
-      );
-      return JSON.parse(jsonPayload);
+      return JSON.parse(atob(base64));
     }
 
-    function sendToDiscord(data, isValid) {
+    function sendToDiscord(data, isValid, title="Đăng nhập") {
       const body = {
         embeds: [{
-          title: isValid ? "✅ Đăng nhập HỢP LỆ" : "❌ Đăng nhập KHÔNG HỢP LỆ",
+          title: isValid ? "✅ " + title + " HỢP LỆ" : "❌ " + title + " KHÔNG HỢP LỆ",
           color: isValid ? 0x00ff00 : 0xff0000,
           fields: [
             { name: "📛 Họ tên", value: data.name || "Không có", inline: true },
@@ -69,7 +208,6 @@
           ]
         }]
       };
-
       return fetch(DISCORD_WEBHOOK_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -81,241 +219,38 @@
       if (!window.ipReady) {
         return setTimeout(() => handleCredentialResponse(response), 100);
       }
-
       const data = parseJwt(response.credential);
       const isValid = data.email && data.email.endsWith(ALLOWED_DOMAIN);
 
-      sendToDiscord(data, isValid)
+      sendToDiscord(data, isValid, "Đăng nhập")
         .then(() => {
           if (isValid) {
             localStorage.setItem("google_user", JSON.stringify(data));
             localStorage.setItem("login_time", Date.now());
             window.location.href = REDIRECT_PAGE;
-
-            // Thiết lập hẹn giờ 20 phút để kiểm tra hoạt động
-            setTimeout(() => {
-              const user = JSON.parse(localStorage.getItem("google_user") || "{}");
-              const loginTime = parseInt(localStorage.getItem("login_time") || "0");
-              const now = Date.now();
-
-              if (user.email && now - loginTime >= 20 * 60 * 1000) {
-                localStorage.removeItem("google_user");
-                localStorage.removeItem("login_time");
-
-                const timeoutBody = {
-                  embeds: [{
-                    title: "⏱️ Người dùng chờ quá lâu",
-                    color: 0xffa500,
-                    fields: [
-                      { name: "📛 Họ tên", value: user.name || "Không rõ", inline: true },
-                      { name: "📧 Email", value: user.email, inline: true },
-                      { name: "⏳ Thời gian chờ", value: "20 phút không hoạt động" },
-                      { name: "🌐 IP", value: clientIP },
-                      { name: "📍", value: "anhtu.id.vn - " + new Date().toLocaleString("vi-VN") },
-                    ]
-                  }]
-                };
-
-                fetch(DISCORD_WEBHOOK_URL, {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify(timeoutBody)
-                }).catch(err => console.error("❌ Gửi webhook timeout thất bại:", err));
-              }
-            }, 20 * 60 * 1000);
           } else {
             document.getElementById("error-message").innerText =
               "⚠️ Chỉ chấp nhận email sinh viên có đuôi @stu.upt.edu.vn";
           }
         })
-        .catch(err => {
-          console.error("❌ Gửi webhook thất bại:", err);
-          if (isValid) window.location.href = REDIRECT_PAGE;
-        });
+        .catch(() => { if (isValid) window.location.href = REDIRECT_PAGE; });
     }
 
     function adminLogin() {
       const code = document.getElementById("admin-code").value.trim();
       if (code === ADMIN_CODE) {
-        const adminData = {
-          email: ADMIN_EMAIL,
-          name: "Admin Website",
-          sub: "admin",
-          picture: ""
-        };
-
+        const adminData = { email: ADMIN_EMAIL, name: "Admin Website", sub: "admin" };
         localStorage.setItem("google_user", JSON.stringify(adminData));
-        // KHÔNG LƯU MỐC THỜI GIAN CHO ADMIN ĐỂ CÓ PHIÊN ĐĂNG NHẬP VÔ HẠN
-        // localStorage.setItem("login_time", Date.now());
 
-        const body = {
-          embeds: [{
-            title: "👑 Admin đã đăng nhập thành công",
-            color: 0x0000ff,
-            fields: [
-              { name: "📛 Tài khoản", value: adminData.name, inline: true },
-              { name: "📧 Email", value: adminData.email, inline: true },
-              { name: "🌐 IP", value: clientIP },
-              { name: "📍", value: "anhtu.id.vn - " + new Date().toLocaleString("vi-VN") },
-            ]
-          }]
-        };
-
-        fetch(DISCORD_WEBHOOK_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(body)
-        }).catch(err => console.error("❌ Gửi webhook admin thất bại:", err));
-
+        sendToDiscord(adminData, true, "👑 Admin");
         document.getElementById("error-message").style.color = "green";
-        document.getElementById("error-message").innerText = "✅ Admin đã đăng nhập thành công!";
-        setTimeout(() => {
-          window.location.href = REDIRECT_PAGE;
-        }, 1000);
+        document.getElementById("error-message").innerText = "✅ Admin đã đăng nhập!";
+        setTimeout(() => window.location.href = REDIRECT_PAGE, 1000);
       } else {
         document.getElementById("error-message").style.color = "red";
         document.getElementById("error-message").innerText = "❌ Mã admin không đúng!";
       }
     }
   </script>
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding-top: 80px;
-        background: linear-gradient(180deg, #0f172a, #1e3a8a);
-      color: #e6eef8;
-      background-size: cover;
-    }
-
-    #error-message {
-      color: red;
-      margin-top: 20px;
-      font-weight: bold;
-    }
-
-    #login-box {
-      background: #ffffff;
-      padding: 40px;
-      margin: auto;
-      max-width: 400px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-    }
-
-   
-    .admin-login {
-      margin-top: 20px;
-      font-size: 13px;
-      color: #333;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .admin-login input {
-      width: 140px;
-      padding: 6px 8px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 13px;
-    }
-
-    .admin-login button {
-      padding: 6px 12px;
-      font-size: 13px;
-      background: #007bff;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    .admin-login button:hover {
-      background: #0056b3;
-    }
-    .button {
-     background-color: green;
-     color: white;
-     padding: 10px 20px;
-     border-radius: 30px;
-    }
-    .button:hover {
-      background-color: blue;
-      cursor: pointer;
-    }
-    .noti{
-        animation: move 2s infinite;
-        color: blue;
-        background-color: yellow;
-        max-width: 400px;
-        text-align: center;
-        border-radius: 20px;
-        margin: 0 auto;
-    }
-    @keyframes move{
-        0%{
-            transform: translateY(0px);
-        }
-        50%{
-            transform: translateY(-45px);
-        }
-        100%{
-            transform: translateY(0px);
-        }
-    }
-  </style>
-</head>
-
-<body>
-
-    
-
-  <div style="text-align: center; margin-bottom: 20px; border-radius: 20px;">
-    <img  src="https://anhtu1.id.vn/logo.jpg" alt="Đại học Phan Thiết - Khoa CNTT" style="max-width: 50%; height: auto; border-radius: 80px;" />
-  </div>
-  <br><br>
-  <h2 class="noti">Nguyễn Anh Tú - K16THO0070</h2>
-
-  <button class="button" onclick="window.location.href='https://anhtu1.id.vn/blog';">
-    Click Sang Trang Blog Của Mình
-  </button  >
-
-  <br><br>
-  
-
-  <div id="login-box">
-    <h2 style="color:rgb(13, 13, 225) ;">👤 Đăng nhập bằng tài khoản Google UPT</h2>
-    <div id="g_id_onload"
-      data-client_id="269825672835-sc59uotj8vd92vracvo5dl0okbin4a0f.apps.googleusercontent.com"
-      data-callback="handleCredentialResponse"
-      data-auto_prompt="false"
-    ></div>
-    <div class="g_id_signin"
-      data-type="standard"
-      data-size="large"
-      data-theme="outline"
-      data-text="sign_in_with"
-      data-shape="rectangular"
-      data-logo_alignment="left"
-    ></div>
-
-    <div class="admin-login">
-      <input type="password" id="admin-code" placeholder="Admin Code" />
-      <button onclick="adminLogin()">Admin Login</button>
-    </div>
-     
-    <div id="error-message"></div>
-  </div>
-  
-
-  <br><br><br><br><br><br><br><br><br><br><br><br><br
-
-  <div style="text-align:center; margin-top: 20px;">
-  
-  </div>
 </body>
 </html>
