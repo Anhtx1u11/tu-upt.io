@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+    <title>Trang Chủ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        body{
+            background-color: whitesmoke;
+            font-size: 40px;
+            margin-left: 20px;
+        }
+        
+        .footer{
+            background-color: rgb(31, 31, 107);
+            color: yellow;
+            width: 90%;
+            height: 50px;
+            margin: auto;
+            padding: 10px;
+            text-align: center;
+            border-radius: 20px;
+            font-size: 30px;
+        }
+        .box{
+            background-color: white;
+            width: 300px;
+            height: 370px;
+            border-radius: 30px;
+            display: flex; 
+            text-align: center; 
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            margin: 0 auto;
+            flex-direction: column;
+
+        }
+        .dichvu{
+            text-align: center;
+            color: blue;
+            background-color: burlywood; 
+            border-radius: 30px; 
+            top: 50%;
+            left: 50%;
+            margin: 0 auto;
+            width: 600px;
+            
+        
+        }
+        .facebook{
+            text-align: center;
+            color: white;
+            background-color: blue; 
+            border-radius: 30px; 
+            top: 50%;
+            left: 50%;
+            margin: auto;
+            width: 300px;
+        }
+        .btn-warning:hover{
+            background-color: green;
+            color: white;
+        }
+        .box-loading{
+            background-color: antiquewhite;
+            width: 200px;
+
+        }
+         .blinking {
+            animation: blinker 1s linear infinite;
+         }
+         .xemchitiet{
+            background-color: orange;
+            color: white; 
+            border-radius: 50;
+            height: 60px; 
+            font-size: 17px;
+         }
+         .xemchitiet:hover{
+             background-color: green;
+         }
+         @keyframes blinker {
+            50% {
+                opacity: 0;
+            }
+        }       
+        @media (max-width: 600px){
+            body{
+             background-color: white;
+             width: 250px;
+             font-size: 22px;
+            
+            }
+
+            .footer{
+                width: 90%;
+             }
+             
+            .box{
+            background-color: whitesmoke;
+            width: 90%;
+            height: 340px;
+            border-radius: 30px;
+            display: flex; 
+            justify-content: center; 
+            text-align: center; 
+            margin-left: 10%;
+        }
+        .dichvu{
+            width: 90%;
+            
+        }
+             
+        }
+        
+    </style>
+    </head>
+    <body>
+         <img src ="https://anhtx1u11.github.io/admintuupt.github.io/A-Main/logotu-fotor-20250509173456.png" width="40px", height="40px"  onclick="window.location.href='login.html'">
+        <br>
+        <div class = "footer">
+            <h3>Trang Chủ</h3>
+        </div> <br>
+        <h1 data-aos="zoom-in" style="text-align: center; font-size:25px;">Giới thiệu về Website Quản Lý Điểm Danh</h1>
+         
+            
+            <div style="text-align: center;">
+                <span>
+                    <button id = "dangky.html" class="btn btn-primary">Đăng Ký</button>
+                    <button id = "login1.html" class="btn btn-warning">Đăng Nhập</button>
+                </span>
+            </div>
+            <br>
+        <div style="color: blue; text-align: center;" data-aos="fade-in" data-aos-duration="3000">Website quản lý điểm danh là một hệ thống trực tuyến được xây dựng nhằm hỗ trợ các cơ sở giáo dục hoặc tổ chức trong việc theo dõi.</div>
+         <br>
+
+        <div style="display: flex; justify-content: center;">
+            <img  class="fade-right" 
+         src = "https://www.dmu.ac.uk/webimages/DMU-students/Hot-topics/2022/September/Attendance-Monitoring560.png"
+         width="400px" height="200px">
+        </div>
+
+        <br><br>
+        <div style="color: rgb(80, 143, 38);" data-aos="fade-left">Thay vì sử dụng phương pháp điểm danh thủ công truyền thống bằng giấy tờ,
+         website này cho phép người dùng điểm danh qua: </div> 
+         <div style="color: brown" data-aos="fade-left">
+         mã QR, địa chỉ IP, hoặc tài khoản đăng nhập cá nhân.</div>
+             <div style="color: rgb(80, 143, 38);" data-aos="fade-left">
+         Dữ liệu điểm danh được lưu trữ trên cơ sở dữ liệu trung tâm, giúp giáo viên hoặc quản trị viên dễ 
+         dàng tra cứu, thống kê và xuất báo cáo theo thời gian thực</div> <br>
+
+        <div  data-aos="fade-left" style="display: flex; justify-content: center;">
+            <img style="border-radius: 20px;" src = "https://www.totolink.vn/public/uploads/img_article/iplagicachxacdinhdiachiiptrenmaytinhiplagi.jpg"
+            width="400px" height="200px"><br>
+           
+        </div>        
+         <p style="font-size: 15px; text-align: center;"><b>Ảnh 1: Login Qua Địa Chỉ IP Nội Bộ</b></p><br><br>
+
+          <div  data-aos="fade-in"  style="display: flex; justify-content: center; border-radius: 20px;">
+            <img style="border-radius: 20px"; src = "https://developers.google.com/static/identity/images/branding_guide_do_1.png?hl=vi"
+            width="300px" height="200px"><br>
+           
+        </div>        
+        
+         <p style="font-size: 14px; text-align: center;"><b>Ảnh 2: Login Qua Google Theo Tài Khoản Trường</b></p><br>
+        <br>
+        <div class="blinking" data-aos="fade-left"
+            style="background-color: yellow;
+            color: black;
+            border-radius: 20px;
+            font-size: 20px;
+            width: 400px;
+            text-align: center;
+            padding: 10px;
+            cursor: pointer;">
+            Click Để Dùng Thử 🔜
+            <button id ="trial" style="border-radius: 20px; background-color: blanchedalmond;">Trial 7 Days</button>
+            </div>
+
+        <br><br>
+        <div class="facebook">
+            <h3>Đánh Giá Từ Faceboook</h3>
+        </div>
+
+
+        <div  data-aos="fade-left" style= "display: flex  ;flex-wrap: wrap; ">
+            <div data-aos="fade-left" class = "box" style="width: 400px; height: 500px;">
+            <img  style="border-radius: 50px; top: 5%; left: 35%; position: relative;" src = "https://phunuvietnam.mediacdn.vn/179072216278405120/2023/2/2/z407811279454704d3b10be2c47b86e5bd170832bde562-16753562253021567389777.jpg" width="100px" height="100px">
+            <h4 style="color: blue;"><br></br>Tên Faceboook: David Nguyen </h4>
+            <h5 style="color: black;"><br><br>Đánh Giá: ✨✨✨✨✨</h5>
+            <h6 style="color: green;"><br><br>📣 "Giúp giáo viên dạy tốt hơn – giúp sinh viên chủ động hơn – tất cả bắt đầu từ một hệ thống điểm danh hiệu quả."</h6>
+            <br><button class="xemchitiet">Xem Chi Tiết</button>
+        </div>
+        
+
+         <div data-aos="fade-right" class = "box" style="width: 400px; height: 500px;">
+            <img  style="border-radius: 50px; padding: 10px; top: 5%; left: 35%; position: relative;" src = "https://nguoinoitieng.tv/images/nnt/100/0/besg.jpg" width="100px" height="100px">
+            <h4 style="color: blue;"><br></br>Tên Faceboook: Hoàng Tuấn</h4>
+            <h5 style="color: black;"><br><br>Đánh Giá: ✨✨✨✨✨</h5>
+            <h6 style="color: green;"><br><br>📣 "Điểm danh thông minh – tiết kiệm từng giây, hiệu quả mỗi ngày."</h6>
+            <br><button class="xemchitiet">Xem Chi Tiết</button>
+        </div>
+
+         <div data-aos="fade-left" class = "box"style="width: 400px; height: 500px;">
+            <img  style="border-radius: 50px; padding: 10px; top: 5%; left: 35%; position: relative;" src = "https://image.anninhthudo.vn/w800/Uploaded/2025/ipjoohb/2023_05_07/44c83147-6f5a-447d-9ef1-ac163b4c00ca-1969-1247.jpeg" width="100px" height="100px">
+            <h4 style="color: blue;"><br></br>Tên Faceboook: David Nguyen </h4>
+            <h5 style="color: black;"><br><br>Đánh Giá: ✨✨✨✨✨</h5>
+            <h6 style="color: green;"><br><br>📣 "Điểm danh tự động – bước tiến tất yếu trong chuyển đổi số giáo dục."</h6>
+             <br><button class="xemchitiet">Xem Chi Tiết</button>
+        </div>
+         <div class = "box"style="width: 400px; height: 500px;">
+            <img data-aos="fade-right"  style="border-radius: 50px; padding: 10px; top: 5%; left: 35%; position: relative;" src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIkx2iSW5wWZNNq6Fe6VvkY4O8W2V0b33wJg&s" width="100px" height="100px">
+            <h4 style="color: blue;"><br></br>Tên Faceboook: Ruby Lê</h4>
+            <h5 style="color: black;"><br><br>Đánh Giá: ✨✨✨✨✨</h5>
+            <h6 style="color: green;"><br><br>📣 "hông cần giấy, không cần gọi tên – mọi thứ nằm gọn trong hệ thống quản lý điểm danh thông minh."</h6>
+             <br><button class="xemchitiet">Xem Chi Tiết</button>
+        </div>
+        
+        
+        </div>
+
+        <br><br><br>
+
+        <div class="dichvu">
+            <h2>Các Dịch Vụ Anhtu1.id.vn Cung Cấp</h2>
+        </div>
+
+        <div  data-aos="fade-left" class="box">
+            <span>
+           <h4><b><br>Theo Tháng<b></4><br><br>
+            <h6>Quản Lí Sinh Viên Thử Nghiệm</h6>
+            <div>
+                <span> <h3 style="color: rgb(18, 61, 179);display: inline;">Giá: </h3></span>
+                <span> <h3 style="color: rebeccapurple;display: inline;">750,000 VNĐ </h3></span><br><br>
+            </div>
+            <div>
+                <span><h6 style="color: blue;display: inline;">❁</h6></span>
+                <span><h6 style="color: yellowgreen;display: inline;">Điểm Danh Qua Mạng Nội Bộ...</h6></span>
+            </div>
+            <div>
+                <span><h6 style="color: blue;display: inline;">❁</h6></span>
+                <span><h6 style="color: yellowgreen;display: inline;">Quản Lí 200 Người Dùng</h6></span>
+            </div>
+             <div>
+                <span><h6 style="color: blue;display: inline;">❁</h6></span>
+                <span><h6 style="color: yellowgreen;display: inline;">Nhắc Lịch Cho Giảng Viên - Sinh Viên</h6></span>
+            </div>
+             <br><br>
+           <button id ="muangay" class="btn btn-warning">Mua Ngay</button>
+            </span>
+        </div>
+        <br><br>
+        <div data-aos="fade-right" class="box">
+            <span>
+           <h4><b><br>Theo Năm<b></4><br><br>
+            <h6>Quản Lí Sinh Viên Premium</h6>
+            <div>
+                <span> <h3 style="color: rgb(18, 61, 179);display: inline;">Giá: </h3></span>
+                <span> <h3 style="color: rebeccapurple;display: inline;">5,000,000 VNĐ </h3></span><br><br>
+            </div>
+            <div>
+                <span><h6 style="color: blue;display: inline;">❁</h6></span>
+                <span><h6 style="color: yellowgreen;display: inline;">Điểm Danh Qua Mạng Nội Bộ...</h6></span>
+            </div>
+            <div>
+                <span><h6 style="color: blue;display: inline;">❁</h6></span>
+                <span><h6 style="color: yellowgreen;display: inline;">Quản Lí 10000 Người Dùng</h6></span>
+            </div>
+             <div>
+                <span><h6 style="color: blue;display: inline;">❁</h6></span>
+                <span><h6 style="color: yellowgreen;display: inline;">Nhắc Lịch Cho Giảng Viên - Sinh Viên</h6></span>
+            </div>
+             <br><br>
+           <button id ="muangay" class="btn btn-warning">Mua Ngay</button>
+            </span>
+        </div>
+
+        <br><br>
+        <div style="text-align: center; margin-top: 20px; font-size: 15px;">
+            <button style="border-radius: 30px;color: blue;" id="nutbyanhtu">© Design By --> Anh Tú K16THO0070</button>
+        </div>
+            <br><br>
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+    <script>
+  AOS.init();
+</script>
+<script>
+    document.getElementById("dangky.html").onclick = function(){
+        window.location.href = "dangky.php";
+    }
+    document.getElementById("login1.html").onclick = function(){
+        window.location.href = "login1.php";
+    }
+    document.getElementById("muangay").onclick = function(){
+        window.location.href = "thanhtoan.html";
+    }
+    document.getElementById("muangay").onclick = function(){
+        window.location.href = "bom.so/fbtu";
+    }
+    document.getElementById("trial").onclick = function(){
+        window.location.href = "thanhtoan.html";
+    }
+</script>
+</html>

@@ -1,0 +1,60 @@
+body{
+    background-image: url("https://images.unsplash.com/photo-1470770841072-f978cf4d019e?utm_source=chatgpt.com");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;  /* canh giữa ảnh */
+    height: 100vh;                /* chiều cao = 100% màn hình */ 
+}
+
+.nhapso{
+    background-color: rgb(19, 239, 239);
+    color: black;
+    padding: 10px 20px;
+    border-radius: 15px;
+    text-align: center;
+}
+.box{
+    background-image: url("https://i.pinimg.com/originals/1d/5d/f9/1d5df9f467664daf9bee250007943cba.gif");
+    background-size: cover;
+    color: rgb(239, 240, 241);
+    max-width: 250px;
+    height: 250px;
+    border-radius: 900px;
+    margin: 0 auto;
+    display: none;
+
+    
+}
+.ok{
+    background-color: brown;
+    color: aliceblue;
+    padding: 5px 10px;
+    border-radius: 16px;
+}
+.tabbar {
+    display: none;              /* Ẩn mặc định */
+    position: fixed;            /* Cố định toàn màn hình */
+    top: 0;
+    left: 0;
+    width: 100%;                /* phủ toàn bộ chiều ngang */
+    height: 100%;               /* phủ toàn bộ chiều dọc */
+    background: rgba(0, 0, 0, 0.8); /* nền đen mờ (có thể đổi màu) */
+    z-index: 1;               /* luôn trên cùng */
+    padding: 10px;
+            /* cuộn nếu nội dung nhiều */
+}
+
+.btn{
+    padding: 10px 20px;
+    background-color: rgb(208, 12, 97);
+    color: black;
+    border-radius: 20px;
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+}
+.btn:hover{
+     background-color: rgb(130, 204, 10);
+    color: black;
+}
+

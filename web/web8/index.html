@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Đổi Ảnh</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0px 10px 20px rgba(0,0,0,0.2);
+            text-align: center;
+            width: 350px;
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+        input:focus {
+            outline: none;
+            border-color: #74ebd5;
+            box-shadow: 0 0 5px #74ebd5;
+        }
+        img {
+            width: 100%;
+            max-width: 250px;
+            margin-top: 20px;
+            border-radius: 1000px;
+            transition: 0.5s;
+        }
+        .btn{
+            background-color: blue;
+            color: #f3efef;
+            height: 30px;
+            width: 200px;
+            border-radius: 20px;
+        }
+        .btn:hover{
+            background-color: rgb(23, 203, 47);
+            color: #f3efef;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+         <img id="hinh" src="1.png" alt="Ảnh">
+        <h2>Đăng Nhập</h2>
+        <input type="text" id="username" placeholder="Nhập tài khoản">
+        <input type="password" id="password" placeholder="Nhập mật khẩu">
+        <br><br><br>
+        <button class="btn" id="btn" >
+            Đăng Nhập</button>
+    </div>
+    
+
+    <script>
+        const hinh = document.getElementById("hinh");
+        const username = document.getElementById("username");
+        const password = document.getElementById("password");
+
+        // Khi nhập vào ô tài khoản -> ảnh 2
+        username.addEventListener("input", () => {
+            if (username.value.length > 0) {
+                hinh.src = "2.png";
+            } else {
+                hinh.src = "1.png"; // quay lại ảnh mặc định
+            }
+        });
+
+        // Khi nhập vào ô mật khẩu -> ảnh 3
+        password.addEventListener("input", () => {
+            if (password.value.length > 0) {
+                hinh.src = "3.png";
+            } else if (username.value.length > 0) {
+                hinh.src = "2.png"; 
+            } else {
+                hinh.src = "1.png";
+            }
+        });
+    </script>
+    <script>
+        
+        document.getElementById("btn").onclick = function(){
+        const user = document.getElementById("username").value;
+        const pass = document.getElementById("password").value;
+
+            if(user ==="admin" && pass==="123"){
+                 window.location.href="login.html"
+            }
+            else{
+                alert("User: admin | Pass: 123")
+            }
+           
+        }
+    </script>
+</body>
+</html>

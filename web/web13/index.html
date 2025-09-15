@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Đăng nhập UPT</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <link rel="manifest" href="/web13/manifest.json">
+
+  <style>
+    /* ... style giống của bạn (để ngắn gọn mình không lặp lại toàn bộ) ... */
+   body{
+    background-color: #f5f0f0;
+   }
+     header{
+        
+        width: 80%;
+        max-height: 80%;
+        padding: 60px 30px;
+        display: block;
+        margin: 0 auto;
+        border-radius: 20px;
+    }
+    .nvbar{
+        background: rgb(45, 45, 234);
+        padding: 8px;
+        border-radius: 12px;
+        max-width: 600px;
+        display: block;
+        margin: 0 auto;
+    }
+    .nvbar a {
+        background: rgb(239, 239, 29);
+        padding: 12px;
+        border-radius: 20px;
+        max-width: 100px;
+        max-height: 200px;
+        display: block;
+        margin: 0 auto;
+        text-align: center;
+    }
+    .container{
+      background: #daf5c4;
+      padding: 10px 20px;
+      border-radius: 15px;
+      max-width: 300px;
+      display: block;
+      margin: 0 auto;
+      border: 5px solid black; 
+
+    }
+    .btn-custom{
+      background:#007bff;color:#fff;
+      padding:12px;
+      border-radius:10px;
+      border:none;
+      width:60%;
+      cursor:pointer;
+      margin-bottom:20px
+    }
+
+    .footer {
+    margin-top: 20px;
+    text-align: center;
+}
+.btn_ak16{
+    margin: 0 auto; 
+    display: block; 
+    background: #ffe41b; 
+    color: rgb(27, 19, 246);
+    padding: 12px 12px;
+    border-radius: 18px;
+    animation: move 2s infinite;
+}
+@keyframes move{
+   0%{
+            transform: translateY(0px);
+        }
+        50%{
+            transform: translateY(-45px);
+        }
+        100%{
+            transform: translateY(0px);
+        }
+}
+ footer{
+        background: rgb(46, 46, 235);
+        padding: 20px 20px;
+        border-radius: 5px;
+    }
+
+
+  </style>
+</head>
+<body>
+    
+    <div>
+        <img style="width: 60px; height: 60px;" src="https://upt.edu.vn/wp-content/uploads/2020/05/logo-UPT-768x768.png">
+    </div>
+<div style="text-align: center;">
+  <img src="https://qldt.upt.edu.vn/img/banner.jpg" alt="Banner UPT" style="max-width: 100%; border: 2px solid rgb(92, 143, 114); border-radius: 8px;">
+</div>
+<br>
+    <div class="nvbar">
+        <a>Home</a>
+    </div>
+<br> <br><br> <br>
+<main>
+    <div class="container">
+    <h2>📘 Quản Lí Điểm Danh</h2>
+    <button  style="display: block; margin: 0 auto;" class="btn-custom" onclick="location.href='#'">Sinh Viên &amp; Giảng Viên</button>
+    <h3>🔑 Đăng nhập bằng Google UPT</h3>
+    <!-- Thay CLIENT_ID bằng Client ID bạn tạo ở Google Cloud Console -->
+     <!--269825672835-nldho7i3ki9gihjadt6ecf55gocqqo30.apps.googleusercontent.com -->
+    <div id="g_id_onload"
+         data-client_id="269825672835-nldho7i3ki9gihjadt6ecf55gocqqo30.apps.googleusercontent.com"
+         data-context="signin"
+         data-ux_mode="popup"
+         data-callback="handleCredentialResponse"
+         data-auto_prompt="false">
+    </div>
+    <div class="g_id_signin" data-type="standard"></div>
+    <br><br>
+    <div class="footer">
+  
+</div>
+    
+  </div>
+  <br><br><br>
+  <button class="btn_ak16"
+  id ="bydesgin">
+    By Design Team AK16</button>
+</main>
+<br>
+    <footer>
+        <h3 style="text-align: center; display: block; margin: 0 auto;color: white;">Bản quyền: Trường Đại học Phan Thiết</h2><br>
+        <a style="text-align: center;
+         display: block; margin: 0 auto;color: white;
+         font-size: 10px;">
+            Địa chỉ: 225 Nguyễn Thông, Phú Hài, Phan Thiết, Bình Thuận | Điện thoại: (+84.0252)2461373 - 2461372 - 6283838 | Địa chỉ email: dhphanthiet@upt.edu.vn</p>
+    </footer>
+</body>
+</html>
+ <script>
+      document.getElementById("bydesgin").onclick = function () {
+    window.open("https://bom.so/fbtu", "_blank"); // mở tab mới
+      }
+
+    function handleCredentialResponse(response) {
+      // Gửi id_token về server để server xác thực an toàn
+      fetch("verify.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token: response.credential })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.redirect) {
+          // Lưu thông tin nhỏ nếu muốn
+          localStorage.setItem("upt_user", JSON.stringify({ email: data.email, name: data.name, picture: data.picture }));
+          window.location.href = data.redirect;
+        } else {
+          alert("❌ " + (data.error || "Xác thực thất bại"));
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        alert("Click ok");
+         window.location.href = "https://anhtu1.id.vn/web13/sinh_vien";
+      });
+    }
+    
+  </script>
+

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html>
+    
+    <title>Sản Phẩm</title>
+    <style>
+        body{
+            background-color: wheat;
+        }
+        
+       
+        
+        .ds_sp{
+            display: flex;
+            padding: 20px;
+        }
+        .box-sanpham{
+            text-align: center;
+            width: 250px;
+            height: 300px;
+            border-radius: 30px;
+            background-color: white;
+            margin: 30px;
+            font-weight: bold;
+            flex-wrap: wrap;
+           
+        }
+         .box-sanpham img{
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }
+        .themgiohang{
+            background-color: blue;
+            color: white;
+        
+        }
+        .nut-themgiohang{
+            width: 150px;
+            background-color: blue;
+            color: white;
+            border-radius: 40px;
+            
+        }
+        .nut-buy{
+            background-color: red;
+            color: white;
+            border-radius: 40px;
+        }
+        .nut-xemchitiet{
+            background-color: green;
+            color: white;
+            border-radius: 30px;
+            
+        }
+        .title{
+            text-align: center;
+            background-image: url('https://bom.so/9rz9Dw');
+            padding: 10px;
+            border-radius: 20px;
+            width: 600px;
+            text-align: center;
+            margin: 0 auto;
+        }
+        
+         @media (max-width: 600px) {
+        .ds_sp {
+            flex-direction: column;
+            align-items: center;
+            padding: auto;
+        }
+
+        .box-sanpham {
+            width: 90%; /* Giúp sản phẩm co lại phù hợp với màn hình nhỏ */
+        }
+        .title{
+            width: 90%;
+        }
+    }
+    .popup{
+        background-color: blue;
+        color: white;
+        border-radius: 30px;
+        text-align: center;
+        top: 50px;
+        left: 50px;
+        
+    }
+    </style>
+    <body>
+         <img src ="https://anhtx1u11.github.io/admintuupt.github.io/A-Main/logotu-fotor-20250509173456.png" width="60px", height="60px"
+                    onclick="window.location.href='login.html'">
+        <div class="title">
+            <h2>Danh Sách Sản Phẩm</h2>
+            
+        </div>
+         <button style="
+                    text-align: left;
+                    width: 150px;
+                    text-align: left;
+                    padding: 10px;
+                    background-color: gray;
+                    border: 2px solid #a88734;
+                    border-radius: 8px;
+                    font-size: 16px;">&nbsp;👤 Tài Khoản</button>
+       
+     
+        <br><br>
+        &nbsp;&nbsp;
+        <button style="
+                    text-align: left;
+                    width: 120px;
+                    text-align: left;
+                    padding: 10px;
+                    background-color: #f0c14b;
+                    border: 2px solid #a88734;
+                    border-radius: 8px;
+                    font-size: 16px;" onclick = "giohang()">🛒 Giỏ Hàng</button>
+        <div style="text-align: center; color: green;">
+            <h3>Tìm Sản Phẩm</h3>
+            <label id = "chon">
+                <select id = "chonsp" name ="chon">
+                    <option value="traicay">Trái Cây</option>
+                    <option value="lambep">Làm Bếp</option>
+                </select>
+                <button id = "timkiem" style="background-color: green;color: white;"onclick = "timkiem()">Tìm Kiếm</button>
+            </label>
+
+        </div>
+        <!--Hàng 1 -->
+        <div id = "sp-traicay" class = "ds_sp">
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            <div class = "box-sanpham">
+                <br>
+                <img src = "https://www.lottemart.vn/media/catalog/product/cache/0x0/8/0/8034988225065.jpg.webp">
+                <p>Dầu Ôliu 250ml</p>
+                <p>Giá: 79.800 VNĐ</p>
+                <span class = "ds_sp">
+                 <input type="button" value="Thêm vào giỏ hàng" class="nut-themgiohang">
+                 <input type="button" value="Mua Ngay" class="nut-buy" onclick="muangay('Dầu Ôliu 250ml', 79800,'lottemart.vn/media/catalog/product/cache/0x0/8/0/8034988225065.jpg.webp')">
+
+                </span>
+                <a href ="https://bom.so/U0xZfo">
+                     <input id = "xemchitiet" type="button" value="🔍 Xem Chi Tiết" class="nut-xemchitiet"> 
+                </a>
+               
+            </div>
+
+             <div class = "box-sanpham">
+                <br>
+                <img src = "https://cdn.tgdd.vn/Products/Images/2567/213563/bhx/tuong-ot-chinsu-chai-500g-201911011615532253.jpg">
+                <p>Tương ớt Chinsu chai 500g</p>
+                <p>Giá: 30.000 VNĐ</p>
+                <span class = "ds_sp">
+                 <input type="button" value="Thêm vào giỏ hàng" class="nut-themgiohang">
+                 <input type="button" value="Mua Ngay" class="nut-buy" onclick="muangay('Tương ớt Chinsu chai 500g', 30000,'    ')">
+                </span>
+                <a href ="https://bom.so/m55Qx0">
+                    <input id = "xemchitiet" type="button" value="🔍 Xem Chi Tiết" class="nut-xemchitiet"> 
+                </a>
+            </div>
+
+            <div class = "box-sanpham">
+                <br>
+                <img src = "https://www.lottemart.vn/media/catalog/product/cache/75x75/2/2/2270450000006-1-2.jpg.webp">
+                <p>TCherry Nhập Khẩu Mỹ 550G</p>
+                <p>Giá: 139.000 VNĐ</p>
+                <span class = "ds_sp">
+                 <input type="button" value="Thêm vào giỏ hàng" class="nut-themgiohang">
+                <input type="button" value="Mua Ngay" class="nut-buy" onclick="muangay('TCherry Nhập Khẩu Mỹ 550G', 129800,'lottemart.vn/media/catalog/product/cache/75x75/2/2/2270450000006-1-2.jpg.webp')">
+                </span>
+                <a href ="https://bom.so/m55Qx0">
+                    <input id = "xemchitiet" type="button" value="🔍 Xem Chi Tiết" class="nut-xemchitiet"> 
+                </a>
+            </div>
+
+            <div class = "box-sanpham">
+                <br>
+                <img src = "https://www.lottemart.vn/media/catalog/product/cache/300x300/2/1/2181530000000-1-2.jpg.webp">
+                <p>Kiwi Vàng New Zealand 600G</p>
+                <p>Giá: 174.000 VNĐ</p>
+                <span class = "ds_sp">
+                 <input type="button" value="Thêm vào giỏ hàng" class="nut-themgiohang">
+                 <input type="button" value="Mua Ngay" class="nut-buy">
+                </span>
+                <a href ="https://bom.so/m55Qx0">
+                    <input id = "xemchitiet" type="button" value="🔍 Xem Chi Tiết" class="nut-xemchitiet"> 
+                </a>
+            </div>
+
+            <div class = "box-sanpham">
+                <br>
+                <img src = "https://www.lottemart.vn/media/catalog/product/cache/75x75/2/2/2201870000000-bb-1.jpg.webp">
+                <p>TTáo Envy nhập khẩu New Zealand (size 3-4 Trái/kg) 1kg</p>
+                <p>Giá: 319.000 VNĐ</p>
+                <span class = "ds_sp">
+                 <input type="button" value="Thêm vào giỏ hàng" class="nut-themgiohang">
+                 <input type="button" value="Mua Ngay" class="nut-buy">
+                </span>
+                <a href ="https://bom.so/m55Qx0">
+                    <input id = "xemchitiet" type="button" value="🔍 Xem Chi Tiết" class="nut-xemchitiet"> 
+                </a>
+            </div>
+
+            
+        </div>
+
+            
+       <!--Hàng 2 -->
+        <div id = "sp-lambep" class ="ds_sp">
+              &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            <div class = "box-sanpham">
+                <br>
+                <img src = "https://cdn.tgdd.vn/Products/Images/2567/213563/bhx/tuong-ot-chinsu-chai-500g-201911011615532253.jpg">
+                <p>Tương ớt Chinsu chai 500g</p>
+                <p>Giá: 30.000 VNĐ</p>
+                <span class = "ds_sp">
+                 <input type="button" value="Thêm vào giỏ hàng" class="nut-themgiohang">
+                 <input type="button" value="Mua Ngay" class="nut-buy">
+                </span>
+                <a href ="https://bom.so/m55Qx0">
+                    <input id = "xemchitiet" type="button" value="🔍 Xem Chi Tiết" class="nut-xemchitiet"> 
+                </a>
+            </div>
+            <div class = "box-sanpham">
+                <br>
+                <img src = "https://cdn.tgdd.vn/Products/Images/2567/213563/bhx/tuong-ot-chinsu-chai-500g-201911011615532253.jpg">
+                <p>Tương ớt Chinsu chai 500g</p>
+                <p>Giá: 30.000 VNĐ</p>
+                <span class = "ds_sp">
+                 <input type="button" value="Thêm vào giỏ hàng" class="nut-themgiohang">
+                 <input type="button" value="Mua Ngay" class="nut-buy">
+                </span>
+                <a href ="https://bom.so/m55Qx0">
+                    <input id = "xemchitiet" type="button" value="🔍 Xem Chi Tiết" class="nut-xemchitiet"> 
+                </a>
+            </div>
+
+            <div class = "box-sanpham">
+                <br>
+                <img src = "https://cdn.tgdd.vn/Products/Images/2567/213563/bhx/tuong-ot-chinsu-chai-500g-201911011615532253.jpg">
+                <p>Tương ớt Chinsu chai 500g</p>
+                <p>Giá: 30.000 VNĐ</p>
+                <span class = "ds_sp">
+                 <input type="button" value="Thêm vào giỏ hàng" class="nut-themgiohang">
+                 <input type="button" value="Mua Ngay" class="nut-buy">
+                </span>
+                <a href ="https://bom.so/m55Qx0">
+                    <input id = "xemchitiet" type="button" value="🔍 Xem Chi Tiết" class="nut-xemchitiet"> 
+                </a>
+            </div>
+
+            <div class = "box-sanpham">
+                <br>
+                <img src = "https://www.lottemart.vn/media/catalog/product/cache/75x75/8/9/8936125671141.jpg.webp">
+                <p>Mứt Xoài Sấy Dẻo Tâm Hữu Dũng 200g</p>
+                <p>Giá: 78.600 VNĐ</p>
+                <span class = "ds_sp">
+                 <input type="button" value="Thêm vào giỏ hàng" class="nut-themgiohang">
+                 <input type="button" value="Mua Ngay" class="nut-buy">
+                </span>
+                <a href ="https://www.lottemart.vn/vi-ptt/product/mango-mango-jam-mango-huu-dung-200g-8936125671141-p25121s">
+                    <input id = "xemchitiet" type="button" value="🔍 Xem Chi Tiết" class="nut-xemchitiet"> 
+                </a>
+            </div>
+
+            <div class = "box-sanpham">
+                <br>
+                <img src = "https://www.lottemart.vn/media/catalog/product/cache/75x75/8/9/8938507179740.jpg.webp">
+                <p>Ghẹ Sữa Tẩm Mè Sấy Giòn 120G (ea)</p>
+                <p>Giá: 78.900 VNĐ</p>
+                <span class = "ds_sp">
+                 <input type="button" value="Thêm vào giỏ hàng" class="nut-themgiohang">
+                 <input type="button" value="Mua Ngay" class="nut-buy">
+                </span>
+                <a href ="https://www.lottemart.vn/vi-ptt/product/ghe-sua-tam-me-say-gion-8938507179740-p8198">
+                    <input id = "xemchitiet" type="button" value="🔍 Xem Chi Tiết" class="nut-xemchitiet"> 
+                </a>
+            </div>
+        </div>
+        <div id = "popup" class ="popup" style="display: none; text-align: center;">
+            <p>Mua Thành Công</p>
+        </div>
+    </body>
+    <script>
+        function muangay(ten, gia) {
+    const url = `thanhtoan.html?sp=${encodeURIComponent(ten)}&gia=${gia}`;
+    window.location.href = url;
+}
+
+    </script>
+    <script>
+        function timkiem(){
+                document.getElementById("timkiem").onclick = function(){
+                var value = document.getElementById("chonsp").value;
+                var traicay = document.getElementById("sp-traicay");
+                var lambep = document.getElementById("sp-lambep");
+
+                traicay.style.display = "none";
+                lambep.style.display = "none";
+
+                if(value == "traicay"){
+                    traicay.style.display = "flex";
+                }
+                else if (value == "lambep"){
+                    lambep.style.display = "flex";
+                }
+            }
+        }
+        
+    </script>
+    <script>
+        window.onload = function(){
+            timkiem();
+        }
+    </script>
+    <script>
+        function giohang(){
+            window.location.href = "giohang.html";
+        }
+    </script>
+</html>

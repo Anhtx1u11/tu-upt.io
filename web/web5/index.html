@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<title>Ảnh Nền Website</title>
+<style>
+body{
+background-image: url("https://i.gifer.com/N8i8.gif");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+}
+.tabbar{
+display: none;
+position: flex;
+z-index: 1;
+}
+.btn{
+  background-color: aqua;
+  color: black;
+  border-radius: 10px;
+}
+.popou{
+  background-color: rgb(226, 247, 108);
+  color: blue;
+  width: 180px;
+  height: 120px;
+  border-radius: 20px;
+  display: none;
+  margin: 0 auto;
+  
+}
+  
+</style>
+<body>
+
+  <button style="background-color: rgb(181, 32, 32);color: aliceblue; border-radius: 50px;" id="click_tabbar">≡</button>
+<div id="tabbar_" class="tabbar">
+    <br>
+    <button class="btn" onclick="changeBg('https://images.unsplash.com/photo-1503264116251-35a269479413')">Nền 1</button>
+    <button class="copy-btn" onclick="copyLink('https://images.unsplash.com/photo-1503264116251-35a269479413')">Copy Link</button><br><br>
+
+    <button class="btn" onclick="changeBg('https://images.unsplash.com/photo-1506744038136-46273834b3fb')">Nền 2</button>
+    <button class="copy-btn" onclick="copyLink('https://images.unsplash.com/photo-1506744038136-46273834b3fb')">Copy Link</button><br><br>
+
+    <button class="btn" onclick="changeBg('https://images.unsplash.com/photo-1470770841072-f978cf4d019e')">Nền 3</button>
+    <button class="copy-btn" onclick="copyLink('https://images.unsplash.com/photo-1470770841072-f978cf4d019e')">Copy Link</button><br><br>
+
+    <button class="btn" onclick="changeBg('https://images.unsplash.com/photo-1507525428034-b723cf961d3e')">Nền 4</button>
+    <button class="copy-btn" onclick="copyLink('https://images.unsplash.com/photo-1507525428034-b723cf961d3e')">Copy Link</button><br><br>
+
+    <button class="btn" onclick="changeBg('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee')">Nền 5</button>
+    <button class="copy-btn" onclick="copyLink('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee')">Copy Link</button><br><br>
+
+    <button class="btn" onclick="changeBg('https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg')">Nền 6</button>
+    <button class="copy-btn" onclick="copyLink('https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg')">Copy Link</button><br><br>
+
+    <button class="btn" onclick="changeBg('https://images.pexels.com/photos/707915/pexels-photo-707915.jpeg')">Nền 7</button>
+    <button class="copy-btn" onclick="copyLink('https://images.pexels.com/photos/707915/pexels-photo-707915.jpeg')">Copy Link</button><br><br>
+
+    <button class="btn" onclick="changeBg('https://images.pexels.com/photos/4534200/pexels-photo-4534200.jpeg')">Nền 8</button>
+    <button class="copy-btn" onclick="copyLink('https://images.pexels.com/photos/4534200/pexels-photo-4534200.jpeg')">Copy Link</button><br><br>
+
+    <button class="btn" onclick="changeBg('https://images.pexels.com/photos/15286/pexels-photo.jpg')">Nền 9</button>
+    <button class="copy-btn" onclick="copyLink('https://images.pexels.com/photos/15286/pexels-photo.jpg')">Copy Link</button><br><br>
+
+    <button class="btn" onclick="changeBg('https://images.pexels.com/photos/2387873/pexels-photo-2387873.jpeg')">Nền 10</button>
+    <button class="copy-btn" onclick="copyLink('https://images.pexels.com/photos/2387873/pexels-photo-2387873.jpeg')">Copy Link</button><br><br>
+
+    <button class="btn" onclick="changeBg('https://images.pexels.com/photos/1095817/pexels-photo-1095817.jpeg')">Nền 11</button>
+    <button class="copy-btn" onclick="copyLink('https://images.pexels.com/photos/1095817/pexels-photo-1095817.jpeg')">Copy Link</button><br><br>
+
+    <button class="btn" onclick="changeBg('https://images.pexels.com/photos/3586966/pexels-photo-3586966.jpeg')">Nền 12</button>
+    <button class="copy-btn" onclick="copyLink('https://images.pexels.com/photos/3586966/pexels-photo-3586966.jpeg')">Copy Link</button><br><br>
+
+    <button class="btn" onclick="changeBg('https://images.pexels.com/photos/192136/pexels-photo-192136.jpeg')">Nền 13</button>
+    <button class="copy-btn" onclick="copyLink('https://images.pexels.com/photos/192136/pexels-photo-192136.jpeg')">Copy Link</button><br><br>
+
+    <button class="btn" onclick="changeBg('https://images.pexels.com/photos/1024960/pexels-photo-1024960.jpeg')">Nền 14</button>
+    <button class="copy-btn" onclick="copyLink('https://images.pexels.com/photos/1024960/pexels-photo-1024960.jpeg')">Copy Link</button><br><br>
+
+    <button class="btn" onclick="changeBg('https://images.pexels.com/photos/450597/pexels-photo-450597.jpeg')">Nền 15</button>
+    <button class="copy-btn" onclick="copyLink('https://images.pexels.com/photos/450597/pexels-photo-450597.jpeg')">Copy Link</button><br><br>
+</div>
+
+  <div class="popou" id="show_popou">
+    <h2>ok</h2>
+  </div>
+</body>
+<script>
+  document.getElementById("click_tabbar").onclick = function(){
+    var tabbar = document.getElementById("tabbar_");
+    if(tabbar.style.display === "block"){
+      tabbar.style.display = "none"
+    }
+    else{
+      tabbar.style.display = "block"
+    }
+  } 
+</script>
+<script>
+function changeBg(url) {
+    document.body.style.backgroundImage = `url('${url}')`;
+}
+function copyLink(url){
+    navigator.clipboard.writeText(url).then(function() {
+        
+       var show_popou =  document.getElementById("show_popou");
+       if(show_popou.style.display === "none"){
+        show_popou.style.display = "flex"
+       }
+        console.log(url);
+    }, function(err) {
+        alert("Copy thất bại!");
+    });
+}
+</script>

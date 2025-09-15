@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+     <title>Trang Đăng Ký</title>
+     <style>
+        body{
+            background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80');
+            background-size: auto;
+           
+        }
+        .fromdk{
+            text-align: center;
+            color: blue;
+        }
+        .nutdangky{
+            height: 35px;
+            width: 90px;
+            padding: 8px;
+            background-color: blue;
+            color: white;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .nutdangky:hover{
+             background-color: green;
+            color: white;
+        }
+        .reg-box{
+            width: 300px;
+            height: auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin: auto;
+        }
+        
+     </style>
+    <body>
+         <img src ="https://anhtx1u11.github.io/admintuupt.github.io/A-Main/logotu-fotor-20250509173456.png" width="80px", height="80px">
+      
+       <h2 style="text-align: center; color: green">Đăng Ký Tài Khoản</h2>
+       <br>
+
+       <form method="post" action="save.php">
+         <div class="reg-box" style="text-align: center; color: rgb(78, 199, 218);">
+        <h5>👨‍🦰 Tài Khoản</h5>
+      <input class ="text" name="tk" placeholder="Tài Khoản" id = "tk" required>
+
+      <h5>🔒 Mật Khẩu 🔒</h5>
+      <input type = "password" name="mk" class ="text" placeholder="Mật Khẩu" id = "mk" required>
+
+      <h5>🔒 Xác Nhận Mật Khẩu 🔒</h5>
+      <input type = "password" name="xnmk" class ="text"  placeholder="Xác Nhận Mật Khẩu" id = "xnmk" required>
+
+      <h5>Nhập Gmail</h5>
+      <input type ="email" name="gmail" id = "gmail" placeholder="example@gmail.com" required><br><br>
+
+      <input class="nutdangky" type="submit" value="Đăng Ký">
+       </form>
+    </body>
+    <script>
+        
+        function dangky(){
+             var tk = document.getElementById("tk").value.trim();
+            var mk = document.getElementById("mk").value.trim();
+             var xnmk = document.getElementById("xnmk").value.trim();
+              var gmail = document.getElementById("gmail").value.trim();
+
+             if (!tk || !mk || !xnmk || !gmail) 
+             {
+                alert("Vui Lòng Điền Đủ Thông Tin");
+                return;
+            } 
+            if(mk === xnmk) 
+            {
+                alert("Đăng Ký Thành Công");
+                window.location.href = "login.html";
+                return;
+            }
+            if(mk !== xnmk){
+                alert("Xác Nhận Mật Khẩu Không Khớp");
+                return;
+            }
+        }
+        
+        
+    </script>
+</html>

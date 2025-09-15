@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<title>TEST wEB12</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<style>
+    body{
+        background: linear-gradient(to right, red, blue, aqua);
+        background-size: 800% 800%;
+        animation: move 15s;
+    }
+    @keyframes move{
+        0%{
+            background-position: 0% 50%;
+        }
+         50%{
+            background-position: 100% 50%;
+        }
+         100%{
+            background-position: 0% 50%;
+        }
+    }
+    .khung{
+        background-color:#3a1e1c;
+        height: 300%;
+        width: 200px;
+        display: block;
+        margin: 0 auto;
+        margin-top: 100px;
+        border-radius: 12px;
+        border: 1px solid white;
+    }
+    .khung a{
+        color: rgb(87, 87, 243);
+        font-weight: bold;
+        display: block;
+        text-align: center;
+    }
+    .khung input{
+        display: block;
+        margin: 0 auto;
+        width: 150px;
+        height: 20px;
+        background: rgba(0,0,0,0.3);
+        border-radius: 10px; 
+        color: white;
+    }
+    .khung label{
+        display: block;
+       margin-left: 20px;
+       color: aliceblue;
+       margin-bottom: 8px;
+    }
+    button{
+        display: block;
+        margin: 0 auto;
+        border: none;
+        padding: 10px 15px;
+        background: rgb(38, 38, 255);
+        color: white;
+        border-radius: 8px;
+    }
+    button:hover{
+        background: red;
+        box-shadow: 0px 0px 10px aqua;
+
+    }
+    h1{
+        background: linear-gradient(to right, white, yellow);
+        animation: move 1s;
+         background-size: 800% 800%;
+         margin-top: 100px;
+         font-size: 60px;
+         height: auto;
+         width: 800px;
+         border-radius: 12px;
+         display: block;
+         margin: 0 auto;
+    }
+    @keyframes move{
+        0%{
+            background-position: 0% 50%;
+        }
+         50%{
+            background-position: 100% 50%;
+        }
+         100%{
+            background-position: 0% 50%;
+        }
+    }
+</style>
+<body>
+    <header><br><br><br><br>
+        <h1>Website Login Demo Đổi Màu </h1>
+    </header>
+    <div class="khung">
+        <br>
+        <a>Đăng Nhập</a><br>
+        <label>Tài Khoản</label>
+        <input type="text" placeholder="Nhập Tài Khoản"><br>
+         <label>Mật Khẩu</label>
+        <input type="password" id="password"  placeholder="Nhập Tài Khoản"><br>
+        <span>
+            <input type="checkbox" id="check_pass" style="display: none;">
+            <label style="background: blue; width: 120px;border-radius: 12px;text-align: center;" 
+                   for="check_pass">
+                   Xem mật khẩu</label>
+        </span>
+        <br><br>
+        <button>Login</button>
+        <br><br>
+    </div>
+</body>
+<script>
+    
+    const check_pass = document.getElementById("check_pass").onclick = function(){
+        const password = document.getElementById("password");
+
+        if(password.type === "password"){
+            password.type = "text"
+        }else{
+             password.type = "password"
+        }
+
+    }
+</script>

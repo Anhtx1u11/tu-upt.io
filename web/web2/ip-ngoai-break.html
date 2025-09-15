@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kiểm tra nhà mạng</title>
+  <script>
+    async function checkISP() {
+      try {
+        const res = await fetch("https://ipwho.is/");
+        const data = await res.json();
+        console.log("Thông tin chi tiết:", data);
+
+        const ip = data.ip;
+        const country = data.country;
+        const isp = data.connection?.isp || "Không rõ";
+
+        document.getElementById("ip").textContent = ip;
+        document.getElementById("country").textContent = country;
+        document.getElementById("isp").textContent = isp;
+
+        // Nếu không phải Việt Nam thì chuyển hướng (tùy chọn)
+        if (data.country_code !== "VN") {
+          window.location.href = "block.html";
+        }
+
+      } catch (error) {
+        console.error("Lỗi khi kiểm tra IP:", error);
+      }
+    }
+
+    window.onload = checkISP;
+  </script>
+</head>
+<body>
+  <h1>Thông tin IP của bạn</h1>
+  <p>Địa chỉ IP: <strong id="ip">Đang kiểm tra...</strong></p>
+  <p>Quốc gia: <strong id="country">Đang kiểm tra...</strong></p>
+  <p>Nhà mạng (ISP): <strong id="isp">Đang kiểm tra...</strong></p>
+</body>
+</html>

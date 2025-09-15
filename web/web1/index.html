@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<html>
+<title>Trang Login</title>
+<header>
+  <style>
+    body {
+      background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1920&q=80');
+
+      background-size: cover;
+      background-position: center;
+      color: brown;
+    }
+
+    .nutlogin {
+      height: 40px;
+      width: 100px;
+      padding: 10px, 10px;
+      background-color: blue;
+      color: aliceblue;
+      text-align: center;
+      border-radius: 12px;
+      /* bo góc khung */
+
+    }
+
+    .nutlogin:hover {
+      background-color: green;
+    }
+
+    .nutdangky {
+      text-align: center;
+
+      color: yellow;
+    }
+
+    .nutdangky:hover {
+      color: blue;
+    }
+
+    .popup {
+      display: inline-block;
+      padding: 20px;
+      border-radius: 12px;
+      background-color: white;
+      color: brown;
+
+    }
+
+    .nutok {
+      background-color: green;
+    }
+
+    .nutok:hover {
+      background-color: red;
+    }
+
+    .nutbyanhtu {
+      text-align: center;
+      background-color: yellow;
+      color: green;
+      border-radius: 20px;
+
+
+
+    }
+
+    .nutbyanhtu:hover {
+      background-color: turquoise;
+      color: blue;
+    }
+
+    .login-box {
+      width: 200px;
+      padding: 20px;
+      height: auto;
+      background: white;
+      border-radius: 12px;
+      margin: auto;
+    }
+  </style>
+</header>
+
+<body>
+  <img src="https://anhtx1u11.github.io/admintuupt.github.io/A-Main/logotu-fotor-20250509173456.png" width="80px" ,
+    height="80px">
+
+  <body style="background-color: black;">
+    <h1 style="text-align: center;color: green">Chào Các Bạn Đến Với Trang Login</h1>
+
+    <h4 style="text-align: center;">
+      <span style="color: blue;">Bạn Chưa Có Tài Khoản? ==> </span>
+      <span class="nutdangky" id="dk" onclick="dangky()">Đăng Ký</span>
+    </h4>
+    <br>
+
+
+    <div class="login-box" style="text-align: center;">
+      <h2 style="color: green;">Login</h2>
+      <br>
+      <input type="text" name="tk" id="user" placeholder="Nhập Tk"><br><br>
+      <input type="password" name="mk" id="pass" placeholder="Nhập Mk"><br><br>
+
+      <label>
+        <input type="checkbox" name="remember"> Ghi nhớ?
+      </label>
+      <br><br>
+      <button class="nutlogin" id="login">Đăng Nhập</button>
+    </div>
+    </form>
+    <br><br><br><br><br><br><br>
+
+    <div style="text-align: center;">
+      <button id="nutbyanhtu" class="nutbyanhtu" onclick="nutbyanhtu()">© Design By --> Anh Tú K16THO0070</button>
+    </div>
+
+    <br><br><br><br><br><br><br><br>
+  </body>
+  <script>
+    function dangky() {
+      var tk = document.getElementById("user").value.trim();
+      var mk = document.getElementById("pass").value.trim();
+      var xnmk = document.getElementById("xnmk").value.trim();
+      if (mk != xnmk) {
+        alert("Mật Khẩu Không Trùng Khớp");
+        return;
+      }
+    }
+  </script>
+  <script>
+
+    document.getElementById("login").onclick = function(){
+      const tk = document.getElementById("user").value;
+      const pass = document.getElementById("pass").value;
+
+      if(tk ==="admin" && pass==="123"){
+        window.location.href="sanpham.html";
+      }
+    }
+
+  </script>
+  <script>
+    function nutok() {
+      console.log("Đã click vào nút OK"); // Ghi log ra console
+      window.location.href = "login.html"; // Chuyển hướng đến login.html
+    }
+  </script>
+
+  <script>
+    function dangky() {
+      var dk = document.getElementById("dk").onclick = function () {
+        window.location.href = "dangky.html";
+      }
+    }
+  </script>
+  <script>
+    function nutbyanhtu() {
+
+      window.location.href = "https://bom.so/fbtu";
+    }
+  </script>
+
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neon Login</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #0f0f0f;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    .box {
+      position: relative;
+      width: 340px;
+      height: 440px;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .box::before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: conic-gradient(#ff0055, #00f0ff, #ff0055);
+      filter: blur(8px);
+      animation: rotate 4s linear infinite;
+    }
+
+    .box::after {
+      content: "";
+      position: absolute;
+      inset: 4px;
+      background: #1b1b1b;
+      border-radius: 30px;
+      z-index: 1;
+    }
+
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .form-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      overflow: hidden;
+    }
+
+    .form-box {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 100%;
+      padding: 40px 20px;
+      box-sizing: border-box;
+      text-align: center;
+      color: #fff;
+      transition: all 0.6s ease;
+    }
+
+    .form-box.active {
+      left: 0;
+    }
+
+    .form-box h2 {
+      margin-bottom: 20px;
+      font-size: 24px;
+      letter-spacing: 2px;
+    }
+
+    .form-box input {
+      width: 100%;
+      padding: 12px;
+      margin: 12px 0;
+      border-radius: 25px;
+      border: none;
+      outline: none;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .form-box input[type="text"],
+    .form-box input[type="email"],
+    .form-box input[type="password"] {
+      background: #2d2d39;
+      color: #fff;
+    }
+
+    .form-box input[type="submit"] {
+      background: #00f0ff;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .form-box input[type="submit"]:hover {
+      background: #ff0055;
+      color: #fff;
+    }
+
+    .form-box .links {
+      margin-top: 15px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+    }
+
+    .form-box .links a {
+      color: #00f0ff;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .form-box .links a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="box">
+    <div class="form-container">
+
+      <!-- Login Form -->
+      <div class="form-box active" id="loginForm">
+        <h2>🔒 Login</h2>
+        <input type="text" placeholder="Username">
+        <input type="password" placeholder="Password">
+        <input type="submit" value="Sign In">
+        <div class="links">
+          <a onclick="showForm('forgotForm')">Forgot Password</a>
+          <a onclick="showForm('registerForm')">Sign Up</a>
+        </div>
+      </div>
+
+      <!-- Register Form -->
+      <div class="form-box" id="registerForm">
+        <h2>📝 Register</h2>
+        <input type="text" placeholder="Username">
+        <input type="email" placeholder="Email">
+        <input type="password" placeholder="Password">
+        <input type="submit" value="Sign Up">
+        <div class="links">
+          <a onclick="showForm('loginForm')">Back to Login</a>
+        </div>
+      </div>
+
+      <!-- Forgot Password Form -->
+      <div class="form-box" id="forgotForm">
+        <h2>❓ Forgot Password</h2>
+        <input type="email" placeholder="Enter your Email">
+        <input type="submit" value="Reset Password">
+        <div class="links">
+          <a onclick="showForm('loginForm')">Back to Login</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    function showForm(id) {
+      document.querySelectorAll('.form-box').forEach(box => {
+        box.classList.remove('active');
+      });
+      document.getElementById(id).classList.add('active');
+    }
+  </script>
+
+</body>
+</html>

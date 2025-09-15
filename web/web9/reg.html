@@ -1,0 +1,131 @@
+    <!DOCTYPE html>
+    <html>
+        <title>Website Regiter</title>
+    <style>
+        body{
+            margin: 0 auto;
+            background-color: rgb(212, 215, 217);
+        }
+        header{
+            background-color: rgb(128, 6, 6);
+            color: white;
+            padding: 20px 30px;
+            font-weight: bold;
+            
+        }
+        header nav a{
+            margin-left: 50px;
+            color: rgb(238, 228, 30);
+            
+        }
+
+        footer{
+            background-color: rgb(128, 6, 6);
+            color: white;
+            padding: 20px 30px;
+            text-align: center;
+        }
+        main{
+
+        }
+
+        .poup{
+            background-color: white;
+            text-align: center;
+            max-width: 400px;
+            height: 600px;
+            border-radius: 15px;
+        
+            margin: 0 auto;
+        }
+        .btn{
+            background-color: rgb(9, 9, 251);
+            color: yellow;
+            border-radius: 5px;
+            padding: 10px 10px;
+        }
+        .btn:hover{
+            background-color: rgb(21, 154, 172);
+            color: rgb(248, 248, 244);
+            border-radius: 15px;
+            padding: 6px 6px;
+        }
+        .input{
+            padding: 10px 20px;
+        }
+
+        .noti{
+            animation: move 2s infinite;
+            text-align: center;
+            background-color: blue;
+            color: yellow;
+            max-width: 350px;
+            max-height: auto;
+            margin: 0 auto;
+            border-radius: 15px;
+
+        }
+        @keyframes move{
+            0%{
+                transform: translateY(0px);
+            }
+            50%{
+                transform: translateY(-50px);
+            }
+            100%{
+                transform: translateY(0px);
+            }
+        }
+
+    </style>
+    <body>
+    
+        <header style="text-align: center;">
+            <h2>K16THO0070</h2>
+            <nav>
+                <a href="">Trang Chủ</a>
+                <a href="">Giới Thiệu</a>
+                <a href="">Chức Năng</a>
+            </nav>
+        </header>
+        <br><br>
+        <main>
+            <div class="poup">
+                <br>
+                <a href="index.html" style="color: rgb(52, 179, 26);">Đăng Nhập ?</a>
+                <br>
+                <h2>Đăng Ký</h2>
+                <p style="font-weight: bolder;">Tên Người Dùng: </p>
+                <input class="input" type="user" id="tk" placeholder="Nhập Tài Khoản">
+
+                 <p style="font-weight: bolder;">Mật Khẩu: </p>
+                <input class="input" type="password" id="mk" placeholder="Nhập Mật Khẩu">
+                 <p style="font-weight: bolder;">Xác Nhận Mật Khẩu: </p>
+                <input class="input" type="password" id="xnmk" placeholder="Nhập Mật Khẩu">
+
+                <p style="font-weight: bolder;">Gmail: </p>
+                <input class="input" type="email" id="gmail" placeholder="Nhập gmail">
+                <br><br>
+                
+                <button id="btn_login" class="btn" >Đăng Ký</button>
+            </div>
+            
+            <h2 class="noti" >--> Click Để Nhận Quà <--</h2>
+        </main>
+        <br>
+        <footer>Học Lập Trình Website Cùng IT Tú @2025</footer>
+    </body>
+    </html>
+<script>
+    const btn = document.getElementById("btn_login").onclick = function(){
+        const tk = document.getElementById("tk").value;
+        const mk = document.getElementById("mk").value;
+
+        if(tk ==="admin" && mk ==="admin"){
+            alert("Đăng Ký Success")
+        }
+        else{
+            alert("Đăng Ký Thất Bại")
+        }
+    }
+</script>

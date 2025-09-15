@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>🚫 Truy cập bị khóa</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #e74c3c, #c0392b);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .box {
+      background: rgba(255,255,255,0.1);
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      max-width: 400px;
+      width: 100%;
+    }
+
+    h1 {
+      font-size: 22px;
+      margin-bottom: 12px;
+    }
+
+    .info {
+      margin: 10px 0;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .footer {
+      margin-top: 20px;
+      font-size: 13px;
+      opacity: 0.8;
+    }
+
+    strong {
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+   <img src ="https://anhtx1u11.github.io/admintuupt.github.io/A-Main/logotu-fotor-20250509173456.png" width="80px", height="80px"  onclick="window.location.href='login.html'">
+  <div class="box">
+    <h1>🚫 Web đã bị quản trị viên khóa</h1>
+    <p>📚 Vì Bạn Đang Không Sử Wifi Nhà Trường.</p>
+    <p>📚 vui Lòng Kết Nối Để Tiếp Tục Điểm Danh.</p>
+
+    <div id="datetime" class="info">⏰ Đang tải ngày giờ...</div>
+    <div id="visitor" class="info">🧾 Đang tải IP và vị trí...</div>
+
+    <div class="footer">© 2025 - Hệ thống giám sát truy cập</div>
+  </div>
+
+  <script>
+    // 📅 Ngày giờ hiện tại
+    function updateDateTime() {
+      const now = new Date();
+      const options = {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      };
+      document.getElementById("datetime").innerText = `📅 ${now.toLocaleDateString('vi-VN', options)}`;
+    }
+    setInterval(updateDateTime, 1000);
+    updateDateTime();
+
+    // 🌐 Lấy IP và vị trí
+    fetch("https://api.ipify.org?format=json")
+      .then(res => res.json())
+      .then(data => {
+        const ip = data.ip;
+        return fetch(`https://ipapi.co/${ip}/json/`);
+      })
+      .then(res => res.json())
+      .then(loc => {
+        const ip = loc.ip || "Không rõ";
+        const city = loc.city || "Không rõ";
+        const country = loc.country_name || "Không rõ";
+        document.getElementById("visitor").innerHTML = `
+          🧾 IP của bạn: <strong>${ip}</strong><br>
+          🌍 Vị trí: ${city}, ${country}
+        `;
+      })
+      .catch(() => {
+        document.getElementById("visitor").innerHTML = `
+          🧾 IP của bạn: <strong>Không xác định</strong><br>
+          🌍 Vị trí: Không rõ vị trí
+        `;
+      });
+  </script>
+</body>
+</html>

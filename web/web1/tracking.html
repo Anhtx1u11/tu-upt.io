@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Đơn Hàng Đang Giao</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #e0f7fa, #fff);
+      color: #1e293b;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: 40px auto;
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+      padding: 35px 28px;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 26px;
+      color: #0284c7;
+      margin-bottom: 28px;
+      background: linear-gradient(to right, #0ea5e9, #38bdf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .order-info {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      font-size: 16.5px;
+    }
+
+    .order-info p {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 6px 0;
+    }
+
+    .order-info p strong {
+      width: 160px;
+      color: #0f172a;
+      font-weight: 600;
+    }
+
+    .status {
+      margin: 24px 0;
+      font-size: 18px;
+      color: #0c4a6e;
+      font-weight: bold;
+      text-align: center;
+      background-color: #e0f2fe;
+      padding: 14px;
+      border-radius: 10px;
+      border: 1px solid #7dd3fc;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { background-color: #e0f2fe; }
+      50% { background-color: #bae6fd; }
+      100% { background-color: #e0f2fe; }
+    }
+
+    #map {
+      height: 460px;
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+
+    .bottom-note {
+      text-align: center;
+      font-size: 14px;
+      color: #64748b;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 640px) {
+      .order-info p strong { width: 110px; }
+      .container { padding: 22px 16px; }
+      h2 { font-size: 22px; }
+      .status { font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>🚚 Theo Dõi Đơn Hàng</h2>
+  <div class="order-info">
+    <p><strong>🛍 Sản phẩm:</strong> <span id="sanpham"></span></p>
+    <p><strong>💰 Giá:</strong> <span id="gia"></span></p>
+    <p><strong>👤 Người nhận:</strong> <span id="nguoinhan"></span></p>
+    <p><strong>📍 Địa chỉ:</strong> <span id="diachi"></span></p>
+    <p><strong>🕒 Giao dự kiến:</strong> <span id="tgdukien"></span></p>
+  </div>
+  <div class="status" id="trangthai">🔍 Đang tìm kiếm shipper phù hợp...</div>
+  <div id="map"></div>
+  <div class="bottom-note">Cảm ơn bạn đã đặt hàng! Mọi thông tin được cập nhật theo thời gian thực.</div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+<script>
+  // Lấy thông tin từ URL
+  const params = new URLSearchParams(window.location.search);
+  const ten = params.get("hoten") || "(Không xác định)";
+  const diachi = params.get("diachi") || "(Không xác định)";
+  const sanpham = params.get("sanpham") || "Không có sản phẩm";
+  const gia = params.get("gia") || "0đ";
+
+  document.getElementById("nguoinhan").innerText = ten;
+  document.getElementById("diachi").innerText = diachi;
+  document.getElementById("sanpham").innerText = sanpham;
+  document.getElementById("gia").innerText = gia;
+
+  const tgGiao = new Date(Date.now() + 30 * 60000);
+  document.getElementById("tgdukien").innerText = tgGiao.toLocaleTimeString();
+
+  // Tọa độ mô phỏng
+  const khoHang = [10.926485, 108.102588];
+  const diemLayHang = [10.938699, 108.110975];
+  const khachHang = [10.941488, 108.168793];
+
+  const map = L.map('map').setView(khoHang, 14);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  L.marker(khoHang).addTo(map).bindPopup("🏢 Kho Hàng").openPopup();
+  L.marker(diemLayHang).addTo(map).bindPopup("📦 Điểm Lấy Hàng");
+  L.marker(khachHang).addTo(map).bindPopup("🏠 Nhà Khách");
+
+  const shipperIcon = L.icon({
+    iconUrl: 'https://vanhoavaphattrien.vn/uploads/images/2022/06/23/shipper-1655999989.jpg',
+    iconSize: [90, 90],
+    iconAnchor: [20, 40]
+  });
+
+  let shipperMarker;
+
+  // Giao diện chờ tìm shipper
+  setTimeout(() => {
+    shipperMarker = L.marker(khoHang, { icon: shipperIcon }).addTo(map);
+
+    document.getElementById("trangthai").innerText = "📦 Đang lấy hàng...";
+
+    L.Routing.control({
+      waypoints: [
+        L.latLng(khoHang),
+        L.latLng(diemLayHang),
+        L.latLng(khachHang)
+      ],
+      createMarker: () => null,
+      routeWhileDragging: false,
+      addWaypoints: false,
+      draggableWaypoints: false,
+      show: false,
+      fitSelectedRoutes: true
+    }).on('routesfound', function(e) {
+      const coords = e.routes[0].coordinates;
+      let index = 0;
+
+      function animateShipper() {
+        if (index < coords.length) {
+          const latlng = [coords[index].lat, coords[index].lng];
+          shipperMarker.setLatLng(latlng);
+          index++;
+
+          // Khi tới điểm lấy hàng
+          if (Math.abs(latlng[0] - diemLayHang[0]) < 0.0005 &&
+              Math.abs(latlng[1] - diemLayHang[1]) < 0.0005) {
+            document.getElementById("trangthai").innerText = "📦 Đang lấy hàng...";
+            setTimeout(() => {
+              document.getElementById("trangthai").innerText = "🚚 Đang giao đến khách hàng...";
+              animateShipper();
+            }, 8000);
+          } else {
+            setTimeout(animateShipper, 300);
+          }
+        } else {
+          document.getElementById("trangthai").innerText = "✅ Đã giao hàng thành công!";
+          document.getElementById("trangthai").style.animation = "none";
+        }
+      }
+
+      animateShipper();
+    }).addTo(map);
+
+  }, 10000); // đợi 10 giây để tìm shipper
+</script>
+
+</body>
+</html>

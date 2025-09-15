@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website 3</title>
+    <link rel="stylesheet" href="style.css">
+     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+   <header>
+    <h1 data-aos="fade-down" data-aos-duration="2000" style="text-align: center;color: tomato;">
+        Chào Các Bạn Đến Website</h1>
+       
+   </header>
+
+   <button style="position: fixed;z-index: 1;background-color: cadetblue; border-radius: 1%; width: 40px;" id ="click_ok">≡ </button>
+
+    <div  id="tabbar_" class="tabbar">
+        <img onclick="window.location.href='index.html'" data-aos="fade-down" data-aos-duration="3000" style="width: 150px; display: block; margin: 0 auto; border-radius: 20px;" src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExdzM2cnNiY2VxdTFsNGxucXVwcXhsNzQwZnZ6MDAzNDJteTlweXVzNCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/rvUbaxVpe87qErZ6yE/100.webp">
+        <br>
+        <button onclick="window.location.href='web1.html'" data-aos="fade-left" class ="btn">Website 1</button><br><br><br>
+        <button data-aos="fade-left" class ="btn">Website 2</button><br><br><br>
+        <button data-aos="fade-left" class ="btn">Website 3</button><br><br><br>
+        <button data-aos="fade-left" class ="btn">Website 4</button><br><br><br>
+        <button data-aos="fade-left" class ="btn">Website 5</button><br><br><br>
+        <button data-aos="fade-left" class ="btn">Website 6</button><br><br><br>
+        <a style="text-align: center;margin: 0 auto; display: block;" href="https://bom.so/fbtu">👉 Liên Hệ</a>
+    </div>
+
+    <img style="border-radius: 100px;
+         text-align: center;
+         margin: 0 auto;
+         display: block;
+         max-width: 100px;" 
+        src="https://media3.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3MXU0dXJwZWlsenFpdm9jMGg4NnRmMHA5aTk0M2VnczBreW1yZnljbyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/3o6ZtpxSZbQRRnwCKQ/200.webp">
+        <br>
+        <h2 data-aos="zoom-in-up" data-aos-duration="3000" style="text-align: center; color: aqua;" >Chọn Phép Tính</p>
+
+        <input class="nhapso" id="a" type="text" placeholder="Nhập Số Thứ Nhất"><br><br>
+        <input class="nhapso" id="b" type="text" placeholder="Nhập Số Thứ Hai">
+
+            <br><br>
+
+        <select>
+        <option id="pheptinh" value="cong">Cộng</option>
+        <option id="pheptinh" value="tru">Trừ</option>
+        </select>
+        <br><br>
+        <button style="background-color: aquamarine; padding: 5px 30px;border-radius: 10px;" id="tinh" >Tính</button>
+
+        <div class="box" id="box">
+            <br>
+            <h4  id ="ketqua">Kết Quả</h3>
+            <img style="width: 40px;text-align: center;" src="https://cdn.pixabay.com/animation/2022/10/27/01/06/01-06-18-563_512.gif"><br>
+            <button class="ok" id ="ok">ok</button>
+            
+        </div>
+</body>
+</html>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="srcipt.js"></script>
+<script>
+    document.getElementById("click_ok").onclick = function(){
+        var tabbar_ = document.getElementById("tabbar_");
+        if(tabbar_.style.display === "block"){
+            tabbar_.style.display = "none";
+      } else {
+        tabbar_.style.display = "block";
+      }
+        
+    }
+</script>

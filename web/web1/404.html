@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lỗi 404 - Không tìm thấy trang</title>
+    <style>
+        body {
+            background: linear-gradient(to right, red, blue, #fff);
+            animation: move 30s;
+            background-size: 800% 800%;
+        }
+        @keyframes move{
+            0%{
+                background-position: 0% 50%;
+            }
+            50%{
+                background-position: 100% 50%;
+            }
+            100%{
+                background-position: 0% 50%;
+            }
+        }
+
+        .container {
+            background-color: #fff;
+            max-width: 500px;
+            max-height: 500px;
+            display: block;
+            margin: 0 auto;
+            text-align: center;
+            margin-top: 10%;
+            padding: 30px;
+            border-radius: 20%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #e74c3c;
+            font-size: 60px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        p {
+            color: #333;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .cat-animation {
+            width: 150px;
+            height: 150px;
+            background-image: url('https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExaWoxa3h2Y3J6ZHV0MWw2ZmM4aW95ZXAxZHVnN2RrdmVsY2lxZ3IxbiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/JIX9t2j0ZTN9S/giphy.gif'); /* Thay thế bằng URL ảnh GIF con mèo nhảy của bạn */
+            background-size: cover;
+            margin: 0 auto;
+            border-radius: 100%;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+        .run_text{
+            background: rgb(220, 217, 217);
+            border: 2px solid black;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .run_text h2{
+            display: inline-block;
+            font-size: 16px;
+            padding-left: 100%;
+            animation: textMove 8s linear infinite;
+        }
+        @keyframes textMove {
+            0%{transform: translateX(0);}
+            100%{transform: translateX(-100%);}
+        }
+        @media (max-width: 600px){
+            .container{
+                max-height: 400px;
+                margin-top: 30%;
+            }
+             h1 {
+            font-size: 20px;
+
+        }
+        p {
+            color: #333;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        }
+    </style>
+</head>
+<body>
+
+    <div class="run_text">
+        <h2>Website Error 404</h2>
+    </div>
+    <div class="container">
+        <h1>Oops! Lỗi 404</h1>
+        <p>Chúng tôi rất tiếc, trang bạn đang tìm kiếm không tồn tại.</p>
+        <div class="cat-animation"></div>
+        <p>Có lẽ chú mèo này đã làm lạc mất nó rồi!</p>
+        <p><a href="/">Quay lại trang chủ</a></p>
+    </div>
+</body>
+</html>

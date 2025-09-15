@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Menu Sidebar Admin</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      display: flex;
+      min-height: 100vh;
+      background: #f2f2f2;
+    }
+
+    .sidebar {
+      width: 250px;
+      background: #2c3e50;
+      color: white;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      padding-top: 60px;
+      transform: translateX(0);
+      transition: transform 0.3s ease;
+      z-index: 100;
+    }
+
+    .sidebar.hidden {
+      transform: translateX(-100%);
+    }
+
+    .sidebar h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .sidebar a {
+      display: block;
+      padding: 15px 20px;
+      text-decoration: none;
+      color: white;
+      transition: 0.2s;
+    }
+
+    .sidebar a:hover {
+      background: #34495e;
+    }
+
+    .main {
+      flex-grow: 1;
+      margin-left: 250px;
+      padding: 20px;
+      transition: margin-left 0.3s ease;
+    }
+
+    .main.full {
+      margin-left: 0;
+    }
+
+    .header {
+      background: white;
+      color: #333;
+      padding: 15px 20px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      z-index: 200;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .hamburger {
+      font-size: 24px;
+      cursor: pointer;
+      margin-right: 20px;
+    }
+
+    .content {
+      padding-top: 80px;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        transform: translateX(-100%);
+        position: fixed;
+      }
+
+      .sidebar.active {
+        transform: translateX(0);
+      }
+
+      .main {
+        margin-left: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar hidden" id="sidebar">
+    <h2>Admin</h2>
+    <a href="#">🏠 Dashboard</a>
+    <a href="#">👤 Người dùng</a>
+    <a href="#">⚙️ Cài đặt</a>
+    <a href="#">🎰 Vòng quay</a>
+    <a href="#">💻 Code BTL</a>
+    <a href="#">🇻🇳 Thống kê IP</a>
+    <a href="#">☁️ Save Data</a>
+    <a href="#" style="color: yellow;">👉 Liên Hệ - Anh Tú</a>
+  </div>
+
+  <!-- Main -->
+  <div class="main" id="main">
+    <div class="header">
+      <span class="hamburger" onclick="toggleSidebar()">☰</span>
+      <h1>Trang Quản Trị</h1>
+    </div>
+
+    <div class="content">
+      <h2>Chào mừng đến với trang Admin</h2>
+      <p>Đây là nội dung chính.</p>
+    </div>
+  </div>
+
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById("sidebar");
+      const main = document.getElementById("main");
+
+      sidebar.classList.toggle("hidden");
+      sidebar.classList.toggle("active");
+      main.classList.toggle("full");
+    }
+  </script>
+
+</body>
+</html>
