@@ -324,10 +324,11 @@ img {
 /* 8. FOOTER STYLES */
 /* - Main Footer */
 .footer {
-    background-image: url('https://vutuananhdev.id.vn/datafiles/web30s/upload/images/1101-1200/30S-03-1194/footer-bg.png');
-    background-size: cover;
+   background-color: rgb(13, 13, 69);
     background-position: center;
-    color: var(--background-light);
+    color: yellow;
+    font-weight: bold;
+
 }
 
 .footer-main {
@@ -479,7 +480,7 @@ img {
 .btn-nav {
     padding: 15px 30px;
 }
-
+ 
 .btn-secondary {
     background-color: var(--accent-color);
     color: var(--background-white);
