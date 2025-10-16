@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Website Up & Dow Ảnh</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <img style="width: 200px;" src="https://cdn.pixabay.com/animation/2023/03/22/00/09/00-09-24-327_512.gif">
+        <h2 data-aos="fade-up" style="color: #fef848;">Nơi Lưu Ảnh Và Downlad Không Giới Hạn</h2>
+    </header>
+    <main>
+        <div class="click">
+            <a>Upload Ảnh</a>
+            <a href="#show">Xem Ảnh Đã Lưu</a>
+            <a href="https://bom.so/fbtu" >Liên Hệ</a>
+        </div>
+        <div  data-aos="slide-down" class="khung">
+            <br>
+            <div data-aos="zoom-in-left class" class="file">
+                <input id="input" style="margin-top: 20%;" type="file" multiple><br><br><br>
+                <button id="upimg">📤 UPLOAD IMG</button>
+                <img id="gif-loading" class="gif-loading"
+                    src="https://cdn.pixabay.com/animation/2024/06/26/11/39/11-39-25-223_512.gif">
+            </div>
+        </div>
+    </main>
+    <button id="clickk" class="btn-top"><a>↑</a></button>
+    <aside>
+        <div data-aos="flip-left" id="show" class="show">
+            <h2>Xem Ảnh</h2>
+        </div>
+        <br>
+        <div data-aos="slide-right" id="show1" class="show1"></div>
+    </aside>
+    <footer>
+        <br>
+        <h3 style="text-align: center;" >© Bản Quyền: Anh Tú IT 2006</h3>
+    </footer>
+
+    <script>
+        const input = document.getElementById("input");
+        const btn = document.getElementById("upimg");
+        const showBox = document.getElementById("show1");
+
+        // Khi trang tải, hiển thị ảnh đã lưu
+        window.onload = function () {
+            const saved = JSON.parse(localStorage.getItem("saveimgs")) || [];
+            showImages(saved);
+        };
+
+        // Khi bấm nút upload
+        btn.onclick = function () {
+            const files = input.files;
+            if (files.length === 0) {
+                alert("Vui lòng chọn ít nhất một ảnh!");
+                return;
+            }
+
+            let saved = JSON.parse(localStorage.getItem("saveimgs")) || [];
+            document.getElementById("gif-loading").style.display = "block";
+
+            // (Tuỳ chọn) Sau 3 giây thì ẩn đi — bạn có thể bỏ phần này nếu không muốn
+            setTimeout(() => {
+                document.getElementById("gif-loading").style.display = "none";
+            }, 3000);
+            const readers = [];
+            for (let i = 0; i < files.length; i++) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    saved.push(e.target.result);
+                    localStorage.setItem("saveimgs", JSON.stringify(saved));
+                    showImages(saved);
+                };
+                reader.readAsDataURL(files[i]);
+                readers.push(reader);
+            }
+            alert("Ảnh đã được lưu vào LocalStorage!");
+        };
+
+        // Hàm hiển thị ảnh
+        function showImages(list) {
+            showBox.innerHTML = "";
+            list.forEach((src) => {
+                const img = document.createElement("img");
+                img.src = src;
+                showBox.appendChild(img);
+            });
+        }
+    </script>
+    <script>
+        const clickk = document.getElementById("clickk");
+
+        window.onscroll = function () {
+            if (document.documentElement.scrollTop > 200) {
+                clickk.style.display = "block"
+            }
+            else {
+                clickk.style.display = "none"
+            }
+        }
+        clickk.onclick = function () {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        };
+
+    </script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+
+</body>
+
+</html>
